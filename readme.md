@@ -32,7 +32,7 @@ For more, explore the **ARC-AGI Challenge** via [ARC Puzzle Tasks](https://arcpr
 ## ECE-401: Neural Networks, Transformers, and Multimodal Systems
 
 **Overview:**  
-This advanced project is geared toward personal exploration and learning. It delves into neural network fundamentals, the transformer architecture, and multimodal systems. Students and researchers will tackle visual reasoning tasks from the ARC dataset and prototype systems architectures aimed at Artificial General Intelligence (AGI).
+This advanced project is geared toward personal exploration and learning. It dives into neural network fundamentals, the transformer architecture, and multimodal systems. Students and researchers will tackle visual reasoning tasks from the ARC dataset and prototype systems architectures aimed at Artificial General Intelligence (AGI).
 
 **Key Files:**  
 - `Syllabus.pdf`: Detailed course outline covering the ARC Challenge, neural network fundamentals, and multimodal system integration.
