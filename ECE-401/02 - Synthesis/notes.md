@@ -31,6 +31,10 @@ I plan to use this knowledge to build a multi-modal transformer model that excel
 Today's Date: 01/18/2025
 Starting at: 00:41:40 of Lecture 02 - The spelled-out intro to language modeling： building makemore
 
+> “A reliable way to make people believe in falsehoods is frequent repetition, because familiarity is not easily distinguished from truth. Authoritarian institutions and marketers have always known this fact.”
+> ― Daniel Kahneman, *Thinking, Fast and Slow*
+
+
 ## Past Sessions
 
 ### Session 01

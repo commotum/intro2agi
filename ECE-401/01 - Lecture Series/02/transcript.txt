@@ -1,0 +1,2300 @@
+intro
+0:00
+hi everyone hope you're well and next up what i'd like to do is i'd like to build out make more
+0:06
+like micrograd before it make more is a repository that i have on my github webpage
+0:11
+you can look at it but just like with micrograd i'm going to build it out step by step and i'm going to spell everything out so we're
+0:17
+going to build it out slowly and together now what is make more make more as the name suggests
+0:24
+makes more of things that you give it so here's an example names.txt is an example dataset to make
+0:31
+more and when you look at names.txt you'll find that it's a very large data set of
+0:36
+names so here's lots of different types of names in fact i believe there are 32 000 names
+0:44
+that i've sort of found randomly on the government website and if you train make more on this data
+0:50
+set it will learn to make more of things like this
+0:55
+and in particular in this case that will mean more things that sound name-like
+1:00
+but are actually unique names and maybe if you have a baby and you're trying to assign name maybe you're looking for a cool new sounding unique
+1:07
+name make more might help you so here are some example generations from the neural network
+1:13
+once we train it on our data set so here's some example unique names that it will generate
+1:19
+dontel irot zhendi and so on and so all these are sound
+1:26
+name like but they're not of course names so under the hood make more is a
+1:32
+character level language model so what that means is that it is treating every single line here as an example and
+1:39
+within each example it's treating them all as sequences of individual characters so r e e s e is this example
+1:48
+and that's the sequence of characters and that's the level on which we are building out make more and what it means
+1:54
+to be a character level language model then is that it's just uh sort of modeling those sequences of characters
+1:59
+and it knows how to predict the next character in the sequence now we're actually going to implement a
+2:05
+large number of character level language models in terms of the neural networks that are involved in predicting the next
+2:10
+character in a sequence so very simple bi-gram and back of work models multilingual perceptrons recurrent
+2:17
+neural networks all the way to modern transformers in fact the transformer that we will build will be basically the
+2:23
+equivalent transformer to gpt2 if you have heard of gpt uh so that's kind of a big deal it's a modern network and by
+2:30
+the end of the series you will actually understand how that works um on the level of characters now to give you a
+2:36
+sense of the extensions here uh after characters we will probably spend some time on the word level so that we can
+2:43
+generate documents of words not just little you know segments of characters but we can generate entire large much
+2:49
+larger documents and then we're probably going to go into images and image text
+2:54
+networks such as dolly stable diffusion and so on but for now we have to start
+3:00
+here character level language modeling let's go so like before we are starting with a completely blank jupiter notebook page
+reading and exploring the dataset
+3:06
+the first thing is i would like to basically load up the dataset names.txt so we're going to open up names.txt for
+3:13
+reading and we're going to read in everything into a massive string
+3:19
+and then because it's a massive string we'd only like the individual words and put them in the list so let's call split lines
+3:26
+on that string to get all of our words as a python list of strings
+3:32
+so basically we can look at for example the first 10 words and we have that it's a list of emma
+3:39
+olivia eva and so on and if we look at the top of the page here that is indeed
+3:45
+what we see um so that's good this list actually makes me feel that
+3:52
+this is probably sorted by frequency but okay so
+3:57
+these are the words now we'd like to actually like learn a little bit more about this data set let's look at the
+4:02
+total number of words we expect this to be roughly 32 000 and then what is the for example
+4:07
+shortest word so min of length of each word for w inwards
+4:13
+so the shortest word will be length two and max of one w for w in words so the
+4:21
+longest word will be 15 characters so let's now think through our very first language model
+4:27
+as i mentioned a character level language model is predicting the next character in a sequence given already
+4:33
+some concrete sequence of characters before it now we have to realize here is that every single word here like isabella is
+4:40
+actually quite a few examples packed in to that single word because what is an existence of a word
+4:47
+like isabella in the data set telling us really it's saying that the character i is a very likely
+4:53
+character to come first in the sequence of a name the character s is likely to come
+5:01
+after i the character a is likely to come after is
+5:07
+the character b is very likely to come after isa and so on all the way to a following isabel
+5:14
+and then there's one more example actually packed in here and that is that after there's isabella
+5:21
+the word is very likely to end so that's one more sort of explicit piece of information that we have here
+5:27
+that we have to be careful with and so there's a lot backed into a single individual word in terms of the
+5:33
+statistical structure of what's likely to follow in these character sequences and then of course we don't have just an
+5:39
+individual word we actually have 32 000 of these and so there's a lot of structure here to model
+5:44
+now in the beginning what i'd like to start with is i'd like to start with building a bi-gram language model
+5:51
+now in the bigram language model we're always working with just two characters at a time
+5:56
+so we're only looking at one character that we are given and we're trying to predict the next character in the
+6:02
+sequence so um what characters are likely to follow are what characters are likely to
+6:08
+follow a and so on and we're just modeling that kind of a little local structure and we're forgetting the fact that we
+6:14
+may have a lot more information we're always just looking at the previous character to predict the next one so
+6:20
+it's a very simple and weak language model but i think it's a great place to start so now let's begin by looking at these
+exploring the bigrams in the dataset
+6:25
+bi-grams in our data set and what they look like and these bi-grams again are just two characters in a row
+6:30
+so for w in words each w here is an individual word a string
+6:36
+we want to iterate uh for we're going to iterate this word
+6:41
+with consecutive characters so two characters at a time sliding it through the word now a interesting nice way cute
+6:49
+way to do this in python by the way is doing something like this for character one character two in zip off
+6:56
+w and w at one one column
+7:01
+print character one character two and let's not do all the words let's just do the first three words and i'm
+7:07
+going to show you in a second how this works but for now basically as an example let's just do the very first word alone
+7:13
+emma you see how we have a emma and this will just print e m m m a
+7:20
+and the reason this works is because w is the string emma w at one column is
+7:26
+the string mma and zip takes two iterators and it pairs them up
+7:33
+and then creates an iterator over the tuples of their consecutive entries and if any one of these lists is shorter
+7:39
+than the other then it will just halt and return so basically that's why we return em mmm
+7:48
+ma but then because this iterator second one here runs out of elements zip just
+7:55
+ends and that's why we only get these tuples so pretty cute so these are the consecutive elements in
+8:01
+the first word now we have to be careful because we actually have more information here than just these three
+8:07
+examples as i mentioned we know that e is the is very likely to come first and
+8:12
+we know that a in this case is coming last so one way to do this is basically we're
+8:17
+going to create a special array here all characters
+8:23
+and um we're going to hallucinate a special start token here
+8:28
+i'm going to call it like special start so this is a list of one element
+8:34
+plus w and then plus a special end character
+8:41
+and the reason i'm wrapping the list of w here is because w is a string emma list of w will just have the individual
+8:48
+characters in the list and then doing this again now but not iterating
+8:54
+over w's but over the characters will give us something like this
+9:00
+so e is likely so this is a bigram of the start character and e and this is a bigram of the
+9:06
+a and the special end character and now we can look at for example what this looks like for
+9:12
+olivia or eva and indeed we can actually potentially do this for the entire data
+9:17
+set but we won't print that that's going to be too much but these are the individual character diagrams and we can print them
+counting bigrams in a python dictionary
+9:24
+now in order to learn the statistics about which characters are likely to follow other characters the simplest way
+9:30
+in the bigram language models is to simply do it by counting so we're basically just going to count
+9:36
+how often any one of these combinations occurs in the training set in these words
+9:41
+so we're going to need some kind of a dictionary that's going to maintain some counts for every one of these diagrams
+9:47
+so let's use a dictionary b and this will map these bi-grams so
+9:52
+bi-gram is a tuple of character one character two and then b at bi-gram
+9:58
+will be b dot get of bi-gram which is basically the same as b at bigram
+10:04
+but in the case that bigram is not in the dictionary b we would like to by default return to zero
+10:11
+plus one so this will basically add up all the bigrams and count how often they occur
+10:18
+let's get rid of printing or rather let's keep the printing and let's just
+10:24
+inspect what b is in this case and we see that many bi-grams occur just
+10:29
+a single time this one allegedly occurred three times so a was an ending character three times
+10:35
+and that's true for all of these words all of emma olivia and eva and with a
+10:41
+so that's why this occurred three times now let's do it for all the words
+10:51
+oops i should not have printed i'm going to erase that
+10:56
+let's kill this let's just run and now b will have the statistics of
+11:02
+the entire data set so these are the counts across all the words of the individual pie grams
+11:08
+and we could for example look at some of the most common ones and least common ones
+11:13
+this kind of grows in python but the way to do this the simplest way i like is we just use b dot items
+11:19
+b dot items returns the tuples of key value in this case the keys are
+11:27
+the character diagrams and the values are the counts and so then what we want to do is we
+11:32
+want to do sorted of this
+11:38
+but by default sort is on the first
+11:43
+on the first item of a tuple but we want to sort by the values which are the second element of a tuple that is the
+11:49
+key value so we want to use the key equals lambda
+11:55
+that takes the key value and returns the key value at the one not at zero but
+12:02
+at one which is the count so we want to sort by the count of these elements
+12:10
+and actually we wanted to go backwards so here we have is the bi-gram q and r occurs only a single
+12:17
+time dz occurred only a single time and when we sort this the other way around
+12:23
+we're going to see the most likely bigrams so we see that n was very often an ending character
+12:30
+many many times and apparently n almost always follows an a and that's a very likely combination as
+12:36
+well so this is kind of the individual counts
+12:41
+that we achieve over the entire data set now it's actually going to be significantly more convenient for us to
+counting bigrams in a 2D torch tensor ("training the model")
+12:48
+keep this information in a two-dimensional array instead of a python dictionary
+12:53
+so we're going to store this information in a 2d array and
+13:00
+the rows are going to be the first character of the bigram and the columns are going to be the second character and
+13:05
+each entry in this two-dimensional array will tell us how often that first character files the second character in
+13:11
+the data set so in particular the array representation that we're going to use or the library is that of pytorch
+13:18
+and pytorch is a deep learning neural network framework but part of it is also this torch.tensor
+13:25
+which allows us to create multi-dimensional arrays and manipulate them very efficiently so
+13:30
+let's import pytorch which you can do by import torch and then we can create
+13:36
+arrays so let's create a array of zeros and we give it a
+13:42
+size of this array let's create a three by five array as an example and
+13:48
+this is a three by five array of zeros and by default you'll notice a.d type
+13:53
+which is short for data type is float32 so these are single precision floating point numbers
+13:59
+because we are going to represent counts let's actually use d type as torch dot and 32
+14:06
+so these are 32-bit integers so now you see that we have integer data
+14:12
+inside this tensor now tensors allow us to really manipulate all the individual entries
+14:18
+and do it very efficiently so for example if we want to change this bit we have to index into the tensor and in
+14:25
+particular here this is the first row and the
+14:31
+because it's zero indexed so this is row index one and column index zero one two
+14:37
+three so a at one comma three we can set that to one
+14:43
+and then a we'll have a 1 over there we can of course also do things like
+14:48
+this so now a will be 2 over there or 3.
+14:53
+and also we can for example say a 0 0 is 5 and then a will have a 5 over here
+15:00
+so that's how we can index into the arrays now of course the array that we are interested in is much much bigger so
+15:06
+for our purposes we have 26 letters of the alphabet and then we have two special characters
+15:12
+s and e so uh we want 26 plus 2 or 28 by 28
+15:18
+array and let's call it the capital n because it's going to represent sort of the counts
+15:24
+let me erase this stuff so that's the array that starts at zeros 28 by 28
+15:30
+and now let's copy paste this here but instead of having a dictionary b
+15:36
+which we're going to erase we now have an n now the problem here is that we have
+15:42
+these characters which are strings but we have to now um basically index into a
+15:48
+um array and we have to index using integers so we need some kind of a lookup table from characters to integers
+15:55
+so let's construct such a character array and the way we're going to do this is we're going to take all the words which
+16:01
+is a list of strings we're going to concatenate all of it into a massive string so this is just simply the entire data set as a single
+16:07
+string we're going to pass this to the set constructor which takes this massive
+16:13
+string and throws out duplicates because sets do not allow duplicates
+16:18
+so set of this will just be the set of all the lowercase characters
+16:24
+and there should be a total of 26 of them and now we actually don't want a set we
+16:29
+want a list but we don't want a list sorted in some weird arbitrary way we want it to be
+16:36
+sorted from a to z so sorted list
+16:41
+so those are our characters now what we want is this lookup table as
+16:47
+i mentioned so let's create a special s2i i will call it
+16:52
+um s is string or character and this will be an s2i mapping
+16:58
+for is in enumerate of these characters
+17:04
+so enumerate basically gives us this iterator over the integer index and the
+17:10
+actual element of the list and then we are mapping the character to the integer
+17:15
+so s2i is a mapping from a to 0 b to 1 etc all the way from z to 25
+17:24
+and that's going to be useful here but we actually also have to specifically set that s will be 26
+17:29
+and s to i at e will be 27 right because z was 25.
+17:35
+so those are the lookups and now we can come here and we can map both character 1 and character 2 to
+17:41
+their integers so this will be s2i at character 1 and ix2 will be s2i of character 2.
+17:49
+and now we should be able to do this line but using our array so n at
+17:55
+x1 ix2 this is the two-dimensional array indexing i've shown you before and honestly just plus equals one
+18:02
+because everything starts at zero so this should work
+18:08
+and give us a large 28 by 28 array of all these counts so
+18:15
+if we print n this is the array but of course it looks ugly so let's erase this ugly mess and
+visualizing the bigram tensor
+18:21
+let's try to visualize it a bit more nicer so for that we're going to use a library
+18:26
+called matplotlib so matplotlib allows us to create figures so we can do things like plt
+18:32
+item show of the counter array so this is the 28x28 array
+18:39
+and this is structure but even this i would say is still pretty ugly so we're going to try to create a much
+18:45
+nicer visualization of it and i wrote a bunch of code for that the first thing we're going to need is
+18:51
+we're going to need to invert this array here this dictionary so s2i
+18:57
+is mapping from s to i and in i2s we're going to reverse this dictionary so iterator of all the items
+19:04
+and just reverse that array so i2s maps inversely from 0 to a 1 to b etc
+19:12
+so we'll need that and then here's the code that i came up with to try to make this a little bit
+19:17
+nicer we create a figure we plot
+19:23
+n and then we do and then we visualize a bunch of things later let me just run it so you get a sense of what this is
+19:31
+okay so you see here that we have the array spaced out
+19:37
+and every one of these is basically like b follows g zero times
+19:42
+b follows h 41 times um so a follows j 175 times
+19:47
+and so what you can see that i'm doing here is first i show that entire array
+19:52
+and then i iterate over all the individual little cells here and i create a character string here
+19:59
+which is the inverse mapping i2s of the integer i and the integer j so those are
+20:05
+the bi-grams in a character representation and then i plot just the diagram text
+20:12
+and then i plot the number of times that this bigram occurs now the reason that there's a dot item
+20:17
+here is because when you index into these arrays these are torch tensors
+20:22
+you see that we still get a tensor back so the type of this thing you'd think it
+20:28
+would be just an integer 149 but it's actually a torch.tensor and so if you do dot item then it will pop out
+20:35
+that in individual integer so it will just be 149.
+20:40
+so that's what's happening there and these are just some options to make it look nice so what is the structure of this array
+20:49
+we have all these counts and we see that some of them occur often and some of them do not occur often now if you scrutinize this carefully you
+deleting spurious (S) and (E) tokens in favor of a single . token
+20:56
+will notice that we're not actually being very clever that's because when you come over here you'll notice that for example we have
+21:02
+an entire row of completely zeros and that's because the end character is never possibly going to be the first
+21:08
+character of a bi-gram because we're always placing these end tokens all at the end of the diagram
+21:14
+similarly we have entire columns zeros here because the s
+21:19
+character will never possibly be the second element of a bigram because we always start with s and we end with e
+21:25
+and we only have the words in between so we have an entire column of zeros an entire row of zeros and in this little
+21:32
+two by two matrix here as well the only one that can possibly happen is if s directly follows e
+21:38
+that can be non-zero if we have a word that has no letters so in that case
+21:43
+there's no letters in the word it's an empty word and we just have s follows e but the other ones are just not possible
+21:50
+and so we're basically wasting space and not only that but the s and the e are getting very crowded here
+21:55
+i was using these brackets because there's convention and natural language processing to use these kinds of brackets to denote special tokens
+22:03
+but we're going to use something else so let's fix all this and make it prettier
+22:08
+we're not actually going to have two special tokens we're only going to have one special token so
+22:13
+we're going to have n by n array of 27 by 27 instead
+22:18
+instead of having two we will just have one and i will call it a dot
+22:24
+okay let me swing this over here
+22:30
+now one more thing that i would like to do is i would actually like to make this special character half position zero
+22:36
+and i would like to offset all the other letters off i find that a little bit more pleasing
+22:42
+so we need a plus one here so that the first character which is a will start at
+22:48
+one so s2i will now be a starts at one and dot is 0
+22:55
+and i2s of course we're not changing this because i2s just creates a reverse mapping and this will work fine so 1 is
+23:02
+a 2 is b 0 is dot so we've reversed that here
+23:09
+we have a dot and a dot this should work fine
+23:14
+make sure i start at zeros count and then here we don't go up to 28 we go
+23:20
+up to 27 and this should just work
+23:30
+okay so we see that dot never happened it's at zero because we don't have empty words
+23:36
+then this row here now is just uh very simply the um counts for all the first letters so
+23:44
+uh j starts a word h starts a word i starts a word etc and then these are all
+23:50
+the ending characters and in between we have the structure of what characters follow each other
+23:56
+so this is the counts array of our entire data set so this array actually has all
+sampling from the model
+24:03
+the information necessary for us to actually sample from this bigram uh character level language model
+24:09
+and um roughly speaking what we're going to do is we're just going to start following these probabilities and these
+24:14
+counts and we're going to start sampling from the from the model so in the beginning of course
+24:20
+we start with the dot the start token dot so to sample the first character of a
+24:27
+name we're looking at this row here so we see that we have the counts and
+24:32
+those concepts terminally are telling us how often any one of these characters is to start a word
+24:39
+so if we take this n and we grab the first row
+24:44
+we can do that by using just indexing as zero and then using this notation column for
+24:51
+the rest of that row so n zero colon is indexing into the zeroth
+24:58
+row and then it's grabbing all the columns and so this will give us a one-dimensional array
+25:05
+of the first row so zero four four ten you know zero four four ten one three oh
+25:10
+six one five four two etc it's just the first row the shape of this is 27 it's just the row of 27
+25:19
+and the other way that you can do this also is you just you don't need to actually give this you just grab the zeroth row like this
+25:26
+this is equivalent now these are the counts and now what we'd like to do is we'd
+25:31
+like to basically um sample from this since these are the raw counts we actually have to convert this to
+25:37
+probabilities so we create a probability vector
+25:42
+so we'll take n of zero and we'll actually convert this to float
+25:48
+first okay so these integers are converted to float floating point numbers and the reason
+25:54
+we're creating floats is because we're about to normalize these counts so to create a probability distribution
+26:00
+here we want to divide we basically want to do p p p divide p
+26:05
+that sum and now we get a vector of smaller
+26:11
+numbers and these are now probabilities so of course because we divided by the sum the sum of p now is 1.
+26:18
+so this is a nice proper probability distribution it sums to 1 and this is giving us the probability for any single
+26:24
+character to be the first character of a word so now we can try to sample from this
+26:29
+distribution to sample from these distributions we're going to use storch.multinomial which i've pulled up
+26:34
+here so torch.multinomial returns uh
+26:40
+samples from the multinomial probability distribution which is a complicated way of saying you give me probabilities and
+26:46
+i will give you integers which are sampled according to the property distribution
+26:51
+so this is the signature of the method and to make everything deterministic we're going to use a generator object in
+26:57
+pytorch so this makes everything deterministic so when you run this on your computer
+27:02
+you're going to the exact get the exact same results that i'm getting here on my computer so let me show you how this works
+27:12
+here's the deterministic way of creating a torch generator object
+27:18
+seeding it with some number that we can agree on so that seeds a generator gets gives us
+27:23
+an object g and then we can pass that g to a function that creates um
+27:30
+here random numbers twerk.rand creates random numbers three of them
+27:35
+and it's using this generator object to as a source of randomness
+27:40
+so without normalizing it i can just print
+27:46
+this is sort of like numbers between 0 and 1 that are random according to this thing and whenever i run it again
+27:53
+i'm always going to get the same result because i keep using the same generator object which i'm seeing here
+27:58
+and then if i divide to normalize i'm going to get a nice
+28:04
+probability distribution of just three elements and then we can use torsion multinomial
+28:09
+to draw samples from it so this is what that looks like tertiary multinomial we'll take the
+28:16
+torch tensor of probability distributions then we can ask for a number of samples
+28:22
+let's say 20. replacement equals true means that when we draw an element
+28:28
+we will uh we can draw it and then we can put it back into the list of eligible indices to draw again
+28:35
+and we have to specify replacement as true because by default uh for some reason it's false
+28:41
+and i think you know it's just something to be careful with and the generator is passed in here so
+28:47
+we're going to always get deterministic results the same results so if i run these two
+28:53
+we're going to get a bunch of samples from this distribution now you'll notice here that the
+28:58
+probability for the first element in this tensor is 60
+29:04
+so in these 20 samples we'd expect 60 of them to be zero
+29:10
+we'd expect thirty percent of them to be one and because the the element index two
+29:17
+has only ten percent probability very few of these samples should be two and indeed we only have a small number of
+29:24
+twos and we can sample as many as we'd like and the more we sample the more
+29:31
+these numbers should um roughly have the distribution here so we should have lots of zeros
+29:38
+half as many um ones and we should have um three times
+29:44
+as few oh sorry s few ones and three times as few uh
+29:50
+twos so you see that we have very few twos we have some ones and most of them are zero
+29:55
+so that's what torsion multinomial is doing for us here
+30:01
+we are interested in this row we've created this p here
+30:06
+and now we can sample from it so if we use the same seed
+30:12
+and then we sample from this distribution let's just get one sample
+30:18
+then we see that the sample is say 13. so this will be the index
+30:25
+and let's you see how it's a tensor that wraps 13 we again have to use that item
+30:30
+to pop out that integer and now index would be just the number 13.
+30:37
+and of course the um we can do we can map the i2s of ix to figure out
+30:43
+exactly which character we're sampling here we're sampling m so we're saying that the first character
+30:50
+is in our generation and just looking at the road here
+30:55
+m was drawn and you we can see that m actually starts a large number of words uh m
+31:01
+started 2 500 words out of 32 000 words so almost
+31:06
+a bit less than 10 percent of the words start with them so this was actually a fairly likely character to draw
+31:13
+um so that would be the first character of our work and now we can continue to sample more characters because now we
+31:20
+know that m started m is already sampled so now to draw the next character we
+31:26
+will come back here and we will look for the row that starts with m
+31:32
+so you see m and we have a row here so we see that m dot is
+31:39
+516 m a is this many and b is this many etc so these are the counts for the next
+31:44
+row and that's the next character that we are going to now generate so i think we are ready to actually just
+31:50
+write out the loop because i think you're starting to get a sense of how this is going to go the um
+31:56
+we always begin at index 0 because that's the start token
+32:02
+and then while true we're going to grab the row corresponding to index
+32:08
+that we're currently on so that's p so that's n array at ix
+32:14
+converted to float is rp then we normalize
+32:21
+this p to sum to one i accidentally ran the infinite loop we
+32:28
+normalize p to something one then we need this generator object
+32:33
+now we're going to initialize up here and we're going to draw a single sample from this distribution
+32:40
+and then this is going to tell us what index is going to be next
+32:46
+if the index sampled is 0 then that's now the end token
+32:52
+so we will break otherwise we are going to print
+32:57
+s2i of ix i2s
+33:05
+and uh that's pretty much it we're just uh this should work okay more
+33:12
+so that's that's the name that we've sampled we started with m the next step was o then r and then dot
+33:21
+and this dot we it here as well so
+33:26
+let's now do this a few times so let's actually create an
+33:33
+out list here and instead of printing we're going to
+33:38
+append so out that append this character
+33:44
+and then here let's just print it at the end so let's just join up all the outs and we're just going to print more okay
+33:51
+now we're always getting the same result because of the generator so if we want to do this a few times we
+33:57
+can go for i in range 10 we can sample 10 names
+34:02
+and we can just do that 10 times and these are the names that we're getting out
+34:08
+let's do 20.
+34:14
+i'll be honest with you this doesn't look right so i started a few minutes to convince myself that it actually is right
+34:20
+the reason these samples are so terrible is that bigram language model is actually look just like really
+34:26
+terrible we can generate a few more here and you can see that they're kind of like their name like a little bit like
+34:33
+yanu o'reilly etc but they're just like totally messed up um
+34:38
+and i mean the reason that this is so bad like we're generating h as a name but you have to think through
+34:44
+it from the model's eyes it doesn't know that this h is the very first h all it
+34:49
+knows is that h was previously and now how likely is h the last character well
+34:55
+it's somewhat likely and so it just makes it last character it doesn't know that there were other things before it or there
+35:02
+were not other things before it and so that's why it's generating all these like nonsense names
+35:08
+another way to do this is to convince yourself that this is actually doing something reasonable even
+35:14
+though it's so terrible is these little piece here are 27 right
+35:20
+like 27. so how about if we did something like this
+35:26
+instead of p having any structure whatsoever how about if p was just torch dot once
+35:34
+of 27 by default this is a float 32 so this is fine divide 27
+35:42
+so what i'm doing here is this is the uniform distribution which will make everything equally likely
+35:49
+and we can sample from that so let's see if that does any better okay so it's
+35:55
+this is what you have from a model that is completely untrained where everything is equally likely so it's obviously
+36:01
+garbage and then if we have a trained model which is trained on just bi-grams
+36:07
+this is what we get so you can see that it is more name-like it is actually working it's just um
+36:14
+my gram is so terrible and we have to do better now next i would like to fix an inefficiency that we have going on here
+efficiency! vectorized normalization of the rows, tensor broadcasting
+36:20
+because what we're doing here is we're always fetching a row of n from the counts matrix up ahead
+36:26
+and then we're always doing the same things we're converting to float and we're dividing and we're doing this every single iteration of this loop and
+36:32
+we just keep renormalizing these rows over and over again and it's extremely inefficient and wasteful so what i'd like to do is i'd like to actually
+36:38
+prepare a matrix capital p that will just have the probabilities in it so in
+36:44
+other words it's going to be the same as the capital n matrix here of counts but every single row will have the row of
+36:50
+probabilities uh that is normalized to 1 indicating the probability distribution for the next character given the
+36:56
+character before it um as defined by which row we're in so basically what we'd like to do is
+37:03
+we'd like to just do it up front here and then we would like to just use that row here so here we would like to just
+37:09
+do p equals p of ix instead okay
+37:14
+the other reason i want to do this is not just for efficiency but also i would like us to practice these n-dimensional tensors and i'd like
+37:21
+us to practice their manipulation and especially something that's called broadcasting that we'll go into in a second
+37:26
+we're actually going to have to become very good at these tensor manipulations because if we're going to build out all
+37:32
+the way to transformers we're going to be doing some pretty complicated um array operations for efficiency and we
+37:37
+need to really understand that and be very good at it so intuitively what we want to do is we
+37:43
+first want to grab the floating point copy of n and i'm mimicking the line here
+37:49
+basically and then we want to divide all the rows so that they sum to 1.
+37:55
+so we'd like to do something like this p divide p dot sum but
+38:01
+now we have to be careful because p dot sum actually produces a sum
+38:08
+sorry equals and that float copy p dot sum produces a um
+38:14
+sums up all of the counts of this entire matrix n and gives us a single number of just the summation of everything so
+38:21
+that's not the way we want to define divide we want to simultaneously and in parallel divide all the rows
+38:27
+by their respective sums so what we have to do now is we have to
+38:32
+go into documentation for torch.sum and we can scroll down here to a definition that is relevant to us which
+38:38
+is where we don't only provide an input array that we want to sum but we also provide the dimension along which we
+38:45
+want to sum and in particular we want to sum up over rows
+38:51
+right now one more argument that i want you to pay attention to here is the keep them
+38:56
+is false if keep them is true then the output tensor is of the same size as input
+39:02
+except of course the dimension along which is summed which will become just one but if you pass in keep them as false
+39:12
+then this dimension is squeezed out and so torch.sum not only does the sum and collapses dimension to be of size one
+39:18
+but in addition it does what's called a squeeze where it squeezes out it squeezes out that dimension
+39:24
+so basically what we want here is we instead want to do p dot sum of some axis
+39:30
+and in particular notice that p dot shape is 27 by 27 so when we sum up across axis zero then
+39:37
+we would be taking the zeroth dimension and we would be summing across it so when keep them as true
+39:44
+then this thing will not only give us the counts across um
+39:50
+along the columns but notice that basically the shape of this is 1 by 27 we just get a row vector
+39:57
+and the reason we get a row vector here again is because we passed in zero dimension so this zero dimension becomes
+40:02
+one and we've done a sum and we get a row and so basically we've done the sum
+40:08
+this way vertically and arrived at just a single 1 by 27 vector of counts
+40:15
+what happens when you take out keep them is that we just get 27. so it squeezes
+40:20
+out that dimension and we just get a one-dimensional vector of size 27.
+40:28
+now we don't actually want one by 27 row vector because that gives
+40:33
+us the counts or the sums across the columns
+40:39
+we actually want to sum the other way along dimension one and you'll see that the shape of this is 27 by one so it's a
+40:46
+column vector it's a 27 by one vector of counts
+40:52
+okay and that's because what's happened here is that we're going horizontally and this 27 by 27 matrix becomes a 27 by 1
+41:01
+array now you'll notice by the way that um the actual numbers
+41:08
+of these counts are identical and that's because this special array of counts here comes from bi-gram
+41:13
+statistics and actually it just so happens by chance or because of the way this array is
+41:19
+constructed that the sums along the columns or along the rows horizontally or vertically is identical
+41:26
+but actually what we want to do in this case is we want to sum across the rows
+41:31
+horizontally so what we want here is p that sum of one with keep in true
+41:37
+27 by one column vector and now what we want to do is we want to divide by that
+41:44
+now we have to be careful here again is it possible to take what's a um p dot shape you see here 27
+41:51
+by 27 is it possible to take a 27 by 27 array and divide it by what is a 27 by 1
+41:59
+array is that an operation that you can do and whether or not you can perform this
+42:05
+operation is determined by what's called broadcasting rules so if you just search broadcasting semantics in torch
+42:11
+you'll notice that there's a special definition for what's called broadcasting that uh for whether or not um these two uh arrays
+42:20
+can be combined in a binary operation like division so the first condition is each tensor
+42:25
+has at least one dimension which is the case for us and then when iterating over the dimension sizes starting at the trailing
+42:31
+dimension the dimension sizes must either be equal one of them is one or one of them does not exist
+42:38
+okay so let's do that we need to align the two arrays and their shapes which is
+42:44
+very easy because both of these shapes have two elements so they're aligned then we iterate over from the from the
+42:50
+right and going to the left each dimension must be either equal one
+42:55
+of them is a one or one of them does not exist so in this case they're not equal but one of them is a one so this is fine
+43:01
+and then this dimension they're both equal so uh this is fine so all the dimensions are fine and
+43:08
+therefore the this operation is broadcastable so that means that this operation is allowed
+43:14
+and what is it that these arrays do when you divide 27 by 27 by 27 by one
+43:19
+what it does is that it takes this dimension one and it stretches it out it copies it to match
+43:27
+27 here in this case so in our case it takes this column vector which is 27 by 1
+43:32
+and it copies it 27 times to make these both be 27 by 27 internally you
+43:40
+can think of it that way and so it copies those counts and then it does an element-wise division
+43:47
+which is what we want because these counts we want to divide by them on every single one of these columns in
+43:52
+this matrix so this actually we expect will normalize every single row
+43:59
+and we can check that this is true by taking the first row for example and taking its sum we expect this to be
+44:06
+1. because it's not normalized and then we expect this now because if
+44:13
+we actually correctly normalize all the rows we expect to get the exact same result here so let's run this
+44:19
+it's the exact same result this is correct so now i would like to scare you a little bit
+44:25
+uh you actually have to like i basically encourage you very strongly to read through broadcasting semantics
+44:30
+and i encourage you to treat this with respect and it's not something to play fast and loose with it's something to
+44:35
+really respect really understand and look up maybe some tutorials for broadcasting and practice it and be careful with it because you can very
+44:42
+quickly run into books let me show you what i mean you see how here we have p dot sum of
+44:48
+one keep them as true the shape of this is 27 by one let me take out this line just so we have the n
+44:55
+and then we can see the counts we can see that this is a all the counts across all the
+45:02
+rows and it's a 27 by one column vector right now suppose that i tried to do the
+45:09
+following but i erase keep them just true here what does that do if keep them is not
+45:15
+true it's false then remember according to documentation it gets rid of this dimension one it squeezes it out so
+45:23
+basically we just get all the same counts the same result except the shape of it is not 27 by 1 it is just 27 the
+45:30
+one disappears but all the counts are the same so you'd think that this divide that
+45:37
+would uh would work first of all can we even uh write this and will it is it even is it even
+45:44
+expected to run is it broadcastable let's determine if this result is broadcastable p.summit one is shape
+45:51
+is 27. this is 27 by 27. so 27 by 27
+45:57
+broadcasting into 27. so now rules of broadcasting number one align
+46:03
+all the dimensions on the right done now iteration over all the dimensions starting from the right going to the
+46:09
+left all the dimensions must either be equal one of them must be one or one that does
+46:14
+not exist so here they are all equal here the dimension does not exist so internally what broadcasting will do
+46:21
+is it will create a one here and then we see that one of them is a one and
+46:27
+this will get copied and this will run this will broadcast okay so you'd expect this
+46:34
+to work because we we are
+46:41
+this broadcast and this we can divide this now if i run this you'd expect it to work but
+46:46
+it doesn't uh you actually get garbage you get a wrong dissolve because this is actually a bug
+46:52
+this keep them equals true makes it work
+47:00
+this is a bug in both cases we are doing the correct counts we are summing up
+47:07
+across the rows but keep them is saving us and making it work so in this case
+47:12
+i'd like to encourage you to potentially like pause this video at this point and try to think about why this is buggy and
+47:18
+why the keep dim was necessary here okay so the reason to do
+47:24
+for this is i'm trying to hint it here when i was sort of giving you a bit of a hint on how this works
+47:29
+this 27 vector internally inside the broadcasting this becomes a 1 by 27
+47:36
+and 1 by 27 is a row vector right and now we are dividing 27 by 27 by 1 by
+47:42
+27 and torch will replicate this dimension so basically
+47:47
+uh it will take it will take this row vector and it will copy it
+47:53
+vertically now 27 times so the 27 by 27 lies exactly and element wise divides
+48:00
+and so basically what's happening here is we're actually normalizing the columns
+48:06
+instead of normalizing the rows so you can check that what's happening
+48:11
+here is that p at zero which is the first row of p dot sum is not one it's seven
+48:18
+it is the first column as an example that sums to one
+48:23
+so to summarize where does the issue come from the issue comes from the silent adding of a dimension here because in
+48:30
+broadcasting rules you align on the right and go from right to left and if dimension doesn't exist you create it
+48:36
+so that's where the problem happens we still did the counts correctly we did the counts across the rows and we got
+48:41
+the the counts on the right here as a column vector but because the keep things was true this this uh this
+48:48
+dimension was discarded and now we just have a vector of 27. and because of broadcasting the way it works this
+48:54
+vector of 27 suddenly becomes a row vector and then this row vector gets replicated vertically and that every single point
+49:00
+we are dividing by the by the count in the opposite direction
+49:07
+so uh so this thing just uh doesn't work this needs to be keep things equal true in
+49:12
+this case so then then we have that p at zero is normalized
+49:19
+and conversely the first column you'd expect to potentially not be normalized and this is what makes it work
+49:27
+so pretty subtle and uh hopefully this helps to scare you that you should have
+49:33
+a respect for broadcasting be careful check your work uh and uh understand how it works under the hood and make sure
+49:39
+that it's broadcasting in the direction that you like otherwise you're going to introduce very subtle bugs very hard to
+49:44
+find bugs and uh just be careful one more note on efficiency we don't want to be doing this here because this creates
+49:51
+a completely new tensor that we store into p we prefer to use in place operations if possible
+49:57
+so this would be an in-place operation it has the potential to be faster it doesn't create new memory
+50:03
+under the hood and then let's erase this we don't need it and let's
+50:09
+also um just do fewer just so i'm not wasting space
+loss function (the negative log likelihood of the data under our model)
+50:14
+okay so we're actually in a pretty good spot now we trained a bigram language model and we trained it really just by counting uh
+50:22
+how frequently any pairing occurs and then normalizing so that we get a nice property distribution
+50:27
+so really these elements of this array p are really the parameters of our biogram language model giving us and summarizing
+50:34
+the statistics of these bigrams so we train the model and then we know how to sample from a model we just
+50:40
+iteratively uh sample the next character and feed it in each time and get a next
+50:45
+character now what i'd like to do is i'd like to somehow evaluate the quality of this model we'd like to somehow summarize the
+50:52
+quality of this model into a single number how good is it at predicting the training set
+50:58
+and as an example so in the training set we can evaluate now the training loss
+51:04
+and this training loss is telling us about sort of the quality of this model in a single number just like we saw in
+51:10
+micrograd so let's try to think through the quality of the model and how we would evaluate it
+51:16
+basically what we're going to do is we're going to copy paste this code that we previously used for counting
+51:22
+okay and let me just print these diagrams first we're gonna use f strings and i'm gonna print character one
+51:29
+followed by character two these are the diagrams and then i don't wanna do it for all the words just do the first three words so here we have emma olivia
+51:37
+and ava bigrams now what we'd like to do is we'd like to basically look at the probability that
+51:44
+the model assigns to every one of these diagrams so in other words we can look at the probability which is
+51:51
+summarized in the matrix b of i x 1 x 2 and then we can print it here
+51:57
+as probability and because these properties are way too large let me present
+52:04
+or call in 0.4 f to like truncate it a bit so what do we have here right we're
+52:10
+looking at the probabilities that the model assigns to every one of these bigrams in the dataset and so we can see some of them are four
+52:16
+percent three percent etc just to have a measuring stick in our mind by the way um we have 27 possible
+52:23
+characters or tokens and if everything was equally likely then you'd expect all these probabilities
+52:28
+to be four percent roughly so anything above four percent means
+52:34
+that we've learned something useful from these bigram statistics and you see that roughly some of these are four percent
+52:39
+but some of them are as high as 40 percent 35 percent and so on so you see that the model actually assigned a pretty high
+52:45
+probability to whatever's in the training set and so that's a good thing um basically if you have a very good
+52:51
+model you'd expect that these probabilities should be near one because that means that your model is correctly
+52:57
+predicting what's going to come next especially on the training set where you where you trained your model
+53:02
+so now we'd like to think about how can we summarize these probabilities into a single number that measures the quality
+53:09
+of this model now when you look at the literature into maximum likelihood estimation and
+53:15
+statistical modeling and so on you'll see that what's typically used here is something called the likelihood
+53:21
+and the likelihood is the product of all of these probabilities and so the product of all these
+53:27
+probabilities is the likelihood and it's really telling us about the probability of the entire data set assigned uh
+53:34
+assigned by the model that we've trained and that is a measure of quality so the product of these
+53:41
+should be as high as possible when you are training the model and when you have a good model your pro your
+53:46
+product of these probabilities should be very high um now because the product of these probabilities is an unwieldy thing to
+53:53
+work with you can see that all of them are between zero and one so your product of these probabilities will be a very tiny number
+54:00
+um so for convenience what people work with usually is not the likelihood but they work with what's called the log
+54:06
+likelihood so the product of these is the likelihood to get the log likelihood we just have
+54:12
+to take the log of the probability and so the log of the probability here i have the log of x from zero to one
+54:19
+the log is a you see here monotonic transformation of the probability where if you pass in one
+54:27
+you get zero so probability one gets your log probability of zero and then as you go lower and lower
+54:33
+probability the log will grow more and more negative until all the way to negative infinity at zero
+54:41
+so here we have a log prob which is really just a torch.log of probability let's print it out to get a sense of
+54:48
+what that looks like log prob also 0.4 f
+54:54
+okay so as you can see when we plug in numbers that are very close some of our
+55:00
+higher numbers we get closer and closer to zero and then if we plug in very bad probabilities we get more and more
+55:06
+negative number that's bad so and the reason we work with this is for
+55:12
+a large extent convenience right because we have mathematically that if you have some product a times b times c
+55:18
+of all these probabilities right the likelihood is the product of all these probabilities
+55:25
+then the log of these is just log of a plus
+55:30
+log of b plus log of c if you remember your logs
+55:36
+from your high school or undergrad and so on so we have that basically
+55:41
+the likelihood of the product probabilities the log likelihood is just the sum of the logs of the individual
+55:46
+probabilities so log likelihood
+55:52
+starts at zero and then log likelihood here we can just accumulate simply
+56:00
+and in the end we can print this
+56:05
+print the log likelihood f strings
+56:11
+maybe you're familiar with this so log likelihood is negative 38.
+56:19
+okay now we actually want um
+56:25
+so how high can log likelihood get it can go to zero so when all the
+56:30
+probabilities are one log likelihood will be zero and then when all the probabilities are lower this will grow
+56:35
+more and more negative now we don't actually like this because what we'd like is a loss function and a
+56:41
+loss function has the semantics that low is good because we're trying to minimize the
+56:47
+loss so we actually need to invert this and that's what gives us something called the negative log likelihood
+56:55
+negative log likelihood is just negative of the log likelihood
+57:03
+these are f strings by the way if you'd like to look this up negative log likelihood equals
+57:09
+so negative log likelihood now is just negative of it and so the negative log block load is a very nice loss function
+57:15
+because um the lowest it can get is zero and the higher it is the worse off the
+57:22
+predictions are that you're making and then one more modification to this that sometimes people do is that for
+57:27
+convenience uh they actually like to normalize by they like to make it an average instead of a sum
+57:34
+and so uh here let's just keep some counts as well so n plus equals one
+57:41
+starts at zero and then here um we can have sort of like a normalized log likelihood
+57:47
+um if we just normalize it by the count then we will sort of get the average
+57:54
+log likelihood so this would be usually our loss function here is what this we would this is what we would use
+58:02
+uh so our loss function for the training set assigned by the model is 2.4 that's the quality of this model
+58:08
+and the lower it is the better off we are and the higher it is the worse off we are and
+58:14
+the job of our you know training is to find the parameters that minimize the
+58:19
+negative log likelihood loss and that would be like a high quality
+58:24
+model okay so to summarize i actually wrote it out here so our goal is to maximize likelihood
+58:30
+which is the product of all the probabilities assigned by the model and we want to maximize this likelihood
+58:37
+with respect to the model parameters and in our case the model parameters here are defined in the table these numbers
+58:43
+the probabilities are the model parameters sort of in our program language models so far but you
+58:50
+have to keep in mind that here we are storing everything in a table format the probabilities but what's coming up as a
+58:55
+brief preview is that these numbers will not be kept explicitly but these numbers will be calculated by a neural network
+59:03
+so that's coming up and we want to change and tune the parameters of these neural networks we
+59:08
+want to change these parameters to maximize the likelihood the product of the probabilities
+59:13
+now maximizing the likelihood is equivalent to maximizing the log likelihood because log is a monotonic
+59:18
+function here's the graph of log and basically all it is doing is it's
+59:24
+just scaling your um you can look at it as just a scaling of the loss function
+59:29
+and so the optimization problem here and here are actually equivalent because
+59:34
+this is just scaling you can look at it that way and so these are two identical optimization problems
+59:41
+um maximizing the log-likelihood is equivalent to minimizing the negative log likelihood and then in practice
+59:47
+people actually minimize the average negative log likelihood to get numbers like 2.4
+59:52
+and then this summarizes the quality of your model and we'd like to minimize it and make it as small as possible
+59:59
+and the lowest it can get is zero and the lower it is the better off your model is because
+1:00:05
+it's signing it's assigning high probabilities to your data now let's estimate the probability over the entire
+1:00:11
+training set just to make sure that we get something around 2.4 let's run this over the entire oops
+1:00:17
+let's take out the print segment as well okay 2.45 or the entire training set
+1:00:24
+now what i'd like to show you is that you can actually evaluate the probability for any word that you want like for example
+1:00:30
+if we just test a single word andre and bring back the print statement
+1:00:35
+then you see that andre is actually kind of like an unlikely word like on average we take
+1:00:41
+three log probability to represent it and roughly that's because ej apparently is very uncommon as an example
+model smoothing with fake counts
+1:00:50
+now think through this um when i take andre and i append q and i
+1:00:55
+test the probability of it under q we actually get
+1:01:01
+infinity and that's because jq has a zero percent probability according to our model so
+1:01:07
+the log likelihood so the log of zero will be negative infinity we get infinite loss
+1:01:14
+so this is kind of undesirable right because we plugged in a string that could be like a somewhat reasonable name but basically what this is saying is
+1:01:20
+that this model is exactly zero percent likely to uh to predict this name
+1:01:26
+and our loss is infinity on this example and really what the reason for that is
+1:01:31
+that j is followed by q uh zero times
+1:01:36
+uh where's q jq is zero and so jq is uh zero percent likely
+1:01:42
+so it's actually kind of gross and people don't like this too much to fix this there's a very simple fix that people like to do to sort of like smooth
+1:01:49
+out your model a little bit and it's called model smoothing and roughly what's happening is that we will eight we will add some fake counts
+1:01:56
+so imagine adding a count of one to everything so we add a count of one
+1:02:03
+like this and then we recalculate the probabilities and that's model smoothing and you can
+1:02:09
+add as much as you like you can add five and it will give you a smoother model and the more you add here
+1:02:14
+the more uniform model you're going to have and the less you add the more peaked model you are going to
+1:02:21
+have of course so one is like a pretty decent count to add and that will ensure that there will be
+1:02:27
+no zeros in our probability matrix p and so this will of course change the generations a little bit in this case it
+1:02:34
+didn't but in principle it could but what that's going to do now is that nothing will be infinity unlikely
+1:02:41
+so now our model will predict some other probability and we see that jq now has a very small probability so the model
+1:02:48
+still finds it very surprising that this was a word or a bigram but we don't get negative infinity so it's kind of like a
+1:02:54
+nice fix that people like to apply sometimes and it's called model smoothing okay so we've now trained a respectable bi-gram character level
+PART 2: the neural network approach: intro
+1:03:00
+language model and we saw that we both sort of trained the model by looking at
+1:03:05
+the counts of all the bigrams and normalizing the rows to get probability distributions
+1:03:11
+we saw that we can also then use those parameters of this model to perform
+1:03:16
+sampling of new words so we sample new names according to those distributions and we also saw that
+1:03:22
+we can evaluate the quality of this model and the quality of this model is summarized in a single number which is
+1:03:28
+the negative log likelihood and the lower this number is the better the model is because it is giving high probabilities
+1:03:35
+to the actual next characters in all the bi-grams in our training set so that's all well and good but we've
+1:03:42
+arrived at this model explicitly by doing something that felt sensible we were just performing counts and then we
+1:03:48
+were normalizing those counts now what i would like to do is i would like to take an alternative approach we
+1:03:54
+will end up in a very very similar position but the approach will look very different because i would like to cast
+1:03:59
+the problem of bi-gram character level language modeling into the neural network framework in the neural network framework we're
+1:04:05
+going to approach things slightly differently but again end up in a very similar spot i'll go into that later now
+1:04:12
+our neural network is going to be a still a background character level language model so it receives a single
+1:04:18
+character as an input then there's neural network with some weights or some parameters w
+1:04:24
+and it's going to output the probability distribution over the next character in a sequence it's going to make guesses as
+1:04:30
+to what is likely to follow this character that was input to the model
+1:04:35
+and then in addition to that we're going to be able to evaluate any setting of the parameters of the neural net because
+1:04:41
+we have the loss function the negative log likelihood so we're going to take a look at its probability distributions and we're going to use the
+1:04:48
+labels which are basically just the identity of the next character in that diagram the
+1:04:53
+second character so knowing what second character actually comes next in the bigram allows
+1:04:58
+us to then look at what how high of probability the model assigns to that character
+1:05:03
+and then we of course want the probability to be very high and that is another way of saying that the loss is low
+1:05:10
+so we're going to use gradient-based optimization then to tune the parameters of this network because we have the loss
+1:05:16
+function and we're going to minimize it so we're going to tune the weights so that the neural net is correctly
+1:05:21
+predicting the probabilities for the next character so let's get started the first thing i want to do is i want to compile the
+creating the bigram dataset for the neural net
+1:05:27
+training set of this neural network right so create the training set
+1:05:33
+of all the bigrams okay and
+1:05:39
+here i'm going to copy paste this code because this code iterates over all the
+1:05:45
+programs so here we start with the words we iterate over all the bygrams and
+1:05:50
+previously as you recall we did the counts but now we're not going to do counts we're just creating a training
+1:05:55
+set now this training set will be made up of two lists
+1:06:02
+we have the inputs and the targets
+1:06:07
+the the labels and these bi-grams will denote x y those are the characters right
+1:06:13
+and so we're given the first character of the bi-gram and then we're trying to predict the next one both of these are going to be integers
+1:06:19
+so here we'll take x's that append is just x1 ystat append ix2
+1:06:27
+and then here we actually don't want lists of integers we will create tensors out of these so
+1:06:34
+axis is torch.tensor of axis and wise a storage.tensor of ys
+1:06:41
+and then we don't actually want to take all the words just yet because i want everything to be manageable
+1:06:46
+so let's just do the first word which is emma and then it's clear what these x's and
+1:06:52
+y's would be here let me print character 1 character 2 just so you see
+1:06:59
+what's going on here so the bigrams of these characters is
+1:07:04
+dot e e m m m a a dot so this single word as i mentioned has one two three
+1:07:11
+four five examples for our neural network there are five separate examples in emma
+1:07:17
+and those examples are summarized here when the input to the neural network is integer 0
+1:07:23
+the desired label is integer 5 which corresponds to e when the input to the
+1:07:28
+neural network is 5 we want its weights to be arranged so that 13 gets a very high probability
+1:07:35
+when 13 is put in we want 13 to have a high probability when 13 is put in we also want 1 to have
+1:07:41
+a high probability when one is input we want zero to have a very high probability so there are five
+1:07:48
+separate input examples to a neural nut in this data set
+1:07:54
+i wanted to add a tangent of a node of caution to be careful with a lot of the apis of some of these frameworks
+1:08:01
+you saw me silently use torch.tensor with a lowercase t and the output looked right
+1:08:07
+but you should be aware that there's actually two ways of constructing a tensor there's a torch.lowercase tensor
+1:08:13
+and there's also a torch.capital tensor class which you can also construct so you can actually call both you can
+1:08:20
+also do torch.capital tensor and you get a nexus and wise as well
+1:08:25
+so that's not confusing at all um there are threads on what is the difference between these two
+1:08:31
+and um unfortunately the docs are just like not clear on the difference and when you look at the the docs of lower case
+1:08:38
+tensor construct tensor with no autograd history by copying data it's just like it doesn't
+1:08:45
+it doesn't make sense so the actual difference as far as i can tell is explained eventually in this random thread that you can google
+1:08:51
+and really it comes down to i believe that um
+1:08:56
+what is this torch.tensor in first d-type the data type automatically while torch.tensor
+1:09:02
+just returns a float tensor i would recommend stick to torch.lowercase tensor
+1:09:07
+so um indeed we see that when i construct this with a capital t the data
+1:09:13
+type here of xs is float32 but towards that lowercase tensor
+1:09:21
+you see how it's now x dot d type is now integer
+1:09:26
+so um it's advised that you use lowercase t and you can read more about it if you
+1:09:32
+like in some of these threads but basically um i'm pointing out some of these things
+1:09:38
+because i want to caution you and i want you to re get used to reading a lot of documentation and reading through a lot
+1:09:43
+of q and a's and threads like this and you know some of the stuff is
+1:09:49
+unfortunately not easy and not very well documented and you have to be careful out there what we want here is integers
+1:09:54
+because that's what makes uh sense um and so lowercase tensor is what we are using
+feeding integers into neural nets? one-hot encodings
+1:10:01
+okay now we want to think through how we're going to feed in these examples into a neural network
+1:10:06
+now it's not quite as straightforward as plugging it in because these examples right now are integers so there's like a
+1:10:12
+0 5 or 13 it gives us the index of the character and you can't just plug an integer index into a neural net
+1:10:19
+these neural nets right are sort of made up of these neurons and
+1:10:25
+these neurons have weights and as you saw in micrograd these weights act multiplicatively on the inputs w x plus
+1:10:32
+b there's 10 h's and so on and so it doesn't really make sense to make an input neuron take on integer values that
+1:10:37
+you feed in and then multiply on with weights so instead a common way of encoding integers is
+1:10:44
+what's called one hot encoding in one hot encoding we take an integer like 13 and we create
+1:10:51
+a vector that is all zeros except for the 13th dimension which we turn to a
+1:10:56
+one and then that vector can feed into a neural net now conveniently
+1:11:03
+uh pi torch actually has something called the one hot function inside torching and functional
+1:11:10
+it takes a tensor made up of integers um long is a is a as an integer
+1:11:18
+um and it also takes a number of classes um which is how large you want your uh
+1:11:24
+tensor uh your vector to be so here let's import
+1:11:30
+torch.n.functional sf this is a common way of importing it and then let's do f.1 hot
+1:11:36
+and we feed in the integers that we want to encode so we can actually feed in the entire array of x's
+1:11:44
+and we can tell it that num classes is 27. so it doesn't have to try to guess it it
+1:11:49
+may have guessed that it's only 13 and would give us an incorrect result
+1:11:54
+so this is the one hot let's call this x inc for x encoded
+1:12:02
+and then we see that x encoded that shape is 5 by 27
+1:12:07
+and uh we can also visualize it plt.i am show of x inc
+1:12:12
+to make it a little bit more clear because this is a little messy so we see that we've encoded all the five examples uh into vectors we have
+1:12:20
+five examples so we have five rows and each row here is now an example into a neural nut
+1:12:26
+and we see that the appropriate bit is turned on as a one and everything else is zero
+1:12:31
+so um here for example the zeroth bit is turned on the fifth bit is turned on
+1:12:38
+13th bits are turned on for both of these examples and then the first bit here is turned on
+1:12:44
+so that's how we can encode integers into vectors and then these
+1:12:49
+vectors can feed in to neural nets one more issue to be careful with here by the way is
+1:12:55
+let's look at the data type of encoding we always want to be careful with data types what would you expect x encoding's data
+1:13:01
+type to be when we're plugging numbers into neural nuts we don't want them to be integers we want them to be floating point
+1:13:07
+numbers that can take on various values but the d type here is actually 64-bit
+1:13:13
+integer and the reason for that i suspect is that one hot received a 64-bit integer
+1:13:18
+here and it returned the same data type and when you look at the signature of one hot it doesn't even take a d type a
+1:13:25
+desired data type of the output tensor and so we can't in a lot of functions in
+1:13:30
+torch we'd be able to do something like d type equal storage.float32 which is what we want but one heart does
+1:13:36
+not support that so instead we're going to want to cast this to float like this
+1:13:43
+so that these everything is the same everything looks the same but the d-type
+1:13:48
+is float32 and floats can feed into neural nets so now let's construct our
+the "neural net": one linear layer of neurons implemented with matrix multiplication
+1:13:54
+first neuron this neuron will look at these input vectors
+1:14:00
+and as you remember from micrograd these neurons basically perform a very simple function w x plus b where w x is a dot
+1:14:07
+product right so we can achieve the same thing here let's first define the weights of this
+1:14:14
+neuron basically what are the initial weights at initialization for this neuron let's initialize them with torch.rendin
+1:14:21
+torch.rendin is um fills a tensor with random numbers
+1:14:27
+drawn from a normal distribution and a normal distribution has a probability density function like this
+1:14:34
+and so most of the numbers drawn from this distribution will be around 0 but some of them will be as high as
+1:14:40
+almost three and so on and very few numbers will be above three in magnitude
+1:14:46
+so we need to take a size as an input here and i'm going to use size as to be 27 by
+1:14:52
+one so 27 by one and then let's visualize w so
+1:14:58
+w is a column vector of 27 numbers and
+1:15:03
+these weights are then multiplied by the inputs so now to perform this multiplication we
+1:15:10
+can take x encoding and we can multiply it with w this is a matrix multiplication operator
+1:15:17
+in pi torch and the output of this operation is five by one
+1:15:23
+the reason is five by five is the following we took x encoding which is five by twenty seven and we multiplied it by
+1:15:30
+twenty seven by one and in matrix multiplication
+1:15:36
+you see that the output will become five by one because these 27
+1:15:41
+will multiply and add so basically what we're seeing here outs
+1:15:46
+out of this operation is we are seeing the five activations
+1:15:53
+of this neuron on these five inputs and we've evaluated all of them in
+1:15:59
+parallel we didn't feed in just a single input to the single neuron we fed in simultaneously all the five inputs into
+1:16:06
+the same neuron and in parallel patrol has evaluated the wx plus b but here is just the wx
+1:16:14
+there's no bias it has value w times x for all of them
+1:16:19
+independently now instead of a single neuron though i would like to have 27 neurons and i'll show you in a second
+1:16:25
+why i want 27 neurons so instead of having just a 1 here which is indicating this presence of one
+1:16:31
+single neuron we can use 27 and then when w is 27 by 27
+1:16:38
+this will in parallel evaluate all the 27 neurons on all the 5 inputs
+1:16:46
+giving us a much better much much bigger result so now what we've done is 5 by 27 multiplied 27 by 27
+1:16:54
+and the output of this is now 5 by 27 so we can see that the shape of this
+1:17:01
+is 5 by 27. so what is every element here telling us right
+1:17:07
+it's telling us for every one of 27 neurons that we created
+1:17:13
+what is the firing rate of those neurons on every one of those five examples
+1:17:19
+so the element for example 3 comma 13
+1:17:25
+is giving us the firing rate of the 13th neuron looking at the third input
+1:17:31
+and the way this was achieved is by a dot product between the third
+1:17:37
+input and the 13th column of this w matrix here
+1:17:44
+okay so using matrix multiplication we can very efficiently evaluate
+1:17:50
+the dot product between lots of input examples in a batch and lots of neurons where all those
+1:17:57
+neurons have weights in the columns of those w's and in matrix multiplication we're just doing those dot products and
+1:18:04
+in parallel just to show you that this is the case we can take x and we can take the third
+1:18:10
+row and we can take the w and take its 13th column
+1:18:17
+and then we can do x and get three elementwise multiply with w at 13.
+1:18:26
+and sum that up that's wx plus b well there's no plus b it's just wx dot
+1:18:31
+product and that's this number so you see that this is just being done efficiently by the matrix multiplication
+1:18:39
+operation for all the input examples and for all the output neurons of this first layer
+transforming neural net outputs into probabilities: the softmax
+1:18:46
+okay so we fed our 27-dimensional inputs into a first layer of a neural net that
+1:18:51
+has 27 neurons right so we have 27 inputs and now we have 27 neurons these
+1:18:57
+neurons perform w times x they don't have a bias and they don't have a non-linearity like 10 h we're going to
+1:19:03
+leave them to be a linear layer in addition to that we're not going to have any other layers this is going to
+1:19:09
+be it it's just going to be the dumbest smallest simplest neural net which is just a single linear layer
+1:19:16
+and now i'd like to explain what i want those 27 outputs to be intuitively what we're trying to produce
+1:19:22
+here for every single input example is we're trying to produce some kind of a probability distribution for the next
+1:19:27
+character in a sequence and there's 27 of them but we have to come up with like precise
+1:19:33
+semantics for exactly how we're going to interpret these 27 numbers that these neurons take on
+1:19:39
+now intuitively you see here that these numbers are negative and some of them are positive etc
+1:19:45
+and that's because these are coming out of a neural net layer initialized with these
+1:19:51
+normal distribution parameters but what we want is we want something like we had here
+1:19:57
+like each row here told us the counts and then we normalized the counts to get probabilities and we want something
+1:20:04
+similar to come out of the neural net but what we just have right now is just some negative and positive numbers
+1:20:10
+now we want those numbers to somehow represent the probabilities for the next character but you see that probabilities they they
+1:20:17
+have a special structure they um they're positive numbers and they sum to one
+1:20:22
+and so that doesn't just come out of a neural net and then they can't be counts because these counts are positive and
+1:20:31
+counts are integers so counts are also not really a good thing to output from a neural net
+1:20:36
+so instead what the neural net is going to output and how we are going to interpret the um
+1:20:42
+the 27 numbers is that these 27 numbers are giving us log counts
+1:20:48
+basically um so instead of giving us counts directly like in this table they're giving us log
+1:20:54
+counts and to get the counts we're going to take the log counts and we're going to exponentiate them
+1:21:01
+now exponentiation takes the following form
+1:21:07
+it takes numbers that are negative or they are positive it takes the entire real line
+1:21:12
+and then if you plug in negative numbers you're going to get e to the x which is uh always below one
+1:21:20
+so you're getting numbers lower than one and if you plug in numbers greater than zero you're getting numbers greater than
+1:21:27
+one all the way growing to the infinity and this here grows to zero
+1:21:33
+so basically we're going to take these numbers here
+1:21:40
+and instead of them being positive and negative and all over the place we're
+1:21:46
+going to interpret them as log counts and then we're going to element wise exponentiate these numbers
+1:21:52
+exponentiating them now gives us something like this and you see that these numbers now because they went through an exponent
+1:21:59
+all the negative numbers turned into numbers below 1 like 0.338 and all the
+1:22:04
+positive numbers originally turned into even more positive numbers sort of greater than one
+1:22:10
+so like for example seven is some positive number over here
+1:22:18
+that is greater than zero but exponentiated outputs here
+1:22:24
+basically give us something that we can use and interpret as the equivalent of counts originally so you see these
+1:22:31
+counts here 112 7 51 1 etc the neural net is kind of now predicting
+1:22:38
+uh counts and these counts are positive numbers
+1:22:43
+they can never be below zero so that makes sense and uh they can now take on various values
+1:22:49
+depending on the settings of w so let me break this down
+1:22:56
+we're going to interpret these to be the log counts
+1:23:01
+in other words for this that is often used is so-called logits these are logits log counts
+1:23:08
+then these will be sort of the counts largest exponentiated and this is equivalent to the n matrix
+1:23:16
+sort of the n array that we used previously remember this was the n
+1:23:21
+this is the the array of counts and each row here are the counts for the
+1:23:27
+for the um next character sort of so those are the counts and now the
+1:23:34
+probabilities are just the counts um normalized and so um
+1:23:41
+i'm not going to find the same but basically i'm not going to scroll all over the place we've already done this we want to
+1:23:48
+counts that sum along the first dimension and we want to keep them as true
+1:23:54
+we've went over this and this is how we normalize the rows of our counts matrix
+1:23:59
+to get our probabilities props so now these are the probabilities
+1:24:07
+and these are the counts that we ask currently and now when i show the probabilities
+1:24:13
+you see that um every row here of course
+1:24:19
+will sum to 1 because they're normalized and the shape of this
+1:24:25
+is 5 by 27 and so really what we've achieved is for every one of our five examples
+1:24:31
+we now have a row that came out of a neural net and because of the transformations here
+1:24:37
+we made sure that this output of this neural net now are probabilities or we can interpret to be probabilities
+1:24:44
+so our wx here gave us logits and then we interpret those to be log
+1:24:49
+counts we exponentiate to get something that looks like counts and then we normalize those counts to
+1:24:55
+get a probability distribution and all of these are differentiable operations so what we've done now is we're taking
+1:25:02
+inputs we have differentiable operations that we can back propagate through and we're getting out probability
+1:25:08
+distributions so for example for the zeroth example that
+1:25:13
+fed in right which was um the zeroth example here was a one-half
+1:25:18
+vector of zero and um it basically corresponded to feeding in
+1:25:26
+this example here so we're feeding in a dot into a neural net and the way we fed the dot into a neural net is that we
+1:25:32
+first got its index then we one hot encoded it then it went into the neural net and out
+1:25:39
+came this distribution of probabilities and its shape
+1:25:46
+is 27 there's 27 numbers and we're going to interpret this as the neural nets assignment for how likely every one of
+1:25:54
+these characters um the 27 characters are to come next
+1:25:59
+and as we tune the weights w we're going to be of course getting different probabilities out for any
+1:26:05
+character that you input and so now the question is just can we optimize and find a good w
+1:26:10
+such that the probabilities coming out are pretty good and the way we measure pretty good is by the loss function okay
+summary, preview to next steps, reference to micrograd
+1:26:17
+so i organized everything into a single summary so that hopefully it's a bit more clear so it starts here
+1:26:22
+with an input data set we have some inputs to the neural net and we have some labels for the correct
+1:26:28
+next character in a sequence these are integers here i'm using uh torch generators now
+1:26:35
+so that you see the same numbers that i see and i'm generating um
+1:26:40
+27 neurons weights and each neuron here receives 27 inputs
+1:26:48
+then here we're going to plug in all the input examples x's into a neural net so here this is a forward pass
+1:26:55
+first we have to encode all of the inputs into one hot representations so we have 27 classes we pass in these
+1:27:02
+integers and x inc becomes a array that is 5 by 27
+1:27:09
+zeros except for a few ones we then multiply this in the first layer of a neural net to get logits
+1:27:16
+exponentiate the logits to get fake counts sort of and normalize these counts to get
+1:27:22
+probabilities so we lock these last two lines by the way here are called the softmax
+1:27:30
+which i pulled up here soft max is a very often used layer in a neural net
+1:27:35
+that takes these z's which are logics exponentiates them
+1:27:40
+and divides and normalizes it's a way of taking outputs of a neural net layer and these
+1:27:47
+these outputs can be positive or negative and it outputs probability distributions
+1:27:52
+it outputs something that is always sums to one and are positive numbers just like probabilities
+1:27:58
+um so it's kind of like a normalization function if you want to think of it that way and you can put it on top of any other linear layer inside a neural net
+1:28:05
+and it basically makes a neural net output probabilities that's very often used and we used it as well here
+1:28:13
+so this is the forward pass and that's how we made a neural net output probability now
+1:28:19
+you'll notice that um all of these this entire forward pass is made up of
+1:28:25
+differentiable layers everything here we can back propagate through and we saw some of the
+1:28:30
+back propagation in micrograd this is just multiplication and addition all that's
+1:28:36
+happening here is just multiply and then add and we know how to backpropagate through them exponentiation we know how to
+1:28:42
+backpropagate through and then here we are summing and sum is is easily backpropagable as
+1:28:49
+well and division as well so everything here is differentiable operation
+1:28:54
+and we can back propagate through now we achieve these probabilities which
+1:28:59
+are 5 by 27 for every single example we have a vector of probabilities that's into one
+1:29:06
+and then here i wrote a bunch of stuff to sort of like break down uh the examples
+1:29:11
+so we have five examples making up emma right and there are five bigrams inside emma
+1:29:20
+so bigram example a bigram example1 is that e is the beginning character right
+1:29:26
+after dot and the indexes for these are zero and five so then we feed in a zero
+1:29:34
+that's the input of the neural net we get probabilities from the neural net that are 27 numbers
+1:29:41
+and then the label is 5 because e actually comes after dot so that's the label
+1:29:47
+and then we use this label 5 to index into the probability distribution here
+1:29:54
+so this index 5 here is 0 1 2 3 4 5. it's this
+1:30:00
+number here which is here so that's basically the probability
+1:30:05
+assigned by the neural net to the actual correct character you see that the network currently thinks that this next character that e
+1:30:12
+following dot is only one percent likely which is of course not very good right because this actually is a training
+1:30:18
+example and the network thinks this is currently very very unlikely but that's just because we didn't get very lucky in
+1:30:24
+generating a good setting of w so right now this network things it says unlikely and 0.01 is not a good outcome
+1:30:31
+so the log likelihood then is very negative and the negative log likelihood is very
+1:30:38
+positive and so four is a very high negative log likelihood and that means we're going to
+1:30:44
+have a high loss because what is the loss the loss is just the average negative log likelihood
+1:30:51
+so the second character is em and you see here that also the network thought that m following e is very
+1:30:57
+unlikely one percent the for m following m i thought it was
+1:31:03
+two percent and for a following m it actually thought it was seven percent likely so
+1:31:08
+just by chance this one actually has a pretty good probability and therefore pretty low negative log likelihood
+1:31:15
+and finally here it thought this was one percent likely so overall our average negative log
+1:31:20
+likelihood which is the loss the total loss that summarizes basically the how well this network
+1:31:26
+currently works at least on this one word not on the full data suggested one word is 3.76 which is actually very
+1:31:33
+fairly high loss this is not a very good setting of w's now here's what we can do
+1:31:38
+we're currently getting 3.76 we can actually come here and we can change our w we can resample it so let
+1:31:45
+me just add one to have a different seed and then we get a different w and then we can rerun this
+1:31:52
+and with this different c with this different setting of w's we now get 3.37
+1:31:58
+so this is a much better w right and that and it's better because the probabilities just happen to come out
+1:32:04
+higher for the for the characters that actually are next and so you can imagine actually just
+1:32:10
+resampling this you know we can try two so
+1:32:15
+okay this was not very good let's try one more we can try three
+1:32:20
+okay this was terrible setting because we have a very high loss so anyway i'm going to erase this
+1:32:29
+what i'm doing here which is just guess and check of randomly assigning parameters and seeing if the network is good that is uh amateur hour that's not
+1:32:37
+how you optimize a neural net the way you optimize your neural net is you start with some random guess and we're
+1:32:42
+going to commit to this one even though it's not very good but now the big deal is we have a loss function
+1:32:48
+so this loss is made up only of differentiable operations and we can minimize the loss
+1:32:56
+by tuning ws by computing the gradients of the loss with respect to
+1:33:02
+these w matrices and so then we can tune w to minimize the loss and find a good setting of w
+1:33:09
+using gradient based optimization so let's see how that will work now things are actually going to look almost
+1:33:14
+identical to what we had with micrograd so here i pulled up the lecture from micrograd
+1:33:20
+the notebook it's from this repository and when i scroll all the way to the end where we left off with micrograd we had
+1:33:26
+something very very similar we had a number of input examples in this case we had four input examples inside axis
+1:33:34
+and we had their targets these are targets just like here we have our axes now but
+1:33:39
+we have five of them and they're now integers instead of vectors but we're going to convert our integers
+1:33:45
+to vectors except our vectors will be 27 large instead of three large
+1:33:51
+and then here what we did is first we did a forward pass where we ran a neural net on all of the inputs
+1:33:58
+to get predictions our neural net at the time this nfx was a multi-layer perceptron
+1:34:05
+our neural net is going to look different because our neural net is just a single layer
+1:34:10
+single linear layer followed by a soft max so that's our neural net
+1:34:15
+and the loss here was the mean squared error so we simply subtracted the prediction from the ground truth and
+1:34:21
+squared it and summed it all up and that was the loss and loss was the single number that summarized the quality of
+1:34:27
+the neural net and when loss is low like almost zero that means the neural net is
+1:34:33
+predicting correctly so we had a single number that uh that summarized the uh the performance of the
+1:34:40
+neural net and everything here was differentiable and was stored in massive compute graph
+1:34:46
+and then we iterated over all the parameters we made sure that the gradients are set to zero and we called
+1:34:52
+lost up backward and lasted backward initiated back propagation at the final output node of
+1:34:58
+loss right so yeah remember these expressions we had loss all the way at the end we start
+1:35:03
+back propagation and we went all the way back and we made sure that we populated all the parameters dot grad
+1:35:10
+so that graph started at zero but back propagation filled it in and then in the update we iterated over
+1:35:16
+all the parameters and we simply did a parameter update where every single
+1:35:21
+element of our parameters was nudged in the opposite direction of the gradient
+1:35:27
+and so we're going to do the exact same thing here so i'm going to pull this up
+1:35:34
+on the side here so that we have it available and we're
+1:35:40
+actually going to do the exact same thing so this was the forward pass so where we did this
+1:35:46
+and probs is our wipe red so now we have to evaluate the loss but we're not using the mean squared error we're using the
+vectorized loss
+1:35:52
+negative log likelihood because we are doing classification we're not doing regression as it's called
+1:35:58
+so here we want to calculate loss now the way we calculate it is it's just
+1:36:04
+this average negative log likelihood now this probs here
+1:36:10
+has a shape of 5 by 27 and so to get all the we basically want
+1:36:15
+to pluck out the probabilities at the correct indices here so in particular because the labels are
+1:36:22
+stored here in array wise basically what we're after is for the first example we're looking at
+1:36:27
+probability of five right at index five for the second example
+1:36:32
+at the the second row or row index one we are interested in the probability assigned to index 13.
+1:36:40
+at the second example we also have 13. at the third row we want one
+1:36:47
+and then the last row which is four we want zero so these are the probabilities we're interested in right
+1:36:54
+and you can see that they're not amazing as we saw above so these are the probabilities we want
+1:37:00
+but we want like a more efficient way to access these probabilities not just listing them out in a tuple
+1:37:06
+like this so it turns out that the way to do this in pytorch uh one of the ways at least is we can basically pass in
+1:37:12
+all of these sorry about that all of these um
+1:37:19
+integers in the vectors so the these ones you see how they're just 0 1
+1:37:25
+2 3 4 we can actually create that using mp not mp sorry torch dot range of 5
+1:37:32
+0 1 2 3 4. so we can index here with torch.range of 5
+1:37:38
+and here we index with ys and you see that that gives us exactly these numbers
+1:37:48
+so that plucks out the probabilities of that the neural network assigns to the correct next character
+1:37:56
+now we take those probabilities and we don't we actually look at the log probability so we want to dot log
+1:38:03
+and then we want to just average that up so take the mean of all of that
+1:38:08
+and then it's the negative average log likelihood that is the loss
+1:38:14
+so the loss here is 3.7 something and you see that this loss 3.76 3.76 is
+1:38:21
+exactly as we've obtained before but this is a vectorized form of that expression so
+1:38:27
+we get the same loss and the same loss we can consider service part of this forward pass
+1:38:34
+and we've achieved here now loss okay so we made our way all the way to loss we've defined the forward pass
+backward and update, in PyTorch
+1:38:40
+we forwarded the network and the loss now we're ready to do the backward pass so backward pass
+1:38:48
+we want to first make sure that all the gradients are reset so they're at zero now in pytorch you can set the gradients
+1:38:55
+to be zero but you can also just set it to none and setting it to none is more efficient and pi torch will interpret
+1:39:01
+none as like a lack of a gradient and is the same as zeros so this is a way to set to zero the
+1:39:07
+gradient and now we do lost it backward
+1:39:14
+before we do lost that backward we need one more thing if you remember from micrograd pytorch actually requires
+1:39:21
+that we pass in requires grad is true so that when we tell
+1:39:26
+pythorge that we are interested in calculating gradients for this leaf tensor by default this is false
+1:39:33
+so let me recalculate with that and then set to none and lost that backward
+1:39:40
+now something magical happened when lasted backward was run because pytorch just like micrograd when
+1:39:47
+we did the forward pass here it keeps track of all the operations under the hood it builds a full
+1:39:53
+computational graph just like the graphs we've produced in micrograd those graphs exist
+1:39:58
+inside pi torch and so it knows all the dependencies and all the mathematical operations of
+1:40:04
+everything and when you then calculate the loss we can call a dot backward on it
+1:40:09
+and that backward then fills in the gradients of all the intermediates
+1:40:15
+all the way back to w's which are the parameters of our neural net so now we
+1:40:20
+can do w grad and we see that it has structure there's stuff inside it
+1:40:29
+and these gradients every single element here so w dot shape is 27 by 27
+1:40:36
+w grad shape is the same 27 by 27 and every element of w that grad
+1:40:43
+is telling us the influence of that weight on the loss function
+1:40:48
+so for example this number all the way here if this element the zero zero element of
+1:40:54
+w because the gradient is positive is telling us that this has a positive
+1:41:00
+influence in the loss slightly nudging w slightly taking w 0 0
+1:41:06
+and adding a small h to it would increase the loss
+1:41:12
+mildly because this gradient is positive some of these gradients are also negative
+1:41:18
+so that's telling us about the gradient information and we can use this gradient information to update the weights of
+1:41:25
+this neural network so let's now do the update it's going to be very similar to what we had in micrograd we need no loop
+1:41:32
+over all the parameters because we only have one parameter uh tensor and that is w so we simply do w dot data plus equals
+1:41:40
+uh the we can actually copy this almost exactly negative 0.1 times w dot grad
+1:41:49
+and that would be the update to the tensor
+1:41:54
+so that updates the tensor and
+1:41:59
+because the tensor is updated we would expect that now the loss should decrease so
+1:42:05
+here if i print loss that item
+1:42:11
+it was 3.76 right so we've updated the w here so if i
+1:42:16
+recalculate forward pass loss now should be slightly lower so
+1:42:21
+3.76 goes to 3.74 and then
+1:42:26
+we can again set to set grad to none and backward update
+1:42:32
+and now the parameters changed again so if we recalculate the forward pass we expect a lower loss again 3.72
+1:42:42
+okay and this is again doing the we're now doing gradient descent
+1:42:48
+and when we achieve a low loss that will mean that the network is assigning high probabilities to the correctness
+1:42:54
+characters okay so i rearranged everything and i put it all together from scratch
+putting everything together
+1:42:59
+so here is where we construct our data set of bigrams you see that we are still iterating only
+1:43:04
+on the first word emma i'm going to change that in a second i added a number that counts the number of
+1:43:11
+elements in x's so that we explicitly see that number of examples is five
+1:43:16
+because currently we're just working with emma and there's five backgrounds there and here i added a loop of exactly what
+1:43:22
+we had before so we had 10 iterations of grainy descent of forward pass backward pass and an update
+1:43:28
+and so running these two cells initialization and gradient descent gives us some improvement
+1:43:35
+on the loss function but now i want to use all the words
+1:43:41
+and there's not 5 but 228 000 bigrams now however this should require no
+1:43:48
+modification whatsoever everything should just run because all the code we wrote doesn't care if there's five migrants or 228 000 bigrams and with
+1:43:56
+everything we should just work so you see that this will just run but now we are optimizing over the
+1:44:01
+entire training set of all the bigrams and you see now that we are decreasing very slightly so actually we can
+1:44:08
+probably afford a larger learning rate and probably for even larger learning
+1:44:14
+rate
+1:44:20
+even 50 seems to work on this very very simple example right so let me re-initialize and let's run 100
+1:44:26
+iterations see what happens
+1:44:32
+okay we seem to be
+1:44:39
+coming up to some pretty good losses here 2.47 let me run 100 more
+1:44:44
+what is the number that we expect by the way in the loss we expect to get something around what we had originally
+1:44:50
+actually so all the way back if you remember in the beginning of this video when we
+1:44:55
+optimized uh just by counting our loss was roughly 2.47
+1:45:01
+after we had it smoothing but before smoothing we had roughly 2.45
+1:45:06
+likelihood sorry loss and so that's actually roughly the vicinity of what we expect to achieve
+1:45:13
+but before we achieved it by counting and here we are achieving the roughly the same result but with gradient based
+1:45:19
+optimization so we come to about 2.4 6 2.45 etc
+1:45:26
+and that makes sense because fundamentally we're not taking any additional information we're still just taking in the previous character and
+1:45:31
+trying to predict the next one but instead of doing it explicitly by counting and normalizing
+1:45:38
+we are doing it with gradient-based learning and it just so happens that the explicit approach happens to very well
+1:45:44
+optimize the loss function without any need for a gradient based optimization because the setup for bigram language
+1:45:50
+models are is so straightforward that's so simple we can just afford to estimate those probabilities directly and
+1:45:56
+maintain them in a table but the gradient-based approach is significantly more flexible
+1:46:02
+so we've actually gained a lot because what we can do now is
+1:46:09
+we can expand this approach and complexify the neural net so currently we're just taking a single character and
+1:46:14
+feeding into a neural net and the neural that's extremely simple but we're about to iterate on this substantially we're
+1:46:20
+going to be taking multiple previous characters and we're going to be feeding feeding them into increasingly more
+1:46:26
+complex neural nets but fundamentally out the output of the neural net will always just be logics
+1:46:32
+and those logits will go through the exact same transformation we are going to take them through a soft max
+1:46:37
+calculate the loss function and the negative log likelihood and do gradient based optimization and so actually
+1:46:44
+as we complexify the neural nets and work all the way up to transformers none of this will really fundamentally
+1:46:51
+change none of this will fundamentally change the only thing that will change is the way we do the forward pass where we
+1:46:57
+take in some previous characters and calculate logits for the next character in the sequence that will become more
+1:47:03
+complex and uh but we'll use the same machinery to optimize it and um
+1:47:10
+it's not obvious how we would have extended this bigram approach into the case where there are many more
+1:47:17
+characters at the input because eventually these tables would get way too large because there's way too many
+1:47:23
+combinations of what previous characters could be if you only have one previous character
+1:47:29
+we can just keep everything in a table that counts but if you have the last 10 characters that are input we can't
+1:47:35
+actually keep everything in the table anymore so this is fundamentally an unscalable approach and the neural network approach is significantly more
+1:47:42
+scalable and it's something that actually we can improve on over time so that's where we will be digging next i
+1:47:48
+wanted to point out two more things number one i want you to notice that
+note 1: one-hot encoding really just selects a row of the next Linear layer's weight matrix
+1:47:54
+this x ink here this is made up of one hot vectors and
+1:47:59
+then those one hot vectors are multiplied by this w matrix and we think of this as multiple neurons
+1:48:05
+being forwarded in a fully connected manner but actually what's happening here is that for example
+1:48:11
+if you have a one hot vector here that has a one at say the fifth dimension
+1:48:17
+then because of the way the matrix multiplication works multiplying that one-half vector with w
+1:48:23
+actually ends up plucking out the fifth row of w log logits would become just the fifth
+1:48:29
+row of w and that's because of the way the matrix multiplication works
+1:48:35
+um so that's actually what ends up happening so but that's actually exactly what
+1:48:42
+happened before because remember all the way up here we have a bigram we took the first
+1:48:48
+character and then that first character indexed into a row of this array here
+1:48:54
+and that row gave us the probability distribution for the next character so the first character was used as a lookup
+1:49:01
+into a matrix here to get the probability distribution
+1:49:06
+well that's actually exactly what's happening here because we're taking the index we're encoding it as one hot and
+1:49:11
+multiplying it by w so logics literally becomes the
+1:49:18
+the appropriate row of w and that gets just as before exponentiated to create the counts
+1:49:24
+and then normalized and becomes probability so this w here is literally
+1:49:31
+the same as this array here but w remember is the log counts not the
+1:49:38
+counts so it's more precise to say that w exponentiated w dot x is this array
+1:49:46
+but this array was filled in by counting and by basically
+1:49:51
+populating the counts of bi-grams whereas in the gradient-based framework we initialize it randomly and then we
+1:49:57
+let the loss guide us to arrive at the exact same array
+1:50:03
+so this array exactly here is basically the array w at the end of
+1:50:09
+optimization except we arrived at it piece by piece by following the loss
+1:50:14
+and that's why we also obtain the same loss function at the end and the second note is if i come here
+note 2: model smoothing as regularization loss
+1:50:20
+remember the smoothing where we added fake counts to our counts in order to
+1:50:26
+smooth out and make more uniform the distributions of these probabilities and that prevented us from assigning
+1:50:32
+zero probability to to any one bigram now if i increase the count here
+1:50:40
+what's happening to the probability as i increase the count probability
+1:50:45
+becomes more and more uniform right because these counts go only up to
+1:50:50
+like 900 or whatever so if i'm adding plus a million to every single number here you can see how
+1:50:56
+the row and its probability then when we divide is just going to become more and more close to exactly even probability
+1:51:02
+uniform distribution it turns out that the gradient based framework has an equivalent to smoothing
+1:51:10
+in particular think through these w's here
+1:51:15
+which we initialized randomly we could also think about initializing w's to be zero
+1:51:22
+if all the entries of w are zero then you'll see that logits will become
+1:51:27
+all zero and then exponentiating those logics becomes all one and then the probabilities turned out to
+1:51:33
+be exactly uniform so basically when w's are all equal to each other or say especially zero
+1:51:41
+then the probabilities come out completely uniform so trying to incentivize w to be near zero
+1:51:49
+is basically equivalent to label smoothing and the more you incentivize that in the loss function
+1:51:55
+the more smooth distribution you're going to achieve so this brings us to something that's called
+1:52:00
+regularization where we can actually augment the loss function to have a small component that we call a
+1:52:06
+regularization loss in particular what we're going to do is we can take w and we can for example
+1:52:12
+square all of its entries and then we can um whoops
+1:52:17
+sorry about that we can take all the entries of w and we can sum them
+1:52:23
+and because we're squaring uh there will be no signs anymore um negatives and positives all get squashed
+1:52:29
+to be positive numbers and then the way this works is you achieve zero loss if w is exactly or
+1:52:36
+zero but if w has non-zero numbers you accumulate loss and so we can actually take this and we
+1:52:42
+can add it on here so we can do something like loss plus
+1:52:48
+w square dot sum or let's actually instead of sum let's take a mean because otherwise the sum
+1:52:55
+gets too large so mean is like a little bit more manageable
+1:53:01
+and then we have a regularization loss here say 0.01 times or something like that you can choose
+1:53:06
+the regularization strength and then we can just optimize this and
+1:53:12
+now this optimization actually has two components not only is it trying to make all the probabilities work out but in
+1:53:18
+addition to that there's an additional component that simultaneously tries to make all w's be zero because if w's are
+1:53:24
+non-zero you feel a loss and so minimizing this the only way to achieve that is for w to be zero
+1:53:30
+and so you can think of this as adding like a spring force or like a gravity force that that pushes w to be zero so w
+1:53:38
+wants to be zero and the probabilities want to be uniform but they also simultaneously want to match up your
+1:53:44
+your probabilities as indicated by the data and so the strength of this regularization is exactly controlling
+1:53:52
+the amount of counts that you add here adding a lot more counts
+1:53:59
+here corresponds to increasing this number
+1:54:04
+because the more you increase it the more this part of the loss function dominates this part and the more these
+1:54:10
+these weights will un be unable to grow because as they grow they uh accumulate way too much loss
+1:54:18
+and so if this is strong enough then we are not able to overcome the
+1:54:23
+force of this loss and we will never and basically everything will be uniform predictions
+1:54:29
+so i thought that's kind of cool okay and lastly before we wrap up i wanted to show you how you would sample from this neural net model
+sampling from the neural net
+1:54:36
+and i copy-pasted the sampling code from before where remember that we sampled five
+1:54:43
+times and all we did we start at zero we grabbed the current ix row of p and that
+1:54:50
+was our probability row from which we sampled the next index and just accumulated that and
+1:54:56
+break when zero and running this gave us these
+1:55:02
+results still have the p in memory so this is fine now
+1:55:09
+the speed doesn't come from the row of b instead it comes from this neural net
+1:55:14
+first we take ix and we encode it into a one hot row of x
+1:55:21
+inc this x inc multiplies rw which really just plucks out the row of
+1:55:26
+w corresponding to ix really that's what's happening and that gets our logits and then we
+1:55:33
+normalize those low jets exponentiate to get counts and then normalize to get uh the distribution and
+1:55:39
+then we can sample from the distribution so if i run this
+1:55:45
+kind of anticlimactic or climatic depending how you look at it but we get the exact same result
+1:55:50
+um and that's because this is in the identical model not only does it achieve the same loss
+1:55:56
+but as i mentioned these are identical models and this w is the log counts of
+1:56:02
+what we've estimated before but we came to this answer in a very different way and it's got a very different
+1:56:08
+interpretation but fundamentally this is basically the same model and gives the same samples here and so
+1:56:14
+that's kind of cool okay so we've actually covered a lot of ground we introduced the bigram character level
+conclusion
+1:56:20
+language model we saw how we can train the model how we can sample from the model and how we can
+1:56:25
+evaluate the quality of the model using the negative log likelihood loss and then we actually trained the model
+1:56:31
+in two completely different ways that actually get the same result and the same model in the first way we just counted up the
+1:56:38
+frequency of all the bigrams and normalized in a second way we used the
+1:56:44
+negative log likelihood loss as a guide to optimizing the counts matrix
+1:56:50
+or the counts array so that the loss is minimized in the in a gradient-based framework and we saw that both of them
+1:56:56
+give the same result and that's it now the second one of these the
+1:57:02
+gradient-based framework is much more flexible and right now our neural network is super simple we're taking a
+1:57:08
+single previous character and we're taking it through a single linear layer to calculate the logits
+1:57:14
+this is about to complexify so in the follow-up videos we're going to be taking more and more of these characters
+1:57:20
+and we're going to be feeding them into a neural net but this neural net will still output the exact same thing the neural net will output logits
+1:57:27
+and these logits will still be normalized in the exact same way and all the loss and everything else and the gradient gradient-based framework
+1:57:33
+everything stays identical it's just that this neural net will now complexify all the way to transformers
+1:57:40
+so that's gonna be pretty awesome and i'm looking forward to it for now bye
