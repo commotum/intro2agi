@@ -33,8 +33,8 @@ Starting at: 00:41:40 of Lecture 02 - The spelled-out intro to language modeling
 
 ## Past Sessions
 
-## Session 01
-### Date: Ante 01/18/2025
+### Session 01
+#### Date: Ante 01/18/2025
 
 01 - Micrograd from Scratch
 
