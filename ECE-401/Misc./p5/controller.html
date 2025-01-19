@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">Click and drag to rotate the circles</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Set up scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            alpha: true,
+            antialias: true
+        });
+        renderer.setClearColor(0x000000, 0);
+        renderer.setPixelRatio(2);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Function to create circle with outline
+        function createCircleWithOutline(radius, outlineColor, fillColor) {
+            const group = new THREE.Group();
+
+            // Create filled circle background
+            const circleGeometry = new THREE.CircleGeometry(radius, 64);
+            const circleMesh = new THREE.Mesh(
+                circleGeometry,
+                new THREE.MeshBasicMaterial({ 
+                    color: fillColor,
+                    transparent: true,
+                    depthWrite: false,
+                    depthTest: true
+                })
+            );
+            group.add(circleMesh);
+
+            // Create outline using tube geometry
+            const curve = new THREE.EllipseCurve(
+                0, 0,                 // center
+                radius, radius,       // x radius, y radius
+                0, 2 * Math.PI,      // start angle, end angle
+                false,               // clockwise
+                0                    // rotation
+            );
+
+            const points = curve.getPoints(64);
+            const vertices = points.map(p => new THREE.Vector3(p.x, p.y, 0));
+            vertices.push(vertices[0]); // Close the circle
+            
+            const tubeGeometry = new THREE.TubeGeometry(
+                new THREE.CatmullRomCurve3(vertices),
+                64,     // tubular segments
+                0.02,   // tube radius
+                8,      // radial segments
+                true    // closed
+            );
+
+            const outlineMesh = new THREE.Mesh(
+                tubeGeometry,
+                new THREE.MeshBasicMaterial({ 
+                    color: outlineColor,
+                    transparent: true,
+                    depthWrite: true,
+                    depthTest: true
+                })
+            );
+            group.add(outlineMesh);
+
+            return group;
+        }
+
+        // Create group to hold all circles
+        const circleGroup = new THREE.Group();
+        scene.add(circleGroup);
+        
+        // Create circles at positions along each axis with specific colors
+        const circleConfigs = [
+            { pos: [-1, 0, 0], outline: 0xFF0000, fill: 0x400000 },  // -X
+            { pos: [1, 0, 0], outline: 0xFF0000, fill: 0xFF0000 },   // +X
+            { pos: [0, -1, 0], outline: 0x00FF00, fill: 0x004000 },  // -Y
+            { pos: [0, 1, 0], outline: 0x00FF00, fill: 0x00FF00 },   // +Y
+            { pos: [0, 0, -1], outline: 0x0000FF, fill: 0x000040 },  // -Z
+            { pos: [0, 0, 1], outline: 0x0000FF, fill: 0x0000FF }    // +Z
+        ];
+        
+        const circles = circleConfigs.map(config => {
+            const circle = createCircleWithOutline(0.25, config.outline, config.fill);
+            circle.position.set(config.pos[0], config.pos[1], config.pos[2]);
+            circleGroup.add(circle);
+            return circle;
+        });
+
+        // Add lights
+        const light = new THREE.DirectionalLight(0xffffff, 0.5);
+        light.position.set(0, 0, 5);
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0x808080));
+
+        // Set camera position
+        camera.position.z = 5;
+
+        // Add mouse interaction
+        let mouseDown = false;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousedown', (e) => {
+            mouseDown = true;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        document.addEventListener('mouseup', () => {
+            mouseDown = false;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (mouseDown) {
+                const deltaX = e.clientX - mouseX;
+                const deltaY = e.clientY - mouseY;
+                
+                circleGroup.rotation.y += deltaX * 0.01;
+                circleGroup.rotation.x += deltaY * 0.01;
+                
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(2);
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Make circles always face camera properly (billboard effect)
+            circles.forEach(circle => {
+                // Get direction from circle to camera
+                const lookAtPos = new THREE.Vector3();
+                camera.getWorldPosition(lookAtPos);
+                lookAtPos.sub(circle.getWorldPosition(new THREE.Vector3()));
+                
+                // Create up vector perpendicular to camera direction
+                const up = new THREE.Vector3(0, 1, 0);
+                
+                // Make circle face camera while maintaining perfect circular shape
+                circle.up.copy(up);
+                circle.lookAt(lookAtPos.add(circle.getWorldPosition(new THREE.Vector3())));
+            });
+            
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>

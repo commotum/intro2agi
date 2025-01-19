@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Three.js Cube</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <script>
+        // Set up scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const aspectRatio = window.innerWidth / window.innerHeight;
+        const viewSize = 5;
+        const camera = new THREE.OrthographicCamera(
+            -viewSize * aspectRatio,
+            viewSize * aspectRatio,
+            viewSize,
+            -viewSize,
+            0.1,
+            1000
+        );
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create cube
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // Add lighting
+        const light = new THREE.PointLight(0xffffff, 1, 100);
+        light.position.set(0, 2, 10);
+        scene.add(light);
+        
+        // Add ambient light
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        // Position camera
+        camera.position.z = 5;
+
+        // Variables for camera rotation
+        let isDragging = false;
+        let previousMousePosition = {
+            x: 0,
+            y: 0
+        };
+        let cameraAngleX = 0;
+        let cameraAngleY = 0;
+        const cameraRadius = 7;
+
+        // Add mouse event listeners
+        document.addEventListener('mousedown', onMouseDown);
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+
+        function onMouseDown(event) {
+            isDragging = true;
+            previousMousePosition = {
+                x: event.clientX,
+                y: event.clientY
+            };
+        }
+
+        function onMouseMove(event) {
+            if (!isDragging) return;
+
+            const deltaMove = {
+                x: event.clientX - previousMousePosition.x,
+                y: event.clientY - previousMousePosition.y
+            };
+
+            // Update camera angles without limits
+            cameraAngleY += deltaMove.x * 0.01;
+            cameraAngleX += deltaMove.y * 0.01;
+
+            // Calculate new camera position
+            const x = cameraRadius * Math.sin(cameraAngleY) * Math.cos(cameraAngleX);
+            const y = cameraRadius * Math.sin(cameraAngleX);
+            const z = cameraRadius * Math.cos(cameraAngleY) * Math.cos(cameraAngleX);
+
+            camera.position.set(x, y, z);
+            camera.lookAt(0, 0, 0);
+
+            previousMousePosition = {
+                x: event.clientX,
+                y: event.clientY
+            };
+        }
+
+        function onMouseUp(event) {
+            isDragging = false;
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+            const aspectRatio = window.innerWidth / window.innerHeight;
+            const viewSize = 5;
+            camera.left = -viewSize * aspectRatio;
+            camera.right = viewSize * aspectRatio;
+            camera.top = viewSize;
+            camera.bottom = -viewSize;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // No automatic rotation - cube only moves when dragged
+            
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

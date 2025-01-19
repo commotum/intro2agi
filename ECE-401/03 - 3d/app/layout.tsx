@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'P5.js Demo',
-  description: 'A demonstration of P5.js with Next.js',
+  title: 'intro2agi',
+  description: 'Using p5.js to learn about AI',
 }
 
 export default function RootLayout({
