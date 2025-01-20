@@ -68,49 +68,6 @@
 - [shearY()](https://p5js.org/reference/#/p5/shearY): Shears the y-axis so that shapes appear skewed.
 - [translate()](https://p5js.org/reference/#/p5/translate): Translates the coordinate system.
 
-## 3D
-
-### Camera:
-- [camera()](https://p5js.org/reference/#/p5/camera): Sets the position and orientation of the current camera in a 3D sketch.
-- [createCamera()](https://p5js.org/reference/#/p5/createCamera): Creates a new p5.Camera object and sets it as the current (active) camera.
-- [frustum()](https://p5js.org/reference/#/p5/frustum): Sets the frustum of the current camera in a 3D sketch.
-- [linePerspective()](https://p5js.org/reference/#/p5/linePerspective): Enables or disables perspective for lines in 3D sketches.
-- [ortho()](https://p5js.org/reference/#/p5/ortho): Sets an orthographic projection for the current camera in a 3D sketch.
-- [perspective()](https://p5js.org/reference/#/p5/perspective): Sets a perspective projection for the current camera in a 3D sketch.
-- [setCamera()](https://p5js.org/reference/#/p5/setCamera): Sets the current (active) camera of a 3D sketch.
-
-### Lights:
-- [ambientLight()](https://p5js.org/reference/#/p5/ambientLight): Creates a light that shines from all directions.
-- [directionalLight()](https://p5js.org/reference/#/p5/directionalLight): Creates a light that shines in one direction.
-- [imageLight()](https://p5js.org/reference/#/p5/imageLight): Creates an ambient light from an image.
-- [lightFalloff()](https://p5js.org/reference/#/p5/lightFalloff): Sets the falloff rate for pointLight() and spotLight().
-- [lights()](https://p5js.org/reference/#/p5/lights): Places an ambient and directional light in the scene.
-- [noLights()](https://p5js.org/reference/#/p5/noLights): Removes all lights from the sketch.
-- [panorama()](https://p5js.org/reference/#/p5/panorama): Creates an immersive 3D background.
-- [pointLight()](https://p5js.org/reference/#/p5/pointLight): Creates a light that shines from a point in all directions.
-- [specularColor()](https://p5js.org/reference/#/p5/specularColor): Sets the specular color for lights.
-- [spotLight()](https://p5js.org/reference/#/p5/spotLight): Creates a light that shines from a point in one direction.
-
-### Material:
-- [ambientMaterial()](https://p5js.org/reference/#/p5/ambientMaterial): Sets the ambient color of shapes' surface material.
-- [baseColorShader()](https://p5js.org/reference/#/p5/baseColorShader): Gets the shader used when no lights or materials are applied.
-- [baseMaterialShader()](https://p5js.org/reference/#/p5/baseMaterialShader): Gets the default shader used with lights, materials, and textures.
-- [baseNormalShader()](https://p5js.org/reference/#/p5/baseNormalShader): Gets the shader used by normalMaterial().
-- [baseStrokeShader()](https://p5js.org/reference/#/p5/baseStrokeShader): Gets the shader used when drawing the strokes of shapes.
-- [createFilterShader()](https://p5js.org/reference/#/p5/createFilterShader): Creates a p5.Shader object to be used with the filter() function.
-- [createShader()](https://p5js.org/reference/#/p5/createShader): Creates a new p5.Shader object.
-- [emissiveMaterial()](https://p5js.org/reference/#/p5/emissiveMaterial): Sets the emissive color of shapes' surface material.
-- [loadShader()](https://p5js.org/reference/#/p5/loadShader): Loads vertex and fragment shaders to create a p5.Shader object.
-- [metalness()](https://p5js.org/reference/#/p5/metalness): Sets the amount of "metalness" of a specularMaterial().
-- [normalMaterial()](https://p5js.org/reference/#/p5/normalMaterial): Sets the current material as a normal material.
-- [resetShader()](https://p5js.org/reference/#/p5/resetShader): Restores the default shaders.
-- [shader()](https://p5js.org/reference/#/p5/shader): Sets the p5.Shader object to apply while drawing.
-- [shininess()](https://p5js.org/reference/#/p5/shininess): Sets the amount of gloss ("shininess") of a specularMaterial().
-- [specularMaterial()](https://p5js.org/reference/#/p5/specularMaterial): Sets the specular color of shapes' surface material.
-- [texture()](https://p5js.org/reference/#/p5/texture): Sets the texture that will be used on shapes.
-- [textureMode()](https://p5js.org/reference/#/p5/textureMode): Changes the coordinate system used for textures when they're applied to custom shapes.
-- [textureWrap()](https://p5js.org/reference/#/p5/textureWrap): Changes the way textures behave when a shape's uv coordinates go beyond the texture.
-
 ## Math
 
 ### Calculation:
@@ -191,4 +148,45 @@
 - [split()](https://p5js.org/reference/#/p5/split): Splits a string into an array of substrings.
 - [trim()](https://p5js.org/reference/#/p5/trim): Removes whitespace from a string.
 
----
+## 3D
+
+### Camera:
+- [camera()](https://p5js.org/reference/#/p5/camera): Sets the position and orientation of the current camera in a 3D sketch.
+- [createCamera()](https://p5js.org/reference/#/p5/createCamera): Creates a new p5.Camera object and sets it as the current (active) camera.
+- [frustum()](https://p5js.org/reference/#/p5/frustum): Sets the frustum of the current camera in a 3D sketch.
+- [linePerspective()](https://p5js.org/reference/#/p5/linePerspective): Enables or disables perspective for lines in 3D sketches.
+- [ortho()](https://p5js.org/reference/#/p5/ortho): Sets an orthographic projection for the current camera in a 3D sketch.
+- [perspective()](https://p5js.org/reference/#/p5/perspective): Sets a perspective projection for the current camera in a 3D sketch.
+- [setCamera()](https://p5js.org/reference/#/p5/setCamera): Sets the current (active) camera of a 3D sketch.
+
+### Lights:
+- [ambientLight()](https://p5js.org/reference/#/p5/ambientLight): Creates a light that shines from all directions.
+- [directionalLight()](https://p5js.org/reference/#/p5/directionalLight): Creates a light that shines in one direction.
+- [imageLight()](https://p5js.org/reference/#/p5/imageLight): Creates an ambient light from an image.
+- [lightFalloff()](https://p5js.org/reference/#/p5/lightFalloff): Sets the falloff rate for pointLight() and spotLight().
+- [lights()](https://p5js.org/reference/#/p5/lights): Places an ambient and directional light in the scene.
+- [noLights()](https://p5js.org/reference/#/p5/noLights): Removes all lights from the sketch.
+- [panorama()](https://p5js.org/reference/#/p5/panorama): Creates an immersive 3D background.
+- [pointLight()](https://p5js.org/reference/#/p5/pointLight): Creates a light that shines from a point in all directions.
+- [specularColor()](https://p5js.org/reference/#/p5/specularColor): Sets the specular color for lights.
+- [spotLight()](https://p5js.org/reference/#/p5/spotLight): Creates a light that shines from a point in one direction.
+
+### Material:
+- [ambientMaterial()](https://p5js.org/reference/#/p5/ambientMaterial): Sets the ambient color of shapes' surface material.
+- [baseColorShader()](https://p5js.org/reference/#/p5/baseColorShader): Gets the shader used when no lights or materials are applied.
+- [baseMaterialShader()](https://p5js.org/reference/#/p5/baseMaterialShader): Gets the default shader used with lights, materials, and textures.
+- [baseNormalShader()](https://p5js.org/reference/#/p5/baseNormalShader): Gets the shader used by normalMaterial().
+- [baseStrokeShader()](https://p5js.org/reference/#/p5/baseStrokeShader): Gets the shader used when drawing the strokes of shapes.
+- [createFilterShader()](https://p5js.org/reference/#/p5/createFilterShader): Creates a p5.Shader object to be used with the filter() function.
+- [createShader()](https://p5js.org/reference/#/p5/createShader): Creates a new p5.Shader object.
+- [emissiveMaterial()](https://p5js.org/reference/#/p5/emissiveMaterial): Sets the emissive color of shapes' surface material.
+- [loadShader()](https://p5js.org/reference/#/p5/loadShader): Loads vertex and fragment shaders to create a p5.Shader object.
+- [metalness()](https://p5js.org/reference/#/p5/metalness): Sets the amount of "metalness" of a specularMaterial().
+- [normalMaterial()](https://p5js.org/reference/#/p5/normalMaterial): Sets the current material as a normal material.
+- [resetShader()](https://p5js.org/reference/#/p5/resetShader): Restores the default shaders.
+- [shader()](https://p5js.org/reference/#/p5/shader): Sets the p5.Shader object to apply while drawing.
+- [shininess()](https://p5js.org/reference/#/p5/shininess): Sets the amount of gloss ("shininess") of a specularMaterial().
+- [specularMaterial()](https://p5js.org/reference/#/p5/specularMaterial): Sets the specular color of shapes' surface material.
+- [texture()](https://p5js.org/reference/#/p5/texture): Sets the texture that will be used on shapes.
+- [textureMode()](https://p5js.org/reference/#/p5/textureMode): Changes the coordinate system used for textures when they're applied to custom shapes.
+- [textureWrap()](https://p5js.org/reference/#/p5/textureWrap): Changes the way textures behave when a shape's uv coordinates go beyond the texture.
