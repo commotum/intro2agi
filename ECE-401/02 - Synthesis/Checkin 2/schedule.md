@@ -64,7 +64,7 @@
 ### Introduction to AGI: Neural Networks, Transformers, and Multimodal Systems
 
 #### Week 1 (5h39)
-[ ] [The Spelled-Out Intro to Neural Networks and Backpropagation: Building Micrograd](https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=1)
+- [ ] [The Spelled-Out Intro to Neural Networks and Backpropagation: Building Micrograd](https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=1)
   **Runtime:** 02:25:52
 - **The Spelled-Out Intro to Language Modeling: Building Makemore**  
   [Runtime: 01:57:45](https://www.youtube.com/watch?v=PaCmpygFfXo&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=2)
