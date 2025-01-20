@@ -66,10 +66,10 @@
 #### Week 1 (5h39)
 - [ ] [The Spelled-Out Intro to Neural Networks and Backpropagation: Building Micrograd](https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=1)  
   **Runtime:** 02:25:52
-- **The Spelled-Out Intro to Language Modeling: Building Makemore**  
-  [Runtime: 01:57:45](https://www.youtube.com/watch?v=PaCmpygFfXo&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=2)
-- **Building Makemore Part 2: MLP**  
-  [Runtime: 01:15:40](https://www.youtube.com/watch?v=TCH_1BHY58I&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=3)
+- [ ] [The Spelled-Out Intro to Language Modeling: Building Makemore](https://www.youtube.com/watch?v=PaCmpygFfXo&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=2)        
+  **Runtime:** 01:57:45
+- [ ] [Building Makemore Part 2: MLP](https://www.youtube.com/watch?v=TCH_1BHY58I&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=3)  
+  **Runtime:** 01:15:40
 
 #### Week 2 (5h48)
 - **Building Makemore Part 3: Activations & Gradients, BatchNorm**  
