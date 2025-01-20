@@ -1,10 +1,10 @@
 # Visual Primitives
 [Shape](#shape)  
 [Color](#color)  
-[Image](#image)  
 [Transform](#transform)  
 [Math](#math)  
-[Data](#data)  
+[Data](#data)   
+[Image](#image)  
 [3D](#3d)  
 
 ## Shape
@@ -57,11 +57,6 @@
 - [noFill()](https://p5js.org/reference/p5/noFill): Disables setting the fill color for shapes.
 - [noStroke()](https://p5js.org/reference/p5/noStroke): Disables drawing points, lines, and the outlines of shapes.
 - [stroke()](https://p5js.org/reference/p5/stroke): Sets the color used to draw points, lines, and the outlines of shapes.
-
-## Image
-- [createImage()](https://p5js.org/reference/p5/createImage): Creates a new p5.Image object.
-- [saveCanvas()](https://p5js.org/reference/p5/saveCanvas): Saves the current canvas as an image.
-- [saveFrames()](https://p5js.org/reference/p5/saveFrames): Captures a sequence of frames from the canvas that can be saved as images.
 
 ## Transform
 - [applyMatrix()](https://p5js.org/reference/p5/applyMatrix): Applies a transformation matrix to the coordinate system.
@@ -154,6 +149,11 @@
 - [nfc()](https://p5js.org/reference/p5/nfc): Formats a number with commas for thousands.
 - [split()](https://p5js.org/reference/p5/split): Splits a string into an array of substrings.
 - [trim()](https://p5js.org/reference/p5/trim): Removes whitespace from a string.
+
+## Image
+- [createImage()](https://p5js.org/reference/p5/createImage): Creates a new p5.Image object.
+- [saveCanvas()](https://p5js.org/reference/p5/saveCanvas): Saves the current canvas as an image.
+- [saveFrames()](https://p5js.org/reference/p5/saveFrames): Captures a sequence of frames from the canvas that can be saved as images.
 
 ## 3D
 
