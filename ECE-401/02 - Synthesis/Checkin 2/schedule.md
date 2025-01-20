@@ -1,4 +1,4 @@
-# Introduction to AGI <br><sup>Neural Networks, Transformers, and Multimodal Systems</sup>
+# Introduction to AGI <br><br><sup>Neural Networks, Transformers, and Multimodal Systems</sup>
 
 
 ### Week 1 (Monday 01/06 - Saturday 01/11)
