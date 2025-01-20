@@ -1,5 +1,11 @@
 # Visual Primitives
-[Shape](#shape)  |  [Color](#color)  |  [Image](#image)  |  [Transform](#transform)  |  [Math](#math)  |  [Data](#data)  |  [3D](#3d)
+[Shape](#shape)
+[Color](#color)
+[Image](#image)
+[Transform](#transform)
+[Math](#math)
+[Data](#data)
+[3D](#3d)
 
 ## Shape
 
