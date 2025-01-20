@@ -9,7 +9,8 @@
 - [X] [No Priors Ep. 80 | With Andrej Karpathy from OpenAI and Tesla](https://www.youtube.com/watch?v=hM_h0UA7upI) (00:44:16) 
 - [X] [Explore ARC-AGI Data + Play](https://www.youtube.com/watch?v=LLxiPrIxdqs&t=2s) (00:11:02) 
 - [X] [Francois Chollet - $1,000,000 Prize to Crack Path to AGI](https://www.youtube.com/watch?v=UakqL6Pj9xo) (01:34:39)
-- [X] 10h10 Total
+- [X] 10h10 Total  
+
 - [X] Read [The Bitter Lesson](../The%20Bitter%20Lesson.md)
 
 ### Week 2 (Sunday 01/12 - Saturday 01/18)
