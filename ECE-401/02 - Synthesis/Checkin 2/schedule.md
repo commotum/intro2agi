@@ -5,8 +5,8 @@
 - [ ] Task 2
 
 ### Week 2 (Sunday 01/12 - Saturday 01/18)
-- [x] Make [schedule](schedule.md)
-- [x] List [primitives](primitives.md)
+- [X] Make [schedule](schedule.md)
+- [X] List [primitives](primitives.md)
 
 ### Week 3 (Sunday 01/19 - Saturday 01/25)
 - [ ] [The Spelled-Out Intro to Neural Networks and Backpropagation: Building Micrograd](https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=1) (02:25:52)
