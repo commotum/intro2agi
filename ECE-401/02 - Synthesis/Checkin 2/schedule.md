@@ -1,6 +1,5 @@
 # Introduction to AGI <br><sup>Neural Networks, Transformers, and Multimodal Systems</sup>
 
-
 ### Week 1 (Monday 01/06 - Saturday 01/11)
 - [X] [François Chollet on OpenAI o-models and ARC](https://www.youtube.com/watch?v=w9WE1aOPjHc) (01:24:29)
 - [X] [It's Not About Scale, It's About Abstraction](https://www.youtube.com/watch?v=s7_NlkBwdj8&t=406s) (00:46:21)
@@ -11,7 +10,7 @@
 - [X] [Explore ARC-AGI Data + Play](https://www.youtube.com/watch?v=LLxiPrIxdqs&t=2s) (00:11:02) 
 - [X] [Francois Chollet - $1,000,000 Prize to Crack Path to AGI](https://www.youtube.com/watch?v=UakqL6Pj9xo) (01:34:39)
 - [X] 10h10 Total
-- [ ] [The Bitter Lesson](../The%20Bitter%20Lesson.md)
+- [X] Read [The Bitter Lesson](../The%20Bitter%20Lesson.md)
 
 ### Week 2 (Sunday 01/12 - Saturday 01/18)
 - [X] Make [The Schedule](schedule.md) (This is the schedule)
