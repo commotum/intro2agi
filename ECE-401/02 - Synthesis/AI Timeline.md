@@ -307,3 +307,72 @@ prolog was used in some early expert systems, such as:
 
 prolog essentially served as a **ready-made toolkit** for building expert systems, letting developers focus on domain-specific logic while leveraging its built-in reasoning and inference capabilities. this significantly lowered the barrier to creating intelligent systems in an era where ai was primarily rule-based.
 
+
+
+
+
+## IBM Deep Blue (1997)
+*Expert Systems + Brute Force Search + Specialized Hardware*
+*No Neural Networks*
+
+### Components
+
+#### Opening Book
+*Database of pre-analyzed opening moves*
+
+Contained thousands of historically strong opening sequences from expert games. Allowed Deep Blue to play optimally without computation during the opening phase.
+
+#### Endgame Tablebase
+*Database of pre-computed closing sequences*
+
+Provided exact solutions for positions with a small number of pieces remaining. Allowed Deep Blue to play flawlessly in late-game scenarios.
+
+#### Evaluation Function
+*Calculates player advantage from heuristic board state*
+
+Inputs board state (value of each piece, King safety, pawn structure, control of center, etc.) and outputs score. Manually tuned by human chess experts and grandmasters.
+
+#### Search Engine
+*Brute-force search with alpha-beta pruning*
+
+Exhaustive search explores a decision tree, 6-8 moves deep, to find the best sequence. If at any point, a branch cannot improve the current best outcome, that branch is pruned.
+
+#### Specialized Hardware
+*Custom-built hardware for parallel computation*
+
+Used 480 custom "chess chips", to evaluate ~200 million positions per second. No GPUs. Nvidia was founded in 1993, released their first GPU in 1997, and made GPUs programmable with the release of CUDA in 2007.
+
+--------------------------------------------------
+
+## DeepMind AlphaGo (2016)
+*Deep Learning + Monte Carlo Tree Search + Policy Networks*
+
+### Components
+
+#### Policy Networks
+*Neural networks trained to predict expert moves*
+
+Two networks: one fast network for initial move suggestions and one deep network for detailed evaluation. Trained on 30 million positions from expert games to learn strong move patterns.
+
+#### Value Network 
+*Evaluates board positions without looking ahead*
+
+Deep neural network trained through self-play to estimate win probability from any position. Provides fast evaluation without expensive search.
+
+#### Monte Carlo Tree Search
+*Guided exploration of possible move sequences*
+
+Uses policy networks to suggest promising moves, then simulates many games from those positions. Combines fast pattern recognition with targeted search.
+
+#### Training Pipeline
+*Multi-stage training process*
+
+1. Supervised learning on human expert games
+2. Reinforcement learning through self-play
+3. Distributed training across thousands of TPUs
+4. Fine-tuning against previous versions
+
+#### Hardware Infrastructure
+*Google's Cloud TPU Clusters*
+
+Leveraged Google's tensor processing units (TPUs) for massive parallel neural network training and inference. Used distributed computing to play millions of games against itself during training.
