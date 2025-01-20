@@ -2,7 +2,16 @@
 ## Neural Networks, Transformers, and Multimodal Systems
 
 ### Week 1 (Monday 01/06 - Saturday 01/11)
-- [ ] Task 2
+- [X] [François Chollet on OpenAI o-models and ARC](https://www.youtube.com/watch?v=w9WE1aOPjHc) (01:24:29)
+- [X] [It's Not About Scale, It's About Abstraction](https://www.youtube.com/watch?v=s7_NlkBwdj8&t=406s) (00:46:21)
+- [X] [Pattern Recognition vs True Intelligence - Francois Chollet](https://www.youtube.com/watch?v=JTU8Ha4Jyfc) (02:42:54)
+- [X] [François Chollet: Measures of Intelligence | Lex Fridman Podcast #120](https://www.youtube.com/watch?v=PUAdj3w3wO4) (02:34:20)
+- [X] [The moment we stopped understanding AI (AlexNet)](https://www.youtube.com/watch?v=UZDiGooFs54) (00:17:37) 
+- [X] [No Priors Ep. 80 | With Andrej Karpathy from OpenAI and Tesla](https://www.youtube.com/watch?v=hM_h0UA7upI) (00:44:16) 
+- [X] [Explore ARC-AGI Data + Play](https://www.youtube.com/watch?v=LLxiPrIxdqs&t=2s) (00:11:02) 
+- [X] [Francois Chollet - $1,000,000 Prize to Crack Path to AGI](https://www.youtube.com/watch?v=UakqL6Pj9xo) (01:34:39)
+- [X] 10h10 Total
+- [ ] [The Bitter Lesson](../The%20Bitter%20Lesson.md)
 
 ### Week 2 (Sunday 01/12 - Saturday 01/18)
 - [X] Make [The Schedule](schedule.md) (This is the schedule)
@@ -10,7 +19,7 @@
 - [ ] Outline [The Approaches](approaches.md)
 
 ### Week 3 (Sunday 01/19 - Saturday 01/25)
-- [ ] [The Spelled-Out Intro to Neural Networks and Backpropagation: Building Micrograd](https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=1) (02:25:52)
+- [X] [The Spelled-Out Intro to Neural Networks and Backpropagation: Building Micrograd](https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=1) (02:25:52)
 - [ ] [The Spelled-Out Intro to Language Modeling: Building Makemore](https://www.youtube.com/watch?v=PaCmpygFfXo&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=2) (01:57:45)
 - [ ] [Building Makemore Part 2: MLP](https://www.youtube.com/watch?v=TCH_1BHY58I&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=3) (01:15:40)
 - [ ] 5h39 Total
