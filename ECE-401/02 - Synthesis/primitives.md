@@ -51,235 +51,144 @@
 - [noStroke()](https://p5js.org/reference/#/p5/noStroke): Disables drawing points, lines, and the outlines of shapes.
 - [stroke()](https://p5js.org/reference/#/p5/stroke): Sets the color used to draw points, lines, and the outlines of shapes.
 
+## Image
+- [createImage()](https://p5js.org/reference/#/p5/createImage): Creates a new p5.Image object.
+- [saveCanvas()](https://p5js.org/reference/#/p5/saveCanvas): Saves the current canvas as an image.
+- [saveFrames()](https://p5js.org/reference/#/p5/saveFrames): Captures a sequence of frames from the canvas that can be saved as images.
 
-Image
-        createImage(): Creates a new p5.Image object.
-        saveCanvas(): Saves the current canvas as an image.
-        saveFrames(): Captures a sequence of frames from the canvas that can be saved as images.
+## Transform
+- [applyMatrix()](https://p5js.org/reference/#/p5/applyMatrix): Applies a transformation matrix to the coordinate system.
+- [resetMatrix()](https://p5js.org/reference/#/p5/resetMatrix): Clears all transformations applied to the coordinate system.
+- [rotate()](https://p5js.org/reference/#/p5/rotate): Rotates the coordinate system.
+- [rotateX()](https://p5js.org/reference/#/p5/rotateX): Rotates the coordinate system about the x-axis in WebGL mode.
+- [rotateY()](https://p5js.org/reference/#/p5/rotateY): Rotates the coordinate system about the y-axis in WebGL mode.
+- [rotateZ()](https://p5js.org/reference/#/p5/rotateZ): Rotates the coordinate system about the z-axis in WebGL mode.
+- [scale()](https://p5js.org/reference/#/p5/scale): Scales the coordinate system.
+- [shearX()](https://p5js.org/reference/#/p5/shearX): Shears the x-axis so that shapes appear skewed.
+- [shearY()](https://p5js.org/reference/#/p5/shearY): Shears the y-axis so that shapes appear skewed.
+- [translate()](https://p5js.org/reference/#/p5/translate): Translates the coordinate system.
 
-Transform
-        applyMatrix(): Applies a transformation matrix to the coordinate system.
-        resetMatrix(): Clears all transformations applied to the coordinate system.
-        rotate(): Rotates the coordinate system.
-        rotateX(): Rotates the coordinate system about the x-axis in WebGL mode.
-        rotateY(): Rotates the coordinate system about the y-axis in WebGL mode.
-        rotateZ(): Rotates the coordinate system about the z-axis in WebGL mode.
-        scale(): Scales the coordinate system.
-        shearX(): Shears the x-axis so that shapes appear skewed.
-        shearY(): Shears the y-axis so that shapes appear skewed.
-        translate(): Translates the coordinate system.
+## 3D
 
-3D
-    Camera:
-        camera(): Sets the position and orientation of the current camera in a 3D sketch.
-        createCamera(): Creates a new p5.Camera object and sets it as the current (active) camera.
-        frustum(): Sets the frustum of the current camera in a 3D sketch.
-        linePerspective(): Enables or disables perspective for lines in 3D sketches.
-        ortho(): Sets an orthographic projection for the current camera in a 3D sketch.
-        perspective(): Sets a perspective projection for the current camera in a 3D sketch.
-        setCamera(): Sets the current (active) camera of a 3D sketch.
-    Lights:
-        ambientLight(): Creates a light that shines from all directions.
-        directionalLight(): Creates a light that shines in one direction.
-        imageLight(): Creates an ambient light from an image.
-        lightFalloff(): Sets the falloff rate for pointLight() and spotLight().
-        lights(): Places an ambient and directional light in the scene.
-        noLights(): Removes all lights from the sketch.
-        panorama(): Creates an immersive 3D background.
-        pointLight(): Creates a light that shines from a point in all directions.
-        specularColor(): Sets the specular color for lights.
-        spotLight(): Creates a light that shines from a point in one direction.
-    Material:
-        ambientMaterial(): Sets the ambient color of shapes' surface material.
-        baseColorShader(): Get the shader used when no lights or materials are applied.
-        baseMaterialShader(): Get the default shader used with lights, materials, and textures.
-        baseNormalShader(): Get the shader used by normalMaterial().
-        baseStrokeShader(): Get the shader used when drawing the strokes of shapes.
-        createFilterShader(): Creates a p5.Shader object to be used with the filter() function.
-        createShader(): Creates a new p5.Shader object.
-        emissiveMaterial(): Sets the emissive color of shapes' surface material.
-        loadShader(): Loads vertex and fragment shaders to create a p5.Shader object.
-        metalness(): Sets the amount of "metalness" of a specularMaterial().
-        normalMaterial(): Sets the current material as a normal material.
-        resetShader(): Restores the default shaders.
-        shader(): Sets the p5.Shader object to apply while drawing.
-        shininess(): Sets the amount of gloss ("shininess") of a specularMaterial().
-        specularMaterial(): Sets the specular color of shapes' surface material.
-        texture(): Sets the texture that will be used on shapes.
-        textureMode(): Changes the coordinate system used for textures when they're applied to custom shapes.
-        textureWrap(): Changes the way textures behave when a shape's uv coordinates go beyond the texture.
-    p5.Camera:
-        camera(): Sets the position and orientation of the camera.
-        centerX: The x-coordinate of the place where the camera looks.
-        centerY: The y-coordinate of the place where the camera looks.
-        centerZ: The y-coordinate of the place where the camera looks.
-        eyeX: The camera's x-coordinate.
-        eyeY: The camera's y-coordinate.
-        eyeZ: The camera's z-coordinate.
-        frustum(): Sets the camera's frustum.
-        lookAt(): Points the camera at a location.
-        move(): Moves the camera along its "local" axes without changing its orientation.
-        ortho(): Sets an orthographic projection for the camera.
-        pan(): Rotates the camera left and right.
-        perspective(): Sets a perspective projection for the camera.
-        roll(): Rotates the camera in a clockwise/counter-clockwise direction.
-        set(): Sets the camera's position, orientation, and projection by copying another camera.
-        setPosition(): Sets the camera's position in "world" space without changing its orientation.
-        slerp(): Sets the camera's position and orientation to values that are in-between those of two other cameras.
-        tilt(): Rotates the camera up and down.
-        upX: The x-component of the camera's "up" vector.
-        upY: The y-component of the camera's "up" vector.
-        upZ: The z-component of the camera's "up" vector.
-    p5.Framebuffer:
-        autoSized(): Toggles the framebuffer's autosizing mode or returns the current mode.
-        begin(): Begins drawing shapes to the framebuffer.
-        color: An object that stores the framebuffer's color data.
-        createCamera(): Creates a new p5.Camera object to use with the framebuffer.
-        depth: An object that stores the framebuffer's dpeth data.
-        draw(): Draws to the framebuffer by calling a function that contains drawing instructions.
-        end(): Stops drawing shapes to the framebuffer.
-        get(): Gets a pixel or a region of pixels from the framebuffer.
-        loadPixels(): Loads the current value of each pixel in the framebuffer into its pixels array.
-        pixelDensity(): Sets the framebuffer's pixel density or returns its current density.
-        pixels: An array containing the color of each pixel in the framebuffer.
-        remove(): Deletes the framebuffer from GPU memory.
-        resize(): Resizes the framebuffer to a given width and height.
-        updatePixels(): Updates the framebuffer with the RGBA values in the pixels array.
-Math
-    Calculation:
-        abs(): Calculates the absolute value of a number.
-        ceil(): Calculates the closest integer value that is greater than or equal to a number.
-        constrain(): Constrains a number between a minimum and maximum value.
-        dist(): Calculates the distance between two points.
-        exp(): Calculates the value of Euler's number e (2.71828...) raised to the power of a number.
-        floor(): Calculates the closest integer value that is less than or equal to the value of a number.
-        fract(): Calculates the fractional part of a number.
-        lerp(): Calculates a number between two numbers at a specific increment.
-        log(): Calculates the natural logarithm (the base-e logarithm) of a number.
-        mag(): Calculates the magnitude, or length, of a vector.
-        map(): Re-maps a number from one range to another.
-        max(): Returns the largest value in a sequence of numbers.
-        min(): Returns the smallest value in a sequence of numbers.
-        norm(): Maps a number from one range to a value between 0 and 1.
-        pow(): Calculates exponential expressions such as 23.
-        round(): Calculates the integer closest to a number.
-        sq(): Calculates the square of a number.
-        sqrt(): Calculates the square root of a number.
-    Noise:
-        noise(): Returns random numbers that can be tuned to feel organic.
-        noiseDetail(): Adjusts the character of the noise produced by the noise() function.
-        noiseSeed(): Sets the seed value for the noise() function.
-    Random:
-        random(): Returns a random number or a random element from an array.
-        randomGaussian(): Returns a random number fitting a Gaussian, or normal, distribution.
-        randomSeed(): Sets the seed value for the random() and randomGaussian() functions.
-    Trigonometry:
-        acos(): Calculates the arc cosine of a number.
-        angleMode(): Changes the unit system used to measure angles.
-        asin(): Calculates the arc sine of a number.
-        atan(): Calculates the arc tangent of a number.
-        atan2(): Calculates the angle formed by a point, the origin, and the positive x-axis.
-        cos(): Calculates the cosine of an angle.
-        degrees(): Converts an angle measured in radians to its value in degrees.
-        radians(): Converts an angle measured in degrees to its value in radians.
-        sin(): Calculates the sine of an angle.
-        tan(): Calculates the tangent of an angle.
-    Vector:
-        createVector(): Creates a new p5.Vector object.
-        p5.Vector:
-            add(): Adds to a vector's x, y, and z components.
-            angleBetween(): Calculates the angle between two vectors.
-            array(): Returns the vector's components as an array of numbers.
-            clampToZero(): Replaces the components of a p5.Vector that are very close to zero with zero.
-            copy(): Returns a copy of the p5.Vector object.
-            cross(): Calculates the cross product of two vectors.
-            dist(): Calculates the distance between two points represented by vectors.
-            div(): Divides a vector's x, y, and z components.
-            dot(): Calculates the dot product of two vectors.
-            equals(): Checks whether all the vector's components are equal to another vector's.
-            fromAngle(): Creates a new 2D vector from an angle.
-            fromAngles(): Creates a new 3D vector from a pair of ISO spherical angles.
-            heading(): Calculates the angle a 2D vector makes with the positive x-axis.
-            lerp(): Calculates new x, y, and z components that are proportionally the same distance between two vectors.
-            limit(): Limits a vector's magnitude to a maximum value.
-            mag(): Calculates the magnitude (length) of the vector.
-            magSq(): Calculates the magnitude (length) of the vector squared.
-            mult(): Multiplies a vector's x, y, and z components.
-            normalize(): Scales the components of a p5.Vector object so that its magnitude is 1.
-            random2D(): Creates a new 2D unit vector with a random heading.
-            random3D(): Creates a new 3D unit vector with a random heading.
-            reflect(): Reflects a vector about a line in 2D or a plane in 3D.
-            rem(): Performs modulo (remainder) division with a vector's x, y, and z components.
-            rotate(): Rotates a 2D vector by an angle without changing its magnitude.
-            set(): Sets the vector's x, y, and z components.
-            setHeading(): Rotates a 2D vector to a specific angle without changing its magnitude.
-            setMag(): Sets a vector's magnitude to a given value.
-            slerp(): Calculates a new heading and magnitude that are between two vectors.
-            sub(): Subtracts from a vector's x, y, and z components.
-            toString(): Returns a string representation of a vector.
-            x: The x component of the vector
-            y: The y component of the vector
-            z: The z component of the vector
+### Camera:
+- [camera()](https://p5js.org/reference/#/p5/camera): Sets the position and orientation of the current camera in a 3D sketch.
+- [createCamera()](https://p5js.org/reference/#/p5/createCamera): Creates a new p5.Camera object and sets it as the current (active) camera.
+- [frustum()](https://p5js.org/reference/#/p5/frustum): Sets the frustum of the current camera in a 3D sketch.
+- [linePerspective()](https://p5js.org/reference/#/p5/linePerspective): Enables or disables perspective for lines in 3D sketches.
+- [ortho()](https://p5js.org/reference/#/p5/ortho): Sets an orthographic projection for the current camera in a 3D sketch.
+- [perspective()](https://p5js.org/reference/#/p5/perspective): Sets a perspective projection for the current camera in a 3D sketch.
+- [setCamera()](https://p5js.org/reference/#/p5/setCamera): Sets the current (active) camera of a 3D sketch.
 
-Data:
-    Array Functions:
-        append(): Adds a value to the end of an array.
-        arrayCopy(): Copies an array (or part of an array) to another array.
-        concat(): Concatenates two arrays, maps to Array.concat().
-        reverse(): Reverses the order of an array, maps to Array.reverse()
-        shorten(): Decreases an array by one element and returns the shortened array, maps to Array.pop().
-        shuffle(): Shuffles the elements of an array.
-        sort(): Sorts an array of numbers from smallest to largest, or puts an array of words in alphabetical order.
-        splice(): Inserts a value or an array of values into an existing array.
-        subset(): Extracts an array of elements from an existing array.
-    Conversion:
-        boolean(): Converts a String or Number to a Boolean.
-        byte(): Converts a Boolean, String, or Number to its byte value.
-        char(): Converts a Number or String to a single-character String.
-        float(): Converts a String to a floating point (decimal) Number.
-        hex(): Converts a Number to a String with its hexadecimal value.
-        int(): Converts a Boolean, String, or decimal Number to an integer.
-        str(): Converts a Boolean or Number to String.
-        unchar(): Converts a single-character String to a Number.
-        unhex(): Converts a String with a hexadecimal value to a Number.
-    Dictionary:
-        createNumberDict(): Creates a new instance of p5.NumberDict using the key-value pair or object you provide.
-        createStringDict(): Creates a new instance of p5.StringDict using the key-value pair or the object you provide.
-        p5.StringDict: A simple Dictionary class for Strings.
-    LocalStorage:
-        clearStorage(): Removes all items in the web browser's local storage.
-        getItem(): Returns a value in the web browser's local storage.
-        removeItem(): Removes an item from the web browser's local storage.
-        storeItem(): Stores a value in the web browser's local storage.
-    String Functions:
-        join(): Combines an array of strings into one string.
-        match(): Applies a regular expression to a string and returns an array with the first match.
-        matchAll(): Applies a regular expression to a string and returns an array of matches.
-        nf(): Converts a Number into a String with a given number of digits.
-        nfc(): Converts a Number into a String with commas to mark units of 1,000.
-        nfp(): Converts a Number into a String with a plus or minus sign.
-        nfs(): Converts a positive Number into a String with an extra space in front.
-        split(): Splits a String into pieces and returns an array containing the pieces.
-        splitTokens(): Splits a String into pieces and returns an array containing the pieces.
-        trim(): Removes whitespace from the start and end of a String without changing the middle.
-    p5.NumberDict:
-        add(): Add the given number to the value currently stored at the given key.
-        div(): Divide the given number with the value currently stored at the given key.
-        maxKey(): Return the highest key currently used in the Dictionary.
-        maxValue(): Return the highest number currently stored in the Dictionary.
-        minKey(): Return the lowest key currently used in the Dictionary.
-        minValue(): Return the lowest number currently stored in the Dictionary.
-        mult(): Multiply the given number with the value currently stored at the given key.
-        sub(): Subtract the given number from the value currently stored at the given key.
-    p5.TypedDict:
-        clear(): Removes all previously stored key-value pairs from the Dictionary.
-        create(): Creates a new key-value pair in the Dictionary.
-        get(): Returns the value stored at the given key.
-        hasKey(): Returns true if the given key exists in the Dictionary, otherwise returns false.
-        print(): Logs the set of items currently stored in the Dictionary to the console.
-        remove(): Removes the key-value pair stored at the given key from the Dictionary.
-        saveJSON(): Converts the Dictionary into a JSON file for local download.
-        saveTable(): Converts the Dictionary into a CSV file for local download.
-        set(): Updates the value associated with the given key in case it already exists in the Dictionary.
-        size(): Returns the number of key-value pairs currently stored in the Dictionary.
+### Lights:
+- [ambientLight()](https://p5js.org/reference/#/p5/ambientLight): Creates a light that shines from all directions.
+- [directionalLight()](https://p5js.org/reference/#/p5/directionalLight): Creates a light that shines in one direction.
+- [imageLight()](https://p5js.org/reference/#/p5/imageLight): Creates an ambient light from an image.
+- [lightFalloff()](https://p5js.org/reference/#/p5/lightFalloff): Sets the falloff rate for pointLight() and spotLight().
+- [lights()](https://p5js.org/reference/#/p5/lights): Places an ambient and directional light in the scene.
+- [noLights()](https://p5js.org/reference/#/p5/noLights): Removes all lights from the sketch.
+- [panorama()](https://p5js.org/reference/#/p5/panorama): Creates an immersive 3D background.
+- [pointLight()](https://p5js.org/reference/#/p5/pointLight): Creates a light that shines from a point in all directions.
+- [specularColor()](https://p5js.org/reference/#/p5/specularColor): Sets the specular color for lights.
+- [spotLight()](https://p5js.org/reference/#/p5/spotLight): Creates a light that shines from a point in one direction.
 
+### Material:
+- [ambientMaterial()](https://p5js.org/reference/#/p5/ambientMaterial): Sets the ambient color of shapes' surface material.
+- [baseColorShader()](https://p5js.org/reference/#/p5/baseColorShader): Gets the shader used when no lights or materials are applied.
+- [baseMaterialShader()](https://p5js.org/reference/#/p5/baseMaterialShader): Gets the default shader used with lights, materials, and textures.
+- [baseNormalShader()](https://p5js.org/reference/#/p5/baseNormalShader): Gets the shader used by normalMaterial().
+- [baseStrokeShader()](https://p5js.org/reference/#/p5/baseStrokeShader): Gets the shader used when drawing the strokes of shapes.
+- [createFilterShader()](https://p5js.org/reference/#/p5/createFilterShader): Creates a p5.Shader object to be used with the filter() function.
+- [createShader()](https://p5js.org/reference/#/p5/createShader): Creates a new p5.Shader object.
+- [emissiveMaterial()](https://p5js.org/reference/#/p5/emissiveMaterial): Sets the emissive color of shapes' surface material.
+- [loadShader()](https://p5js.org/reference/#/p5/loadShader): Loads vertex and fragment shaders to create a p5.Shader object.
+- [metalness()](https://p5js.org/reference/#/p5/metalness): Sets the amount of "metalness" of a specularMaterial().
+- [normalMaterial()](https://p5js.org/reference/#/p5/normalMaterial): Sets the current material as a normal material.
+- [resetShader()](https://p5js.org/reference/#/p5/resetShader): Restores the default shaders.
+- [shader()](https://p5js.org/reference/#/p5/shader): Sets the p5.Shader object to apply while drawing.
+- [shininess()](https://p5js.org/reference/#/p5/shininess): Sets the amount of gloss ("shininess") of a specularMaterial().
+- [specularMaterial()](https://p5js.org/reference/#/p5/specularMaterial): Sets the specular color of shapes' surface material.
+- [texture()](https://p5js.org/reference/#/p5/texture): Sets the texture that will be used on shapes.
+- [textureMode()](https://p5js.org/reference/#/p5/textureMode): Changes the coordinate system used for textures when they're applied to custom shapes.
+- [textureWrap()](https://p5js.org/reference/#/p5/textureWrap): Changes the way textures behave when a shape's uv coordinates go beyond the texture.
+
+## Math
+
+### Calculation:
+- [abs()](https://p5js.org/reference/#/p5/abs): Calculates the absolute value of a number.
+- [ceil()](https://p5js.org/reference/#/p5/ceil): Calculates the closest integer value that is greater than or equal to a number.
+- [constrain()](https://p5js.org/reference/#/p5/constrain): Constrains a number between a minimum and maximum value.
+- [dist()](https://p5js.org/reference/#/p5/dist): Calculates the distance between two points.
+- [exp()](https://p5js.org/reference/#/p5/exp): Calculates the value of Euler's number \(e\) (2.71828...) raised to the power of a number.
+- [floor()](https://p5js.org/reference/#/p5/floor): Calculates the closest integer value that is less than or equal to the value of a number.
+- [fract()](https://p5js.org/reference/#/p5/fract): Calculates the fractional part of a number.
+- [lerp()](https://p5js.org/reference/#/p5/lerp): Calculates a number between two numbers at a specific increment.
+- [log()](https://p5js.org/reference/#/p5/log): Calculates the natural logarithm (base-e logarithm) of a number.
+- [mag()](https://p5js.org/reference/#/p5/mag): Calculates the magnitude (length) of a vector.
+- [map()](https://p5js.org/reference/#/p5/map): Re-maps a number from one range to another.
+- [max()](https://p5js.org/reference/#/p5/max): Returns the largest value in a sequence of numbers.
+- [min()](https://p5js.org/reference/#/p5/min): Returns the smallest value in a sequence of numbers.
+- [norm()](https://p5js.org/reference/#/p5/norm): Maps a number from one range to a value between 0 and 1.
+- [pow()](https://p5js.org/reference/#/p5/pow): Calculates exponential expressions such as \(2^3\).
+- [round()](https://p5js.org/reference/#/p5/round): Calculates the integer closest to a number.
+- [sq()](https://p5js.org/reference/#/p5/sq): Calculates the square of a number.
+- [sqrt()](https://p5js.org/reference/#/p5/sqrt): Calculates the square root of a number.
+
+### Noise:
+- [noise()](https://p5js.org/reference/#/p5/noise): Returns random numbers that can be tuned to feel organic.
+- [noiseDetail()](https://p5js.org/reference/#/p5/noiseDetail): Adjusts the character of the noise produced by the `noise()` function.
+- [noiseSeed()](https://p5js.org/reference/#/p5/noiseSeed): Sets the seed value for the `noise()` function.
+
+### Random:
+- [random()](https://p5js.org/reference/#/p5/random): Returns a random number or a random element from an array.
+- [randomGaussian()](https://p5js.org/reference/#/p5/randomGaussian): Returns a random number fitting a Gaussian (normal) distribution.
+- [randomSeed()](https://p5js.org/reference/#/p5/randomSeed): Sets the seed value for the `random()` and `randomGaussian()` functions.
+
+### Trigonometry:
+- [acos()](https://p5js.org/reference/#/p5/acos): Calculates the arc cosine of a number.
+- [angleMode()](https://p5js.org/reference/#/p5/angleMode): Changes the unit system used to measure angles.
+- [asin()](https://p5js.org/reference/#/p5/asin): Calculates the arc sine of a number.
+- [atan()](https://p5js.org/reference/#/p5/atan): Calculates the arc tangent of a number.
+- [atan2()](https://p5js.org/reference/#/p5/atan2): Calculates the angle formed by a point, the origin, and the positive x-axis.
+- [cos()](https://p5js.org/reference/#/p5/cos): Calculates the cosine of an angle.
+- [degrees()](https://p5js.org/reference/#/p5/degrees): Converts an angle measured in radians to its value in degrees.
+- [radians()](https://p5js.org/reference/#/p5/radians): Converts an angle measured in degrees to its value in radians.
+- [sin()](https://p5js.org/reference/#/p5/sin): Calculates the sine of an angle.
+- [tan()](https://p5js.org/reference/#/p5/tan): Calculates the tangent of an angle.
+
+### Vector:
+- [createVector()](https://p5js.org/reference/#/p5/createVector): Creates a new p5.Vector object.
+
+## Data
+
+### Array Functions:
+- [append()](https://p5js.org/reference/#/p5/append): Adds a value to the end of an array.
+- [arrayCopy()](https://p5js.org/reference/#/p5/arrayCopy): Copies an array (or part of an array) to another array.
+- [concat()](https://p5js.org/reference/#/p5/concat): Concatenates two arrays.
+- [reverse()](https://p5js.org/reference/#/p5/reverse): Reverses the order of an array.
+- [shorten()](https://p5js.org/reference/#/p5/shorten): Decreases an array by one element.
+- [shuffle()](https://p5js.org/reference/#/p5/shuffle): Shuffles the elements of an array.
+- [sort()](https://p5js.org/reference/#/p5/sort): Sorts an array of numbers or words.
+- [splice()](https://p5js.org/reference/#/p5/splice): Inserts a value or an array of values into an existing array.
+- [subset()](https://p5js.org/reference/#/p5/subset): Extracts an array of elements from an existing array.
+
+### Conversion:
+- [boolean()](https://p5js.org/reference/#/p5/boolean): Converts a String or Number to a Boolean.
+- [byte()](https://p5js.org/reference/#/p5/byte): Converts a value to its byte representation.
+- [char()](https://p5js.org/reference/#/p5/char): Converts a number to a single-character string.
+- [float()](https://p5js.org/reference/#/p5/float): Converts a value to a floating-point number.
+- [hex()](https://p5js.org/reference/#/p5/hex): Converts a number to a hexadecimal string.
+- [int()](https://p5js.org/reference/#/p5/int): Converts a value to an integer.
+- [str()](https://p5js.org/reference/#/p5/str): Converts a number to a string.
+- [unchar()](https://p5js.org/reference/#/p5/unchar): Converts a single-character string to a number.
+- [unhex()](https://p5js.org/reference/#/p5/unhex): Converts a hexadecimal string to a number.
+
+### String Functions:
+- [join()](https://p5js.org/reference/#/p5/join): Combines an array of strings into one string.
+- [match()](https://p5js.org/reference/#/p5/match): Finds matches in a string based on a regex.
+- [matchAll()](https://p5js.org/reference/#/p5/matchAll): Finds all matches in a string based on a regex.
+- [nf()](https://p5js.org/reference/#/p5/nf): Formats a number with a specified number of digits.
+- [nfc()](https://p5js.org/reference/#/p5/nfc): Formats a number with commas for thousands.
+- [split()](https://p5js.org/reference/#/p5/split): Splits a string into an array of substrings.
+- [trim()](https://p5js.org/reference/#/p5/trim): Removes whitespace from a string.
+
+---
