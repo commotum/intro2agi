@@ -1,5 +1,5 @@
-# Introduction to AGI
-## Neural Networks, Transformers, and Multimodal Systems
+# Introduction to AGI <br><sup>Neural Networks, Transformers, and Multimodal Systems</sup>
+
 
 ### Week 1 (Monday 01/06 - Saturday 01/11)
 - [X] [François Chollet on OpenAI o-models and ARC](https://www.youtube.com/watch?v=w9WE1aOPjHc) (01:24:29)
