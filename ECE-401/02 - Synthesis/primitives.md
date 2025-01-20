@@ -1,5 +1,14 @@
 # Visual Primitives
 
+## Table of Contents
+- [Shape](#shape)
+- [Color](#color)
+- [Image](#image)
+- [Transform](#transform)
+- [Math](#math)
+- [Data](#data)
+- [3D](#3d)
+
 ## Shape
 
 ### 2D Primitives:
