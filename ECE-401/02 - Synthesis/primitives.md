@@ -1,6 +1,4 @@
 # Visual Primitives
-
-## Table of Contents
 - [Shape](#shape)
 - [Color](#color)
 - [Image](#image)
