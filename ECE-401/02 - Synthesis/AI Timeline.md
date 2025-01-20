@@ -311,34 +311,28 @@ prolog essentially served as a **ready-made toolkit** for building expert system
 
 
 
-## IBM Deep Blue (1997)
-*Expert Systems + Brute Force Search + Specialized Hardware*
-*No Neural Networks*
+# IBM Deep Blue (1997)
+*Human Expertise + Brute Force Search + Specialized Hardware + No Neural Networks*
 
-### Components
+## Components
 
-#### Opening Book
-*Database of pre-analyzed opening moves*
+### Opening Book - Database of pre-analyzed opening moves
 
 Contained thousands of historically strong opening sequences from expert games. Allowed Deep Blue to play optimally without computation during the opening phase.
 
-#### Endgame Tablebase
-*Database of pre-computed closing sequences*
+### Endgame Tablebase - Database of pre-computed closing sequences
 
 Provided exact solutions for positions with a small number of pieces remaining. Allowed Deep Blue to play flawlessly in late-game scenarios.
 
-#### Evaluation Function
-*Calculates player advantage from heuristic board state*
+### Evaluation Function - Calculates player advantage from heuristic board state
 
 Inputs board state (value of each piece, King safety, pawn structure, control of center, etc.) and outputs score. Manually tuned by human chess experts and grandmasters.
 
-#### Search Engine
-*Brute-force search with alpha-beta pruning*
+### Search Engine - Brute-force search with alpha-beta pruning    
 
 Exhaustive search explores a decision tree, 6-8 moves deep, to find the best sequence. If at any point, a branch cannot improve the current best outcome, that branch is pruned.
 
-#### Specialized Hardware
-*Custom-built hardware for parallel computation*
+### Specialized Hardware - Custom-built hardware for parallel computation
 
 Used 480 custom "chess chips", to evaluate ~200 million positions per second. No GPUs. Nvidia was founded in 1993, released their first GPU in 1997, and made GPUs programmable with the release of CUDA in 2007.
 
