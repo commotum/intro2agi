@@ -316,6 +316,74 @@ Is there a way of measuring the strength of reasoning? Again, you would need to 
 
 Is there an intrinsic way of measuring the type of model rather than its generalization power? No, I think you really have to observe what the model does. You cannot just inspect the model and determine how strong it is at reasoning. There's no intrinsic form of "this is good reasoning." Given two models of a problem, can you just look at them and tell which one is better? I think it's very much goal-dependent. You cannot really evaluate a model like a simulation without having something you want to do with it. But if you do have a goal, then you look at the causal factors required to achieve that goal. The best model is probably the simplest one that retains these causal factors.
 
+
+New Approaches inspired by ARC // Possible Approaches to ARC:
+1.  Build an entirely new architecture specifically for ARC.
+    Basically, an architecture isomorphic to the problem structure.
+    Requires human engineers to understand the task and map its causal structure to the architecture.
+2.  Build the machine to build the machine.
+    Fully Autonomous Architecture Search.
+    Design systems to autonomously generate architectures based on problem structure without human intervention.
+3.  Take an open source LLM and train it on the arc problem data.
+    LLMs don't have strong spatial reasoning.
+    Tokens are not 1:1 to our understanding.
+4.  
+
+here are the distinct approaches/strategies discussed:
+
+1. **Architecture Tweaks with Strong Structural Priors**  
+   - modify deep learning models to bake in priors about the algorithmic problem being solved.  
+   - requires human engineers to understand the task and map its causal structure to the architecture.
+
+2. **Fully Autonomous Architecture Search**  
+   - design systems to autonomously generate architectures based on problem structure without human intervention.
+
+3. **Induction vs. Transduction**  
+   - **Induction**: formally verifiable reasoning by testing candidate solutions for correctness.  
+   - **Transduction**: pattern recognition and heuristic guessing without strong verification mechanisms.  
+
+4. **Combination of Induction and Transduction**  
+   - start with induction for high confidence; fall back on transduction when induction fails.  
+   - verify transduction guesses by aggregating frequent correct answers across independent trials.
+
+5. **Omni Arc Approach**  
+   - use a single model to perform multiple tasks, such as program synthesis, transduction, and pattern recognition.  
+   - forces shared representations and regularizes learning, reducing noise and promoting knowledge transfer.
+
+6. **Latent Space Search with Gradient Descent**  
+   - perform solution search in latent space guided by gradient descent.  
+   - decode latent programs back into symbolic forms for discrete verification and search.
+
+7. **Deep Learning-Guided Program Synthesis**  
+   - treat program synthesis as a tree or graph search process rather than token-based generation.  
+   - use deep learning to guide search rather than directly generating solutions.
+
+8. **Descriptive Task Modeling**  
+   - model tasks in terms of object relationships, causal structures, and properties to constrain the solution search space.  
+   - emulate human problem-solving by reducing the number of candidate solutions needed.
+
+9. **Reusable Abstractions through Lifelong Learning**  
+   - solve problems, identify reusable patterns, and abstract them into building blocks for future tasks.  
+   - dynamically expand the language (DSL or Python) used for solutions.
+
+10. **Symbolic Processes to Generate Architectures**  
+   - convert problem definitions into architectures through symbolic reasoning, then train those architectures with deep learning.  
+
+11. **Step-by-Step vs. Novel Problem Reasoning**  
+   - **Step-by-step**: reasoning by memorizing and applying algorithms.  
+   - **Novel problem solving**: recombine knowledge and abstractions to create new solutions on the fly.
+
+12. **Explicit Reasoning and Self-Consistency through Consciousness**  
+   - explicit reasoning involves awareness, providing self-consistency and avoiding divergence akin to dreams or hallucinations.
+
+13. **Abstraction-Driven Efficiency**  
+   - refactor frequent recombination patterns into higher-level abstractions to reduce problem-solving complexity and effort over time.
+
+14. **Goal-Dependent Model Evaluation**  
+   - evaluate models based on causal factors and simplicity in achieving a specific goal, rather than intrinsic properties of reasoning strength.
+
+this set captures the variety of approaches to problem-solving, architecture generation, and reasoning discussed.
+
 ### Building the Machine that Builds the Machine
 
 1. How do you choose/find a problem to solve?

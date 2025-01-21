@@ -1,23 +1,13 @@
-You can program the knowledge into the architecture. (Scales with Researcher's knowledge)
-You can use a database to look up the knowledge. (Scales with Compute and Data)
-You can give the knowledge to a neural network as data to learn from. (Scales with Compute and Data)
-You can give a neural network a goal to achieve and it will find the knowledge. (Scales with Compute)
+# Approaches to Knowledge Integration
 
-New Approaches inspired by ARC // Possible Approaches to ARC:
-1.  Build an entirely new architecture specifically for ARC.
-    Basically, an architecture isomorphic to the problem structure.
-    Requires human engineers to understand the task and map its causal structure to the architecture.
-2.  Build the machine to build the machine.
-    Fully Autonomous Architecture Search.
-    Design systems to autonomously generate architectures based on problem structure without human intervention.
-3.  Take an open source LLM and train it on the arc problem data.
-    LLMs don't have strong spatial reasoning.
-    Tokens are not 1:1 to our understanding.
+- You can program the knowledge into the architecture. (Scales with Researcher's knowledge)
+- You can use a database to look up the knowledge. (Scales with Compute and Data)
+- You can give the knowledge to a neural network as data to learn from. (Scales with Compute and Data)
+- You can give a neural network a goal to achieve and it will find the knowledge. (Scales with Compute)
 
+# Approaches to ARC
 
-
-
-# 3.1 Deep Learning-Guided Program Synthesis
+## 3.1 Deep Learning-Guided Program Synthesis
 
 ### Overview
 The ARC-AGI program synthesis benchmark, released in 2019, focuses on solving tasks by synthesizing programs. Deep learning models have been proposed to guide discrete program search processes, addressing the combinatorial explosion problem inherent in program synthesis.
@@ -69,7 +59,7 @@ Deep learning-guided program synthesis is advancing but currently matches brute-
 
 
 
-# 3.2 Test-Time Training (TTT)
+## 3.2 Test-Time Training (TTT)
 
 ### Overview
 The classical deep learning paradigm relies on training models on large datasets and performing inference with a frozen model. However, solving ARC-AGI requires adapting models to specific tasks at test time, leading to the rise of **Test-Time Training (TTT)** as the dominant approach for LLM-based ARC-AGI solutions.
@@ -130,7 +120,7 @@ The classical deep learning paradigm relies on training models on large datasets
 TTT is poised to be the leading technique for LLM-based AI systems tackling novel tasks. While challenging to integrate into production systems, its performance advantages suggest widespread adoption (or derivatives) by 2026.
 
 
-# 3.3 Combining Program Synthesis with Transduction
+## 3.3 Combining Program Synthesis with Transduction
 
 ### Overview
 ARC-AGI tasks can be approached using two primary methods: **Program Synthesis (Induction)** and **Transduction**. These approaches solve complementary subsets of tasks, making their combination essential for state-of-the-art performance.

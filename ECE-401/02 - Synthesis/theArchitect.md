@@ -109,3 +109,5 @@ For example, if the AI could use a programmable decoder so that it doesn't need 
 
 Like let's say we use the full word "unbelievable" as a token, but maybe the AI wants to explore those subtokens to get more detail and information. If there's a performant program that can expound the concepts on demand, and not always be necessary that would be great.
 
+What about a token tree? Where we see all the tokens that go into a token, the ones it depends on, and the ones it depends on, and so on. And we keep going down the tree until we get to the root, then the seed that was originally planted in the ground. With each layer of the tree showing us the importance of the token in the context of the whole. It's frequency of use, its relationship to other tokens, etc.
+
