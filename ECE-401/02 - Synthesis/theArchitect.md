@@ -87,3 +87,25 @@ This is different from current approaches that either:
 - Rely on fixed DSLs without learning new abstractions
 
 Would you like me to elaborate on any of these aspects?
+
+
+
+
+Byte Pair Encoding (BPE)
+Tokenizes text by merging the most frequent adjacent pairs of tokens (initially characters) into new tokens until a fixed vocabulary size is reached. 
+
+example:  
+starting with "unbelievable":
+1. tokens: `u`, `n`, `b`, `e`, `l`, `i`, `e`, `v`, `a`, `b`, `l`, `e`.
+2. frequent pairs: `un`, `be`, `li`, `ev`, `ab`, `le`.
+3. merge: `un`, `bel`, `iev`, `able`.
+result: `un`, `believ`, `able`.
+
+frequent patterns become single tokens; rare words are split into subwords for flexibility.
+
+
+Needs to be able to dynamically expand and explore the hierarchical levels and structure.
+For example, if the AI could use a programmable decoder so that it doesn't need to know all of the construction.
+
+Like let's say we use the full word "unbelievable" as a token, but maybe the AI wants to explore those subtokens to get more detail and information. If there's a performant program that can expound the concepts on demand, and not always be necessary that would be great.
+

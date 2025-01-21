@@ -1,7 +1,8 @@
 # Introduction to AGI <br><sup>Neural Networks, Transformers, and Multimodal Systems</sup>
 
-### Week 1 (Monday 01/06 - Saturday 01/11)
-- [X] [François Chollet on OpenAI o-models and ARC](https://www.youtube.com/watch?v=w9WE1aOPjHc) (01:24:29)
+## Schedule & Task List
+
+### Week 0
 - [X] [It's Not About Scale, It's About Abstraction](https://www.youtube.com/watch?v=s7_NlkBwdj8&t=406s) (00:46:21)
 - [X] [Pattern Recognition vs True Intelligence - Francois Chollet](https://www.youtube.com/watch?v=JTU8Ha4Jyfc) (02:42:54)
 - [X] [François Chollet: Measures of Intelligence | Lex Fridman Podcast #120](https://www.youtube.com/watch?v=PUAdj3w3wO4) (02:34:20)
@@ -10,12 +11,16 @@
 - [X] [Explore ARC-AGI Data + Play](https://www.youtube.com/watch?v=LLxiPrIxdqs&t=2s) (00:11:02) 
 - [X] [Francois Chollet - $1,000,000 Prize to Crack Path to AGI](https://www.youtube.com/watch?v=UakqL6Pj9xo) (01:34:39)
 - [X] 10h10 Total
-- [X] Read [The Bitter Lesson](../The%20Bitter%20Lesson.md)
+
+### Week 1 (Monday 01/06 - Saturday 01/11)
+- [ ] 
 
 ### Week 2 (Sunday 01/12 - Saturday 01/18)
 - [X] Make [The Schedule](schedule.md) (This is the schedule)
 - [X] List [The Primitives](primitives.md)
 - [ ] Outline [The Approaches](approaches.md)
+    - [X] [François Chollet on OpenAI o-models and ARC](https://www.youtube.com/watch?v=w9WE1aOPjHc) (01:24:29)
+    - [X] Read [The Bitter Lesson](../The%20Bitter%20Lesson.md)
 
 ### Week 3 (Sunday 01/19 - Saturday 01/25)
 - [X] [The Spelled-Out Intro to Neural Networks and Backpropagation: Building Micrograd](https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=1) (02:25:52)

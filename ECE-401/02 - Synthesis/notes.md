@@ -236,7 +236,7 @@ For Kepler, scientific inquiry was a form of worship - by uncovering the mathema
 
 ### Francois Chollet - Looking Back on ARC-AGI 2024
 
-While people think we can move past these limitations by making architecture tweaks, they are right in a way. It is always possible to take a deep learning model and modify its architecture to bake in some strong structural priors about the algorithmic problem you're trying to solve. You can then use gradient descent to find a solution that will generalize.
+While people think we can move past these limitations by making architecture tweaks, they are right in a way. *It is always possible to take a deep learning model and modify its architecture to bake in some strong structural priors about the algorithmic problem you're trying to solve.* You can then use gradient descent to find a solution that will generalize.
 
 However, this approach works by requiring a human engineer to first understand the task at hand and convert that symbolic understanding into a better architecture - one that is isomorphic to the causal structure of the problem in important ways. If you want to autonomously adapt to novelty, you cannot just require a human engineer to intervene in writing your architecture. The process has to be fully autonomous.
 
