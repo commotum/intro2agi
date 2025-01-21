@@ -5,6 +5,54 @@
 - You can give the knowledge to a neural network as data to learn from. (Scales with Compute and Data)
 - You can give a neural network a goal to achieve and it will find the knowledge. (Scales with Compute)
 
+# The False Dichotomy of Expert Systems vs Scaling Compute
+
+## Current Paradigm
+The field has largely divided into two camps:
+
+### Expert Knowledge Approach
+- Manually program domain expertise into systems
+- Carefully craft architectures and training objectives
+- Focus on interpretability and controlled behavior
+- Often viewed as limited by human knowledge
+
+### Pure Compute Approach  
+- Train massive models on broad datasets
+- Allow capabilities to emerge naturally
+- Scale parameters and compute extensively
+- Exemplified by GPT's emergent abilities
+
+## A More Nuanced View
+
+The apparent tension between these approaches is largely artificial. The success of models like GPT-3 is often misinterpreted as evidence that specific training objectives make systems brittle. This ignores several key points:
+
+### Why Targeted Training Can Work
+- Skills can be generalizable if properly abstracted
+- Learning one capability often transfers to others
+- Careful curriculum design accelerates learning
+- Guided exploration is more efficient than random search
+
+### Benefits of Guided Learning
+- More compute-efficient than pure scale
+- Produces more reliable capabilities
+- Enables better understanding of the system
+- Maintains benefits of neural approaches
+
+## Our Approach: Guided Skill Acquisition
+
+Rather than directly programming knowledge or relying purely on scale, we:
+- Design problems that teach generalizable skills
+- Create curricula that build transferable concepts
+- Guide learning toward useful abstractions
+- Maintain flexibility of neural architectures
+
+This approach combines the best of both worlds:
+- Efficiency of expert guidance
+- Flexibility of neural learning
+- Scalability of compute
+- Reliability of structured knowledge
+
+
 # Approaches to ARC
 
 ## 3.1 Deep Learning-Guided Program Synthesis
