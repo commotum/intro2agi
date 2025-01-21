@@ -2,6 +2,12 @@
 
 ## Schedule & Task List
 
+### High Level Objectives
+- [ ] Learn all about AI Architectures
+    - [ ] *Neural Networks: Zero to Hero* Lecture Series
+    - [ ] Break down 
+
+
 ### Week 0
 - [X] [It's Not About Scale, It's About Abstraction](https://www.youtube.com/watch?v=s7_NlkBwdj8&t=406s) (00:46:21)
 - [X] [Pattern Recognition vs True Intelligence - Francois Chollet](https://www.youtube.com/watch?v=JTU8Ha4Jyfc) (02:42:54)

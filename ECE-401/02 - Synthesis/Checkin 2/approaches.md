@@ -151,3 +151,21 @@ ARC-AGI tasks can be approached using two primary methods: **Program Synthesis (
 
 ### Conclusion
 The combination of program synthesis and transduction represents the leading paradigm for ARC-AGI, leveraging their complementary strengths to achieve superior task coverage. Future progress will likely depend on further refining the integration of these methods.
+
+
+# Our Approach
+
+"It is easier to learn calculus than to discover it."
+"It is much easier to learn calculus than it is to discover calculus."
+
+Node 1:
+Sensory Neural-Network
+- Input: image
+- Output 1: description of the image
+- Output 2: code to generate the image
+
+Node 2:
+Verifier
+- Input 1: original image
+- Input 2: generated image
+- Output 1: description of difference between the two images
