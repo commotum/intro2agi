@@ -5,6 +5,10 @@
 - You can give the knowledge to a neural network as data to learn from. (Scales with Compute and Data)
 - You can give a neural network a goal to achieve and it will find the knowledge. (Scales with Compute)
 
+At its core, the fundamental challenge of learning is one of feedback loop velocity - the speed at which a learner can identify gaps in understanding, apply targeted correction, and integrate that new knowledge. One-on-one instruction has historically proven superior precisely because it maximizes this feedback velocity while simultaneously eliminating the noise and friction that plague traditional educational models. The instructor can instantly detect confusion through verbal and non-verbal cues, immediately adjust explanations, and maintain sustained attention on the learner’s specific needs, creating what learning theorists call “high-bandwidth” educational transfer.
+
+Yet the quality of this high-bandwidth transfer rests al- most entirely on the instructor’s personal development of three highly sophisticated mental models, and their skill- ful and coordinated deployment during instruction. The first is a deep, reflexive grasp of the subject matter that enables instant, accurate responses. The second, a dy- namic map of the student’s evolving understanding that reveals exactly where attention is needed. And the third, a rich model of pedagogy itself - the hard-won wisdom of how concepts build, where students typically stumble, and when to push versus pivot. These interlocking models, re- fined through experience and constantly updated in real- time, are what allow an expert instructor to maintain the rapid feedback cycles that make one-on-one instruction so powerful.
+
 # The False Dichotomy of Expert Systems vs Scaling Compute
 
 ## Current Paradigm
