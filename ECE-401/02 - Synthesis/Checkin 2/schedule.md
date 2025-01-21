@@ -3,9 +3,53 @@
 ## Schedule & Task List
 
 ### High Level Objectives
-- [ ] Learn all about AI Architectures
+- [ ] Learn all about AI Architectures (ORANGE)
     - [ ] *Neural Networks: Zero to Hero* Lecture Series
-    - [ ] Break down 
+    - [ ] Break down the architectures of major breakthroughs
+        - [X] *Perceptron* First artificial neural network (1957)
+        - [ ] *Lisp* First AI programming language (1958)
+        - [ ] *Prolog* Logic programming language (1972)
+        - [X] *Deep Blue* First computer to beat world chess champion (1997)
+        - [ ] *LeNet* Pioneers CNNs for handwritten digit recognition (1998)
+        - [ ] *AlexNet* Deep learning is proven, GPUs made king (2012)
+        - [ ] *Atari RL* Deep reinforcement learning breakthrough (2014)
+        - [ ] *Alpha Go* First AI to beat Go champion (2016)
+        - [ ] *Attention is All You Need* Transformer architecture (2017)
+        - [ ] *BERT* Bidirectional language model (2018)
+        - [ ] *GPT-2* Large language model (2019)
+        - [ ] *StyleGAN* State-of-art image generation (2019)
+        - [X] *Micrograd* Educational neural network implementation (2022)
+- [ ] Build Custom GPT, Design the System Architecture (RED)
+    - [ ] The Machine to Defeat ARC-AGI
+    - [ ] The Machine to Build the Machine
+    - [ ] The Machine to Build the Dataset
+- [ ] Annotate ARC-AGI problems, and build a dataset (GREEN)
+    - [ ] Public Training Set, Problems 1-100
+    - [ ] Public Training Set, Problems 101-200
+    - [ ] Public Training Set, Problems 201-300
+    - [ ] Public Training Set, Problems 301-400
+    - [ ] Public Evaluation Set, Problems 1-100
+    - [ ] Public Evaluation Set, Problems 101-200
+    - [ ] Public Evaluation Set, Problems 201-300
+    - [ ] Public Evaluation Set, Problems 301-400
+- [ ] Generate Synthetic Training Data (BLUE)
+    - [ ] ARC-AGI Annotated Skills
+    - [ ] OEBP Problems 1-100
+    - [ ] OEBP Problems 101-200
+    - [ ] OEBP Problems 201-300
+    - [ ] OEBP Problems 301-400
+    - [ ] OEBP Problems 401-500
+    - [ ] OEBP Problems 501-600
+    - [ ] OEBP Problems 601-699
+- [ ] Train the Machine (YELLOW)
+    - [ ] Hook up to the Engineering HPC Servers
+    - [ ] Ensure Fault Tolerance
+    - [ ] Auto-Deploy Script
+    - [ ] Train the Machine
+    - [ ] Evaluate the Machine
+- [ ] Prepare submission for the ARC-AGI Challenge (Green)
+    - [ ] Notebook Submission
+    - [ ] Paper Submission
 
 
 ### Week 0
@@ -17,7 +61,6 @@
 - [X] [Explore ARC-AGI Data + Play](https://www.youtube.com/watch?v=LLxiPrIxdqs&t=2s) (00:11:02) 
 - [X] [Francois Chollet - $1,000,000 Prize to Crack Path to AGI](https://www.youtube.com/watch?v=UakqL6Pj9xo) (01:34:39)
 - [X] 10h10 Total
-
 ### Week 1 (Monday 01/06 - Saturday 01/11)
 - [ ] 
 
