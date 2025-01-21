@@ -155,17 +155,175 @@ The combination of program synthesis and transduction represents the leading par
 
 # Our Approach
 
-"It is easier to learn calculus than to discover it."
-"It is much easier to learn calculus than it is to discover calculus."
+> "It is easier to learn calculus than to discover it."
 
-Node 1:
-Sensory Neural-Network
-- Input: image
-- Output 1: description of the image
-- Output 2: code to generate the image
+A modular neural architecture with three specialized components:
 
-Node 2:
-Verifier
-- Input 1: original image
-- Input 2: generated image
-- Output 1: description of difference between the two images
+### 1. Sensory Node (Neural Network + Tools)
+A perception module that takes an input image and generates:
+- Natural language description of the image
+- Code that could generate the image
+- Intermediate representations for other nodes
+
+### 2. Difference Detection Node (Neural Network + Tools)
+A comparison module that takes two images and generates:
+- Natural language description of differences between images
+- Delta in generation code between images
+- Similarity metrics and feature comparisons
+
+### 3. Verification Node (Neural Network + Tools)
+A validation module that:
+- Processes generated images through the Sensory Node
+- Compares original and generated images via Difference Detection
+- Evaluates consistency between:
+  - Natural language descriptions
+  - Generation code
+  - Visual features
+- Outputs a similarity score and validation metrics
+
+The three nodes operate in a continuous feedback loop, with the Verification Node providing guidance to optimize the outputs of the Sensory and Difference Detection nodes.
+
+### Training Pipeline
+A staged curriculum that incrementally builds capabilities:
+
+#### Stage 1: Basic Pattern Recognition
+*Training the Sensory Node on fundamental visual elements*
+- Processes single black shapes on white backgrounds:
+  - Points, lines, triangles, rectangles/squares
+  - Circles/ellipses, arcs, quadrilaterals
+- Focuses on accurate shape classification and description
+
+#### Stage 2: Spatial Understanding
+*Developing position and scale awareness*
+- Handles varying spatial configurations:
+  - Single shapes at different positions
+  - Single shapes at different scales
+  - Multiple instances of identical shapes
+  - Combinations of different shapes
+- Trains Difference Detection Node on spatial relationships
+
+#### Stage 3: Color Processing
+*Introducing color perception and relationships*
+- Progresses through color complexity:
+  - Single color fills
+  - Multiple fill colors
+  - Stroke properties and colors
+  - Color blending and transparency
+  - Background color variations
+- Develops color-aware natural language descriptions
+
+#### Stage 4: 2D Transformations
+*Learning geometric operations*
+- Masters common transformations:
+  - Translation and rotation
+  - Uniform and non-uniform scaling
+  - Shearing operations
+  - Matrix-based transformations
+- Strengthens transformation detection capabilities
+
+#### Stage 5: Advanced 2D Features
+*Handling complex 2D operations*
+- Implements sophisticated 2D techniques:
+  - Clipping mask operations
+  - Erasure and subtraction
+  - Custom shape generation
+  - Pattern synthesis
+  - Controlled randomness
+
+#### Stage 6: Basic 3D Understanding
+*Transitioning to 3D geometry*
+- Recognizes fundamental 3D primitives:
+  - Boxes and spheres
+  - Cylinders and cones
+  - Planes and toruses
+  - Ellipsoids
+- Develops 3D spatial reasoning
+
+#### Stage 7: 3D Lighting and Materials
+*Mastering illumination and surface properties*
+- Processes lighting configurations:
+  - Ambient illumination
+  - Directional light sources
+  - Point and spot lighting
+  - Material properties
+  - Texture mapping
+  - Surface reflectance models
+
+#### Stage 8: Advanced 3D Scene Understanding
+*Comprehending complex 3D environments*
+- Handles sophisticated viewing scenarios:
+  - Camera position optimization
+  - Projection system selection
+  - Multi-viewpoint analysis
+  - Environment mapping
+  - Panoramic scene integration
+
+#### Stage 9: Integrated Capabilities
+*Combining all learned skills*
+- Synthesizes complete scenes:
+  - Complex 3D compositions
+  - Hybrid 2D/3D environments
+  - Dynamic lighting systems
+  - Interactive transformation chains
+  - Advanced material interactions
+
+Each stage validates progress through the Verification Node, ensuring robust generalization before advancing.
+
+### ARC-AGI 2025
+
+## 4. Program Synthesis Node (Neural Network + Tools)
+A transformation module that takes example pairs and generates:
+- Natural language description of the transformation
+- Code that transforms input to output
+- Reusable transformation primitives
+
+### Key Components
+
+#### 1. Pattern Recognition
+- Identifies recurring patterns in example pairs
+- Extracts transformation rules and invariants
+- Builds library of common operations
+
+#### 2. Program Generation
+- Synthesizes code to implement transformations
+- Combines primitive operations into programs
+- Validates against example pairs
+- Refines through iterative testing
+
+#### 3. Abstraction Learning
+- Discovers high-level transformation concepts
+- Groups related operations into reusable modules
+- Builds hierarchical program structure
+- Enables transfer to new problems
+
+#### 4. Program Optimization
+- Simplifies generated programs
+- Removes redundant operations
+- Improves efficiency and generalization
+- Validates correctness preservation
+
+### Integration with Other Nodes
+
+#### Sensory Node Integration
+- Uses perceptual features as program inputs
+- Validates visual consistency of outputs
+- Provides feedback for program refinement
+
+#### Difference Detection Integration  
+- Guides program structure based on changes
+- Validates transformation completeness
+- Helps identify key operations needed
+
+#### Verification Node Integration
+- Tests programs on new examples
+- Measures generalization performance
+- Guides program improvements
+
+### Advantages
+- Combines neural and symbolic approaches
+- Produces interpretable solutions
+- Enables transfer learning
+- Scales to complex transformations
+
+The Program Synthesis Node completes our architecture by bridging perception and action through explicit programs, while maintaining the flexibility of neural approaches.
+

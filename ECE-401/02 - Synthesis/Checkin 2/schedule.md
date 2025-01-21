@@ -6,19 +6,19 @@
 - [ ] Learn all about AI Architectures (ORANGE)
     - [ ] *Neural Networks: Zero to Hero* Lecture Series
     - [ ] Break down the architectures of major breakthroughs
-        - [X] *Perceptron* First artificial neural network (1957)
-        - [ ] *Lisp* First AI programming language (1958)
-        - [ ] *Prolog* Logic programming language (1972)
-        - [X] *Deep Blue* First computer to beat world chess champion (1997)
-        - [ ] *LeNet* Pioneers CNNs for handwritten digit recognition (1998)
+        - [X] *Perceptron* | First artificial neural network (1957)
+        - [ ] *Lisp* | First AI programming language (1958)
+        - [ ] *Prolog* | Logic programming language (1972)
+        - [X] *Deep Blue* | First computer to beat world chess champion (1997)
+        - [ ] *LeNet* | Pioneers CNNs for handwritten digit recognition (1998)
         - [ ] *AlexNet* Deep learning is proven, GPUs made king (2012)
-        - [ ] *Atari RL* Deep reinforcement learning breakthrough (2014)
-        - [ ] *Alpha Go* First AI to beat Go champion (2016)
-        - [ ] *Attention is All You Need* Transformer architecture (2017)
-        - [ ] *BERT* Bidirectional language model (2018)
-        - [ ] *GPT-2* Large language model (2019)
-        - [ ] *StyleGAN* State-of-art image generation (2019)
-        - [X] *Micrograd* Educational neural network implementation (2022)
+        - [ ] *Atari RL* | Deep reinforcement learning breakthrough (2014)
+        - [ ] *Alpha Go* | First AI to beat Go champion (2016)
+        - [ ] *Attention is All You Need* | Transformer architecture (2017)
+        - [ ] *BERT* | Bidirectional language model (2018)
+        - [ ] *GPT-2* | Large language model (2019)
+        - [ ] *StyleGAN* | State-of-art image generation (2019)
+        - [X] *Micrograd* | Educational neural network implementation (2022)
 - [ ] Build Custom GPT, Design the System Architecture (RED)
     - [ ] The Machine to Defeat ARC-AGI
     - [ ] The Machine to Build the Machine
@@ -61,8 +61,26 @@
 - [X] [Explore ARC-AGI Data + Play](https://www.youtube.com/watch?v=LLxiPrIxdqs&t=2s) (00:11:02) 
 - [X] [Francois Chollet - $1,000,000 Prize to Crack Path to AGI](https://www.youtube.com/watch?v=UakqL6Pj9xo) (01:34:39)
 - [X] 10h10 Total
+- [X] **Pattern Recognition** by Mikhail Moiseevich Bongard, 1970 (*A foundational work introducing "Bongard problems," visual puzzles designed to explore human and machine pattern recognition.*)
+- [X] **Goal-Based Decision Making: An Interpersonal Model** by Stephen Slade, 1994 (*Presents a psychological model of decision-making driven by the relative priorities of goals, demonstrated through the VOTE program, which simulates and explains Congressional voting behavior with applications beyond politics.*)
+- [X] **Prolog Programming for Artificial Intelligence** by Ivan Bratko, 1986 (*A comprehensive introduction to Prolog with applications in AI problem-solving and logic programming.*)
+- [X] **I Am a Strange Loop** by Douglas Hofstadter, 2007 (*An exploration of self-referential systems and the concept of consciousness, blending cognitive science, philosophy, and art.*)
+- [X] **Attention is All You Need** by Ashish Vaswani et al., 2017 (*Introduces the Transformer architecture, which revolutionized natural language processing by enabling parallel processing of sequences and achieving state-of-the-art performance on language tasks.*)
+- [X] **I Am a Strange Loop** by Douglas Hofstadter, 2007 (*An exploration of self-referential systems and the concept of consciousness, blending cognitive science, philosophy, and art.*)
+
 ### Week 1 (Monday 01/06 - Saturday 01/11)
-- [ ] 
+- [X] Started building the machine to build the dataset
+- [X] Research on front-end systems
+- [X] Select libraries for front-end components and back-end systems
+    - [X] Next.js for Front-End Infrastucture
+    - [X] Shadcn/UI for Front-End Components
+    - [X] p5.js for image and code generation
+- [X] WebGL integration for 3D Rendering
+- [X] Orthographic view
+- [X] Perspective view
+- [X] Orbit Control
+- [X] Toggle between views
+- [X] Separate "Task" from "View"
 
 ### Week 2 (Sunday 01/12 - Saturday 01/18)
 - [X] Make [The Schedule](schedule.md) (This is the schedule)
