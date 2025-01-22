@@ -28,4 +28,5 @@ I plan to use this knowledge to build a multi-modal transformer model that excel
 
 ### Session Info
 
-Today's Date: 01/18/2025
+Today's Date: 01/22/2025
+Today's Lecture: https://www.youtube.com/watch?v=PaCmpygFfXo&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=2
