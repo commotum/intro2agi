@@ -1,4 +1,4 @@
-# Intro2AGI Repository
+# Intro2AGI
 
 Welcome to the Intro2AGI repository! This repo is organized into two main projects, each catering to different audiences and objectives:
 
