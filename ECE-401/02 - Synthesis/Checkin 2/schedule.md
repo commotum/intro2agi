@@ -51,11 +51,14 @@
 ### Week 3 (Sunday 01/19 - Saturday 01/25)
 - [X] [The Spelled-Out Intro to Neural Networks and Backpropagation: Building Micrograd](https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=1) (02:25:52)
 - [X] [The Spelled-Out Intro to Language Modeling: Building Makemore](https://www.youtube.com/watch?v=PaCmpygFfXo&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=2) (01:57:45)
-- [ ] [Building Makemore Part 2: MLP](https://www.youtube.com/watch?v=TCH_1BHY58I&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=3) (01:15:40)
-- [ ] 5h39 Total
+- [X] [Building Makemore Part 2: MLP](https://www.youtube.com/watch?v=TCH_1BHY58I&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=3) (01:15:40)
+    - [ ] Read "A Neural Probabilistic Language Model" by Bengio et al. (2003)
+    - [ ] Complete [Makemore Exercises](../../01%20-%20Lecture%20Series/03/exercises.md)
+
+- [X] 5h39 Total
 
 ### Week 4 (Sunday 01/26 - Saturday 02/01)
-- [ ] [Building Makemore Part 3: Activations & Gradients, BatchNorm](https://www.youtube.com/watch?v=P6sfmUTpUmc&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=4) (01:55:58)
+- [X] [Building Makemore Part 3: Activations & Gradients, BatchNorm](https://www.youtube.com/watch?v=P6sfmUTpUmc&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=4) (01:55:58)
 - [ ] [Building Makemore Part 4: Becoming a Backprop Ninja](https://www.youtube.com/watch?v=q8SA3rM6ckI&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=5) (01:55:24)
 - [ ] [Building Makemore Part 5: Building a WaveNet](https://www.youtube.com/watch?v=t3YJ5hKiMQ0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=6) (00:56:22)
 - [ ] 5h53 Total
