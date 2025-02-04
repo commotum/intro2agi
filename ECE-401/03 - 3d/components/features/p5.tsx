@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
 import p5 from 'p5'
-import type { P5Task } from './tasks/types'
+import type { P5Task } from '../tasks/types'
 
 interface P5ComponentProps {
   task: P5Task

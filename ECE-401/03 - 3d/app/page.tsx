@@ -1,15 +1,22 @@
 'use client'
 
-import P5Component from '@/components/p5'
-import { wave } from '@/components/tasks/wave'
-import { rotatingCube } from '@/components/tasks/rotatingCube'
-import { T_0692e18c } from '@/components/tasks/T_0692e18c'
-import { T_circle } from '@/components/tasks/T_circle'
+import P5Component from '@/components/features/p5'
+import { TaskBrowser } from '@/components/features/task-browser'
+import { useState } from 'react'
+import { T_circle } from '@/components/tasks/T_circle' // Default task
 
 export default function Home() {
+  const [selectedTask, setSelectedTask] = useState(T_circle)
+
   return (
-    <div>
-      <P5Component task={T_circle} />
+    <div className="flex h-screen">
+      <TaskBrowser 
+        onSelectTask={setSelectedTask}
+        selectedTask={selectedTask}
+      />
+      <div className="flex-1">
+        <P5Component task={selectedTask} />
+      </div>
     </div>
   )
 }
