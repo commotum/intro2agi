@@ -3,6 +3,8 @@ import p5 from 'p5'
 
 // Ensure we're properly exporting a P5Task object with a draw method
 export const wave: P5Task = {
+  width: 512,
+  height: 512,
   draw: (p: p5) => {
     p.background(0)
     p.stroke(0, 255, 255)

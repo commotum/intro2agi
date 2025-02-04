@@ -12,7 +12,7 @@ interface P5ComponentProps {
 
 const P5Component = ({ task }: P5ComponentProps) => {
   const canvasRef = useRef<HTMLDivElement>(null)
-  const [isOrtho, setIsOrtho] = useState(false)
+  const [isOrtho, setIsOrtho] = useState(true)
   const p5InstanceRef = useRef<p5 | null>(null)
   
   useEffect(() => {
@@ -44,22 +44,20 @@ const P5Component = ({ task }: P5ComponentProps) => {
           state.velocityX *= state.decay
           state.velocityY *= state.decay
         }
-
-        // Just switch projection mode, keep viewing distance the same
-        const scale = 1.0
+        
+        p.camera()  // Reset to default camera settings
+        
         if (state.isOrthographic) {
           p.ortho()
-        } else {
-          p.perspective(p.PI/3.0, p.width/p.height, 0.1, 1000)
         }
-
-        p.ambientLight(255)
+        // No else needed - perspective is the default
+        
         p.rotateX(state.rotationX)
         p.rotateY(state.rotationY)
       }
 
       p.mousePressed = () => {
-        if (p.mouseX >= 0 && p.mouseX <= p.width && p.mouseY >= 0 && p.mouseY <= p.height) {
+        if (p.mouseX >= 0 && p.mouseX <= task.width && p.mouseY >= 0 && p.mouseY <= task.height) {
           state.dragging = true
           state.lastMouseX = p.mouseX
           state.lastMouseY = p.mouseY

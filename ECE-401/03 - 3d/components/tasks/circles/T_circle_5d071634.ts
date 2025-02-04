@@ -1,0 +1,15 @@
+import type { P5Task } from './types'
+import p5 from 'p5'
+
+export const T_circle: P5Task = {
+  width: 512,
+  height: 512,
+  draw: (p: p5) => {
+    // Set white background
+    p.background(255)
+    
+    // Draw black circle in the middle
+    p.fill(0)
+    p.circle(217.2113926989362, 13.537678536285796, 61.54917190123335)
+  }
+}
