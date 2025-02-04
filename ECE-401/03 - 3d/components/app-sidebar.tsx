@@ -15,10 +15,12 @@ import {
 } from '@/components/ui/sidebar'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible'
 import { ChevronDown, ChevronRight } from 'lucide-react'
+import dynamic from 'next/dynamic'
 
 interface Task {
   name: string
-  component: any
+  componentPath: string
+  filePath: string
 }
 
 interface TaskGroup {
@@ -32,42 +34,22 @@ interface AppSidebarProps {
 
 export function AppSidebar({ onTaskSelect }: AppSidebarProps) {
   const [taskGroups, setTaskGroups] = useState<TaskGroup[]>([])
-  const [selectedTask, setSelectedTask] = useState<any>(null)
+  const [selectedTask, setSelectedTask] = useState<string | null>(null)
 
   useEffect(() => {
-    async function loadTasks() {
-      // Load Circles tasks
-      const circlesContext = require.context('@/components/tasks/Circles', false, /T_circle.*\.tsx?$/)
-      const circlesModules = await Promise.all(
-        circlesContext.keys().map(key => import(`@/components/tasks/Circles/${key.slice(2)}`))
-      )
-      const circlesTasks = circlesModules.map((module, index) => ({
-        name: `Circle ${index + 1}`,
-        component: Object.values(module)[0]
-      }))
-
-      // Load ARC-AGI tasks (assuming similar structure)
-      const arcContext = require.context('@/components/tasks/ARC-AGI', false, /T_.*\.tsx?$/)
-      const arcModules = await Promise.all(
-        arcContext.keys().map(key => import(`@/components/tasks/ARC-AGI/${key.slice(2)}`))
-      )
-      const arcTasks = arcModules.map((module, index) => ({
-        name: `Task ${index + 1}`,
-        component: Object.values(module)[0]
-      }))
-
-      setTaskGroups([
-        { name: 'Circles', tasks: circlesTasks },
-        { name: 'ARC-AGI', tasks: arcTasks }
-      ])
+    // Fetch task groups from the API
+    async function fetchTaskGroups() {
+      const response = await fetch('/api/tasks')
+      const groups = await response.json()
+      setTaskGroups(groups)
     }
-
-    loadTasks()
+    fetchTaskGroups()
   }, [])
 
-  const handleTaskSelect = (task: Task) => {
-    setSelectedTask(task.component)
-    onTaskSelect(task.component)
+  const handleTaskSelect = async (task: Task) => {
+    const TaskComponent = (await import(`@/components/${task.componentPath}`)).T_circle
+    setSelectedTask(task.componentPath)
+    onTaskSelect({...TaskComponent, filePath: task.filePath})
   }
 
   return (
@@ -80,7 +62,7 @@ export function AppSidebar({ onTaskSelect }: AppSidebarProps) {
       <SidebarContent>
         <SidebarMenu>
           {taskGroups.map((group) => (
-            <Collapsible key={group.name} defaultOpen className="group/collapsible">
+            <Collapsible key={group.name} defaultOpen className="group/collapsible px-2">
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton>
@@ -98,7 +80,7 @@ export function AppSidebar({ onTaskSelect }: AppSidebarProps) {
                       <SidebarMenuSubItem key={task.name}>
                         <SidebarMenuSubButton
                           onClick={() => handleTaskSelect(task)}
-                          className={selectedTask === task.component ? 'bg-accent' : ''}
+                          className={selectedTask === task.componentPath ? 'bg-accent' : ''}
                         >
                           {task.name}
                         </SidebarMenuSubButton>

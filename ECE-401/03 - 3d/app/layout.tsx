@@ -1,3 +1,5 @@
+'use client'
+
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -5,11 +7,6 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 
 const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'intro2agi',
-  description: 'Using p5.js to learn about AI',
-}
 
 export default function RootLayout({
   children,
@@ -21,7 +18,7 @@ export default function RootLayout({
       <body className={`${inter.className} h-full w-full`}>
         <SidebarProvider>
           <div className="flex h-full w-full">
-            <AppSidebar />
+            <AppSidebar onTaskSelect={(_task) => {}} />
             <main className="flex-1 relative">
               <SidebarTrigger className="absolute top-4 left-4 z-50" />
               {children}
