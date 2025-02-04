@@ -59,10 +59,10 @@ def generate_circle_tasks(num_tasks: int, output_dir: str,
 # Example usage
 if __name__ == "__main__":
     generate_circle_tasks(
-        num_tasks=10000,  # Generate 5 files
+        num_tasks=100,  # Generate 5 files
         output_dir=os.path.dirname(os.path.abspath(__file__)),  # Current directory
         min_size=32,
-        max_size=256,
+        max_size=128,
         min_pos=-256,  # Half of canvas width/height
         max_pos=256
     )
