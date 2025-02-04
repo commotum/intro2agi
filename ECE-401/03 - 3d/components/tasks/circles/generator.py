@@ -38,9 +38,9 @@ def generate_circle_tasks(num_tasks: int, output_dir: str,
     
     for _ in range(num_tasks):
         # Generate random parameters
-        x = random.uniform(min_pos, max_pos)
-        y = random.uniform(min_pos, max_pos)
-        size = random.uniform(min_size, max_size)
+        x = random.randint(min_pos, max_pos)
+        y = random.randint(min_pos, max_pos)
+        size = random.randint(min_size, max_size)
         
         # Generate unique filename
         filename = f"T_circle_{str(uuid.uuid4())[:8]}.ts"
@@ -59,7 +59,7 @@ def generate_circle_tasks(num_tasks: int, output_dir: str,
 # Example usage
 if __name__ == "__main__":
     generate_circle_tasks(
-        num_tasks=10000,  # Generate 5 files
+        num_tasks=100,  # Generate 5 files
         output_dir=os.path.dirname(os.path.abspath(__file__)),  # Current directory
         min_size=32,
         max_size=256,
