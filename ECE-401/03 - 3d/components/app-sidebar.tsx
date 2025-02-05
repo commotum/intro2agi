@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { 
   Sidebar,
   SidebarHeader,
@@ -15,43 +15,67 @@ import {
   SidebarFooter
 } from '@/components/ui/sidebar'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible'
-import { ChevronDown, ChevronRight, Circle, Blocks } from 'lucide-react'
-import dynamic from 'next/dynamic'
+import { Circle, Blocks, Square, PocketKnife } from 'lucide-react'
+import type { P5Task } from '@/components/tasks/types'
 
-interface Task {
-  name: string
-  componentPath: string
-  filePath: string
+type TaskWithPath = P5Task & { 
+  name: string;
+  filePath: string;
+  componentPath: string;
+  setup?: () => void;
+  draw: () => void;
 }
 
 interface TaskGroup {
-  name: string
-  tasks: Task[]
+  name: string;
+  tasks: TaskWithPath[];
 }
 
-interface AppSidebarProps {
-  onTaskSelect: (component: any) => void
+interface TaskProps {
+  onTaskSelect: (task: TaskWithPath) => void;
 }
 
-export function AppSidebar({ onTaskSelect }: AppSidebarProps) {
-  const [taskGroups, setTaskGroups] = useState<TaskGroup[]>([])
+export function AppSidebar({ onTaskSelect }: TaskProps) {
+  const [groups, setGroups] = useState<TaskGroup[]>([])
   const [selectedTask, setSelectedTask] = useState<string | null>(null)
 
+  const handleTaskSelect = useCallback(async (task: TaskWithPath) => {
+    try {
+      const TaskComponent = (await import(`@/components/${task.componentPath}`)).default
+      setSelectedTask(task.componentPath)
+      onTaskSelect({
+        ...task,
+        setup: TaskComponent.setup || undefined,
+        draw: TaskComponent.draw,
+      })
+    } catch (error) {
+      console.error('Error loading task component:', error)
+    }
+  }, [onTaskSelect])
+
   useEffect(() => {
-    // Fetch task groups from the API
+    if (typeof window === 'undefined') return;
+
     async function fetchTaskGroups() {
-      const response = await fetch('/api/tasks')
-      const groups = await response.json()
-      setTaskGroups(groups)
+      try {
+        const response = await fetch('/api/tasks')
+        const groups = await response.json()
+        setGroups(groups)
+        
+        // Find and select the rotating cube task by default
+        const miscGroup = groups.find((g: TaskGroup) => g.name.toLowerCase() === 'z misc')
+        if (miscGroup) {
+          const rotatingCubeTask = miscGroup.tasks.find((t: { name: string }) => t.name.includes('Rotating Cube'))
+          if (rotatingCubeTask) {
+            await handleTaskSelect(rotatingCubeTask)
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching task groups:', error)
+      }
     }
     fetchTaskGroups()
-  }, [])
-
-  const handleTaskSelect = async (task: Task) => {
-    const TaskComponent = (await import(`@/components/${task.componentPath}`)).T_circle
-    setSelectedTask(task.componentPath)
-    onTaskSelect({...TaskComponent, filePath: task.filePath})
-  }
+  }, [handleTaskSelect])
 
   const getGroupIcon = (groupName: string) => {
     switch (groupName.toLowerCase()) {
@@ -59,6 +83,10 @@ export function AppSidebar({ onTaskSelect }: AppSidebarProps) {
         return <Blocks size={16} className="mr-2" />
       case 'circles':
         return <Circle size={16} className="mr-2" />
+      case 'z misc':
+        return <PocketKnife size={16} className="mr-2" />
+      case 'squares':
+        return <Square size={16} className="mr-2" />
       default:
         return null
     }
@@ -73,8 +101,12 @@ export function AppSidebar({ onTaskSelect }: AppSidebarProps) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
-          {taskGroups.map((group) => (
-            <Collapsible key={group.name} defaultOpen className="group/collapsible px-2">
+          {groups.map((group) => (
+            <Collapsible 
+              key={group.name} 
+              defaultOpen={group.name.toLowerCase() === 'z misc'}
+              className="group/collapsible px-2"
+            >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton>
