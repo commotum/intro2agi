@@ -19,7 +19,7 @@ export default function RootLayout({
         <SidebarProvider>
           <div className="flex h-full w-full">
             <AppSidebar onTaskSelect={(_task) => {}} />
-            <main className="flex-1 relative">
+            <main className="flex-1 relative flex">
               <SidebarTrigger className="absolute top-4 left-4 z-50" />
               {children}
             </main>
