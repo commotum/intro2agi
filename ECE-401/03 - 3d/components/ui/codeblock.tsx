@@ -28,6 +28,7 @@ export default function CodeBlock({ filePath, dimensions }: CodeBlockProps) {
   useEffect(() => {
     if (!dimensions) return;
     setSize(dimensions);
+    console.log('CodeBlock size:', size);
   }, [dimensions]);
 
   useEffect(() => {

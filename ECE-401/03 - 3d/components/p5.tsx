@@ -15,32 +15,8 @@ const P5Component = ({ task }: P5ComponentProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isOrtho, setIsOrtho] = useState(true)
   const p5InstanceRef = useRef<p5 | null>(null)
-  const [dimensions, setDimensions] = useState({ width: task.width, height: task.height })
+  const dimensions = { width: task.width, height: task.height }  // Just use task dimensions directly
   
-  useEffect(() => {
-    const updateDimensions = () => {
-      if (!containerRef.current) return
-      const container = containerRef.current
-      const containerWidth = container.clientWidth
-      const containerHeight = container.clientHeight
-      const aspectRatio = task.width / task.height
-      
-      let width = Math.min(containerWidth * 0.9, task.width)
-      let height = width / aspectRatio
-      
-      if (height > containerHeight * 0.9) {
-        height = containerHeight * 0.9
-        width = height * aspectRatio
-      }
-      
-      setDimensions({ width, height })
-    }
-
-    window.addEventListener('resize', updateDimensions)
-    updateDimensions()
-    return () => window.removeEventListener('resize', updateDimensions)
-  }, [task.width, task.height])
-
   useEffect(() => {
     if (!canvasRef.current) return
 
@@ -128,7 +104,7 @@ const P5Component = ({ task }: P5ComponentProps) => {
       p5Instance.remove()
       p5InstanceRef.current = null
     }
-  }, [task, isOrtho, dimensions])
+  }, [task, isOrtho])  // Remove dimensions from dependencies
 
   return (
     <div ref={containerRef} className="w-full h-full flex flex-col items-center justify-center gap-4">
