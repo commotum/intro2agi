@@ -141,10 +141,10 @@ const P5Component = ({ task }: P5ComponentProps) => {
       >
         <div ref={canvasRef} className="w-full h-full" />
       </Card>
-      <Switch 
+      {/* <Switch 
         checked={isOrtho}
         onCheckedChange={setIsOrtho}
-      />
+      /> */}
     </div>
   )
 }

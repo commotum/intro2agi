@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -13,10 +13,22 @@ const options = {
   keepBackground: true,
 };
 
-export default function CodeBlock({ filePath }: { filePath?: string }) {
+interface CodeBlockProps {
+  filePath?: string;
+  dimensions?: { width: number; height: number };
+}
+
+export default function CodeBlock({ filePath, dimensions }: CodeBlockProps) {
   const [code, setCode] = useState<string | null>(null);
   const [highlightedCode, setHighlightedCode] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState(dimensions || { width: 512, height: 512 });
+
+  useEffect(() => {
+    if (!dimensions) return;
+    setSize(dimensions);
+  }, [dimensions]);
 
   useEffect(() => {
     async function fetchCode() {
@@ -60,19 +72,24 @@ export default function CodeBlock({ filePath }: { filePath?: string }) {
   if (!highlightedCode) return <p>Loading code...</p>;
 
   return (
-    <div className="relative rounded-lg border bg-[#0d1117] p-4 text-sm shadow-md">
-      <Button
-        onClick={copyToClipboard}
-        variant="ghost"
-        size="icon"
-        className="absolute right-2 top-2 z-10"
-      >
-        {copied ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
-      </Button>
+    <div ref={containerRef} className="w-full h-full flex flex-col items-center justify-center">
       <div 
-        dangerouslySetInnerHTML={{ __html: highlightedCode }}
-        className="overflow-x-auto [&_pre]:!bg-transparent [&_pre]:p-0"
-      />
+        className="relative rounded-lg border bg-[#0d1117] p-4 text-sm shadow-md w-full overflow-x-auto"
+        style={{ height: `${size.height}px` }}
+      >
+        <Button
+          onClick={copyToClipboard}
+          variant="ghost"
+          size="icon"
+          className="absolute right-2 top-2 z-10"
+        >
+          {copied ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
+        </Button>
+        <div 
+          dangerouslySetInnerHTML={{ __html: highlightedCode }}
+          className="h-full overflow-y-auto [&_pre]:!bg-transparent [&_pre]:p-0"
+        />
+      </div>
     </div>
   );
 }

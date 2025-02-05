@@ -9,8 +9,8 @@ export async function GET() {
       const groupPath = join(tasksDir, dir.name)
       const tasks = readdirSync(groupPath)
         .filter(file => file.endsWith('.tsx'))
-        .map(file => ({
-          name: file.replace(/T_(.+?)_[0-9a-f]+\.tsx$/, '$1').replace(/_/g, ' '),
+        .map((file, index) => ({
+          name: `Circle ${index + 1}`,
           componentPath: `tasks/${dir.name}/${file.replace('.tsx', '')}`,
           filePath: `components/tasks/${dir.name}/${file}`
         }))
