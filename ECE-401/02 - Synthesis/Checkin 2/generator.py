@@ -12,7 +12,8 @@ export const T_circle: P5Task = {{
     // Set white background
     p.background(255)
     
-    // Draw black circle in the middle
+    // Draw a black circle centered at (x,y) with diameter 'size'
+    // p.circle(x, y, d)
     p.fill(0)
     p.circle({{x}}, {{y}}, {{size}})
   }}
@@ -42,8 +43,8 @@ def generate_circle_tasks(num_tasks: int, output_dir: str,
         y = random.randint(min_pos, max_pos)
         size = random.randint(min_size, max_size)
         
-        # Generate unique filename
-        filename = f"T_circle_{str(uuid.uuid4())[:8]}.ts"
+        # Generate filename based on circle parameters
+        filename = f"T_circle_X{x}Y{y}D{size}.tsx"
         filepath = os.path.join(output_dir, filename)
         
         # Create file with the template

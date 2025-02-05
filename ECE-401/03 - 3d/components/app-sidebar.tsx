@@ -11,10 +11,11 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
+  SidebarMenuBadge,
   SidebarFooter
 } from '@/components/ui/sidebar'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible'
-import { ChevronDown, ChevronRight } from 'lucide-react'
+import { ChevronDown, ChevronRight, Circle, Blocks } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
 interface Task {
@@ -52,6 +53,17 @@ export function AppSidebar({ onTaskSelect }: AppSidebarProps) {
     onTaskSelect({...TaskComponent, filePath: task.filePath})
   }
 
+  const getGroupIcon = (groupName: string) => {
+    switch (groupName.toLowerCase()) {
+      case 'arc-agi':
+        return <Blocks size={16} className="mr-2" />
+      case 'circles':
+        return <Circle size={16} className="mr-2" />
+      default:
+        return null
+    }
+  }
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -67,10 +79,11 @@ export function AppSidebar({ onTaskSelect }: AppSidebarProps) {
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton>
                     <div className="flex items-center justify-between w-full">
-                      {group.name}
-                      <span className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90">
-                        <ChevronRight size={16} />
-                      </span>
+                      <div className="flex items-center">
+                        {getGroupIcon(group.name)}
+                        {group.name}
+                      </div>
+                      <SidebarMenuBadge>{group.tasks.length}</SidebarMenuBadge>
                     </div>
                   </SidebarMenuButton>
                 </CollapsibleTrigger>

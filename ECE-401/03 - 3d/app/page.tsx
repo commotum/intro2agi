@@ -5,6 +5,7 @@ import { AppSidebar } from '@/components/app-sidebar'
 import { TaskViewer } from '@/components/task-viewer'
 import { useSidebar } from '@/components/ui/sidebar'
 
+
 export default function Home() {
   const [selectedTask, setSelectedTask] = useState<any>(null)
   const { state } = useSidebar()

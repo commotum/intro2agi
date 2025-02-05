@@ -7,16 +7,20 @@ interface TaskViewerProps {
   task: P5Task & { filePath: string }
 }
 
+interface Dimensions {
+  width: number;
+  height: number;
+}
+
 export function TaskViewer({ task }: TaskViewerProps) {
-  const [dimensions, setDimensions] = useState({ width: task.width, height: task.height });
+  const [dimensions, setDimensions] = useState<Dimensions>({ width: task.width, height: task.height });
 
   return (
     <div className="h-full w-full flex items-center justify-center">
       <div className="flex gap-8 p-4 max-w-[2000px]">
         <div className="flex items-center justify-center">
           <P5Component 
-            task={task} 
-            onDimensionsChange={setDimensions}
+            task={task}
           />
         </div>
         <div className="flex items-center justify-center">
