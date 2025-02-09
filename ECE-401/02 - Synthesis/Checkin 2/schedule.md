@@ -98,7 +98,9 @@
         - [X] Enable caching headers 
         - [X] Optimize bundle size 
         - [X] Implement lazy loading
-    - [X] Deploy to Vercel 
+    - [X] Deploy to Vercel
+- [ ] Add Karpathy tweets to notes
+
 
 ### Week 6 (Sunday 02/09 - Saturday 02/15)
 - [ ] [Let's Reproduce GPT-2 (124M)](https://www.youtube.com/watch?v=l8pRSuU81PU&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=10) (04:21:06)
