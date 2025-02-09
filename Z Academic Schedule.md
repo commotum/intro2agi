@@ -67,6 +67,8 @@
 - [X] 🟩 Post-lecture Quiz: Structs (5 points - Tuesday 01/28)
 - [X] 🟩 Post-lecture Quiz: File I/O (5 points - Tuesday 01/28)
 - [X] 🟩 Lab 4 (10 points - Tuesday 01/28)
+- [ ] 🟥 RQ 1.4 Reading Quiz (10 points - Due Thursday 01/28)
+- [ ] 🟥 Lecture and Reading Notes 1.4 (Due Thursday 01/28)
 - [ ] 🟥 RQ 1.5 Reading Quiz (10 points - Due Thursday 01/30)
 - [ ] 🟥 Lecture and Reading Notes 1.5 (Due Thursday 01/30)
 - [X] 🟥 Achieve 1.3 The Fundamental Theorem of Calculus (100 points - Due Thursday 01/30)
