@@ -67,7 +67,38 @@
 - [ ] [Let's Build GPT: From Scratch, in Code, Spelled Out](https://www.youtube.com/watch?v=kCc8FmEb1nY&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=7) (01:56:20)
 - [ ] [State of GPT](https://www.youtube.com/watch?v=bZQun8Y4L2A&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=8) (00:42:40)
 - [ ] [Let's Build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=9) (02:13:35)
-- [ ] 5h48 Total
+- [X] [Deep Dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) (03:31:23)
+- [ ] 8h58 Total
+- [X] Build core visualization infrastructure 
+    - [X] Task viewer component with side-by-side visualization and code 
+    - [X] Code block component with syntax highlighting 
+    - [X] Sidebar navigation for task selection 
+    - [X] Task API endpoints for code and task listing 
+    - [X] P5.js integration for 2D/3D rendering 
+- [X] Implement task generators 
+    - [X] Circle generator with random size and position on white background 
+    - [X] Square generator with random size and position on white background 
+    - [X] Task file organization system 
+    - [X] Type system for tasks and components 
+- [X] Build and Deploy 
+    - [X] Set up Vercel project and connect to GitHub repository 
+    - [X] Configure build settings and environment variables 
+    - [X] Test build process locally 
+    - [X] Debug build failures :
+        - [X] Fix TypeScript compilation errors 
+        - [X] Resolve module import issues 
+        - [X] Update package.json scripts 
+    - [X] Test deployed site functionality 
+    - [X] Fix production environment issues:
+        - [X] Debug API endpoint 500 errors 
+        - [X] Fix CORS configuration 
+        - [X] Resolve WebGL context issues 
+        - [X] Update asset loading paths 
+    - [X] Performance optimization:
+        - [X] Enable caching headers 
+        - [X] Optimize bundle size 
+        - [X] Implement lazy loading
+    - [X] Deploy to Vercel 
 
 ### Week 6 (Sunday 02/09 - Saturday 02/15)
 - [ ] [Let's Reproduce GPT-2 (124M)](https://www.youtube.com/watch?v=l8pRSuU81PU&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=10) (04:21:06)
