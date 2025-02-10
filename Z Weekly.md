@@ -19,7 +19,7 @@
 - [ ] 🟧 [Let's Build GPT: From Scratch, in Code, Spelled Out](https://www.youtube.com/watch?v=kCc8FmEb1nY&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=7) (01:56:20 - Due Saturday 02/08)
 - [ ] 🟧 [State of GPT](https://www.youtube.com/watch?v=bZQun8Y4L2A&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=8) (00:42:40 - Due Saturday 02/08)
 - [ ] 🟧 [Let's Build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=9) (02:13:35 - Due Saturday 02/08)
-- [ ] 🟧 [Deep Dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) (03:31:23 - Due Saturday 02/08)
+- [X] 🟧 [Deep Dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) (03:31:23 - Due Saturday 02/08)
 - [ ] 🟧 8h24 Total
 
 ### Week 6 (Sunday 02/09 - Saturday 02/15)
