@@ -23,7 +23,7 @@
 - [ ] 🟧 8h24 Total
 
 ### Week 6 (Sunday 02/09 - Saturday 02/15)
-- [ ] 🟥 RQ 3.1 Reading Quiz (10 points - Due Sunday 02/09)
+- [X] 🟥 RQ 3.1 Reading Quiz (10 points - Due Sunday 02/09)
 - [ ] 🟥 Lecture and Reading Notes 3.1 (Due Sunday 02/09)
 - [ ] 🟥 Achieve 1.6 Integrals with Exponential and Logarithmic Functions (100 points - Due Monday 02/10)
 - [ ] 🟥 DR5 Discussion on Exam (15 points - Due Monday 02/10)
