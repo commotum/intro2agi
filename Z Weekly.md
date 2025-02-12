@@ -25,7 +25,7 @@
 ### Week 6 (Sunday 02/09 - Saturday 02/15)
 - [ ] 🟥 Lecture and Reading Notes 3.1 (Due Sunday 02/09)
 
-- [ ] 🟥 Achieve 1.6 Integrals with Exponential and Logarithmic Functions (100 points - Due Monday 02/10)
+- [X] 🟥 Achieve 1.6 Integrals with Exponential and Logarithmic Functions (100 points - Due Monday 02/10)
 - [X] 🟩 Design Quiz 3: Pokemon Battle Multiple-Choice (10 points - Monday 02/10)
 - [X] 🟩 Design Quiz 3: Pokemon Battle Open-Answer (10 points - Monday 02/10)
 
