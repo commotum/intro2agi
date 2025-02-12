@@ -1,0 +1,2216 @@
+Transcript
+
+
+Search in video
+intro: why you should care & fun history
+0:00
+hi everyone so today we are once again continuing our implementation of make more now so far we've come up to here
+0:07
+montalia perceptrons and our neural net looked like this and we were implementing this over the last few
+0:12
+lectures now I'm sure everyone is very excited to go into recurring neural networks and all of their variants and how they work
+0:18
+and the diagrams look cool and it's very exciting and interesting and we're going to get a better result but unfortunately
+0:23
+I think we have to remain here for one more lecture and the reason for that is
+0:28
+we've already trained this multilio perceptron right and we are getting pretty good loss and I think we have a pretty decent understanding of the
+0:34
+architecture and how it works but the line of code here that I take an issue with is here lost up backward that is we
+0:42
+are taking a pytorch auto grad and using it to calculate all of our gradients along the way and I would like to remove
+0:48
+the use of lost at backward and I would like us to write our backward pass manually on the level of tensors and I
+0:55
+think that this is a very useful exercise for the following reasons I actually have an entire blog post on
+1:00
+this topic but I'd like to call back propagation a leaky abstraction
+1:05
+and what I mean by that is back propagation does doesn't just make your neural networks just work magically it's
+1:11
+not the case they can just Stack Up arbitrary Lego blocks of differentiable functions and just cross your fingers and back propagate and everything is
+1:17
+great things don't just work automatically it is a leaky abstraction in the sense that you can shoot yourself
+1:23
+in the foot if you do not understanding its internals it will magically not work or not work optimally and you will need
+1:31
+to understand how it works under the hood if you're hoping to debug it and if you are hoping to address it in your neural nut
+1:37
+um so this blog post here from a while ago goes into some of those examples so for example we've already covered them
+1:43
+some of them already for example the flat tails of these functions and how
+1:48
+you do not want to saturate them too much because your gradients will die the case of dead neurons which I've already
+1:55
+covered as well the case of exploding or Vanishing gradients in the case of repair neural
+2:00
+networks which we are about to cover and then also you will often come across
+2:05
+some examples in the wild this is a snippet that I found uh in a random code base on the internet where
+2:11
+they actually have like a very subtle but pretty major bug in their implementation and the bug points at the
+2:18
+fact that the author of this code does not actually understand by propagation so they're trying to do here is they're
+2:23
+trying to clip the loss at a certain maximum value but actually what they're trying to do is they're trying to
+2:28
+collect the gradients to have a maximum value instead of trying to clip the loss at a maximum value and
+2:34
+um indirectly they're basically causing some of the outliers to be actually ignored because when you clip a loss of
+2:41
+an outlier you are setting its gradient to zero and so have a look through this
+2:46
+and read through it but there's basically a bunch of subtle issues that you're going to avoid if you actually know what you're doing and that's why I
+2:53
+don't think it's the case that because pytorch or other Frameworks offer autograd it is okay for us to ignore how
+2:59
+it works now we've actually already covered covered autograd and we wrote micrograd
+3:04
+but micrograd was an autograd engine only on the level of individual scalars so the atoms were single individual
+3:11
+numbers and uh you know I don't think it's enough and I'd like us to basically think about back propagation on level of
+3:16
+tensors as well and so in a summary I think it's a good exercise I think it is
+3:21
+very very valuable you're going to become better at debugging neural networks and making sure that you
+3:27
+understand what you're doing it is going to make everything fully explicit so you're not going to be nervous about what is hidden away from you and
+3:33
+basically in general we're going to emerge stronger and so let's get into it a bit of a fun historical note here is
+3:40
+that today writing your backward pass by hand and manually is not recommended and no one does it except for the purposes
+3:45
+of exercise but about 10 years ago in deep learning this was fairly standard and in fact pervasive so at the time
+3:52
+everyone used to write their own backward pass by hand manually including myself and it's just what you would do
+3:57
+so we used to ride backward pass by hand and now everyone just calls lost that backward uh we've lost something I want
+4:04
+to give you a few examples of this so here's a 2006 paper from Jeff Hinton and
+4:11
+Russell selectinov in science that was influential at the time and this was training some architectures called
+4:17
+restricted bolstery machines and basically it's an auto encoder trained here and this is from roughly 2010 I had
+4:26
+a library for training researchable machines and this was at the time written in Matlab so python was not used
+4:32
+for deep learning pervasively it was all Matlab and Matlab was this a scientific Computing package that everyone would
+4:39
+use so we would write Matlab which is barely a programming language as well but I've had a very convenient tensor
+4:46
+class and was this a Computing environment and you would run here it would all run on a CPU of course but you
+4:51
+would have very nice plots to go with it and a built-in debugger and it was pretty nice now the code in this package
+4:57
+in 2010 that I wrote for fitting research multiple machines to a large
+5:03
+extent is recognizable but I wanted to show you how you would well I'm creating the data in the XY batches I'm
+5:09
+initializing the neural nut so it's got weights and biases just like we're used to and then this is the training Loop
+5:15
+where we actually do the forward pass and then here at this time they didn't even necessarily use back propagation to
+5:21
+train neural networks so this in particular implements contrastive Divergence which estimates a gradient
+5:28
+and then here we take that gradient and use it for a parameter update along the lines that we're used to
+5:34
+um yeah here but you can see that basically people are meddling with these gradients uh
+5:39
+directly and inline and themselves uh it wasn't that common to use an auto grad engine here's one more example from a
+5:45
+paper of mine from 2014 um called the fragmented embeddings and here what I was doing is I was
+5:51
+aligning images and text um and so it's kind of like a clip if you're familiar with it but instead of
+5:56
+working on the level of entire images and entire sentences it was working on the level of individual objects and little pieces of sentences and I was
+6:03
+embedding them and then calculating very much like a clip-like loss and I dig up the code from 2014 of how I implemented
+6:10
+this and it was already in numpy and python and here I'm planting the cost function
+6:16
+and it was standard to implement not just the cost but also the backward pass manually so here I'm calculating the
+6:23
+image embeddings sentence embeddings the loss function I calculate this course this is the loss function and then once
+6:31
+I have the loss function I do the backward pass right here so I backward through the loss function and through
+6:36
+the neural nut and I append regularization so everything was done by hand manually and you were just right
+6:42
+out the backward pass and then you would use a gradient Checker to make sure that your numerical estimate of the gradient
+6:47
+agrees with the one you calculated during back propagation so this was very standard for a long time but today of
+6:53
+course it is standard to use an auto grad engine um but it was definitely useful and I
+6:58
+think people sort of understood how these neural networks work on a very intuitive level and so I think it's a good exercise again and this is where we
+7:04
+want to be okay so just as a reminder from our previous lecture this is The jupyter Notebook that we implemented at
+7:09
+the time and we're going to keep everything the same so we're still going to have a two layer
+7:15
+multiplayer perceptron with a batch normalization layer so the forward pass will be basically identical to this
+7:20
+lecture but here we're going to get rid of lost and backward and instead we're going to write the backward pass manually
+starter code
+7:26
+now here's the starter code for this lecture we are becoming a back prop ninja in this notebook
+7:31
+and the first few cells here are identical to what we are used to so we are doing some imports loading the data
+7:37
+set and processing the data set none of this changed now here I'm introducing a utility
+7:43
+function that we're going to use later to compare the gradients so in particular we are going to have the gradients that we estimate manually
+7:49
+ourselves and we're going to have gradients that Pi torch calculates and we're going to be checking for
+7:54
+correctness assuming of course that pytorch is correct um then here we have the initialization
+8:00
+that we are quite used to so we have our embedding table for the characters the first layer second layer and the batch
+8:06
+normalization in between and here's where we create all the parameters now you will note that I
+8:11
+changed the initialization a little bit uh to be small numbers so normally you would set the biases to be all zero here
+8:18
+I am setting them to be small random numbers and I'm doing this because if your variables are initialized to
+8:24
+exactly zero sometimes what can happen is that can mask an incorrect implementation of a gradient
+8:30
+um because uh when everything is zero it sort of like simplifies and gives you a much simpler expression of the gradient than you would otherwise get and so by
+8:37
+making it small numbers I'm trying to unmask those potential errors in these calculations
+8:43
+you also notice that I'm using uh B1 in the first layer I'm using a bias despite
+8:48
+batch normalization right afterwards um so this would typically not be what you do because we talked about the fact
+8:54
+that you don't need the bias but I'm doing this here just for fun um because we're going to have a gradient with respect to it and we can
+9:00
+check that we are still calculating it correctly even though this bias is asparious so here I'm calculating a single batch
+9:07
+and then here I'm doing a forward pass now you'll notice that the forward pass is significantly expanded from what we
+9:13
+are used to here the forward pass was just um here now the reason that the forward pass is
+9:19
+longer is for two reasons number one here we just had an F dot cross entropy but here I am bringing back a explicit
+9:26
+implementation of the loss function and number two I've broken up the implementation into
+9:32
+manageable chunks so we have a lot a lot more intermediate tensors along the way
+9:37
+in the forward pass and that's because we are about to go backwards and calculate the gradients in this back
+9:42
+propagation from the bottom to the top so we're going to go upwards and just
+9:48
+like we have for example the lock props tensor in a forward pass in the backward pass we're going to have a d-lock probes
+9:53
+which is going to store the derivative of the loss with respect to the lock props tensor and so we're going to be prepending D to every one of these
+10:00
+tensors and calculating it along the way of this back propagation so as an example we have a b and raw
+10:07
+here we're going to be calculating a DB in raw so here I'm telling pytorch that
+10:12
+we want to retain the grad of all these intermediate values because here in exercise one we're going to calculate
+10:18
+the backward pass so we're going to calculate all these D values D variables and use the CNP function I've introduced
+10:25
+above to check our correctness with respect to what pi torch is telling us this is going to be exercise one uh
+10:31
+where we sort of back propagate through this entire graph now just to give you a very quick preview of what's going to happen in
+10:37
+exercise two and below here we have fully broken up the loss and back
+10:43
+propagated through it manually in all the little Atomic pieces that make it up but here we're going to collapse the
+10:49
+laws into a single cross-entropy call and instead we're going to analytically derive using math and paper and pencil
+10:56
+the gradient of the loss with respect to the logits and instead of back propagating through all of its little
+11:02
+chunks one at a time we're just going to analytically derive what that gradient is and we're going to implement that
+11:07
+which is much more efficient as we'll see in the in a bit then we're going to do the exact same
+11:12
+thing for patch normalization so instead of breaking up bass drum into all the old tiny components we're going to use
+11:18
+uh pen and paper and Mathematics and calculus to derive the gradient through the bachelor Bachelor layer so we're
+11:25
+going to calculate the backward passthrough bathroom layer in a much more efficient expression instead of backward propagating through all of its
+11:31
+little pieces independently so there's going to be exercise three and then in exercise four we're going to
+11:38
+put it all together and this is the full code of training this two layer MLP and we're going to basically insert our
+11:44
+manual back prop and we're going to take out lost it backward and you will basically see that you can get all the
+11:50
+same results using fully your own code and the only thing we're using from
+11:55
+pytorch is the torch.tensor to make the calculations efficient but otherwise you
+12:01
+will understand fully what it means to forward and backward and neural net and train it and I think that'll be awesome so let's get to it
+12:08
+okay so I read all the cells of this notebook all the way up to here and I'm
+12:13
+going to erase this and I'm going to start implementing backward pass starting with d lock problems so we want
+12:18
+to understand what should go here to calculate the gradient of the loss with respect to all the elements of the log
+12:23
+props tensor now I'm going to give away the answer here but I wanted to put a quick note here that I think would be most
+12:30
+pedagogically useful for you is to actually go into the description of this video and find the link to this Jupiter
+12:36
+notebook you can find it both on GitHub but you can also find Google collab with it so you don't have to install anything you'll just go to a website on Google
+12:43
+collab and you can try to implement these derivatives or gradients yourself and then if you are not able to come to
+12:50
+my video and see me do it and so work in Tandem and try it first yourself and then see me give away the answer and I
+12:57
+think that'll be most valuable to you and that's how I recommend you go through this lecture so we are starting here with d-log props
+exercise 1: backproping the atomic compute graph
+13:03
+now d-lock props will hold the derivative of the loss with respect to
+13:08
+all the elements of log props what is inside log blobs the shape of
+13:13
+this is 32 by 27. so it's not going to surprise you that D log props should
+13:19
+also be an array of size 32 by 27 because we want the derivative loss with respect to all of its elements so the
+13:26
+sizes of those are always going to be equal now how how does log props influence the
+13:33
+loss okay loss is negative block probes indexed with range of N and YB and then
+13:40
+the mean of that now just as a reminder YB is just a basically an array of all
+13:47
+the correct indices um so what we're doing here is we're
+13:52
+taking the lock props array of size 32 by 27. right
+13:58
+and then we are going in every single row and in each row we are plugging plucking out the index eight and then 14
+14:06
+and 15 and so on so we're going down the rows that's the iterator range of N and then we are always plucking out the
+14:12
+index of the column specified by this tensor YB so in the zeroth row we are taking the eighth column in the first
+14:20
+row we're taking the 14th column Etc and so log props at this plugs out
+14:26
+all those log probabilities of the correct next character in a sequence
+14:32
+so that's what that does and the shape of this or the size of it is of course 32 because our batch size is 32.
+14:40
+so these elements get plugged out and then their mean and the negative of that
+14:45
+becomes loss so I always like to work with simpler examples to understand the numerical
+14:52
+form of derivative what's going on here is once we've plucked out these examples
+14:58
+um we're taking the mean and then the negative so the loss basically I can write it this way is the negative
+15:04
+of say a plus b plus c and the mean of those three numbers would be say negative would divide three
+15:11
+that would be how we achieve the mean of three numbers ABC although we actually have 32 numbers here
+15:16
+and so what is basically the loss by say like d a right
+15:22
+well if we simplify this expression mathematically this is negative one over three of A and negative plus negative
+15:28
+one over three of B plus negative 1 over 3 of c and so what
+15:33
+is D loss by D A it's just negative one over three and so you can see that if we don't just have a b and c but we have 32 numbers
+15:40
+then D loss by D um you know every one of those numbers is going to be one over N More generally
+15:47
+because n is the um the size of the batch 32 in this case
+15:53
+so D loss by um D Lock probs is negative 1 over n
+15:59
+in all these places now what about the other elements inside lock problems because lock props is
+16:05
+large array you see that lock problems at shape is 32 by 27. but only 32 of
+16:11
+them participate in the loss calculation so what's the derivative of all the other most of the elements that do not
+16:18
+get plucked out here while their loss intuitively is zero sorry they're gradient intuitively is
+16:24
+zero and that's because they did not participate in the loss so most of these numbers inside this
+16:29
+tensor does not feed into the loss and so if we were to change these numbers then the loss doesn't change which is
+16:36
+the equivalent of way of saying that the derivative of the loss with respect to them is zero they don't impact it
+16:43
+so here's a way to implement this derivative then we start out with torch.zeros of shape 32 by 27 or let's
+16:50
+just say instead of doing this because we don't want to hard code numbers let's do torch.zeros like
+16:57
+block probs so basically this is going to create an array of zeros exactly in the shape of log probs
+17:02
+and then we need to set the derivative of negative 1 over n inside exactly these locations so here's what we can do
+17:09
+the lock props indexed in The Identical way will be just set to negative one over
+17:16
+zero divide n right just like we derived here
+17:22
+so now let me erase all this reasoning and then this is the candidate derivative for D log props let's
+17:29
+uncomment the first line and check that this is correct okay so CMP ran and let's go back to CMP
+17:39
+and you see that what it's doing is it's calculating if the calculated value by us which is DT
+17:46
+is exactly equal to T dot grad as calculated by pi torch and then this is making sure that all the elements are
+17:52
+exactly equal and then converting this to a single Boolean value because we don't want the Boolean tensor we just
+17:58
+want to Boolean value and then here we are making sure that okay if they're not exactly equal maybe
+18:04
+they are approximately equal because of some floating Point issues but they're very very close so here we are using torch.allclose
+18:10
+which has a little bit of a wiggle available because sometimes you can get very very close but if you use a
+18:17
+slightly different calculation because a floating Point arithmetic you can get a slightly different result so this is
+18:24
+checking if you get an approximately close result and then here we are checking the maximum uh basically the value that has
+18:31
+the highest difference and what is the difference in the absolute value difference between those two and so we
+18:37
+are printing whether we have an exact equality an approximate equality and what is the largest difference
+18:45
+and so here we see that we actually have exact equality and so therefore of course we
+18:50
+also have an approximate equality and the maximum difference is exactly zero so basically our d-log props is exactly
+18:57
+equal to what pytors calculated to be lockprops.grad in its back propagation
+19:03
+so so far we're working pretty well okay so let's now continue our back propagation we have that lock props depends on
+19:10
+probes through a log so all the elements of probes are being element wise applied log to
+19:17
+now if we want deep props then then remember your micrograph training we have like a log node it takes in
+19:24
+probs and creates log probs and the props will be the local derivative of
+19:30
+that individual Operation Log times the derivative loss with respect to its output which in this case is D log props
+19:37
+so what is the local derivative of this operation well we are taking log element wise and we can come here and we can see
+19:43
+well from alpha is your friend that d by DX of log of x is just simply one of our X
+19:48
+so therefore in this case X is problems so we have d by DX is one over X which
+19:54
+is one of our probes and then this is the local derivative and then times we want to chain it
+20:00
+so this is chain rule times do log props let me uncomment this and let me run the
+20:06
+cell in place and we see that the derivative of props as we calculated here is exactly correct
+20:12
+and so notice here how this works probes that are props is going to be inverted
+20:18
+and then element was multiplied here so if your probes is very very close to one that means you are your network is
+20:25
+currently predicting the character correctly then this will become one over one and D log probes just gets passed
+20:30
+through but if your probabilities are incorrectly assigned so if the correct character here is getting a very low
+20:37
+probability then 1.0 dividing by it will boost this
+20:43
+and then multiply by the log props so basically what this line is doing intuitively is it's taking the examples
+20:49
+that have a very low probability currently assigned and it's boosting their gradient uh you can you can look
+20:55
+at it that way next up is Count some imp so we want the river of this now let me
+21:02
+just pause here and kind of introduce What's Happening Here in general because I know it's a little bit confusing we
+21:08
+have the locusts that come out of the neural nut here what I'm doing is I'm finding the maximum in each row and I'm
+21:15
+subtracting it for the purposes of numerical stability and we talked about how if you do not do this you run
+21:20
+numerical issues if some of the logits take on two large values because we end up exponentiating them
+21:26
+so this is done just for safety numerically then here's the exponentiation of all the sort of like
+21:32
+logits to create our accounts and then we want to take the some of these counts
+21:38
+and normalize so that all of the probes sum to one now here instead of using one over count
+21:43
+sum I use uh raised to the power of negative one mathematically they are identical I just found that there's
+21:49
+something wrong with the pytorch implementation of the backward pass of division um and it gives like a real result but
+21:55
+that doesn't happen for star star native one that's why I'm using this formula instead but basically all that's
+22:01
+happening here is we got the logits we're going to exponentiate all of them and want to normalize the counts to
+22:07
+create our probabilities it's just that it's happening across multiple lines so now
+22:14
+here we want to First Take the derivative we
+22:20
+want to back propagate into account sumiv and then into counts as well so what should be the count sum M now we
+22:28
+actually have to be careful here because we have to scrutinize and be careful with the shapes so counts that shape and
+22:35
+then count some inverse shape are different so in particular counts as 32 by 27 but
+22:43
+this count sum m is 32 by 1. and so in this multiplication here we also have an
+22:49
+implicit broadcasting that pytorch will do because it needs to take this column tensor of 32 numbers and replicate it
+22:55
+horizontally 27 times to align these two tensors so it can do an element twice multiply
+23:01
+so really what this looks like is the following using a toy example again what we really have here is just props
+23:08
+is counts times conservative so it's a C equals a times B but a is 3 by 3 and b is just three by
+23:15
+one a column tensor and so pytorch internally replicated this elements of B and it did that across all the columns
+23:22
+so for example B1 which is the first element of B would be replicated here across all the columns in this
+23:27
+multiplication and now we're trying to back propagate through this operation to count some m
+23:34
+so when we're calculating this derivative it's important to realize that these two
+23:39
+this looks like a single operation but actually is two operations applied sequentially the first operation that
+23:46
+pytorch did is it took this column tensor and replicated it across all the
+23:52
+um across all the columns basically 27 times so that's the first operation it's a replication and then the second
+23:57
+operation is the multiplication so let's first background through the multiplication
+24:02
+if these two arrays are of the same size and we just have a and b of both of them
+24:08
+three by three then how do we mult how do we back propagate through a multiplication so if we just have
+24:14
+scalars and not tensors then if you have C equals a times B then what is uh the
+24:19
+order of the of C with respect to B well it's just a and so that's the local derivative
+24:24
+so here in our case undoing the multiplication and back propagating through just the multiplication itself
+24:30
+which is element wise is going to be the local derivative which in this case is
+24:36
+simply counts because counts is the a so this is the local derivative and then
+24:42
+times because the chain rule D props so this here is the derivative or the
+24:48
+gradient but with respect to replicated B but we don't have a replicated B we just
+24:54
+have a single B column so how do we now back propagate through the replication
+24:59
+and intuitively this B1 is the same variable and it's just reused multiple times
+25:04
+and so you can look at it as being equivalent to a case we've encountered in micrograd
+25:10
+and so here I'm just pulling out a random graph we used in micrograd we had an example where a single node
+25:17
+has its output feeding into two branches of basically the graph until the last function and we're talking about how the
+25:25
+correct thing to do in the backward pass is we need to sum all the gradients that arrive at any one node so across these
+25:31
+different branches the gradients would sum so if a node is used multiple times the
+25:37
+gradients for all of its uses sum during back propagation so here B1 is used multiple times in all
+25:44
+these columns and therefore the right thing to do here is to sum horizontally across all the rows so I'm
+25:51
+going to sum in Dimension one but we want to retain this Dimension so that the uh so that counts
+25:58
+some end and its gradient are going to be exactly the same shape so we want to make sure that we keep them as true so
+26:04
+we don't lose this dimension and this will make the count sum M be exactly shape 32 by 1.
+26:11
+so revealing this comparison as well and running this we see that we get an exact
+26:17
+match so this derivative is exactly correct and let me erase
+26:24
+this now let's also back propagate into counts which is the other variable here
+26:29
+to create probes so from props to count some INF we just did that let's go into counts as well
+26:35
+so decounts will be the chances are a so DC by d a is just B
+26:43
+so therefore it's count summative um and then times chain rule the props
+26:51
+now councilman is three two by One D probs is 32 by 27.
+26:57
+so um those will broadcast fine and will give us decounts there's no additional
+27:04
+summation required here um there will be a broadcasting that happens in this multiply here because
+27:11
+count some M needs to be replicated again to correctly multiply D props but
+27:16
+that's going to give the correct result so as far as the single operation is concerned so we back probably go from
+27:23
+props to counts but we can't actually check the derivative counts uh I have it
+27:29
+much later on and the reason for that is because count sum in depends on counts and so there's a second Branch here that
+27:36
+we have to finish because can't summon back propagates into account sum and count sum will buy properly into counts
+27:42
+and so counts is a node that is being used twice it's used right here in two props and it goes through this other
+27:48
+Branch through count summative so even though we've calculated the first contribution of it we still have
+27:54
+to calculate the second contribution of it later okay so we're continuing with this Branch we have the derivative for count
+28:00
+sum if now we want the derivative of count sum so D count sum equals what is
+28:05
+the local derivative of this operation so this is basically an element wise one over counts sum
+28:11
+so count sum raised to the power of negative one is the same as one over count sum if we go to all from alpha we
+28:17
+see that x to the negative one D by D by D by DX of it is basically Negative X to
+28:23
+the negative 2. right one negative one over squared is the same as Negative X to the negative two
+28:29
+so D count sum here will be local derivative is going to be negative
+28:35
+um counts sum to the negative two that's the local derivative times chain rule
+28:41
+which is D count sum in so that's D count sum
+28:49
+let's uncomment this and check that I am correct okay so we have perfect equality
+28:55
+and there's no sketchiness going on here with any shapes because these are of the same shape okay next up we want to back
+29:02
+propagate through this line we have that count sum it's count.sum along the rows so I wrote out
+29:09
+um some help here we have to keep in mind that counts of course is 32 by 27 and count sum is 32 by 1. so in this
+29:17
+back propagation we need to take this column of derivatives and transform it
+29:22
+into a array of derivatives two-dimensional array so what is this operation doing we're
+29:28
+taking in some kind of an input like say a three by three Matrix a and we are summing up the rows into a column tells
+29:36
+her B1 b2b3 that is basically this so now we have the derivatives of the
+29:41
+loss with respect to B all the elements of B and now we want to derivative loss with
+29:47
+respect to all these little A's so how do the B's depend on the ace is
+29:52
+basically what we're after what is the local derivative of this operation well we can see here that B1 only
+29:58
+depends on these elements here the derivative of B1 with respect to all of
+30:03
+these elements down here is zero but for these elements here like a11 a12 Etc the
+30:09
+local derivative is one right so DB 1 by D A 1 1 for example is one so it's one
+30:16
+one and one so when we have the derivative of loss with respect to B1
+30:21
+did a local derivative of B1 with respect to these inputs is zeros here but it's one on these guys
+30:27
+so in the chain rule we have the local derivative uh times sort of the derivative of B1 and so
+30:35
+because the local derivative is one on these three elements the look of them are multiplying the derivative of B1
+30:41
+will just be the derivative of B1 and so you can look at it as a router basically
+30:47
+an addition is a router of gradient whatever gradient comes from above it just gets routed equally to all the
+30:53
+elements that participate in that addition so in this case the derivative of B1 will just flow equally to the derivative
+31:00
+of a11 a12 and a13 . so if we have a derivative of all the elements of B and in this column tensor
+31:07
+which is D counts sum that we've calculated just now we basically see that what that amounts
+31:14
+to is all of these are now flowing to all these elements of a and they're doing that horizontally
+31:21
+so basically what we want is we want to take the decount sum of size 30 by 1 and
+31:26
+we just want to replicate it 27 times horizontally to create 32 by 27 array
+31:32
+so there's many ways to implement this operation you could of course just replicate the tensor but I think maybe
+31:37
+one clean one is that the counts is simply torch dot once like
+31:43
+so just an two-dimensional arrays of ones in the shape of counts so 32 by 27
+31:49
+times D counts sum so this way we're letting the broadcasting here basically
+31:56
+implement the replication you can look at it that way but then we have to also be careful
+32:02
+because decounts was already calculated we calculated earlier here and that was
+32:08
+just the first branch and we're now finishing the second Branch so we need to make sure that these gradients add so
+32:13
+plus equals and then here um let's comment out the comparison and
+32:20
+let's make sure crossing fingers that we have the correct result so pytorch agrees with us on this gradient as well
+32:28
+okay hopefully we're getting a hang of this now counts as an element-wise X of Norm legits so now we want D Norm logits
+32:36
+and because it's an element price operation everything is very simple what is the local derivative of e to the X it's famously just e to the x so this is
+32:45
+the local derivative that is the local derivative now we
+32:50
+already calculated it and it's inside counts so we may as well potentially just reuse counts that is the local
+32:55
+derivative times uh D counts
+33:01
+funny as that looks constant decount is derivative on the normal objects and now
+33:07
+let's erase this and let's verify and it looks good
+33:12
+so that's uh normal agents okay so we are here on this line now the
+33:17
+normal objects we have that and we're trying to calculate the logits and deloget Maxes
+33:22
+so back propagating through this line now we have to be careful here because the shapes again are not the same and so
+33:29
+there's an implicit broadcasting Happening Here so normal jits has this shape 32 by 27
+33:34
+logist does as well but logit Maxis is only 32 by one so there's a broadcasting
+33:40
+here in the minus now here I try to sort of write out a
+33:45
+two example again we basically have that this is our C equals a minus B and we see that because of the shape
+33:52
+these are three by three but this one is just a column and so for example every element of C we
+33:57
+have to look at how it uh came to be and every element of C is just the corresponding element of a minus uh
+34:04
+basically that associated b so it's very clear now that the
+34:10
+derivatives of every one of these c's with respect to their inputs are one for
+34:16
+the corresponding a and it's a negative one for the corresponding B
+34:22
+and so therefore um the derivatives on the C will flow
+34:27
+equally to the corresponding Ace and then also to the corresponding base but
+34:33
+then in addition to that the B's are broadcast so we'll have to do the additional sum just like we did before
+34:39
+and of course the derivatives for B's will undergo a minus because the local derivative here is uh negative one
+34:46
+so DC three two by D B3 is negative one so let's just Implement that basically
+34:52
+delugits will be uh exactly copying the derivative on normal objects
+34:58
+so delugits equals the norm logits and I'll do a DOT clone for safety so we're just
+35:05
+making a copy and then we have that the loaded Maxis will be the negative of the non-legits
+35:13
+because of the negative sign and then we have to be careful because logic Maxis is a column
+35:20
+and so just like we saw before because we keep replicating the same elements
+35:26
+across all the columns then in the backward pass because we keep reusing this these are all just
+35:33
+like separate branches of use of that one variable and so therefore we have to do a Sum along one would keep them
+35:39
+equals true so that we don't destroy this dimension and then the logic Maxes will be the
+35:45
+same shape now we have to be careful because this deloaches is not the final deloaches and that's because not only do
+35:52
+we get gradient signal into logits through here but the logic Maxes as a function of logits and that's a second
+35:58
+Branch into logits so this is not yet our final derivative for logits we will come back later for the second branch
+36:05
+for now the logic Maxis is the final derivative so let me uncomment this CMP here and let's just run this
+36:12
+and logit Maxes hit by torch agrees with us so that was the derivative into through
+36:19
+this line now before we move on I want to pause here briefly and I want to look at these
+36:24
+logic Maxes and especially their gradients we've talked previously in the previous lecture that the only reason we're doing
+36:31
+this is for the numerical stability of the softmax that we are implementing here and we talked about how if you take
+36:37
+these logents for any one of these examples so one row of this logit's tensor if you add or subtract any value
+36:44
+equally to all the elements then the value of the probes will be unchanged
+36:49
+you're not changing soft Max the only thing that this is doing is it's making sure that X doesn't overflow and the
+36:55
+reason we're using a Max is because then we are guaranteed that each row of logits the highest number is zero and so
+37:01
+this will be safe and so um basically what that has repercussions
+37:09
+if it is the case that changing logit Maxis does not change the props and therefore there's not change the loss
+37:15
+then the gradient on logic masses should be zero right because saying those two things is the same
+37:21
+so indeed we hope that this is very very small numbers so indeed we hope this is zero now because of floating Point uh
+37:28
+sort of wonkiness um this doesn't come out exactly zero only in some of the rows it does but we
+37:33
+get extremely small values like one e negative nine or ten and so this is telling us that the values of loaded
+37:39
+Maxes are not impacting the loss as they shouldn't it feels kind of weird to back propagate
+37:44
+through this branch honestly because if you have any implementation of like f
+37:50
+dot cross entropy and pytorch and you you block together all these elements and you're not doing the back propagation piece by piece then you
+37:57
+would probably assume that the derivative through here is exactly zero uh so you would be sort of
+38:03
+um skipping this branch because it's only done for numerical stability but
+38:09
+it's interesting to see that even if you break up everything into the full atoms and you still do the computation as
+38:14
+you'd like with respect to numerical stability uh the correct thing happens and you still get a very very small
+38:20
+gradients here um basically reflecting the fact that the values of these do not matter with
+38:26
+respect to the final loss okay so let's now continue back propagation through this line here we've
+38:31
+just calculated the logit Maxis and now we want to back prop into logits through this second branch
+38:36
+now here of course we took legits and we took the max along all the rows and then we looked at its values here now the way
+38:43
+this works is that in pytorch this thing here
+38:49
+the max returns both the values and it Returns the indices at which those values to count the maximum value
+38:55
+now in the forward pass we only used values because that's all we needed but in the backward pass it's extremely
+39:01
+useful to know about where those maximum values occurred and we have the indices
+39:06
+at which they occurred and this will of course helps us to help us do the back propagation because what should the
+39:12
+backward pass be here in this case we have the largest tensor which is 32 by 27 and in each row we find the maximum
+39:18
+value and then that value gets plucked out into loaded Maxis and so intuitively
+39:24
+um basically the derivative flowing through here then should be one
+39:31
+times the look of derivatives is 1 for the appropriate entry that was plucked out
+39:36
+and then times the global derivative of the logic axis so really what we're doing here if you
+39:42
+think through it is we need to take the deloachet Maxis and we need to scatter it to the correct positions in these
+39:50
+logits from where the maximum values came and so um
+39:56
+I came up with one line of code sort of that does that let me just erase a bunch of stuff here so the line of uh you
+40:02
+could do it kind of very similar to what we've done here where we create a zeros and then we populate uh the correct
+40:07
+elements uh so we use the indices here and we would set them to be one but you
+40:13
+can also use one hot so F dot one hot and then I'm taking the
+40:18
+lowest of Max over the First Dimension dot indices and I'm telling uh pytorch
+40:24
+that the dimension of every one of these tensors should be um
+40:29
+27 and so what this is going to do is okay I apologize this is crazy filthy
+40:37
+that I am sure of this it's really just a an array of where the Maxes came from in each row and that
+40:44
+element is one and the all the other elements are zero so it's a one-half Vector in each row and these indices are
+40:50
+now populating a single one in the proper place and then what I'm doing here is I'm
+40:56
+multiplying by the logit Maxis and keep in mind that this is a column
+41:01
+of 32 by 1. and so when I'm doing this times the logic Maxis the logic Maxes
+41:08
+will broadcast and that column will you know get replicated and in an element wise multiply will ensure that each of
+41:15
+these just gets routed to whichever one of these bits is turned on and so that's another way to implement
+41:21
+uh this kind of a this kind of a operation and both of these can be used
+41:26
+I just thought I would show an equivalent way to do it and I'm using plus equals because we already calculated the logits here and this is
+41:33
+not the second branch so let's look at logits and make sure that this
+41:39
+is correct and we see that we have exactly the correct answer
+41:44
+next up we want to continue with logits here that is an outcome of a matrix multiplication and a bias offset in this
+41:51
+linear layer so I've printed out the shapes of all these intermediate tensors we see that
+41:58
+logits is of course 32 by 27 as we've just seen then the H here is 32 by 64. so these
+42:05
+are 64 dimensional hidden States and then this W Matrix projects those 64 dimensional vectors into 27 dimensions
+42:12
+and then there's a 27 dimensional offset which is a one-dimensional vector
+42:18
+now we should note that this plus here actually broadcasts because H multiplied by by W2 will give us a 32 by 27. and so
+42:27
+then this plus B2 is a 27 dimensional lecture here now in the rules of broadcasting what's
+42:33
+going to happen with this bias Vector is that this one-dimensional Vector of 27 will get aligned with a padded dimension
+42:41
+of one on the left and it will basically become a row vector and then it will get replicated vertically 32 times to make
+42:48
+it 32 by 27 and then there's an element-wise multiply now
+42:54
+the question is how do we back propagate from logits to the hidden States the weight Matrix W2 and the bias B2
+43:02
+and you might think that we need to go to some Matrix calculus and then we have
+43:07
+to look up the derivative for a matrix multiplication but actually you don't have to do any of that and you can go
+43:12
+back to First principles and derive this yourself on a piece of paper and specifically what I like to do and I
+43:18
+what I find works well for me is you find a specific small example that you then fully write out and then in the
+43:25
+process of analyzing how that individual small example works you will understand the broader pattern and you'll be able
+43:30
+to generalize and write out the full general formula for what how these derivatives flow in an expression like
+43:37
+this so let's try that out so pardon the low budget production here but what I've done here is I'm writing
+43:43
+it out on a piece of paper really what we are interested in is we have a multiply B plus C and that creates a d
+43:50
+and we have the derivative of the loss with respect to D and we'd like to know what the derivative of the losses with
+43:55
+respect to a b and c now these here are little two-dimensional examples of a matrix
+44:01
+multiplication Two by Two Times a two by two plus a 2 a vector of just two elements
+44:07
+C1 and C2 gives me a two by two now notice here that I have a bias
+44:14
+Vector here called C and the bisex vector is C1 and C2 but as I described
+44:19
+over here that bias Vector will become a row Vector in the broadcasting and will replicate vertically so that's what's
+44:24
+happening here as well C1 C2 is replicated vertically and we see how we have two rows of C1 C2 as a result
+44:33
+so now when I say write it out I just mean like this basically break up this matrix multiplication into the actual
+44:40
+thing that that's going on under the hood so as a result of matrix multiplication and how it works d11 is
+44:46
+the result of a DOT product between the first row of a and the First Column of B so a11 b11 plus a12 B21 plus C1
+44:57
+and so on so forth for all the other elements of D and once you actually write it out it becomes obvious this is
+45:03
+just a bunch of multipliers and um adds and we know from micrograd how
+45:09
+to differentiate multiplies and adds and so this is not scary anymore it's not just matrix multiplication it's just uh
+45:15
+tedious unfortunately but this is completely tractable we have DL by D for all of these and we want DL by uh all
+45:23
+these little other variables so how do we achieve that and how do we actually get the gradients okay so the low budget
+45:29
+production continues here so let's for example derive the derivative of the loss with respect to
+45:34
+a11 we see here that a11 occurs twice in our simple expression right here right here
+45:40
+and influences d11 and D12 . so this is so what is DL by d a one
+45:46
+one well it's DL by d11 times the local
+45:51
+derivative of d11 which in this case is just b11 because that's what's multiplying a11 here
+45:57
+so uh and likewise here the local derivative of D12 with respect to a11 is just B12 and so B12 well in the chain
+46:05
+rule therefore multiply the L by d 1 2. and then because a11 is used both to
+46:11
+produce d11 and D12 we need to add up the contributions of both of those sort
+46:18
+of chains that are running in parallel and that's why we get a plus just adding up those two
+46:24
+um those two contributions and that gives us DL by d a one one we can do the exact same analysis for the other one
+46:31
+for all the other elements of a and when you simply write it out it's just super simple
+46:37
+um taking of gradients on you know expressions like this you find that
+46:44
+this Matrix DL by D A that we're after right if we just arrange all the all of
+46:49
+them in the same shape as a takes so a is just too much Matrix so d l by D A
+46:55
+here will be also just the same shape tester with the derivatives now so deal
+47:03
+by D a11 Etc and we see that actually we can express what we've written out here as a matrix
+47:09
+multiplied and so it just so happens that D all by that all of these formulas that we've
+47:15
+derived here by taking gradients can actually be expressed as a matrix multiplication and in particular we see
+47:21
+that it is the matrix multiplication of these two array matrices so it is the um DL by D and then Matrix
+47:30
+multiplying B but B transpose actually so you see that B21 and b12 have changed
+47:37
+place whereas before we had of course b11 B12 B2 on B22 so you see that this other
+47:45
+Matrix B is transposed and so basically what we have long story short just by doing very simple
+47:50
+reasoning here by breaking up the expression in the case of a very simple example is that DL by d a is which is
+47:58
+this is simply equal to DL by DD Matrix multiplied with B transpose
+48:05
+so that is what we have so far now we also want the derivative with respect to um B and C now
+48:13
+for B I'm not actually doing the full derivation because honestly it's um it's not deep it's just uh annoying it's
+48:20
+exhausting you can actually do this analysis yourself you'll also find that if you take this these expressions and
+48:26
+you differentiate with respect to b instead of a you will find that DL by DB is also a matrix multiplication in this
+48:33
+case you have to take the Matrix a and transpose it and Matrix multiply that with bl by DD
+48:39
+and that's what gives you a deal by DB and then here for the offsets C1 and C2
+48:46
+if you again just differentiate with respect to C1 you will find an expression like this
+48:52
+and C2 an expression like this and basically you'll find the DL by DC
+48:57
+is simply because they're just offsetting these Expressions you just have to take the deal by DD Matrix
+49:04
+of the derivatives of D and you just have to sum across the columns and that
+49:11
+gives you the derivatives for C so long story short the backward Paths of a matrix multiply
+49:18
+is a matrix multiply and instead of just like we had D equals a times B plus C in the scalar case uh
+49:25
+we sort of like arrive at something very very similar but now uh with a matrix multiplication instead of a scalar
+49:31
+multiplication so the derivative of D with respect to a is
+49:37
+DL by DD Matrix multiplied B trespose and here it's a transpose multiply deal
+49:44
+by DD but in both cases it's a matrix multiplication with the derivative and
+49:49
+the other term in the multiplication and for C it is a sum
+49:55
+now I'll tell you a secret I can never remember the formulas that we just arrived for back proper gain information
+50:01
+multiplication and I can back propagate through these Expressions just fine and the reason this works is because the
+50:07
+dimensions have to work out uh so let me give you an example say I want to create DH
+50:13
+then what should the H be number one I have to know that the shape of DH must
+50:19
+be the same as the shape of H and the shape of H is 32 by 64. and then
+50:24
+the other piece of information I know is that DH must be some kind of matrix multiplication of the logits with W2
+50:32
+and delojits is 32 by 27 and W2 is a 64
+50:37
+by 27. there is only a single way to make the shape work out in this case and
+50:43
+it is indeed the correct result in particular here H needs to be 32 by 64. the only way to achieve that is to take
+50:50
+a deluges and Matrix multiply it with you see how
+50:55
+I have to take W2 but I have to transpose it to make the dimensions work out so w to transpose and it's the only way
+51:02
+to make these to Matrix multiply those two pieces to make the shapes work out and that turns out to be the correct
+51:08
+formula so if we come here we want DH which is d a and we see that d a is DL
+51:15
+by DD Matrix multiply B transpose so that's Delo just multiply and B is W2
+51:21
+so W2 transpose which is exactly what we have here so there's no need to remember these formulas similarly now if I want
+51:30
+dw2 well I know that it must be a matrix multiplication of D logits and H
+51:37
+and maybe there's a few transpose like there's one transpose in there as well and I don't know which way it is so I have to come to W2 and I see that its
+51:44
+shape is 64 by 27 and that has to come from some interest multiplication of these two
+51:51
+and so to get a 64 by 27 I need to take um
+51:56
+H I need to transpose it and then I need to Matrix multiply it um so that will become 64 by 32 and then
+52:04
+I need to make sure to multiply with the 32 by 27 and that's going to give me a 64 by 27. so I need to make sure it's
+52:09
+multiplied this with the logist that shape just like that that's the only way to make the dimensions work out and just
+52:15
+use matrix multiplication and if we come here we see that that's exactly what's here so a transpose a for us is H
+52:23
+multiplied with deloaches so that's W2 and then db2
+52:30
+is just the um vertical sum and actually in the same
+52:35
+way there's only one way to make the shapes work out I don't have to remember that it's a vertical Sum along the zero
+52:40
+axis because that's the only way that this makes sense because B2 shape is 27 so in order to get a um delugits
+52:50
+here is 30 by 27 so knowing that it's just sum over deloaches in some
+52:56
+Direction that direction must be zero because I
+53:02
+need to eliminate this Dimension so it's this so this is so let's kind of like the
+53:08
+hacky way let me copy paste and delete that and let me swing over here and this
+53:13
+is our backward pass for the linear layer uh hopefully so now let's uncomment
+53:19
+these three and we're checking that we got all the three derivatives correct and run
+53:26
+and we see that h wh and B2 are all exactly correct so we back propagated
+53:33
+through a linear layer now next up we have derivative for the h
+53:39
+already and we need to back propagate through 10h into h preact so we want to derive DH preact
+53:47
+and here we have to back propagate through a 10 H and we've already done this in micrograd and we remember that
+53:52
+10h has a very simple backward formula now unfortunately if I just put in D by DX of 10 h of X into both from alpha it
+53:59
+lets us down it tells us that it's a hyperbolic secant function squared of X it's not exactly helpful but luckily
+54:06
+Google image search does not let us down and it gives us the simpler formula and in particular if you have that a is
+54:12
+equal to 10 h of Z then d a by DZ by propagating through 10 H is just one
+54:17
+minus a square and take note that 1 minus a square a here is the output of
+54:23
+the 10h not the input to the 10h Z so the D A by DZ is here formulated in
+54:29
+terms of the output of that 10h and here also in Google image search we have the full derivation if you want to
+54:35
+actually take the actual definition of 10h and work through the math to figure out 1 minus standard square of Z
+54:42
+so 1 minus a square is the local derivative in our case that is 1 minus
+54:49
+uh the output of 10 H squared which here is H so it's h squared and that is the local
+54:56
+derivative and then times the chain rule DH so that is going to be our candidate
+55:02
+implementation so if we come here and then uncomment this let's hope for
+55:08
+the best and we have the right answer okay next up we have DH preact and we
+55:15
+want to back propagate into the gain the B and raw and the B and bias so here this is the bathroom parameters
+55:21
+being gained in bias inside the bash term that take the B and raw that is exact unit caution and then scale it and
+55:28
+shift it and these are the parameters of The Bachelor now here we have a
+55:33
+multiplication but it's worth noting that this multiply is very very different from this Matrix multiply here Matrix multiply are DOT products between
+55:41
+rows and Columns of these matrices involved this is an element twice multiply so things are quite a bit
+55:46
+simpler now we do have to be careful with some of the broadcasting happening in this line of code though so you see how BN
+55:53
+gain and B and bias are 1 by 64. but H preact and B and raw are 32 by 64.
+56:02
+so we have to be careful with that and make sure that all the shapes work out fine and that the broadcasting is correctly back propagated
+56:08
+so in particular let's start with the B and Gain so DB and gain should be
+56:14
+and here this is again elementorized multiply and whenever we have a times b equals c we saw that the local
+56:21
+derivative here is just if this is a the local derivative is just the B the other one so the local derivative is just B
+56:27
+and raw and then times chain rule so DH preact
+56:34
+so this is the candidate gradient now again we have to be careful because B
+56:40
+and Gain Is of size 1 by 64. but this here would be 32 by 64.
+56:48
+and so um the correct thing to do in this case of course is that b and gain here is a
+56:53
+rule Vector of 64 numbers it gets replicated vertically in this operation and so therefore the correct thing to do
+57:00
+is to sum because it's being replicated and therefore all the gradients in each
+57:06
+of the rows that are now flowing backwards need to sum up to that same tensor DB and Gain so we have to sum
+57:13
+across all the zero all the examples basically which is the direction in which this
+57:19
+gets replicated and now we have to be also careful because we um being gain is of shape 1 by 64. so in
+57:26
+fact I need to keep them as true otherwise I would just get 64.
+57:31
+now I don't actually really remember why the being gain and the BN bias I made them be 1 by 64.
+57:40
+um but the biases B1 and B2 I just made them be one-dimensional vectors they're
+57:45
+not two-dimensional tensors so I can't recall exactly why I left the gain and
+57:51
+the bias as two-dimensional but it doesn't really matter as long as you are consistent and you're keeping it the same
+57:56
+so in this case we want to keep the dimension so that the tensor shapes work next up we have B and raw so DB and raw
+58:05
+will be BN gain multiplying
+58:11
+dhreact that's our chain rule now what about the
+58:17
+um dimensions of this we have to be careful right so DH preact is 32 by 64. B and
+58:24
+gain is 1 by 64. so it will just get replicated and to create this
+58:29
+multiplication which is the correct thing because in a forward pass it also gets replicated in just the same way
+58:35
+so in fact we don't need the brackets here we're done and the shapes are already correct
+58:40
+and finally for the bias very similar this bias here is very very
+58:46
+similar to the bias we saw when you layer in the linear layer and we see that the gradients from each preact will
+58:51
+simply flow into the biases and add up because these are just these are just offsets
+58:57
+and so basically we want this to be DH preact but it needs to Sum along the right Dimension and in this case similar
+59:04
+to the gain we need to sum across the zeroth dimension the examples because of the way that the bias gets replicated
+59:10
+vertically and we also want to have keep them as true and so this will basically take this and
+59:17
+sum it up and give us a 1 by 64. so this is the candidate implementation
+59:23
+it makes all the shapes work let me bring it up down here and then
+59:28
+let me uncomment these three lines to check that we are getting the correct result for all the three tensors and
+59:36
+indeed we see that all of that got back propagated correctly so now we get to the batch Norm layer we see how here
+59:42
+being gay and being bias are the parameters so the back propagation ends but B and raw now is the output of the
+59:50
+standardization so here what I'm doing of course is I'm breaking up the batch form into manageable pieces so we can back
+59:55
+propagate through each line individually but basically what's happening is BN mean I is the sum
+1:00:03
+so this is the B and mean I I apologize for the variable naming B and diff is x
+1:00:10
+minus mu B and div 2 is x minus mu squared here inside the variance
+1:00:16
+B and VAR is the variance so uh Sigma Square this is B and bar and it's
+1:00:22
+basically the sum of squares so this is the x minus mu squared and
+1:00:28
+then the sum now you'll notice one departure here here it is normalized as 1 over m
+1:00:34
+uh which is number of examples here I'm normalizing as one over n minus 1 instead of N and this is deliberate and
+1:00:42
+I'll come back to that in a bit when we are at this line it is something called the bezels correction
+1:00:47
+but this is how I want it in our case bienvar inv then becomes basically
+1:00:53
+bienvar plus Epsilon Epsilon is one negative five and then it's one over
+1:00:58
+square root is the same as raising to the power of negative 0.5 right because 0.5 is square
+1:01:05
+root and then negative makes it one over square root so BM Bar M is a one over this uh
+1:01:12
+denominator here and then we can see that b and raw which is the X hat here is equal to the BN diff the numerator
+1:01:19
+multiplied by the um BN bar in
+1:01:24
+and this line here that creates pre-h pre-act was the last piece we've already back propagated through it
+1:01:31
+so now what we want to do is we are here and we have B and raw and we have to first back propagate into B and diff and
+1:01:38
+B and Bar M so now we're here and we have DB and raw and we need to back propagate through
+1:01:45
+this line now I've written out the shapes here and indeed bien VAR m is a shape 1 by 64. so
+1:01:53
+there is a broadcasting happening here that we have to be careful with but it is just an element-wise simple
+1:01:58
+multiplication by now we should be pretty comfortable with that to get DB and diff we know that this is just B and
+1:02:05
+varm multiplied with DP and raw
+1:02:11
+and conversely to get dbmring we need to take the end if
+1:02:17
+and multiply that by DB and raw so this is the candidate but of course
+1:02:24
+we need to make sure that broadcasting is obeyed so in particular B and VAR M
+1:02:29
+multiplying with DB and raw will be okay and give us 32 by 64 as we
+1:02:35
+expect but dbm VAR inv would be taking a 32 by
+1:02:40
+64. multiplying it by 32 by 64. so this is a 32 by 64. but of course DB this uh B and
+1:02:49
+VAR in is only 1 by 64. so the second line here needs a sum across the
+1:02:55
+examples and because there's this Dimension here we need to make sure that keep them is true
+1:03:02
+so this is the candidate let's erase this and let's swing down
+1:03:07
+here and implement it and then let's comment out dbm barif and DB and diff
+1:03:16
+now we'll actually notice that DB and diff by the way is going to be incorrect
+1:03:22
+so when I run this BMR m is correct B and diff is not
+1:03:27
+correct and this is actually expected because we're not done with b and diff
+1:03:34
+so in particular when we slide here we see here that b and raw as a function of B and diff but actually B and far of is
+1:03:40
+a function of B of R which is a function of B and df2 which is a function of B and diff so it comes here so bdn diff
+1:03:48
+um these variable names are crazy I'm sorry it branches out into two branches and we've only done one branch of it we
+1:03:55
+have to continue our back propagation and eventually come back to B and diff and then we'll be able to do a plus equals and get the actual card gradient
+1:04:02
+for now it is good to verify that CMP also works it doesn't just lie to us and tell us that everything is always
+1:04:08
+correct it can in fact detect when your gradient is not correct so it's that's
+1:04:13
+good to see as well okay so now we have the derivative here and we're trying to back propagate through this line
+1:04:18
+and because we're raising to a power of negative 0.5 I brought up the power rule and we see that basically we have that
+1:04:25
+the BM bar will now be we bring down the exponent so negative 0.5 times
+1:04:31
+uh X which is this and now raised to the power of negative
+1:04:36
+0.5 minus 1 which is negative 1.5 now we would have to also apply a small
+1:04:42
+chain rule here in our head because we need to take further the derivative of B
+1:04:48
+and VAR with respect to this expression here inside the bracket but because this is an elementalized operation and
+1:04:53
+everything is fairly simple that's just one and so there's nothing to do there so this is the local derivative and then
+1:05:00
+times the global derivative to create the chain rule this is just times the BM bar have
+1:05:05
+so this is our candidate let me bring this down and uncommon to the check
+1:05:14
+and we see that we have the correct result now before we propagate through the next line I want to briefly talk about the
+brief digression: bessel’s correction in batchnorm
+1:05:20
+note here where I'm using the bezels correction dividing by n minus 1 instead of dividing by n when I normalize here
+1:05:27
+the sum of squares now you'll notice that this is departure from the paper which uses one over n
+1:05:33
+instead not one over n minus one their m is RN and
+1:05:39
+um so it turns out that there are two ways of estimating variance of an array one is the biased estimate which is one
+1:05:46
+over n and the other one is the unbiased estimate which is one over n minus one now confusingly in the paper this is uh
+1:05:54
+not very clearly described and also it's a detail that kind of matters I think um they are using the biased version
+1:06:00
+training time but later when they are talking about the inference they are mentioning that when they do the
+1:06:06
+inference they are using the unbiased estimate which is the n minus one version in
+1:06:12
+um basically for inference and to calibrate the running mean and
+1:06:18
+the running variance basically and so they they actually introduce a trained test mismatch where in training they use
+1:06:24
+the biased version and in the in test time they use the unbiased version I find this extremely confusing you can
+1:06:30
+read more about the bezels correction and why uh dividing by n minus one gives you a better estimate of the variance in
+1:06:37
+a case where you have population size or samples for the population that are very small and that is indeed
+1:06:44
+the case for us because we are dealing with many patches and these mini matches are a small sample of a larger
+1:06:50
+population which is the entire training set and so it just turns out that if you just estimate it using one over n that
+1:06:57
+actually almost always underestimates the variance and it is a biased estimator and it is advised that you use
+1:07:02
+the unbiased version and divide by n minus one and you can go through this article here that I liked that actually
+1:07:08
+describes the full reasoning and I'll link it in the video description now when you calculate the torture
+1:07:13
+variance you'll notice that they take the unbiased flag whether or not you want to divide by n or n minus one confusingly
+1:07:21
+they do not mention what the default is for unbiased but I believe unbiased by
+1:07:26
+default is true I'm not sure why the docs here don't cite that now in The Bachelor
+1:07:33
+1D the documentation again is kind of wrong and confusing it says that the standard deviation is calculated via the
+1:07:39
+biased estimator but this is actually not exactly right and people have pointed out that it is not right in a number of issues since
+1:07:46
+then because actually the rabbit hole is deeper and they follow the paper exactly
+1:07:52
+and they use the biased version for training but when they're estimating the running standard deviation we are using
+1:07:58
+the unbiased version so again there's the train test mismatch so long story short I'm not a fan of trained test
+1:08:05
+discrepancies I basically kind of consider the fact that we use the bias version
+1:08:10
+the training time and the unbiased test time I basically consider this to be a bug and I don't think that there's a
+1:08:16
+good reason for that it's not really they don't really go into the detail of the reasoning behind it in this paper so
+1:08:22
+that's why I basically prefer to use the bestless correction in my own work unfortunately Bastion does not take a
+1:08:29
+keyword argument that tells you whether or not you want to use the unbiased version of the bias version in both
+1:08:34
+train and test and so therefore anyone using batch normalization basically in my view has a bit of a bug in the code
+1:08:41
+um and this turns out to be much less of a problem if your batch mini batch sizes
+1:08:46
+are a bit larger but still I just might kind of uh unpardable so maybe someone can explain why this is okay but for now
+1:08:53
+I prefer to use the unbiased version consistently both during training and at this time and that's why I'm using one
+1:09:00
+over n minus one here okay so let's now actually back propagate through this line
+1:09:05
+so the first thing that I always like to do is I like to scrutinize the shapes first so in particular here looking at the
+1:09:12
+shapes of what's involved I see that b and VAR shape is 1 by 64. so it's a row
+1:09:18
+vector and BND if two dot shape is 32 by 64. so clearly here we're doing a sum over
+1:09:25
+the zeroth axis to squash the first dimension of of the shapes here using a
+1:09:32
+sum so that right away actually hints to me that there will be some kind of a replication or broadcasting in the
+1:09:38
+backward pass and maybe you're noticing the pattern here but basically anytime you have a sum in the forward pass that
+1:09:45
+turns into a replication or broadcasting in the backward pass along the same Dimension and conversely when we have a
+1:09:52
+replication or a broadcasting in the forward pass that indicates a variable reuse and so in the backward pass that
+1:09:59
+turns into a sum over the exact same dimension and so hopefully you're noticing that Duality that those two are kind of like
+1:10:06
+the opposite of each other in the forward and backward pass now once we understand the shapes the
+1:10:11
+next thing I like to do always is I like to look at a toy example in my head to sort of just like understand roughly how
+1:10:16
+uh the variable the variable dependencies go in the mathematical formula so here we have a two-dimensional array
+1:10:24
+of the end of two which we are scaling by a constant and then we are summing uh
+1:10:29
+vertically over the columns so if we have a two by two Matrix a and then we sum over the columns and scale we would
+1:10:36
+get a row Vector B1 B2 and B1 depends on a in this way whereas just sum they're
+1:10:42
+scaled of a and B2 in this way where it's the second column sump and scale
+1:10:48
+and so looking at this basically what we want to do now is we have the derivatives on B1 and B2 and we want to
+1:10:55
+back propagate them into Ace and so it's clear that just differentiating in your head the local derivative here is one
+1:11:01
+over n minus 1 times uh one uh for each one of these A's and um
+1:11:09
+basically the derivative of B1 has to flow through The Columns of a scaled by one over n minus one
+1:11:16
+and that's roughly What's Happening Here so intuitively the derivative flow tells us that DB and diff2
+1:11:24
+will be the local derivative of this operation and there are many ways to do this by the way but I like to do
+1:11:31
+something like this torch dot once like of bndf2 so I'll create a large array
+1:11:37
+two-dimensional of ones and then I will scale it so 1.0 divided by n minus 1.
+1:11:44
+so this is a array of um one over n minus one and that's sort of like the local derivative
+1:11:50
+and now for the chain rule I will simply just multiply it by dbm bar
+1:11:58
+and notice here what's going to happen this is 32 by 64 and this is just 1 by 64. so I'm letting the broadcasting do
+1:12:06
+the replication because internally in pytorch basically dbnbar which is 1 by
+1:12:11
+64 row vector well in this multiplication get um copied vertically until the two are
+1:12:18
+of the same shape and then there will be an element wise multiply and so that uh so that the broadcasting is basically
+1:12:23
+doing the replication and I will end up with the derivatives of DB and diff2 here
+1:12:30
+so this is the candidate solution let's bring it down here let's uncomment this line where we check
+1:12:36
+it and let's hope for the best and indeed we see that this is the correct formula next up let's
+1:12:43
+differentiate here and to be in this so here we have that b and diff is element y squared to create B and F2
+1:12:50
+so this is a relatively simple derivative because it's a simple element wise operation so it's kind of like the
+1:12:56
+scalar case and we have that DB and div should be if this is x squared then the
+1:13:02
+derivative of this is 2x right so it's simply 2 times B and if that's the local
+1:13:07
+derivative and then times chain Rule and the shape of these is the same they are of the
+1:13:13
+same shape so times this so that's the backward pass for this variable let me bring that down here
+1:13:20
+and now we have to be careful because we already calculated dbm depth right so this is just the end of the other uh you
+1:13:27
+know other Branch coming back to B and diff because B and diff was already back propagated to way over here
+1:13:34
+from being raw so we now completed the second branch and so that's why I have to do plus equals and if you recall we
+1:13:42
+had an incorrect derivative for being diff before and I'm hoping that once we append this last missing piece we have
+1:13:48
+the exact correctness so let's run ambient to be in div now actually shows
+1:13:55
+the exact correct derivative um so that's comforting okay so let's now back propagate through this line
+1:14:01
+here um the first thing we do of course is we check the shapes and I wrote them out
+1:14:07
+here and basically the shape of this is 32 by 64. hpbn is the same shape
+1:14:12
+but B and mean I is a row Vector 1 by 64. so this minus here will actually do
+1:14:17
+broadcasting and so we have to be careful with that and as a hint to us again because of The Duality a
+1:14:23
+broadcasting and the forward pass means a variable reuse and therefore there will be a sum in the backward pass
+1:14:30
+so let's write out the backward pass here now um back propagate into the hpbn
+1:14:37
+because this is these are the same shape then the local derivative for each one of the elements here is just one for the
+1:14:43
+corresponding element in here so basically what this means is that the gradient just simply copies it's just a
+1:14:50
+variable assignment it's quality so I'm just going to clone this tensor just for safety to create an exact copy of DB and
+1:14:58
+div and then here to back propagate into this one what I'm inclined to do here is
+1:15:07
+will basically be uh what is the local derivative well
+1:15:12
+it's negative torch.1's like of the shape of uh B and diff
+1:15:19
+right and then times
+1:15:24
+the um the derivative here dbf
+1:15:32
+and this here is the back propagation for the replicated B and mean I so I still have to back propagate
+1:15:39
+through the uh replication in the broadcasting and I do that by doing a sum so I'm going to take this whole
+1:15:45
+thing and I'm going to do a sum over the zeroth dimension which was the replication
+1:15:53
+so if you scrutinize this by the way you'll notice that this is the same shape as that and so what I'm doing uh
+1:16:00
+what I'm doing here doesn't actually make that much sense because it's just a array of ones multiplying DP and diff so
+1:16:06
+in fact I can just do this um and that is equivalent
+1:16:12
+so this is the candidate backward pass let me copy it here and then let me
+1:16:18
+comment out this one and this one enter
+1:16:24
+and it's wrong damn
+1:16:29
+actually sorry this is supposed to be wrong and it's supposed to be wrong because
+1:16:34
+we are back propagating from a b and diff into hpbn and but we're not done
+1:16:39
+because B and mean I depends on hpbn and there will be a second portion of that
+1:16:44
+derivative coming from this second Branch so we're not done yet and we expect it to be incorrect so there you
+1:16:50
+go uh so let's now back propagate from uh B and mean I into hpbn
+1:16:56
+um and so here again we have to be careful because there's a broadcasting along
+1:17:01
+um or there's a Sum along the zeroth dimension so this will turn into broadcasting in the backward pass now
+1:17:06
+and I'm going to go a little bit faster on this line because it is very similar to the line that we had before and
+1:17:12
+multiplies in the past in fact so the hpbn
+1:17:18
+will be the gradient will be scaled by 1 over n and then basically this gradient here on
+1:17:25
+dbn mean I is going to be scaled by 1 over n and then it's going to flow across all the
+1:17:32
+columns and deposit itself into the hpvn so what we want is this thing scaled by
+1:17:38
+1 over n only put the constant up front here
+1:17:43
+um so scale down the gradient and now we need to replicate it across all the um
+1:17:51
+across all the rows here so we I like to do that by torch.lunslike of basically
+1:18:00
+um hpbn and I will let the broadcasting do the work of replication
+1:18:09
+so
+1:18:14
+like that so this is uh the hppn and hopefully
+1:18:21
+we can plus equals that
+1:18:27
+so this here is broadcasting um and then this is the scaling so this
+1:18:32
+should be current okay so that completes the back propagation of the bathroom layer and we are now
+1:18:38
+here let's back propagate through the linear layer one here now because everything is getting a little
+1:18:44
+vertically crazy I copy pasted the line here and let's just back properly through this one line
+1:18:50
+so first of course we inspect the shapes and we see that this is 32 by 64. MCAT
+1:18:56
+is 32 by 30. W1 is 30 30 by 64 and B1 is just 64. so
+1:19:04
+as I mentioned back propagating through linear layers is fairly easy just by matching the shapes so let's do that we
+1:19:11
+have that dmcat should be um some matrix multiplication of dhbn
+1:19:18
+with uh W1 and one transpose thrown in there so to make uh MCAT be 32 by 30
+1:19:28
+I need to take dhpn 32 by 64 and multiply it by w1.
+1:19:36
+transpose to get the only one I need to end up
+1:19:43
+with 30 by 64. so to get that I need to take uh MCAT
+1:19:48
+transpose and multiply that by uh dhpion
+1:19:58
+and finally to get DB1 this is a addition and we saw that
+1:20:04
+basically I need to just sum the elements in dhpbn along some Dimension and to make the dimensions work out I
+1:20:12
+need to Sum along the zeroth axis here to eliminate this Dimension and we do
+1:20:17
+not keep dims uh so that we want to just get a single one-dimensional lecture of 64.
+1:20:23
+so these are the claimed derivatives let me put that here and let me
+1:20:29
+uncomment three lines and cross our fingers everything is great okay so we now
+1:20:36
+continue almost there we have the derivative of MCAT and we want to derivative we want to back propagate
+1:20:41
+into m so I again copied this line over here so this is the forward pass and then
+1:20:48
+this is the shapes so remember that the shape here was 32 by 30 and the original shape of M plus 32 by 3 by 10. so this
+1:20:57
+layer in the forward pass as you recall did the concatenation of these three 10-dimensional character vectors
+1:21:04
+and so now we just want to undo that so this is actually relatively straightforward operation because uh the
+1:21:11
+backward pass of the what is the view view is just a representation of the array it's just a logical form of how
+1:21:17
+you interpret the array so let's just reinterpret it to be what it was before so in other words the end is not uh 32
+1:21:25
+by 30. it is basically dmcat but if you view it as the original shape
+1:21:34
+so just m dot shape uh you can you can pass in tuples into
+1:21:39
+view and so this should just be okay
+1:21:44
+we just re-represent that view and then we uncomment this line here and
+1:21:49
+hopefully yeah so the derivative of M is correct
+1:21:55
+so in this case we just have to re-represent the shape of those derivatives into the original View so now we are at the final line and the
+1:22:01
+only thing that's left to back propagate through is this indexing operation here MSC at xB so as I did before I copy
+1:22:09
+pasted this line here and let's look at the shapes of everything that's involved and remind ourselves how this worked
+1:22:15
+so m.shape was 32 by 3 by 10. it says 32 examples and then we have
+1:22:22
+three characters each one of them has a 10 dimensional embedding and this was achieved by taking the
+1:22:28
+lookup table C which have 27 possible characters each of them 10 dimensional and we
+1:22:34
+looked up at the rows that were specified inside this tensor xB
+1:22:41
+so XB is 32 by 3 and it's basically giving us for each example the Identity or the index of which character is part
+1:22:49
+of that example and so here I'm showing the first five rows of three of this tensor xB
+1:22:57
+and so we can see that for example here it was the first example in this batch is that the first character and the
+1:23:02
+first character and the fourth character comes into the neural net and then we want to predict the next
+1:23:08
+character in a sequence after the character is one one four so basically What's Happening Here is
+1:23:14
+there are integers inside XB and each one of these integers is specifying which row of C we want to pluck out
+1:23:22
+right and then we arrange those rows that we've plucked out into 32 by 3 by
+1:23:28
+10 tensor and we just package them in we just package them into the sensor and now what's happening is that we have
+1:23:35
+D amp so for every one of these uh basically plucked out rows we have their gradients
+1:23:41
+now but they're arranged inside this 32 by 3 by 10 tensor so all we have to do now is
+1:23:48
+we just need to Route this gradient backwards through this assignment so we need to find which row of C that every
+1:23:54
+one of these um 10 dimensional embeddings come from and then we need to deposit them into DC
+1:24:03
+so we just need to undo the indexing and of course if any of these rows of C was
+1:24:08
+used multiple times which almost certainly is the case like the row one and one was used multiple times then we
+1:24:13
+have to remember that the gradients that arrive there have to add so for each occurrence we have to have
+1:24:19
+an addition so let's now write this out and I don't actually know if like a much better way
+1:24:24
+to do this than a for Loop unfortunately in Python um so maybe someone can come up with a vectorized efficient operation but for
+1:24:32
+now let's just use for loops so let me create a torch.zeros like C to initialize uh just uh 27 by 10
+1:24:40
+tensor of all zeros and then honestly 4K in range XB dot
+1:24:46
+shape at zero maybe someone has a better way to do this but for J and range
+1:24:53
+be that shape at one this is going to iterate over all the
+1:24:58
+um all the elements of XB all these integers and then let's get the index at this
+1:25:05
+position so the index is basically x b at KJ
+1:25:11
+so that an example of that like is 11 or 14 and so on and now in the forward pass we took
+1:25:19
+and we basically took um the row of C at index and we deposited
+1:25:27
+it into M at K of J that's what happened that's where they are packaged so now we need to go
+1:25:34
+backwards and we just need to route DM at the position KJ
+1:25:39
+we now have these derivatives for each position and it's 10 dimensional
+1:25:45
+and you just need to go into the correct row of C so DC rather at IX is this but plus
+1:25:54
+equals because there could be multiple occurrences uh like the same row could have been used many many times and so
+1:26:00
+all of those derivatives will just go backwards through the indexing and they
+1:26:06
+will add so this is my candidate solution
+1:26:12
+let's copy it here let's uncomment this and cross our
+1:26:19
+fingers hey so that's it we've back propagated through
+1:26:25
+this entire Beast so there we go totally makes sense
+exercise 2: cross entropy loss backward pass
+1:26:31
+so now we come to exercise two it basically turns out that in this first exercise we were doing way too much work
+1:26:36
+uh we were back propagating way too much and it was all good practice and so on but it's not what you would do in
+1:26:42
+practice and the reason for that is for example here I separated out this loss calculation over multiple lines and I
+1:26:49
+broke it up all all to like its smallest atomic pieces and we back propagated through all of those individually
+1:26:55
+but it turns out that if you just look at the mathematical expression for the loss um then actually you can do the
+1:27:02
+differentiation on pen and paper and a lot of terms cancel and simplify and the mathematical expression you end up with
+1:27:07
+can be significantly shorter and easier to implement than back propagating through all the little pieces of
+1:27:12
+everything you've done so before we had this complicated forward paths going from logits to the
+1:27:18
+loss but in pytorch everything can just be glued together into a single call at that cross entropy you just pass in
+1:27:24
+logits and the labels and you get the exact same loss as I verify here so our previous loss and the fast loss coming
+1:27:31
+from the chunk of operations as a single mathematical expression is the same but
+1:27:36
+it's much much faster in a forward pass it's also much much faster in backward pass and the reason for that is if you
+1:27:42
+just look at the mathematical form of this and differentiate again you will end up with a very small and short expression so that's what we want to do
+1:27:48
+here we want to in a single operation or in a single go or like very quickly go
+1:27:54
+directly to delojits and we need to implement the logits as a function of logits and yb's
+1:28:02
+but it will be significantly shorter than whatever we did here where to get to deluggets we had to go all the way
+1:28:08
+here so all of this work can be skipped in a much much simpler mathematical
+1:28:13
+expression that you can Implement here so you can give it a shot yourself basically look at what exactly is the
+1:28:21
+mathematical expression of loss and differentiate with respect to the logits so let me show you a hint you can of
+1:28:29
+course try it fully yourself but if not I can give you some hint of how to get started mathematically
+1:28:36
+so basically What's Happening Here is we have logits then there's a softmax that takes the logits and gives you
+1:28:42
+probabilities then we are using the identity of the correct next character to pluck out a row of probabilities take
+1:28:50
+the negative log of it to get our negative block probability and then we average up all the log probabilities or
+1:28:56
+negative block probabilities to get our loss so basically what we have is for a single individual example rather we have
+1:29:04
+that loss is equal to negative log probability uh where P here is kind of
+1:29:09
+like thought of as a vector of all the probabilities so at the Y position where Y is the label
+1:29:16
+and we have that P here of course is the softmax so the ith component of P of
+1:29:23
+this probability Vector is just the softmax function so raising all the logits uh basically to the power of E
+1:29:31
+and normalizing so everything comes to 1. now if you write out P of Y here you can
+1:29:38
+just write out the soft Max and then basically what we're interested in is we're interested in the derivative of the loss with respect to the I logit
+1:29:47
+and so basically it's a d by DLI of this expression here where we have L indexed with the
+1:29:54
+specific label Y and on the bottom we have a sum over J of e to the L J and the negative block of all that so
+1:30:00
+potentially give it a shot pen and paper and see if you can actually derive the expression for the loss by DLI and then
+1:30:07
+we're going to implement it here okay so I'm going to give away the result here so this is some of the math I did to
+1:30:13
+derive the gradients analytically and so we see here that I'm just applying the
+1:30:19
+rules of calculus from your first or second year of bachelor's degree if you took it and we see that the expression
+1:30:24
+is actually simplify quite a bit you have to separate out the analysis in the case where the ith index that you're
+1:30:30
+interested in inside logits is either equal to the label or it's not equal to the label and then the expression
+1:30:35
+simplify and cancel in a slightly different way and what we end up with is something very very simple
+1:30:41
+and we either end up with basically pirai where p is again this Vector of
+1:30:46
+probabilities after a soft Max or P at I minus 1 where we just simply subtract a
+1:30:51
+one but in any case we just need to calculate the soft Max p e and then in the correct Dimension we need to
+1:30:58
+subtract one and that's the gradient the form that it takes analytically so let's implement this basically and we have to
+1:31:04
+keep in mind that this is only done for a single example but here we are working with batches of examples
+1:31:09
+so we have to be careful of that and then the loss for a batch is the average
+1:31:14
+loss over all the examples so in other words is the example for all the individual examples is the loss for each
+1:31:20
+individual example summed up and then divided by n and we have to back propagate through that as well and be
+1:31:26
+careful with it so deluggets is going to be of that soft Max
+1:31:32
+uh pytorch has a softmax function that you can call and we want to apply the softmax on the logits and we want to go
+1:31:39
+in the dimension that is one so basically we want to do the softmax along the rows of these logits
+1:31:47
+then at the correct positions we need to subtract a 1. so delugits at iterating
+1:31:52
+over all the rows and indexing into the columns provided by the correct labels inside YB
+1:32:00
+we need to subtract one and then finally it's the average loss
+1:32:05
+that is the loss and in the average there's a one over n of all the losses added up and so we need to also
+1:32:12
+propagate through that division so the gradient has to be scaled down by by n as well because of the mean
+1:32:19
+but this otherwise should be the result so now if we verify this we see that we don't get an exact match
+1:32:26
+but at the same time the maximum difference from logits from pytorch and
+1:32:33
+RD logits here is uh on the order of 5e negative 9. so it's a tiny tiny number
+1:32:39
+so because of floating point wantiness we don't get the exact bitwise result
+1:32:44
+but we basically get the correct answer approximately now I'd like to pause here briefly
+1:32:51
+before we move on to the next exercise because I'd like us to get an intuitive sense of what the logits is because it
+1:32:56
+has a beautiful and very simple explanation honestly um so here I'm taking the logits and I'm
+1:33:03
+visualizing it and we can see that we have a batch of 32 examples of 27 characters
+1:33:08
+and what is the logits intuitively right the logits is the probabilities that the
+1:33:13
+properties Matrix in the forward pass but then here these black squares are the positions of the correct indices
+1:33:19
+where we subtracted a one and so uh what is this doing right these
+1:33:24
+are the derivatives on the logits and so let's look at just the first row here
+1:33:31
+so that's what I'm doing here I'm clocking the probabilities of these logits and then I'm taking just the first row and this is the probability
+1:33:38
+row and then the logits of the first row and multiplying by n just for us so that
+1:33:43
+we don't have the scaling by n in here and everything is more interpretable we see that it's exactly equal to the
+1:33:50
+probability of course but then the position of the correct index has a minus equals one so minus one on that
+1:33:56
+position and so notice that um if you take Delo Jets at zero and you
+1:34:01
+sum it it actually sums to zero and so you should think of these uh gradients here
+1:34:08
+at each cell as like a force um we are going to be basically pulling
+1:34:15
+down on the probabilities of the incorrect characters and we're going to be pulling up on the probability at the
+1:34:22
+correct index and that's what's basically happening in each row and thus
+1:34:29
+the amount of push and pull is exactly equalized because the sum is zero so the
+1:34:34
+amount to which we pull down in the probabilities and the demand that we push up on the probability of the correct character is equal
+1:34:41
+so sort of the the repulsion and the attraction are equal and think of the neural app now as a like a massive uh
+1:34:48
+pulley system or something like that we're up here on top of the logits and we're pulling up we're pulling down the
+1:34:54
+properties of Incorrect and pulling up the property of the correct and in this complicated pulley system because everything is mathematically uh just
+1:35:01
+determined just think of it as sort of like this tension translating to this complicating pulling mechanism and then
+1:35:07
+eventually we get a tug on the weights and the biases and basically in each update we just kind of like tug in the
+1:35:13
+direction that we like for each of these elements and the parameters are slowly given in to the tug and that's what
+1:35:19
+training in neural net kind of like looks like on a high level and so I think the the forces of push
+1:35:24
+and pull in these gradients are actually uh very intuitive here we're pushing and pulling on the correct answer and the
+1:35:31
+incorrect answers and the amount of force that we're applying is actually proportional to uh the probabilities
+1:35:37
+that came out in the forward pass and so for example if our probabilities came out exactly correct so they would
+1:35:43
+have had zero everywhere except for one at the correct uh position then the the
+1:35:48
+logits would be all a row of zeros for that example there would be no push and pull so the amount to which your
+1:35:55
+prediction is incorrect is exactly the amount by which you're going to get a pull or a push in that dimension
+1:36:01
+so if you have for example a very confidently mispredicted element here then
+1:36:07
+um what's going to happen is that element is going to be pulled down very heavily and the correct answer is going
+1:36:12
+to be pulled up to the same amount and the other characters are not going to be influenced too much
+1:36:19
+so the amounts to which you mispredict is then proportional to the strength of the pole and that's happening
+1:36:25
+independently in all the dimensions of this of this tensor and it's sort of very intuitive and varies to think
+1:36:30
+through and that's basically the magic of the cross-entropy loss and what it's doing dynamically in the backward pass
+1:36:36
+of the neural net so now we get to exercise number three which is a very fun exercise
+exercise 3: batch norm layer backward pass
+1:36:42
+um depending on your definition of fun and we are going to do for batch normalization exactly what we did for cross entropy loss in exercise number
+1:36:49
+two that is we are going to consider it as a glued single mathematical expression and back propagate through it
+1:36:54
+in a very efficient manner because we are going to derive a much simpler formula for the backward path of batch
+1:36:59
+normalization and we're going to do that using pen and paper so previously we've broken up
+1:37:05
+bastionalization into all of the little intermediate pieces and all the atomic operations inside it and then we back
+1:37:10
+propagate it through it one by one now we just have a single sort of
+1:37:15
+forward pass of a batch form and it's all glued together and we see that we get the exact same
+1:37:21
+result as before now for the backward pass we'd like to also Implement a single formula
+1:37:27
+basically for back propagating through this entire operation that is the bachelorization so in the forward pass previously we
+1:37:34
+took hpvn the hidden states of the pre-batch realization and created H
+1:37:39
+preact which is the hidden States just before the activation in the bachelorization paper each pbn is
+1:37:46
+X and each preact is y so in the backward pass what we'd like to do now is we have DH preact and we'd
+1:37:54
+like to produce d h previous and we'd like to do that in a very efficient manner so that's the name of
+1:38:00
+the game calculate the H previan given DH preact and for the purposes of this
+1:38:05
+exercise we're going to ignore gamma and beta and their derivatives because they take on a very simple form in a very
+1:38:11
+similar way to what we did up above so let's calculate this given that right
+1:38:18
+here so to help you a little bit like I did before I started off the implementation
+1:38:23
+here on pen and paper and I took two sheets of paper to derive the mathematical formulas for the backward
+1:38:29
+pass and basically to set up the problem uh just write out the MU Sigma Square
+1:38:35
+variance x i hat and Y I exactly as in the paper except for the bezel
+1:38:40
+correction and then in a backward pass we have the derivative of the loss with respect to
+1:38:46
+all the elements of Y and remember that Y is a vector there's there's multiple numbers here
+1:38:52
+so we have all the derivatives with respect to all the Y's and then there's a demo and a beta and
+1:38:59
+this is kind of like the compute graph the gamma and the beta there's the X hat and then the MU and the sigma squared
+1:39:06
+and the X so we have DL by DYI and we won't DL by d x i for all the I's in
+1:39:13
+these vectors so this is the compute graph and you have to be careful because I'm trying to
+1:39:19
+note here that these are vectors so there's many nodes here inside x x hat
+1:39:25
+and Y but mu and sigma sorry Sigma Square are just individual scalars
+1:39:30
+single numbers so you have to be careful with that you have to imagine there's multiple nodes here or you're going to
+1:39:35
+get your math wrong um so as an example I would suggest that you go in the following order one two
+1:39:43
+three four in terms of the back propagation so back propagating to X hat then into Sigma Square then into mu and
+1:39:49
+then into X um just like in a topological sort in micrograd we would go from right to left
+1:39:55
+you're doing the exact same thing except you're doing it with symbols and on a piece of paper
+1:40:01
+so for number one uh I'm not giving away too much if you want DL of d x i hat
+1:40:09
+then we just take DL by DYI and multiply it by gamma because of this expression
+1:40:15
+here where any individual Yi is just gamma times x i hat plus beta so it
+1:40:21
+doesn't help you too much there but this gives you basically the derivatives for all the X hats and so now try to go
+1:40:28
+through this computational graph and derive what is DL by D Sigma Square
+1:40:35
+and then what is DL by B mu and then one is D L by DX eventually so give it a go and I'm going
+1:40:42
+to be revealing the answer one piece at a time okay so to get DL by D Sigma Square we have to remember again like I
+1:40:48
+mentioned that there are many excess X hats here and remember that Sigma square is just a
+1:40:54
+single individual number here so when we look at the expression
+1:40:59
+for the L by D Sigma Square we have that we have to actually consider all the possible paths that um
+1:41:08
+we basically have that there's many X hats and they all feed off from they all depend on Sigma Square so Sigma square
+1:41:15
+has a large fan out there's lots of arrows coming out from Sigma square into all the X hats
+1:41:20
+and then there's a back propagating signal from each X hat into Sigma square and that's why we actually need to sum
+1:41:26
+over all those I's from I equal to 1 to m of the DL by d x i hat which is the
+1:41:35
+global gradient times the x i Hat by D Sigma Square which is the local gradient
+1:41:42
+of this operation here and then mathematically I'm just working it out here and I'm simplifying and you
+1:41:48
+get a certain expression for DL by D Sigma square and we're going to be using this expression when we back propagate
+1:41:53
+into mu and then eventually into X so now let's continue our back propagation into mu so what is D L by D mu now again
+1:42:01
+be careful that mu influences X hat and X hat is actually lots of values so for
+1:42:07
+example if our mini batch size is 32 as it is in our example that we were working on then this is 32 numbers and
+1:42:13
+32 arrows going back to mu and then mu going to Sigma square is just a single Arrow because Sigma square is a scalar
+1:42:19
+so in total there are 33 arrows emanating from you and then all of them
+1:42:25
+have gradients coming into mu and they all need to be summed up and so that's why when we look at the
+1:42:31
+expression for DL by D mu I am summing up over all the gradients of DL by d x i
+1:42:37
+hat times the x i Hat by being mu uh so that's the that's this arrow and
+1:42:43
+that's 32 arrows here and then plus the one Arrow from here which is the L by the sigma Square Times the sigma squared
+1:42:49
+by D mu so now we have to work out that expression and let me just reveal the rest of it
+1:42:55
+uh simplifying here is not complicated the first term and you just get an expression here
+1:43:01
+for the second term though there's something really interesting that happens when we look at the sigma squared by D
+1:43:06
+mu and we simplify at one point if we assume that in a
+1:43:11
+special case where mu is actually the average of X I's as it is in this case
+1:43:17
+then if we plug that in then actually the gradient vanishes and becomes exactly zero and that makes the entire
+1:43:24
+second term cancel and so these uh if you just have a mathematical expression like this and
+1:43:30
+you look at D Sigma Square by D mu you would get some mathematical formula for
+1:43:35
+how mu impacts Sigma Square but if it is the special case that Nu is actually equal to the average as it is
+1:43:42
+in the case of pastoralization that gradient will actually vanish and become zero so the whole term cancels and we
+1:43:48
+just get a fairly straightforward expression here for DL by D mu okay and now we get to the craziest part which is
+1:43:54
+uh deriving DL by dxi which is ultimately what we're after now let's count
+1:44:00
+first of all how many numbers are there inside X as I mentioned there are 32 numbers there are 32 Little X I's and
+1:44:08
+let's count the number of arrows emanating from each x i there's an arrow going to Mu an arrow
+1:44:13
+going to Sigma Square and then there's an arrow going to X hat but this Arrow here let's scrutinize
+1:44:19
+that a little bit each x i hat is just a function of x i and all the other scalars so x i hat
+1:44:27
+only depends on x i and none of the other X's and so therefore there are actually in
+1:44:32
+this single Arrow there are 32 arrows but those 32 arrows are going exactly parallel they don't interfere and
+1:44:39
+they're just going parallel between x and x hat you can look at it that way and so how many arrows are emanating
+1:44:44
+from each x i there are three arrows mu Sigma squared and the associated X hat
+1:44:50
+and so in back propagation we now need to apply the chain rule and we need to add up those three contributions
+1:44:57
+so here's what that looks like if I just write that out we have uh we're going through we're
+1:45:04
+chaining through mu Sigma square and through X hat and those three terms are just here
+1:45:10
+now we already have three of these we have d l by d x i hat
+1:45:15
+we have DL by D mu which we derived here and we have DL by D Sigma Square which we derived here but we need three other
+1:45:22
+terms here the this one this one and this one so I invite you to try to derive them it's
+1:45:28
+not that complicated you're just looking at these Expressions here and differentiating with respect to x i
+1:45:34
+so give it a shot but here's the result or at least what I got
+1:45:41
+um yeah I'm just I'm just differentiating with respect to x i for all these expressions and honestly I don't think
+1:45:47
+there's anything too tricky here it's basic calculus now it gets a little bit more tricky is
+1:45:52
+we are now going to plug everything together so all of these terms multiplied with all of these terms and
+1:45:57
+add it up according to this formula and that gets a little bit hairy so what ends up happening is
+1:46:04
+uh you get a large expression and the thing to be very careful with here of course
+1:46:09
+is we are working with a DL by dxi for specific I here but when we are plugging
+1:46:15
+in some of these terms like say um this term here deal by D signal squared
+1:46:22
+you see how the L by D Sigma squared I end up with an expression and I'm iterating over little I's here but I
+1:46:29
+can't use I as the variable when I plug in here because this is a different I from this eye
+1:46:35
+this I here is just a place or like a local variable for for a for Loop in here so here when I plug that in you
+1:46:41
+notice that I rename the I to a j because I need to make sure that this J is not that this J is not this I this J
+1:46:48
+is like like a little local iterator over 32 terms and so you have to be careful with that when you're plugging
+1:46:54
+in the expressions from here to here you may have to rename eyes into J's and you have to be very careful what is actually
+1:47:00
+an I with respect to the L by t x i so some of these are J's some of these
+1:47:07
+are I's and then we simplify this expression and I guess like the big thing to notice
+1:47:13
+here is a bunch of terms just kind of come out to the front and you can refactor them there's a sigma squared plus Epsilon raised to the power of
+1:47:19
+negative three over two uh this Sigma squared plus Epsilon can be actually separated out into three terms each of
+1:47:25
+them are Sigma squared plus Epsilon to the negative one over two so the three of them multiplied is equal to this and
+1:47:33
+then those three terms can go different places because of the multiplication so one of them actually comes out to the
+1:47:39
+front and will end up here outside one of them joins up with this term and one
+1:47:45
+of them joins up with this other term and then when you simplify the expression you'll notice that some of
+1:47:51
+these terms that are coming out are just the x i hats so you can simplify just by rewriting
+1:47:56
+that and what we end up with at the end is a fairly simple mathematical expression over here that I cannot simplify further
+1:48:02
+but basically you'll notice that it only uses the stuff we have and it derives the thing we need so we have the L by d
+1:48:10
+y for all the I's and those are used plenty of times here and also in
+1:48:15
+addition what we're using is these x i hats and XJ hats and they just come from the forward pass
+1:48:20
+and otherwise this is a simple expression and it gives us DL by d x i for all the I's and that's ultimately
+1:48:27
+what we're interested in so that's the end of Bachelor backward pass analytically let's now implement
+1:48:34
+this final result okay so I implemented the expression into a single line of code here and you
+1:48:41
+can see that the max diff is Tiny so this is the correct implementation of this formula now I'll just uh
+1:48:48
+basically tell you that getting this formula here from this mathematical expression was not trivial and there's a
+1:48:54
+lot going on packed into this one formula and this is a whole exercise by itself because you have to consider the
+1:49:00
+fact that this formula here is just for a single neuron and a batch of 32 examples but what I'm doing here is I'm
+1:49:07
+actually we actually have 64 neurons and so this expression has to in parallel evaluate the bathroom backward pass for
+1:49:14
+all of those 64 neurons in parallel independently so this has to happen basically in every single
+1:49:20
+um column of the inputs here and in addition to that you see how
+1:49:26
+there are a bunch of sums here and we need to make sure that when I do those sums that they broadcast correctly onto
+1:49:31
+everything else that's here and so getting this expression is just like highly non-trivial and I invite you
+1:49:36
+to basically look through it and step through it and it's a whole exercise to make sure that this this checks out but
+1:49:43
+once all the shapes are green and once you convince yourself that it's correct you can also verify that Patrick's gets
+1:49:48
+the exact same answer as well and so that gives you a lot of peace of mind that this mathematical formula is
+1:49:53
+correctly implemented here and broadcasted correctly and replicated in parallel for all of the 64 neurons
+1:50:00
+inside this bastrum layer okay and finally exercise number four asks you to
+exercise 4: putting it all together
+1:50:05
+put it all together and uh here we have a redefinition of the entire problem so you see that we reinitialize the neural
+1:50:11
+nut from scratch and everything and then here instead of calling loss that backward we want to have the manual back
+1:50:18
+propagation here as we derived It Up Above so go up copy paste all the chunks of code that we've already derived put
+1:50:25
+them here and drive your own gradients and then optimize this neural nut basically using your own gradients all
+1:50:31
+the way to the calibration of The Bachelor and the evaluation of the loss and I was able to achieve quite a good
+1:50:36
+loss basically the same loss you would achieve before and that shouldn't be surprising because all we've done is
+1:50:41
+we've really gotten to Lost That backward and we've pulled out all the code and inserted it here but those gradients
+1:50:49
+are identical and everything is identical and the results are identical it's just that we have full visibility
+1:50:54
+on exactly what goes on under the hood I'll plot that backward in this specific case and this is all of our code this is
+1:51:02
+the full backward pass using basically the simplified backward pass for the cross entropy loss and the mass
+1:51:08
+generalization so back propagating through cross entropy the second layer the 10 H nonlinearity the batch
+1:51:15
+normalization uh through the first layer and through the embedding and so you see that this
+1:51:21
+is only maybe what is this 20 lines of code or something like that and that's what gives us gradients and now we can
+1:51:27
+potentially erase losses backward so the way I have the code set up is you should be able to run this entire cell once you
+1:51:33
+fill this in and this will run for only 100 iterations and then break and it breaks because it gives you an
+1:51:39
+opportunity to check your gradients against pytorch so here our gradients we see are not
+1:51:46
+exactly equal they are approximately equal and the differences are tiny wanting negative 9 or so and I don't
+1:51:52
+exactly know where they're coming from to be honest um so once we have some confidence that the gradients are basically correct we
+1:51:59
+can take out the gradient tracking we can disable this breaking statement
+1:52:05
+and then we can basically disable lost of backward we don't need it anymore it feels amazing
+1:52:13
+to say that and then here when we are doing the update we're not going to use P dot grad
+1:52:18
+this is the old way of pytorch we don't have that anymore because we're not doing backward we are going to use this
+1:52:25
+update where we you see that I'm iterating over I've arranged the grads to be in the
+1:52:30
+same order as the parameters and I'm zipping them up the gradients and the parameters into p and grad and then here
+1:52:37
+I'm going to step with just the grad that we derived manually so the last piece
+1:52:43
+um is that none of this now requires gradients from pytorch and so one thing
+1:52:49
+you can do here um is you can do with no grad and offset
+1:52:56
+this whole code block and really what you're saying is you're telling Pat George that hey I'm not going to call backward on any of this
+1:53:02
+and this allows pytorch to be a bit more efficient with all of it and then we should be able to just uh
+1:53:07
+run this and it's running
+1:53:13
+and you see that losses backward is commented out and we're optimizing
+1:53:20
+so we're going to leave this run and uh hopefully we get a good result
+1:53:25
+okay so I allowed the neural net to finish optimization then here I calibrate the bachelor
+1:53:31
+parameters because I did not keep track of the running mean and very variants in their training Loop
+1:53:37
+then here I ran the loss and you see that we actually obtained a pretty good loss very similar to what we've achieved
+1:53:42
+before and then here I'm sampling from the model and we see some of the name like gibberish that we're sort of used to so
+1:53:49
+basically the model worked and samples uh pretty decent results compared to
+1:53:54
+what we were used to so everything is the same but of course the big deal is that we did not use lots of backward we
+1:54:00
+did not use package Auto grad and we estimated our gradients ourselves by hand and so hopefully you're looking at this
+1:54:06
+the backward pass of this neural net and you're thinking to yourself actually that's not too complicated
+1:54:12
+um each one of these layers is like three lines of code or something like that and most of it is fairly straightforward
+1:54:18
+potentially with the notable exception of the batch normalization backward pass otherwise it's pretty good okay and
+outro
+1:54:25
+that's everything I wanted to cover for this lecture so hopefully you found this interesting and what I liked about it
+1:54:31
+honestly is that it gave us a very nice diversity of layers to back propagate through and
+1:54:36
+um I think it gives a pretty nice and comprehensive sense of how these backward passes are implemented and how they work and you'd be able to derive
+1:54:43
+them yourself but of course in practice you probably don't want to and you want to use the pythonograd but hopefully you
+1:54:49
+have some intuition about how gradients flow backwards through the neural net starting at the loss and how they flow
+1:54:55
+through all the variables and all the intermediate results and if you understood a good chunk of it
+1:55:00
+and if you have a sense of that then you can count yourself as one of these buff doji's on the left instead of the uh
+1:55:06
+those on the right here now in the next lecture we're actually going to go to recurrent neural nuts lstms and all the
+1:55:13
+other variants of RNs and we're going to start to complexify the architecture and start to achieve better uh log
+1:55:19
+likelihoods and so I'm really looking forward to that and I'll see you then

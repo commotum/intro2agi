@@ -1,0 +1,2650 @@
+PREFACE.
+[I.] The volume now offered to the public is designed as an assis-
+tance to those persons who may be disposed to study and to em
+ploy a certain new mathematical method, which has, for some
+years past, occupied much of my own attention, and for which I
+have ventured to propose the name of the Method or Calculus of
+Quaternions. Although a copious analytical index, under the
+form of a Table of Contents, will be found to have been prefixed
+to the work, yet it seems proper to offer here some general and
+preliminary* remarks: especially as regards that conception from
+which the whole has been gradually evolved, and the motives for
+giving to the resulting method an appellation not previously in
+use.
+[2.] The difficulties which so many have felt in the doctrine
+of Negative and Imaginary Quantities in Algebra forced them-
+selves long ago on my attention ; and although 1 early formed
+some acquaintance with various views or suggestions that had
+been proposed by eminent writers, for the purpose of removing
+• Some readers may find it convenient to pass over for the present these pre-
+fatory remarks, and to proceed at once to the Volume, of which a large part has
+been drawn up so as to suppose less of previous and technical preparation than
+some of the paragraphs of this Preface. Indeed, great pains have been taken
+to render the early Lectures as elementary as the subject would allow ; and it
+is hoped that they will be found perfectly and even easily intelligible by persons
+of moderate scientific attainments. It is true that some of the subsequent por-
+tions of the Course (especially parts of the concluding Lecture) may possibly
+appear difficult, from the novel nature of the calculations employed: but perhaps
+on that very account those later portions may repay the attention of more ad-
+vanced mathematical students.
+(2) PREFACE.
+or eluding those difficulties (such as the theory of direct and in-
+verse quantities, and of indirectly correlative figures, the method
+of constructing imaginaries by lines drawn from one point with
+various directions in one plane, and the view which refers all to
+the mere play of algebraical operations, and to the properties of
+symbolical language), yet the whole subject still appeared to me
+to deserve additional inquiry, and to be susceptible of a more
+complete elucidation. And while agreeing with those who had
+contended that negatives and imaginaries were not properly
+quantities at all, I still felt dissatisfied with any view which
+should not give to them, from the outset, a clear interpretation
+and meaning; and wished that this should be done, for the square
+roots ofnegatives, without introducing considerations so expressly
+geometrical, as those which involve the conception of an angle.
+[3.] It early appeared to me that these ends might be at-
+tained by our consenting to regard Algebraas being no mere
+Art, nor Language, nor primarily a Science of Quantity; but
+rather as the Science of Order in Progression. It was, how-
+ever, a part of this conception, that the progression here spoken
+ef was understood to be continuous and unidimensional: extend-
+ing indefinitelyy(>rj^;ard and backward, but not in any lateral
+direction. Andalthough the successive states of such a progres-
+sion might (no doubt) be represented by points upon a line, yet
+I thought that their simple successiveness was better conceived
+by comparing them with moments oftime, divested, however, of
+all reference to cause and effect; so that the *' time" here consi-
+dered might be said to be abstract, ideal, ovpure, like that "space"
+which is the object ofgeometry. In this manner I was led, many
+years ago, to regard Algebra as the Science of Pure Time:
+and an Essay,* containing my views respecting it as such, was
+publishedf in 1835. IfI now reproduce a few of the opinions put
+• Theory of Conjugate Functions, or Algebraic Couples; with a Preliminary
+and Elementary Essay on Algebra as the Science of Pure Time. (Read Novem-
+ber 4th, 1833, and June 1st, 1835) Transactions of the Royal Irish Academy,
+Vol. XVII., Part n, (Dublin, 1835), pages 293 to 422.
+f I was encouraged to entertain and publish this view, by remembering some
+passages in Kant's Criticism of the Pure Reason, which appeared to justify the
+expectation that it should be possible to construct, d priori, a Science of Time,
+PREFACE. (3)
+forward in that early Essay, it will be simply because they may
+assist the reader to place himself in that point ofview, as regards
+the first elements of algebra^ from which a passage was gradually
+made by me to that comparatively geometrical conception which
+it is the aim of this volume to unfold. And with respect to any-
+thing unusual in the interpretations thus proposed, for some sim-
+ple and elementary notations, it is my wish to be understood as
+not at all insisting on them as necessary * but merely proposing
+them as consistent among themselves, and preparatory to the
+study of the quaternions, in at least one aspect of the latter.
+[4.] In the view thus recently referred to, if the letters a and
+B were employed as dates, to denote any two moments of time,
+which might or might not be distinct, the case ofthe coincidence or
+identity of these two moments, or of equivalence of these two
+dates, was denoted by the equation,
+B= a;
+which symbolic assertion was thus interpreted as not involving
+any original reference to quantity, nor as expressing the result
+as well as a Science of Space. For example, in his Transcendental iEsthetic,
+Kant observes :—" Zeit und Raum sind demnach zwey Erkenntnissquellen, aus
+denen « ^jreore verschiedene synthetische Erkenntnisse geschdpft werden kbnnen,
+wie vornehmlich die rcinc Mathematik in Ansehung der Erkenntnisse vom Raume
+und dessen Verlialtnissen ein gliinzendes Beyspiel gibt. Sie sind namlich beide
+zusaniraengenommen reine Formen aller sinnlichen Anschauung, und machen
+dadurch synthetische Satze a priori mogiich." Which may be rudely rendered
+thus:—"Time and Space are therefore two knowledge-sources, from which
+different synthetic knowledges can be a priori derived, as eminently in reference
+to the knowledge of space and of its relations a brilliant example is given by the
+pure mathematics. For they are, both together [space and time], pure forms of
+all sensuous intuition, and make thereby synthetic positions a priori possible."
+(Critik der reinen Vernunft, p. 41. Seventh Edition. Leipzig: 1828).
+•For example, the usual identity (b-a)-|-a=b, which in the older Essay
+was interpreted with reference to tiniQ, as in paragraph [8] of this Preface, the
+letters a and B denoting moments, is in the present work (Lecture I., article 25)
+interpreted, on an analogous plan indeed, but with a reference to space, the let-
+ters denoting/joints. Still it will be perceived that there exists a close connexion
+between the two views ; a step, in each, being conceived to be applied to a state
+ofa progression, so as to generate (or conduct to) another state. And generally
+I think that it may be found useful to compare the interpretations of which a
+sketch is given in the present Preface, with those proposed in the body of the
+work.
+(4) PREFACE.
+of any comparison between two durations as measured. It cor-
+responded to the conception of simultaneity or synchronism; or,
+in simpler words,it represented the thought ofthe present in time.
+Of all possible answers to the general question, *^fVhen," the
+simplest is the answer,
+" Now:" and it was the attitude ofmind,
+assumed in the making of this answer, which (in the system here
+described) might be said to be originally symbolized by the
+equation above written. And, in like manner, the two formulae
+of no/j-equivalence,
+B > A, B < A,
+were interpreted, without any primary reference to quantity, as
+denoting the two contrasted relations oi subsequence and oipre-
+cedence, which answer to the thoughts oiihefuture and the past
+in time; or .is expressing, simply, the one that the moment b is
+conceived to be later than a, and the other that b is earlier than
+a: without yet introducing even the conception of a measure, to
+determine how much later, or how much earlier, one moment is
+than the other.
+[5.] Such having been proposed as XhQfirst meanings to be
+assigned to the three elementary marks= > < , it was next sug-
+gested that i\iefrst use of the mark -, in constructing a science
+ofpure time, might be conceived to be the forming of a complex
+symbol n- a, to denote the difference between two moments, or
+the ordinal relation of the moment b to the moment a, whether
+that relation were one of identity or of diversity ; and if the lat-
+ter, then whether it were one of subsequence or of precedence,
+and in whatever degree. And here, no doubt, in attending to
+the degree of such diversity between two moments, the concep-
+tion of duration, as quantity in time, was introduced: the full
+meaning of the symbol b -a, in any particular application, being
+(on this plan) not known, until we know how long after, or how
+long before, if at all, b is than a. But it is evident that the no-
+tion of a certain quality (or kind) of this diversity, or interval,
+enters into this conception of a difference between moments, at
+least as fully and as soon as the notion oi quantity, amount, or
+duration. The contrast between the Future and the Past appears
+to be even earlier and more fundamental, in human thought, than
+that between the Great and the Little.
+PREFACE. /_s
+[6.] After comparing moments^ it was easy to proceed to
+compare relations; and in this view, by an extension ofthe recent
+signification [4] of the sign=
+, it was used to denote analogy in
+time ; or, more precisely, to express the equivalence oftwo marks
+ofone common ordinal relation, between two pairs of moments.
+Thus the formula,
+D- c =B-A,
+came to be interpreted as denoting an equality between two
+intervals in time ; or to express that the moment d is related
+to the moment c, exactly as b is to a, with respect to identity
+or diversity: the quantity and quality of such diversity (when
+it exists) being here both taken into account. A formula of
+this sort was shewn to admit of inversion and alternation
+(c-D= A-B, d-b= c-a); and generally there could be per-
+formed a number of transformations and combinations of equa-
+tions such as these, which all admitted of being interpreted and
+justified by this mode of viewing the subject, but which agreed
+in all respects with the received rules of algebra. On the same
+plan, the two contrasted formulae of inequalities of differences,
+D-OB-A, D-C<B-A,
+were interpreted as signifying, the one that d was later, relatively
+to c, than b to a; and the other that d was relatively earlier.
+[7.] Proceeding to the mark +, 1 used this sign primarily as
+a mark of combination between a symbol, such as the smaller
+Roman letter a, of a step in time, and the symbol, such as a, of
+the moment/row which this step was conceived to be made, in
+order to form a complex symbol, a + a, recording this conception
+oftransition, and denoting the moment (suppose b) to which the
+step was supposed to conduct. The step or transition here
+spoken ofwas regarded as a mental act, which might as easily be
+supposed to conAxxci backwards asforwards in the progression of
+time; or even to be a null step, denoted by 0, and producing no
+effect (0 + a = a). Thus, with these meanings of the signs, the
+notation
+B = a+ A,
+denoted the conception that the moment b might be attained, or
+(6) PIIEFACE.
+mentally generated^ by making (in thought) the step a from the
+moment a. And it appeared to me that without ceasing to re-
+gard the symbol b- a as denoting, in one view [5], an ordinal
+relation between two moments, we might also use it in the con-
+nected sense of denoting this stepfrom one to another: which
+would allow us (as in ordinary algebra) to write, with the recent
+suppositions,
+B-A= a;
+the two members of this new equation being here symbols for
+one common step.
+[8.] The usual identity,
+(b- a) + A = B,
+came thus to be interpreted as signifying primarily (in the
+Science ofPure Time) a certain conceived connexion between the
+operations, of rfe^erwjwiw^ the difference between two moments
+as a relation, and of applying that difference as a step. And the
+two Other familiar and connected identities,
+c- A = (c- b) + (b- a), c- b= (c- a)- (b- a),
+were treated, on the same plan, as originally signifying certain
+compositions and decompositions of ordinal relations or of steps
+in time. A special symbol for opposition between any two such
+relations or steps was proposed; but it was remarked that the
+more usual notations, + a and - a, for the step (a) itself, and for
+the opposite of that step, might, in full consistency with the same
+general view, be employed, if treated as abridgments for the more
+complex symbols + a,- a: the latter notation presenting here
+no difficulty of interpretation, nor requiring any attempt to con-
+ceive the subtraction of a quantity from nothing, but merely the
+decomposilion ofa null step into two opposite steps. But opera-
+tions on steps, conducted on this plan, were shewn to agree in
+all respects with the usual rules of algebra, as regarded Addition
+and Subtraction.
+[9.] One time-step (b) was next compared with another (a),
+in the way of algebraic ratio, so as to conduct to the conception
+of a certain complex relatioti (or quotient), determined partly by
+their relative largeness, but partly also by their relative direction,
+;
+;
+PREFACE. (7)
+as similar or opposite; and to the closely connected conception of
+an algebraic number (or multiplier)^ which operates at once on
+the quantity and on the direction of the one step (a), so as to
+produce (or mentally generate) the quantity and direction of the
+other step (b). By a combination of these two conceptions, the
+usual identity,
+— X a =b, or b = a X a, if- = a,
+a a
+received an interpretation; the factor a being a positive or a con-
+tra-positive (more commonly called negative) number^ according
+as it preserved or reversed the direction of the step on which it
+operated. The four primary operations, for combining any two
+such ratios or numbers or factors, a and b, among themselves,
+were defined by four equations which may be written thus, and
+which were indeed selected from the usual formulae of algebra,
+but were employed with new interpretations
+(6 + a) X a = (6 X a) + (a X a) ; (i X fl) X a=6 X (a X a)
+(6- a) x a = (i x a)- (a x a)
+^
+6 -^ a = (6 x a)
+(a x a).
+[10.] Operations on algebraic numbers (positive or contra-
+positive) were thus made to depend (in thought) on operations
+of the same names on steps; which were again conceived to in-
+volve, in their ultimate analysis, a reference ,to comparison of
+moments. These conceptions were found to conduct to results
+agreeing with those usually received in algebra; at least when
+was treated as a symbol of a null number^ as well as of a null step
+[7], and when the symbols, + a, 0-a, were abridged to + a
+and- a. In this view, there was no difficulty whatever, in in-
+terpreting the product of two negative numbers^ as being equal
+to ?i positive number : the result expressing simply, in this view
+of it, that two successive reversals restore the direction of a step.
+And other difficulties respecting the rule ofthe signs appeared
+in like manner to fall away, more perfectly than had seemed to
+me to take place in any view of algebra, which made the thought
+of quantity (or of magnitude) the primary or fundamental con-
+ception.
+[11.] This theory of algebraic numbers, as ratios of steps in
+time, was applied so as to include results respecting powers and
+(8) PREFACE.
+roots and logarithms: but what it is at present chiefly important
+to observe is, that because, for the reason just assigned, the
+square oi every number is positive, therefore no number, whether
+positive or negative, could be a square root ofa negative num-
+ber, in this any more than in other views of algebra. At least
+it was certain that no single number, of the kinds above con-
+sidered, could possibly be such a root: but I thought that with-
+out going out of the same general class of interpretations, and
+especially without ceasing to refer all to the notion of time, ex-
+plained and guarded as above, we might conceive and compare
+couples of moments; and so derive a conception oi couples of
+steps (in time), on which might be founded a theory of couples
+ofnumbers, wherein no such difficulty should present itself.
+[12.] In this extended view, the symbols Ai and A2 being
+employed to denote the two moments of one such pair or couple,
+and Bi, B2 the two moments of another pair, I was led to write
+the formula,
+(Bi, B2)- (Ai, A2)= (Bi- Ai, B2- A2) ;
+and to explain it as expressing that the complex ordinal relation
+of one moment-couple (bi, B2) to another moment-couple (a,, Aj)
+might be regarded as a relation-couple ; that is to say, as a sys-
+tem oftwo ordiyial relations, Bi- Ai and B2-A2, between the cor-
+responding moments of those two moment-couples: the primary
+moment Bi of the one pair being compared with the primary mo-
+ment Ai of the other; and, in like manner, the secondary ynoment
+B2 being compared with the secondary moment A2. But, instead
+of this (analytical) comparison of moments with moments, and
+thereby oipair with pair, I thought that we might also conceive
+a (synthetical) generation [7] of one pair of moments from ano-
+ther, by the application oi-d pair ofsteps [1 1], or by what might
+be called the addition (see again [7] ), of a step-couple to a mo-
+ment-couple ; and that an interpretation might thus be given to
+the following identity, in the theory of couples here referred to:
+(b„ 82)= {(b„ B2)-(a„ A2)J -f (a„ A2).
+And other results, respecting the compositions and decomposi-
+tions oi single ordinal relations, or oi single steps w time, such
+;
+PREFACE. (9)
+as those referred to in paragraph [8] of this Preface, were easily
+extended, in like manner, to the corresponding treatment ofcom-
+plex relations, and of complex steps, of the kinds above described.
+[13.] There was no difficulty in interpreting, on this plan,
+such formulae of multiplication and division, as
+a X (ai, 82) = (aai, aa^) ; (aai, aaz) -;- (ai, az) = a
+where the symbols ai, 82 denote any two steps in time, and a any
+number, positive or negative. But the question became less
+easy, when it was required to interpret a symbol of the form
+(bi, bz)-r- (a„ 82),
+where bi, hi denoted two steps which could not be derived from
+the two steps ai, aj, through multiplication by any single number,
+such as a. To meet this case, which is indeed the general one
+in this theory, I was led to introduce the conception [11] o{?ium-
+ber-couples, or oipairs ofnumbers, such as (ci, a^); and to re-
+gard every single number (a) as being a degenerateform of such
+a number-couple, namely of {a, 0); so that the recent formula,
+for the multiplication ofa step-couple by a number, might be thus
+written
+(«i, 0) (a„ 82) =(a'ia„ 0182).
+It appeared proper to establish also the following formula, for the
+multiplication ofa primary step, by an arbitrary number-couple:
+(flr„ a^ (ai, 0)= (a, ai, 0281);
+and to regard every such number-couple as being the sum of two
+others, namely, of a pure primary and a pure secondary, as fol-
+lows:
+(«i, a-,) = (fli, 0) + (0, flj)
+the analogous decomposition ofa step-couple having been already
+established.
+[14.] The difficulty of the general multiplication of a step-
+couple by a number-couple came thus to be reduced to that of
+assigning the product of one pure secondary by another : and the
+spirit of this whole theory of couples led me to coijceive that, for
+such a product, we ought to have an expression of the form,
+b
+;
+(10) TKEFACE.
+(0, Ca) (0, 82)= (7102 32, 720282);
+the coefficients 71 and 72 being some two constant numbers, in-
+dependent of the step 82, and of the number a^: which two coef-
+ficients I proposed to call the constants of multiplication. These
+constants might be variously assumed: but reasons were given
+for adopting the following selection* of values, as the basis of all
+subsequent operations:
+71 = -
+1 ; 72 = 0.
+Id tMa waY-,the rea^uired law ofo^eration.^of a, general number-
+couple on a general step-couple, as multiplier on multiplicand,
+was found, with this choice of the constants, to be expressed by
+the formula:
+(«i> 02) (ai> 82)= (oi ai- Oi 82, Cz ai + a^ a^).
+And in fact it was easy, with the assistance of this formula, to
+interpret the quotient [13] of two step-pairs, as being always
+equal to a number-pair, which could be definitely assigned, when
+the ratios of the four single steps were given.
+[15.] With these conceptions and notations, it was allowed to
+write the two following equations
+(1, 0) (a, b)= (a, b) ; (0, 1) (a, b)= (- b, a)
+and I thought that these two factors, (I, 0) and (0, 1), thus used,
+might be called respectively the primary unit, and the secondary
+unit, of number. It was proposed to establish, by definition, for
+the cliiel operations on number-pairs, a lew rules which seemecl
+to be natural extensions of those already established for the cor-
+responding operations [9] on single numbers: andit was seen that
+because
+(0, l)(-b, a)= (-a,-b)= (-l, 0)(a, b),
+we were allowed, as a consequence of those rules, or of the con-
+ception which had suggested them, namely, (compare [33] ), by
+a certain abstraction of operators from operand, to establish the
+formula,
+(0, l)^= (-l,0)= -l.
+* In some of my unprinted investigations, other selections of these constants
+were employed.
+PREFACE. (11)
+Anew and (as I thought) clear interpretation was thus assigned,
+for that well-known expression in algebra, the square root of ne-
+gative unity: for it was found that we might consistently write,
+on the foregoing plan,
+(0,l)= (-l,0)i = (-!)*= /IT;
+without anything obscure, impossible, or imaginary^ being in any
+way involved in the conception.
+[16.] In words, if after reversing the direction of the second
+• of any two steps, we then transpose them, as to order; thus
+making the old but reversed second step ihejirst of the new ar-
+rangement, or of the new step-couple; and making, at the same
+time, the old and unreversed first step the second of the same
+new couple; and if we then repeat this complex process of rever-
+sal and transposition, weshall, upon the whole, have restored the
+order of the two steps, but shall have reversed the direction of
+each. Now, it is the conceived operator, in this process of
+passingfrom one pair ofsteps to another, which, in the system
+here under consideration, was denoted by the celebrated sym-
+bol v^-lj SO often called imaginary. And it is evident that the
+process, thus described, has no special reference whatever to the
+notion oi space, although it has a reference to the conception of
+PROGRESSION. The symbol- 1 denoted that negative unit of
+number, of which the effect, as a. factor, was to change a single
+step (+ a) to its own opposite step (- a); and because two such
+reversals restore, therefore (see [lOj ) the usual algebraic equa-
+tion,
+(-1)^= + 1,
+continued to subsist, in this as in other systems. But the symbol
+\/-l was regarded as not at all less real than those other symbols
+-
+1 or + 1, although operating on a different subject, namely, on a
+pair ofsteps (a, b), and changing them to a newpair, namely,
+the pair(-b, +a). And the^orm of this well-known symbol,
+\/-l, as an expression (in the system here described) for what I
+had previously written as (0, 1), and had called (see [15] ) the
+SECONDARY UNIT of number, was justified by shewing that the
+eflfect of its operation, when twice performed, reversed each step
+of the pair.
+(12) PREFACE.
+[17.] The more general expression of algebra, Cj + \/- I r?2,
+for any (so called) imagmanj root of a quadratic or other equa-
+tion, was, on this plan, interpreted as being a symbol ofthe num-
+ber-couple which 1 had otherwise denoted by {a^, a^); and of
+which the law cooperation on a step-couple had already [14]
+been assigned: as also the analogous law, thence derived,* of its
+multi})lication by another number-couple, namely, that which is
+expressed by the formula,
+{biy bi) (oi, Gta) = (biOi -bia^, bzOi + biOz).
+Ill this view, instead of saying that the usual quadratic equation,
+x^ + ax + b = 0,
+where a and b are supposed to denote two positive or negative
+numbers, has generally two roots, real or imaginary, it would
+be said that this otherform of the same equation,
+(x, 2^)^ + (a, 0)(a;, y) + (6,0)= (0, 0),
+is generally satisfied by two (real) number-couples; in which, ac-
+cording to the values of a and 6, the secondary number (y) might
+or might not be zero. An equation of this sort was called a cou-
+ple-equation, and was regarded as equivalent to a system oftwo
+equations^ between numbers : for example, the recent quadratic
+couple-equation breaks itself up into the two following separate
+equations,
+x'^-y--^ ax + b= 0, 2xy + ay= 0,
+which always admit ofrealand numerical solutions, whether ^a--A
+be a positive or a negative number; the difference being only
+that in the former case we are to take the factory= 0, of the se-
+• The principles of such derivation were only hinted at in the Essay of 1835
+(see page 403 of the Volume above cited): but it was perhaps sufficiently ob-
+"
+vious that they depended on the
+separation of symbols," or on the abstraction
+ofa common operand. (Compare paragraphs [15], [33], of the present Preface.)
+•f-M. Cauchy, in his Cours d' Analyse (Paris, 1821, page 176), has the re-
+—
+mark:
+" Toute Equation imaginaire n'est que la representation symbolique de
+deux equations entre quantites rdeiles." That valuable work of M. Cauchy was
+early known to me: but it will have been perceived that I was induced to look
+at the whole subject ofalgebra from a somewhat different point of view, at least
+on the metaphysical side. As to the word" numbers," see a note to [33].
+PREFACE. (13)
+cond equation of the pair, whereas in the latter case we are to
+take the otherfactor of that equation, and to suppose 2x+ a =0.
+And similar remarks might be made on equations of higher or-
+ders: all notion of anything imaginary^ unreal, or impossible^
+being quite excluded from the view.
+[18.] The same view was extended, so as to include a theory
+of powers, roots, and logarithms of number-couples; and espe-
+cially to confirm a remarkable conclusion which my friend John
+T. Graves, Esq., had communicated to me (and 1 believe to
+others) in 1826, and had published in the Philosophical Transac-
+tions for the year 1829: namely, that the general symbolical ex-
+pressionfor a logarithm is to be considered as invoicing two ar-
+bitrary and independent integers;* the general logarithm of
+unityt to the Napierian base, being, for example, susceptible of
+the form,
+,- 2u)' IT
+^ogi=9 r~r»
+dioJTT— V- 1
+where a>, w denote any two whole numbers, positive or negative
+or null. In fact, I arrived at an equivalent expression, in my
+own theory of number-couples, under the form,
+w (e, 0) (1, ^(Oir)
+and generally an expression for the logarithm-couple, with the
+order w, and rank w, of any proposed number-couple {y^, y^), to
+any proposed base-couple (6i, b^), was investigated in such a way
+as to confirmf the results of Mr. Graves.
+• It 18 proper to mention, that results substantially the same, respecting the
+entrance of two arbitrary whole numbers into the general form of a logarithm,
+are given byOhm,in the second volume of his valuable work, entitled:
+"
+Versuch
+eines vollkommen consequenten Systems der Mathematik, vom Professor Dr.
+Martin Ohm" (Berlin, 1829, Second Edition, page 440. I have not seen the first
+Edition). For other particulars respecting the history of such investigations,
+on the subject of general logarithms, I must here be content to refer to Mr.
+Graves's subsequent Paper, printed in the Proceedings of the Sections of the
+British Association for the year 1834 (Fourth Report, pp. 523 to 531. Lon-
+don, 1835).
+t Another confirmation ofthe same results, derived from a peculiar theory of
+conjugate functions, had been communicated by me to the British Association
+(14) PREFACE.
+[19.] After remarking that it was he who had proposed those
+names, of orders and ranks oflogarithms^ that early Essay ofmy
+own, of which a very abridged (although perhaps tedious) account
+has thus been given, continued and concluded as follows:
+'•But because Mr. Graves employed, in his reasoning, the usual
+"
+principles respecting Imaginary Quantities, and was content
+"
+to prove the symbolical necessity without shewing theinterpre-
+*• tation, or inner meaning, ofhis formulae, the present Theory of
+"
+Couples is published to make manifest that hidden meaning:
+"and to shew, by this remarkable instance, that expressions
+*' which seem, according to common views, to be merely symbo-
+"lical, and quite incapable of being interpreted, may pass into
+"the world of thoughts, and acquire reality and significance, if
+"
+Algebra be viewed as not a mere Art or Language, but as the
+" Science of Pure Time.* The author hopes to publish hereafter
+at Edinburgh in 1834, and may be found reported among the Proceedings ofthe
+Sections for that year, at pp. 519 to 323 of the Volume lately cited. The partial
+differential *• equations of conjugation," there given, had, as I afterwards
+learned, presented themselves to other writers : and the Essay on
+"
+Conjugate
+Functions, or Algebraic Couples," there mentioned, was considerably modified,
+in many respects, before its publication in 1835, in the Transactions ofthe Royal
+Irish Academy.
+• Perhaps I ought to apologize for having thus ventured here to reproduce
+(although only historically, and as marking the progress of my own thoughts)
+a view so little supported by scientific authority. I am very willing to believe
+that (though not unused to calculation) I mayhave habitually attended too little
+to the symbolical character of Algebra, as a Language, or organized system of
+signs: and too much (in proportion) to what I have been accustomed to consider
+its scientific character, as a Doctrine analogous to Geometry, through the Kan-
+tian parallelism between the intuitions of Time and Space. This is not a proper
+opportunity for seeking to do justice to the views of others, or to my own, on a
+subject of so great subtlety: especially since, in thepresent work, I have thought
+it convenient to adopt throughout a geometrical basis, for the exposition of the
+theory and calculus of the Quaternions. Yet I wish to state, that I do not de-
+spair of being able hereafter to shew that myown old views respecting Algebra,
+perhaps modified in some respects by subsequent thought and reading, are not
+fundamentally and irreconcileably opposed to the teaching of writers whom I
+so much respect as Drs. Ohm and Peacock. The" Versuch," &c., of the former
+I have cited (the date of the first Volume of the Second Edition is Berlin,
+1828): and it need scarcely be said (at least to readers in these countries)
+that my other reference is to the Algebra (Cambridge, 1830); the Report on
+Certain Branche* ofAnalysis, printed in the Third Report ofthe British Associa-
+;
+PREFACE. (15)
+''many other applications of this view; especially to Equations
+'< and Integrals, and to a Theory of Triplets and Sets of Mo-
+tion for the Adrancement of Science (London, 1834); the Arithmetical Algebra
+(Cambridge, 1842); and the Symbolical Algebra (Cambridge, 1845): all by
+the Rev. George Peacock. I by no means dispute the possibility of constructing
+a consistent and useful system of algebraical calculations, by starting with the
+notion of integer number ; unfolding that notion into its necessary consequences
+expressing those consequences with the help of symbols, which are already ge«
+neral inybrm, although supposed at first to be limited in their signification, or
+value: and then, by definition, for the sake of symbolic generality, removing the re-
+strictions which the original notion had imposed; and so resolving to adopt, as
+perfectly general in calculation, what had been only proved to be true for a cer-
+tain subordinate and limited extent of meaning. Such seems to be, at least in
+part, the view taken by each of the two original and thoughtful writers who
+have been referred to in the present Note: although Ohm appears to dwell more
+on the study of the relations between the fundamental operations, and Peacock
+more on the permanence of equivalentybrms. But I confess that I do not find my-
+self able to frame a distinct conception of number, without some reference to the
+thought of time, although this reference may be of a somewhat abstract and
+transcendental kind. I cannot fancy myself as counting any set of things, with-
+out first ordering them, and treating them as successive : however arbitrary and
+mental (or subjective) this assumed succession may be. And by consenting to
+begin with the abstract notion (or pure intuition) of time, as the basis ofthe ex-
+position ofthose axioms and inferences which are to be expressed by the symbols
+of algebra, (although I grant that the commencing with the more familiar con-
+ception of whole number may be more convenient for purposes of elementary in-
+struction,) it still appears to me that an advantage would be gained: because the
+necessity for any merely symbolical extension of formulae would be at least consi-
+derably postponed thereby. In fact (as has been partly shewn above), negatives
+would then present themselves as easily and naturally as positives, through the
+fundamental contrast between the thoughts of past anAfuture, used here as no
+mere illustration of a result otherwise and symbolically deduced, without any
+clear comprehension of its meaning, but as the very ground of the reasoning.
+The ordinary imaginaries of algebra could be explained (as above) by couples ;
+but might then, for convenience of calculation, be denoted by single letters, sub-
+ject to all the ordinary rules, which rules wouldyb//ow (on this plan) from the
+combination of distinct conceptions with definitions, and would offer no result
+which was not perfectly and easily intelligible, in strict consistency with that
+original thought (or intuition) of time, from which the whole theory should (on
+this supposition) be evolved. The doctrine of the n roots of an equation of the
+n'* degree (for example) would thus suffer no attaint as ioform, but would ac-
+quire (I think) new clearness as to meaning, without any assistance from geo-
+metry. The quaternions, as I have elsewhere shewn (in Vol. XXL, Part u., of
+the Transactions of the Royal Irish Academy), and even the biquaternions (as I
+hope to shew hereafter), might have their laws explained, and their symbolical
+results interpreted, by comparisons of se/s ofmoments, and by operations on sets
+;
+(16) PREFACE.
+'* ments, Steps, and Numbers, which includes this Theory of
+*« Couples."*
+[20.] The theory of triplets and sets, thus spoken of at the
+close of the Essay of 1835, had in fact formed the subject of va-
+rious unpublished investigations, of which some have been pre-
+served : and a brief notice of them here (especially as relates to
+tripletsf) may perhaps be useful, by assisting to throw light on
+the nature ofthe passage, which I gradually came to make, from
+couples to quaternions.
+Without departing from the same general view of algebra, as
+the science of pure time, it was obvious that no necessity existed
+for any limitation to pairs, of moments, steps, and numbers.
+Thus, instead of comparing, as in [12], two moments, Bj and B2,
+with two other moments, Ai and A2, it was possible to compare
+three moments, Bi, B2, B3, with three other moments, Ai, A2, A3
+that is, more fully, to compare (or to conceive as compared) the
+ofsteps in time. Thus,in the phraseology ofDr. Peacock, we should have a very
+wide "science of suggestion" (or rather, suggestive science) as o\xr basis, on
+which to build up afterwards a new structure ofpurely symbolical generalization,
+if the science oftime wore adopted, instead of merely Arithmetic, or (primarily)
+the doctrine of integer number. Still I admit fully that the actual calculations
+suggested by this, or by any other view, must be performed according to some
+fixed laws ofcombination ofsymbols, such as Professor De Morgan has sought to
+reduce, for ordinary algebra, to the smallest possible compass, in his Second
+Paper on the Foundation of Algebra (Camb. Phil. Trans., Vol. VII., Part ni.),
+and in his work entitled" Trigonometry and Double Algebra" (London, 1849):
+and that in following out such laws to their symbolical consequences, uninter-
+pretable (or at least uninterpreted) results may be expected to arise. In the
+present Volume (as has been already observed), I have thought it expedient to
+present the quaternions under a geometrical aspect, as one which it may be per-
+haps more easy and interesting to contemplate, and more immediately adapted
+to the subsequent applications, of geometrical and physical kinds. And in the
+passage which I have made (in the Seventh Lecture), from quaternions considered
+as real (or as geometrically interpreted), to hiquaternions considered as imaginary
+(or as geometrically uninterpreted), but as symbolically suggested by the gene-
+ralization of quaternion formula;, it will be perceived, by those who shall do me
+the honour to read this work with attention, that I have employed a method of
+transition, from theorems proved for the particular to expressions assumed for the
+general, which bears a very close analogy to the methods ofOhm and Peacock:
+although I have since thought of a way ofgeometrically interpreting the hiquater-
+nions also.
+• Trans. R. L A., Vol. XVII., Part ii., page 422.
+f These remarks on triplets are now for the first time published.
+;
+PREFACE. (17)
+homologous moments of these two triads^ primary with primary,
+secondary with secondary, and tertiary with tertiary; and so to
+obtain a certain system or triad ofordinal relations, or a triad
+ofsteps in time, which might be denoted (compare [6], [7], [12] )
+by either member of the following equation
+(Bi, B2, B3)— (Aj, A2, A3)= (Bi—Ai, B3—A], Bs— A3).
+And on the same plan (compare [7], [8], [12]), if we denote the
+three constituent steps of such a triad as follows,
+Bj~ Ai«= aij B3— A2=a2, B3— A3 = 83,
+it was allowed to write,
+(Bi, B2, B3)=(ai, 82, as) + (Ai, Aj, A3)
+a triad ofsteps being thus (symbolically) added (or applied) to a
+triad ofmoments, so as to conduct (in thought) to another triad
+ofmoments. It appeared also convenient to establish the follow*
+ing formula, for the addition 0/step-triads^
+0>i» bj, b3) + (ai, 82, 83)= (bi +ai, bj +82, bg + 83),
+as denothig a certain composition of two such triads of steps, an-
+swering to that successive application of them to any given triad
+of moments (Ai, a,, A3), which conducts ultimately to a third
+triad of moments, namely, to the triad (ci, C3, C3), if
+Ci—Bi = Di, Cj—Bj= D2J C3— Bg^
+D3.
+Subtraction of one step-triad from another was explained (see
+again [8]) as answering to the analogous decomposition of a
+given step-triad into others; or to a system of three distinct de-
+compositions of so many single steps, each into two others, of
+which one was given; and it was expressed by the formula,
+(Ci, C2, C3)- (ai, 82, 83) = (ci- 81, C2-82, C3-83)
+while the usual rules of algebra were found to hold good, respect-
+ing such additions and subtractions of triads.
+[21.] Multiplication of a step-triad by a positive or negative
+number (a) was easy, consisting simply in the multiplication of
+each constituent step by that number; so that I had the equation,
+a (81, 83, 83)= (asi, aa3, 083):
+c
+;
+(18) PREFACE.
+and conversely it was natural (compare [13] ) to establish the
+following formula for a certain case ofdivision ofstep-triads^
+(aai, aa2, aaj) -^ (ai, aj, aj)= a.
+But in the more general case (compare again [13]), where the
+steps b|, bz, ba of one triad were not proportional to the steps ai,
+a2, as, it seemed to me that the quotient of these two step-triads
+was to be interpreted, on the same general plan, as being equal
+to a certain triad or triplet ofnumbers, a,, 02, a^-, so that there
+should be conceived to exist generally two equations of the forms,
+(bi, ba, ba) -^ (ai, a^, as) = (oi, Oj, 03)
+(bi, bz, bg)= (ai, fla, 03) (ui, a2, a3):
+the three (positive or negative) constituents of this numerical
+triplet (fli, ttz, Os) depending, according to some definite laws, on
+the ratios of the six steps, ai a2 83 bi b2 bj.
+[22.] In this way there came to be conceived three distinct
+and independent unit-steps, a primary, a secondary, and a ter-
+tiary, which I denoted by the symbols,
+and also three unit-numbers, primary, secondary, and tertiary,
+each of which might operate, as a species offactor, or multiplier,
+on each of these three steps, or on their system, and which I de-
+noted by these other symbols,
+xi, X2, Xj;
+or sometimes more fully thus,
+(1,0,0), (0,1,0), (0,0,1).
+A triad ofsteps took thus the form,
+rli + sli + tli,
+where r, *, t were three numerical coefficients (positive or nega-
+tive), although li I2 la were still supposed to denote three steps
+in time; and any tripletfactor, such as {tn, n, p), by which this
+step-triplet was to be multiplied, or operated upon, might be put
+under the analogous form,
+»jx, + nxj + py.^.
+PREFACE. (19)
+Continuing then to admit the distributive property of multipli-
+cation, it was only necessary to fix the significations of the nine
+products, or combinations, obtained by operating separately with
+each of the three units of number on each of the three units of
+step: every such product, or result, being conceived, in this
+theory, to be itself, in general, a step-triad, of which, however,
+some of the component steps might vanish. Hence, after writing
+I proceeded to develope these nine step-triplets into nine trino-
+mialexpressions of the forms,
+h, 9 = V,5. 1 ^1 + V, 5,2 I2 + 1/, g,3 la*
+where the twenty-seven symbols of the form 1^^
+^ represented
+certain^a:erf numerical coejfficients, or constants ofmultiplication,
+analogous to those denoted by -yi and y^ in [14], and like them
+requiring to have their values previously assigned, before pro-
+ceeding to multiplication, if it were demanded that the operation
+of a given triplet of numbers on a given triplet of steps should
+produce a perfectly definite step-triad as its result.
+[23.] Conversely, when once these numerical constants had
+been assigned, I saw that the equation of multiplication,
+(/wxi + 7JX2 4-^x3) (rli + *l2 + /l3)= xli + ylj + zls,
+was to be regarded as breaking itself up, on account of the sup-
+posed mutual independence of the three unit-steps, into three or-
+dinary algebraical equations, between the nine numbers, m, n, p,
+r, s, t, X, y, z; namely, between the coefficients of the multiplier,
+multiplicand, and product. These three equations were linear^
+relatively to m, n,p (as also with respect to r, s, t, and x, y, z) ;
+and therefore while they gave, immediately, expressions for the
+coefficients xyz of the product, and so resolved expressly the
+problem of multiplication, they enabled me, through a simple
+system of three linear and ordinary equations, to resolve also the
+converse problem [21] of the division of one triad of steps by
+another : or to determine the coefficients mnp of the following
+quotient of two such triads,
+wx,+ wxj +/)X3= (xli + 2/12+ zls) -7- (rli + slj + t\i).
+(20) PREFACE.
+[24.] Such were the most essential elements of that general
+theory of triplets, which occurred to me in 1834 and 1835 : but
+it is clear that, in its applications, everything depended on the
+choice of the twenty-seven constants of multiplication^ which
+might all be arbitrarily assumed, before proceeding to operate^
+but were then to be regarded d^ifixed. It was natural, indeed, to
+consider the primary number-unit x, as producing no change in
+the step or triad on which it operates; and it was desirable to de-
+termine the constants so as to satisfy the condition,
+X3 Xj= X2 X3,
+for the sake of conforming to analogies of algebra. Accordingly,
+in one ofseveral triplet-systems which I tried, the constants were
+so chosen as to satisfy these conditions, by the assumptions,
+^1 li = iij ^1 J-z = ^2> ^1 ^z— is*
+X2l|= l2, Xj l2= I1 + (6-6"^) I2, X2 I3 = 6I3,
+X3li = l3, X3 12=^13, X3 l3 = li + il2+ CI3;
+which still involved two arbitrary numerical constants, b and c,
+and gave, by a combination of successive operations, on any ar-
+bitrary step-triad (such as rli + 5I2 + tl^, whatever the coefficients
+r, s, t of this operand triad might be), the following symbolic
+equations,* expressing the properties ofthe assumed operators,
+X2, X3, and the laws of their mutual combinations:
+X2^=(6-6-')X2 + l;
+X2X3 = X3 X2 = OX35
+X3* = 0x3+ 6x2 + 1;
+while the factor Xi was suppressed, as being simply equiva-
+lent, in this system, to the factor 1, or to the ordinary unit of
+number. But although the symbol Xj appeared thus to be given
+by a quadratic equation, with the two real roots b and-6"*, I saw
+that it would be improper to confound the operation of this pe-
+culiar symbol Xj with that of either of these two numerical roots,
+of that quadratic but symbolical equation, regarded as an ordi-
+nary multiplier. It was not either, separately, of the two ope-
+• These symbolic equations are copied from a manuscript of February,
+1835.
+;
+PREFACE. (21)
+rations -x-z-b and xa+i^*, which, when performed on a general
+step-triadi reduced that triad to another with every step a null
+one : but the combination of these two operations, successively
+(and in either order) performed.
+[25.] In the same particular triplet system, the three gene-
+ral equations [23] between the nine numerical coefficients, of
+multiplier, multiplicand, and product, became the following:
+X = mr+ns+pt;
+y= ms+nr+ {b-b'^) ns + bpt;
+z = mt+pr+ b{nt+ps) + cpt;
+whence it was possible, in general, to determine the coefficients
+m, n, p, of the quotient of any two proposed step-triads. The
+same three equations were found to hold good also, when the
+number-triplet (x,y, z) was considered as the symbolicalproduct
+qfthe two number-triplets, (nii n^ p) and (r,Syt); this product
+being obtained by a certain detachment (or separation) of the
+symbols of the operators from that ofa common operand, namely
+here an arbitrary step-triad. In other words, the same algebraical
+equations between the nine numerical coefficients, xyZj mnp, rst,
+expressed also the conditions involved in the formula of sym-
+bolical multiplication,
+(x, y, z)= {my n, p) (r, s, /),
+regarded as an abridgment of the followingyM//er formula
+(x, y, z) (ai, 32, as) = (w, n, p) (r, *, t) (ai, 82, as)
+where ai, 82, 83 might denote any three steps in time. Or they
+might be said to be the conditions for the correctness of this
+other symbolical equation,
+a;xi +yy.2 + zxj= (mxi +nxj +p^z) (rxi +5x2 +ixj),
+interpreted on the same plan as the symbols y.^, XjXg, xjXj, Xg',
+in [24].
+[26.] All the peculiar properties of the lately mentioned
+triplet system might be considered to be contained in the^three
+ordinary and algebraical equations, [25], which connected the
+nine coefficients with each other (and in this case with two arbi-
+trary constants). And I saw that these equations admitted of
+(22) PREFACB.
+the three following combinations, by the ordinary processes of
+algebra
+x-b'^y= (in-b-^n) (r-b'^s);
+X i-by + az= (m+ bn+ap) {r + bs + at) ;
+X+ by + dz= (m+ bn + dp) {r + bs + dt) ;
+where a, d were the two real and unequal roots of the ordinary
+quadratic equation,
+ei^=ca-irb^ + l.
+Here, then, was an instance of what occurred in every other tri-
+plet system that I tried, and seemed indeed to be a general and
+necessary consequence of the cubicform of a certain function,
+obtained by elimination between the three equations mentioned
+in [23], at least if we still (as is natural) suppose that Xi = l:
+namely, that the product oftwo triplets may vanish, without
+eitherfactor vanishing. For if (as one of the ways of exhibiting
+this result), we assume
+n = bm, r = -bSi t = Of
+the recent relations will then give
+x = Of y=0, 2 = 0;
+so that, whatever values may be assigned to m, p, s, we have, in
+this system, the formula
+(m, ftm, p) (- bs, s, 0)= (0, 0, 0).
+For the same reason, there were indeterminate cases, in the ope-
+ration oi division oftriplets: for example, if it were required to
+find the coeflBcients mnp of a quotient, from the equation
+(m, w, p) (- bs, s, 0)= {x, y, z),
+we should only be able to determine the function m-b'^ n, but
+not the numbers mand n themselves; while p would be entirely
+undetermined: at least \{ x-\-by and z were each =0, for other-
+wise there might come infinite values into play.
+[27.] The foregoing reasonings respecting triplet systems
+were quite independent ofany sort of geometrical interpretation.
+Yet it was natural to interpret the results, and I did so, by con-
+ceiving the three sets of coefficients, (m, n,p), (r, s, t), {x, y, z),
+;
+;
+PREFACE. (23)
+which belonged to the three triplets in the multiplication, to be
+the co-ordinate projections^ on three rectangular axes, of three
+right lines drawn from a common origin; which lines might (I
+thought) be said to be, respectively, in this system of interpreta-
+tion, the multiplier line, the multiplicand line, and the product
+line. And then, in the particular triplet system recently de-
+scribed, the formulae of [2(>] gave easily a simple rule, for con-
+structing (on this plan) the product oftwo lines in space. For
+I saw that if threefixed and rectangular lines, A^ B, C, distinct
+from the original axes, were determined by the three following
+pairs of ordinary equations in co-ordinates :
+x+hi/ = 0, z = 0, for line A\
+y -bx= 0, z- ax = 0,. . . B
+y- bx= 0, z- a'x = 0,. . . C
+we might then enunciate this theorem:*
+"
+If a line L" be the product of two other lines, Z;, L\ then
+on -whichever of the three rectangular lines A, B, C we project
+the two factors L, L\ the product (in the ordinary meaning) of
+their two projections is equal to the product of the projections
+(on the same) of L" and J7, U being the primary unit-line
+(1, 0, 0)."
+[28.] I saw also that it followed from this theorem, or more
+immediately from the equations lately cited [26], from which the
+theorem itself had been obtained, that if we considered three
+rectangular planes, A', B\ C, perpendicular resj)ectively to the
+three lines A, B, C, or having for their equations,
+y-bx=0, (A); x + by-i^ az=0, (/?'); x + by + a'z = 0^ (C);
+then every line in any one of these three fixed planes gave a null
+product line, when it was multiplied by a line perpendicular to
+that fixed plane: the line A, for example, as a factor, giving a
+null line as the product, when combined with any factor line in
+the plane A. For the same reason (compare [26] ), although
+the division of one line by another gave generally a determinate
+• This theorem is here copied, without any modification, from the manuscript
+investigation of February, 18.35, which was mentioned in a former note.
+(24) PREFACE.
+quotient-line^ yet if the divisor-line were situated in any one of
+the three planes A\ By C, this quotient-line became then in-
+finite^ or indeterminate. And results of the same general cha-
+racter, although not all so simple as the foregoing, presented
+themselves in my examinations of various other triplet systems:
+there being, in all those which 1 tried, at least one system of
+line and plane, analogous to {A) and {A'), but not always three
+such (real) systems, nq/always at right angles to each other.
+[29.] These speculations interested me at the time, and some
+ofthe results appeared to be not altogether inelegant. But 1 was
+dissatisfied with the departure from ordinary analogies ofalgebra,
+contained in the evanescence [26] [28] of a product of two trip-
+lets (or of two lines), in certain cases when neither^c<or was
+null ; and in the connected indeterminateness (in the same cases)
+ofa quotient, while the divisor was different from zero. There
+seemed also to be too much room for arbitrary choice ofcon-
+stants, and not any suflSciently decided reasons for finally prefer-
+ring one triplet system to another. Indeed the assumption of
+the symbolic equation [24], xj = 1, which it appeared to be conve-
+nient and natural to make, although not essential to the theory,
+determined immediately the values of nine out of the twenty-se-
+ven constants of multiplication; and six others were obtained
+from the assumptions, which also seemed to be convenient (al-
+though in some of my investigations the latter was not made),
+X2 li = I2J Xj li = I3.
+The supposed convertibility (see again [24] ), of the order of the
+two operations xj and xj, gave then the three following condi-
+tions,
+X3X2I1= Xj X3I1, X3X2l2= XjXalz, X3X2l3= X, X3I3,
+ofwhich the first was seen at once to establish three relations be-
+tween six of the twelve remaining coefficients of multiplication,
+namely (if the subscript commas be here for conciseness omitted),
+I23I = I32H I232~
+-'•322> •'•233— •^323'
+The two other equations between step-triads, given by the recent
+conditions of convertibility, resolved themselves into six equa-
+tions between coefficients, which were, however, perceived to be
+PREFACE. (25)
+not all independent of each other, being in fact all satisfied by
+satisfying the three following:
+-1 321— '223 -•332~
+-^233 -1 322 j
+I221 = I233 (I233~" ^222) + I223 (^322" '^333}>
+I33I = I332 (A233~ J 222) + I322 (.^322
+"~ ^333^»
+of which the two former presented themselves to me under forms
+a little simpler, because, for the sake of preserving a gradual as-
+cent from couples to triplets, or for preventing a tertiary term
+from appearing in the product, when no such term occurred in
+either factor, 1 assumed the value,
+I223~ "•
+There still remained^we arbitrary coefficients,
+'222> 1^322> i323> -'332) -^333)
+which it seemed to be permitted to choose at pleasure: but the
+decomposition of a certain cubicfunction [26] of r, s, t iniofac-
+tors, combined with geometrical considerations, led me, for the
+sake of securing the reality and rectangularity of a certain sys-
+tem oi lines and planes, to assume the three following relations
+between those coefficients:
+I222— I323~ l323» I322 = "» I332 = •323 ;
+which gave also the values,
+1221 = 1, I321-O, 133, = 1.
+But the two.constant coefficients I323 and I333 still seemed to re-
+main wholly arbitrary,* and were those undetermined elements,
+denoted by b and c, which entered into the formulse of triplet
+multiplication [25], already cited in this Preface.
+[30.] I saw, however, as has been already hinted [19] [20],
+that the same general view of algebra, as the science of pure
+time, admitted easily, at least in thought, of an extension of this
+• The system of constants b = l, c =
+1, might have deserved attention, but I
+do not find that it occurred to mo to consider it. In some of those old investi-
+gations respecting triplets, the symbol V- 1 presented itself as a coefficient: but
+this at the time appeared to me unsatisfactory, nor did I see bow to interpret it
+in such a connexion.
+d
+;
+;
+(2G) PREFACE.
+whole theory, not only from couples to triplets, but also from
+triplets to sets, of moments, steps, and numbers. Instead oi two
+or even three moments (as in [12] or [20] ), there was no difficulty
+in conceiving a system or set of n such moments, Ai, Aj,. . a„,
+and in supposing it to be compared with another equinwnerovs
+momental set, Bi, Bo,. . b„, in such a manner as to conduct to a
+new complex ordinal relation, or step-set., denoted by the formula,
+(Bi, Bj,. . B„)- (Ai, A2,. . A„)= (Bi- Ai, Bj- A2,. . B„ - A„).
+Such step-sets could be added or subtracted (compare [20] ), by
+adding or subtracting their component steps, each to or from its
+own corresponding step, as indicated by the double formula,
+(bi, ho,. . b„) ± (ai, 82,. . a„)= (b, + ai, h^ ± a2,. . bn ± an) ;
+and a step-set could be multiplied by a number (a), or divided by
+another step-set, provided that the component steps of the one
+were proportional to those of the other (compare [13] [21] ), by
+the formulae:
+a (ai, 82,. . a„)= (ffa„ aa^,. . fla„)
+(aai, aai,. . aa„) -h (ai, a^,. . a„)= a.
+[31.] But when it was required to divide one step-set by ano-
+ther, in the more general case (compare [13] [14] [21] ), where
+the components or constituent steps ai, n^,. . n„ of tlie one set
+were not proportional to the corresponding components b,, bz,. .
+b„ ofthe other set, a difficulty again arose, which I proposed still
+to meet on the same general plan as before, by conceiving that a
+numeral set, or set or system ofnumbers, (oi, Oj,. . a„), might
+operate on the one set of steps, (ai, aj,. . a„), in a way analogous
+to multiplication, so as to produce or generate the other given
+step-set, as a result which should be analogous to aproduct. In-
+stead of three distinct and independent unit-steps, as in [22], I
+now conceived the existence of w such unit-steps, which might be
+denoted by the symbols,
+Ii, I3,. . 1„
+and instead oi three unit-numbers (see again [22] ), I conceived
+n such unit-operators, which in those early investigations I de-
+noted
+PREFACE. (27)
+and of which I conceived that each might operate on each unit-
+step, as a species of multiplier, orfactor^ so as to produce (gene-
+rally) a new step-set as the result. There came thus to be con-
+ceived a number, =w% of such resultant step-sets, denoted, on the
+plan of [22], by symbols of the forms:
+where the n^ symbols ofthe form '^f,g,h denoted so manynumerical
+coeJicie7its, or constants ofmultiplication, ofthe kind previously
+considered in the theories of couples [14], and of triplets [22],
+which all required to have their values previously assumed, or
+assigned, before proceeding to multiply a step-set by a number-
+set, in order that this operation might give generally a definite
+step-set as the result.
+[32.] Conversely, on the plan of [23], when the n^ numerical
+values of these coefficients or constants 1/,^,* had been once fixed,
+I saw that we could then definitely interpret a product of the
+form,
+(mxi+. . +mjx^+ . .nin^n) {riU+. + rj\f->r. .+r„l„),
+where m^. . nig,. . Mn and ri,. . rj,. . ;•„ were any 2n given
+numbers, as being equivalent to a certain new or derived step-
+set of the form,
+where x^,. . x^,. . Xn were n new or derived numbers, determined
+by n expressions such as the following:
+Xh = '2imyrflj^y^h;
+the summation extending to all the n- combinations of values of
+the indices / and g. And because these expressions might in
+general be treated as a system of n linear equations between the
+n coefficients w,, ofthe multiplier set, I thought that the division
+ofone step-set by another (compare [14] [23]), might thus in
+general be accomplished, or at least conceived and interpreted,
+as being the process of returnitiy to that multiplier, or of deter-
+mining the numeral set which would produce the dividend step-
+set, by operating on the divisor step-set, and which might there-
+fore be denoted as follows :
+;
+(28) PREFACE.
+;wi xi + .
+.
+4- m^ x^ + . . w„ x„ = (a;, li + .
+.
+-r- (rili+. .r/l/+.. + rnln);
++ Xk U-». .
++ x„ 1,.)
+or more concisely thus,
+Sm^x^=Sa;AU -r-Sr/1/:
+while the numeral set thus found might be culled the quotient of
+the two step-sets.
+[33.] It may be remembered that even at so early a stage as
+the interpretation of the symbol i x a, for the algebraic product
+of two positive or negative mimhers,* it had been proposed to
+conceive a reference to a step (a), which should be first operated
+on by those two numbers successively, and then abstractedfrom^
+as was expressed by the elementary formula [9],
+(i X a) X a = 6 X (a X a).
+Thus to interpret the product -2x-3as=+ 6, I conceived that
+some time-step (a) was first tripled in length and reversed in di-
+rection ; then that the new step (-3a) was doubled and reversed;
+and finally that the last resultant step (+ 6a) was compared with
+the original step (a), in the way of algebraic ratio [9], thereby
+conducting to a result which was independent of that original
+step. All this, so far, was no doubt extremely easy; nor was it
+difficult to extend the same mode of interpretation to the case
+[17] of the multiplication of two number couples, and to inter-
+pret the product of two such couples as satisfying the condition,
+(bi, Ih) (ou a.) X (a,, a,) = (6i, bS) x (a,, a-z) (ai, a^)
+the arbitrary step-couple (aj, a^) being first operated on, and af-
+terwards abstracted from. In like manner, in the theory of
+triplets, it was found possible [24] [25] to abstractfrom an ope-
+rand step-triad, and thereby to obtain formulae for the symbolic
+• This word" number," whether with perfect propriety or not, is used
+throughout the present Preface and work, not as contrasted \\\Xhfractions (ex-
+cept when accompanied by the word whole or integer^, nor with incoramensura-
+bles, but rather with those steps (in time, or on one axis), of some two of which it
+represents or denotes the ratio. In short, the numbers here spoken of, and else-
+where denominated"
+scalars" in this work, are simply ihose positives or nega-
+tives, on the scale of progression from- oo to + «
+,
+which are commonly called
+reals (or real quantities) in algebra.
+;
+PREFACE. (29)
+multiplication of the secondary and tertiary number-units, X2, x„
+and more generally of any two numerical triplets among them-
+selves. But when it was sought to extend the same view to the
+still more general multiplication ofnumeral sets, new difficulties
+were introduced by the essential complexity of the subject, on
+which I can only touch in the briefest manner here,*
+[34.] After operating on an arbitrary step-set S;•/ 1/ by a
+number-set Sw/,; y-,j, and so obtaining [32] another step-set,
+Sj"a 1a, we may conceive ourselves to operate on the same gene-
+ral plan, and with the same particular constants ofmultiplication,
+on this new step-set, by a new number-set, such as Sw/^x,^-, and
+so to obtain a third step-set, such as Sa;Vl/i- which may then be
+supposed to be divided (see again [32] ) by the original step-set
+^r/lf, so as to conduct to a quotient, which shall be another nu-
+meral set, of the form ^m'g,. Xg.,. Under these conditions, we may
+certainly write,
+Sm'y, xg. (2w.<, x^
+. 2rf If) = Sm"g. Xg,.. Sr/ 1/
+but in order to justify the subsequent abstraction ofthe operand
+step-set, or the abridgment (compare [25] ) of this formula oisuc-
+cessive operation to the following,
+^m'g, Xg.. "2mg Xg = SW/'y- Xg„,
+which may be called a formula for the (symbolic) multiplicatio7i
+oftwo number-sets, certain conditions ofdetachment are to be sa-
+tisfied, which may be investigated as follows.
+[35.] Conceive that the required separation ofsymbols has
+been found possible, and that it has given, by a generalization of
+• Afuller account of this theory of sets, with a somewhat diiferont notation
+(the symbolsc,-, «, t and n,-, ,', ," being employed, for example, to denote the co-
+efficients which would here be written as 1/, ,,
+« and J',, ,', ,' ), and with a special
+application to the theory of-quaternions, will be found in an Essay entitled :
+" Re-
+searches respecting Quaternions. First Series." Trans. R. I. A. Vol. XXL,
+Partn. Dublin: 1848. Pages 199 to 29G. (Read November 13th, 1843.) This
+Essay was not fully printed till 1847) but several copies of it were distributed in
+that year, especially during the second Oxford Meeting of the Britisii Associa-
+tion. The discussion of that portion of the subject which is here considered is
+contained chiefly in pages 225 to 231 of the volume above cited.
+;
+(30) PREFACE.
+the process for triplets in [24], a system of n^ symbolic equations
+of the form,
+Xg, Xg =2jIg,g\g" ^g" j
+where l'g,g;g» is one of a new system ofn^ numerical coefficients^
+and the sum involves n terms, answering to n different values of
+the index g". Under the same conditions, the recent formula for
+the multii)iication of numeral sets breaks itself up into n equa-
+tions, of the form,
+the summation here extending to w^ terms arising from the com-
+binations of the values of the indices g and g. For all such
+combinations, and for each of the w values ofy, we are to have
+(if the required detachment be possible) the following equation
+between step-sets
+y.g,. Xy 1/= x^' x^
+. ly
+and conversely, if we can satisfy these n^ equations between step-
+Bets, we shall thereby satisfy the conditions ofdetachment [34],
+which we have at present in view. But each of these n^ equa-
+tions between sets resolves itself generally into n equations be-
+tween mimhers: and thus there arise in general no fewer than n*
+numerical equatioyis, as expressive of the conditions in question,
+which may all be represented by the formula,*
+'^V.5,'' ^'',5'.'i'~ ^^9,!)\h ^f,h,h'}
+all combinations of values of the indices/, g, g\ K (from 1 to »
+for each) being permitted, and the summation in each member
+being performed with respect to li. Now to satisfy these w*
+equations of condition, there were only 1n^ coefficients, or rather
+their ratios, disposable: and although the theories of couples and
+triplets already served to exemplify the •possibilitri of effecting
+the desired detachment^ at least in certain cases, yet it was by
+no means obvious that any such extensive reductions^ were likely
+* A formula equivalent to this, but with a somewhat different notation, will
+be found at page 231 of the Essay and Volume referred to in a recent Note.
++ On the subject of such general reductions, some remarks will be found at
+page 251 of the Essay and Volume lately cited.
+PREFACE. (31)
+to present themselves, as were required for the accomplishment
+of the same object, in the more general theory< f sets. And I
+believe that the compass and difficulty, which ] thus perceived
+to exist, in that very general theory, deterred m= from pursuing
+it farther at the time above referred to.
+[36.] There was, however, a motive which iaduced me then
+to attach a special importance to the consideratic n oi triplets, as
+distinguished from those more general sets, of nhich some ac-
+count has been given. This was the desire to CDnnect, in some
+new and useful (or at least interesting) way, calcidation with geo-
+metry, through some undiscovered extension, t( space of three
+dimensions, of a method of construction or repesentation [2],
+which had been employed with success by Mr Warren* (and
+indeed also by other authors,! of whose writings 1 had not then
+"
+•
+Treatise on the Geometrical Representation of the Square Roots of Ne-
+gative Quantities. By the Rev. John Warren, A. M., Ft low and Tutor of
+Jesus College, Cambridge." (Cambridge, 1828.) To su^estions from that
+Treatise I gladly acknowledge myself to have been indebted, although the in-
+terpretation of the symbol V-1, employed in it, is entirely distinct from that
+which I have since come to adopt in the geometrical applications ofthe quater-
+nions.
+t Several important particulars respecting such authorsnave been collected
+"
+in the already cited
+Report on certain Branches of Anal sis" (see especially
+pp. 228 to 235), by Dr. Peacock, whose remarks upon their ^-ritings, and whose
+own investigations on the subject, are well entitled to attennon. As relates to
+the method described above (in paragraph [30] ofthis Prefase), if niuUipUcation
+(as well as addition) ofdirected lines in one plane be regardec^as I think it ought
+to be) as an essential element thereof, I venture here to stat the impression on
+my own mind, that the true inventor, or at least ihefirst d^nite promuhjator of
+that method, will be found to have been Argand, in 1806: ^though his" Essai
+sur une Maniere de representor Ics Quantites Imaginaires," r^hich was published
+at Paris in that year, is known to me only by Dr. Peacock'srmention of it in his
+Report, and by the account of the same Essay given in the course of a subse-
+quent correspondence, or series of communications (which abo has been noticed
+in that Report,and was in consequence consulted a few yea s ago by me), car-
+ried on between Fran9ais, Servois, Gergonnc, and Argand hanself; which series
+of papers was published in Gergonne's Annales des Mathtnmtiques, in or about
+the year 1813. My recollection of that correspondence is, t_at it was admitted
+to establish fully the priority of Argand to Francais, as rt^arded the method
+[30] of (not merely adding, but) multiplying together directei lines in one plane,
+which is briefly described above: and which was afterwarcb independently re-
+produced, by Warren in 1828, and in the same year by Mou-cy, in a work enti-
+tled:
+" La Vraie Theorie des Quantitcs Negatives, et des Qiaantites pretendues
+(32) IMIEFACE.
+heard), for operations on right lines in one plane: which method
+had given a species of geometrical interpretation to the usual
+and well-known imaginary symbol of algebra. In the method
+thus referred to, addition oflines was performed according to the
+same rules as composition ofmotions^ or of forces, by drawing
+Imaginaires" (Paris, 1828). If the list of such independent re-inventors of this
+important and modern method of constructing by a line the product oftwo di-
+rected lines in onefixed plane (from which it is to be remarked, in passing, that
+my own mode of representing by a quaternion the product of two directed lines
+in space is altogether different) were to be continued, it would include, as I have
+lately learned, the illustrious name of Gauss, in connexion with his Theory
+of Biquadratic Residues (Gottingen, 1832). On the other hand, I cannot per-
+ceive that any distinct anticipation of this method of multiplication ofdirected lines
+is contained in Bute's vague but original and often cited Paper, entitled
+" Me-
+moirc sur les Quantitcs Imaginaires," which appeared in the Philosophical
+Transactions (of London) for 180G, having been read in June, 1803. The inge-
+nious autlior of that Paper had undoubtedly formed the notion of representing the
+directions oflines by algebraical symbols; he even uses (in No. 35 ofhis Memoir)
+such expressions as V2 (cos 45 + sin 45' V - 1) to denote two different and di-
+rected dici(/oiials ofa square: and there is the high authority of Peacocli (Report,
+p. 228), for considering that tlie geometrical interpretation of the symbol V-1,
+as denoting pcrpcndicnlurity, was "first formally maintained by Buee, though
+more tlian once suggested by other authors." In No. 43 of the Paper referred
+to, Buee constructs with much elegance, by a bent line ake, or by an inclined
+line AR (wlicre ke is a ptu'pondicular,= }.n, erected at tlio middle point K of a
+given lino ab, or a), an imnijinanj root (.r) ofthe (juadratic equation, x (a—x)= § a^,
+wiiieh liad been proposed by Carnot (in p. 54 of the Geonietrie de Position, Pa-
+ris, 1804). But when lie proceeds to explain (in No. 40 of his Paper) in what
+sense he regards the two lines ae and eb (or the two constructed roots of the
+quadratic) as iiaving their product equal to the given value J a^ or i ab", Buee ex-
+pressl;/ limits tiic signification of such a product to the result obtained by multi-
+plying the arithmetical values, and expressly excludes the consideration of the
+positions ofthefactor-lines from his conception of their multiplication: whereas
+it seems to me to belong to the very essence of the method [36J of Argand and
+other.s, and generally to that system of geometrical interpretation whereon is
+based what Professor De Morgan has happily named Double Algebra, to take
+account ofthose positions (or directions), when lines are to be multiplied together.
+My oicn conception (as has been already hinted, and as will appear fully in the
+course of this work), of the product of two directed lines in space as a quater-
+nion, is altogether distinct, both from the purely arithmetical product of nume-
+rical values of Bu^e, and from the linear product (or third coplanar line), in the
+method of Argand: yet I have thought it proper to submit the foregoing re-
+marks, on the invention of this latter method, to the judgment of persons
+better versed than myself in scientific history. A few additional remarks and
+references on the subject will be found in a subsequent Note.
+PREFACE. (33)
+the diagonal of a parallelogram; and the multiplication of two
+lines, in a given plane, corresponded to the construction of a
+species o^fourth proportional^ to un assumed line in the same
+plane, selected as the representative oipositive unity, and to the
+two ^xo^o^qAfactor-lines: such fourth proportional, ox product-
+line, being inclined to one factor-line at the same angle, measured
+in the same sense, as that at which the other factor-line was in-
+clined to the assumed unit-line ; while its length was, in the old
+and usual signification of the words, a fourth proportional to the
+lengths of the unit-line and the two factor-lines. Subtraction,
+division, elevation to powers, and extraction of roots, were ex-
+plained and constructed on the same general principles, and by
+processes of the same general character, which may easily be con-
+ceived from the slight sketch just given, and indeed are by this
+time known to a pretty wide circle of readers : and thus, no doubt,
+by operations on right lines in one plane, the symbol v/-l re-
+ceived a perfectly clear interpretation, as denoting a second unit-
+line, at right angles* to that line which had been selected to re-
+• Besides what has been already referred to, as having been done on this
+subject of the interpretation of the symbol V-1 by the Abbe Bude, it has been
+well remarked by Mr. Benjamin Gompertz, at page vi. of his very ingenious
+Tract on
+" The Principles and Applications of Imaginary Quantities, Book II.,
+derived from a particular case of Functional Projections" (London, 1818), that
+"
+the celebrated Dr. Wallis of Oxford, in his
+Treatise of Algebra" (London,
+1685), proposed to interpret the imaginary roots of a quadratic equation, by
+going out ofthe line, on which if real they should be measured. Thus Wallis (in
+his chapter Ixvii.) observes:
+—" So that whereas in case of Negative Roots we
+"are to say, the point b cannot be found, so as is supposed in ac Forward, but
+"Backward it may in the same Line: we must here say, in case of a Negative
+"
+Square, the point B cannot be found so as was supposed, in the Line ac; but
+"Above that Line it may in the same Plain. This I have the more largely in-
+"sisted on, because the Notion (I think) is new; and this, the plainest Deciara-
+"tion that at present I can think of, to explicate what we commonly call the
+"Imaginary Roots of Quadratick Equations. For such are these." And again
+(in his following chapter Ixviii., at page 269), Wallis proposes to construct thus
+the roots of the equation aa +6a+<c =0:—"On A.ca = b, bisected in c, erect a
+"perpendicular cp =Va;. And taking pb= ^i, make (on whether side you please
+"of cp), PBC, a rectangled triangle. Whose right angle will therefore be at c
+"
+or B, according as pb or PC is bigger; and accordingly, bc a sine or a tangent,
+"(to the radius pb,) terminated in PC. The streight lines ab, Ba, are the two
+"values of a. Both affirmative if (in the equation,) it be -ba. Both negative,
+"
+if + 6a. Which values be (what we call) Real, if the right angle be at c. But
+e
+(34) PREFACE.
+present positive unity. But when it was proposed to leave the
+plane, and to construct a system which should have some general
+analogy to the known system thus described, but should extend
+to space,* then difficulties of a new character arose, in the endea-
+"
+Imaginary if at B." These passages must always (I think) possess an histo-
+rical interest, as exemplifying the manner in which, in the seventeenth century,
+one so eminent for his powers of interpretation of analytical expressions, as Dr.
+Wallis was, sought to apply those powers to the geometrical construction of the
+imaginary roots ofan equation: and for the decision with which he held that such
+roots were quite as clearly interpretable, as
+" what we call real" values. His par-
+ticular interpretation of those imaginary roots of a quadratic appears indeed to
+me to be inferior in elegance to that which was long afterwards proposed by
+Buee. Bui it may be noticed that, whether his point b were on or offthe line
+Aca, Wallis seems (like Buee, and many other and more modern writers) to have
+regarded that right line, as being in some sense a sum, or at least analogous to a
+stim, of the two successive lines ab, na ; which latter lines conduct, upon the
+whole, from the initial point A to the final point a ; and construct according to
+him the two roots of the quadratic, whose algebraic sum is =b. Indeed, Wallis
+remarks (in the same page 269) that when those two roots are algebraically ima-
+ginary, or are geometrically constructed (according to him) by the help ofa point
+B which is above the line ACa, then that straight line is not equal to the aggregate
+of AB 4- Ba ; but this seems to be no more than guarding himself against being
+supposed to assert, that two sides of a triangle can be equal in length to the
+third. In chap. Ixix., p. 272, he thus sums up:—" We find therefore, that in
+•• Equations, whether Lateral or Quadratick, which in the strict Sense, and first
+"
+Prospect, appear Impossible; some mitigation may be allowed to make them
+"
+Possible ; and in such a mitigated interpretation they may yet be useful." For
+lateral equations (equations of the first degree), the mitigation here spoken of
+consists simply in the usual representation of negative roots, by lines drawn back-
+ward from a point, whereas they had been at first supposed to be drawnforward.
+For quadratic equations with imaginary roots, Wallis mitigates the problem, by
+substituting a bent line Asa for that straight line ACa, which constructs the given
+algebraical sum (6) of the two roots of the equation, or parts ofthe bent line,
+AB, Ba. It is also to be noticed that he appears to have regarded the algebraical
+semi-difference ofthose two roots, ab, Ba, as being in all cases constructed bythe
+line BC, drawn to the middle point c ofthe line Aa: which would again agree with
+many modern systems. Thus Wallis seems to have possessed, in 1683, at least in
+germ (for I do not pretend that he fully and consciously possessed them), some
+elements of the modern methods of Addition and Subtraction of directed lines.
+But on the equally essential point o( Multiplication of directed lines in one plane,
+it does not appear that Wallis,any more than Buee (see the foregoing Note), had
+anticipated the method of Argand.
+• At a much Liter period 1 learned that others had sought to accomplish
+some such extension to space, but in ways different from mine.
+PREFACE. (35)
+vour at surmounting which 1 was encouraged by tJie friend al-
+ready mentioned (Mr. John T. Graves), who felt the wish, and
+formed the project, to surmount them in some way or other, as
+early, or perhaps earlier than myself.
+[37.] A conjecture respecting such extension of the rule of
+multiplication of lines, from the plane to space, which long ago
+occurred to me (in 1831), may be stated briefly here, as an illus-
+tration of the general character of those old speculations. Let
+A denote a point assumed on the surface of a fixed sphere, de-
+scribed about the origin o of co-ordinates, with a radius equal to
+the unit of length; and let this point a be called the unit-point.
+Let also b and c be supposed to be two factor-points, on the
+same surface, representing the directions oa, ob, of the tvfofac-
+tor-lines in space, of which lines it is required to perform, or to
+interpret, the multiplication; and so to determine, by some fixed
+rule to be assigned, the product-point d, or the direction of the
+product-line, od. Then it appeared that the analogy to opera-
+tions in the plane might be not ill observed, by conceiving d to
+be taken on the circle abc ; the arcs, ab, cd, of that (generally)
+small circle ofthe sphere being equally long, and similarly mea-
+sured; so that the two chords ad, bc should be parallel: while
+the old rule of multiplication oflengths should be retained : and
+addition oflines be still interpreted as before. But in this sys-
+tem there were found to enter radicals siudfractions into the ex-
+pressions for the co-ordinates* of a product; and although the
+case of squares oflines, or products of equal factors, might be
+rendered determinate by agreeing to take the great circle ab,
+when the point c coincided with b, yet there seemed to be an es-
+sential indetermination in the construction of the reciprocal of a
+line: it being suflScient, according to the definition here consi-
+• The rectangular co-erdinates (or projections) of the two factor-lines and
+of the product-line being denoted by xyz, xy'z, xyz, if we also write, for con-
+ciseness,
+r =V (^2 +y^ + 22), r'
+=V {x^ +y' + 2 '), p=xx+yy 4- zz\
+then the expressions which I found for x" y" z may be included briefly in the
+equations
+*- rr' y
+rx-rx~
+2"
+rx'—rx
+_
+ry-ry rz -rz p-rr
+(36) PREFACE.
+dered, to take the chord bc parallel to the tangent plane to the
+sphere at the unit-point, in order to make the product point d
+coincide with that point a. There was also the great and (as I
+thought) fatal objection to this method of construction, that it
+did not preserve the distributive principle of multiplication; a
+product ofsums not being equal, in it, to the sum ofthe products:
+and on the whole, I abandoned the conjecture.
+[38.] Another construction, of a somewhat similar character,
+and liable to similar objections, for the product of two lines in
+space, occurred to me in 1835, and also independently to Mr. J.
+T. Graves in 1836, in which year he wrote to me on the subject.
+It may be briefly stated, by saying that instead of considering,
+as in the last-mentioned system, the small circle abc, and draw-
+ing the chord ad, from unit-point to product-point, so as to be
+parallel to the chord bc from one factor-point to the other, it was
+now the arc ad of a great circle on the sphere, which was to be
+drawn so as to bisect the arc bc, of another great circle, and be
+bisected thereby. Or as Mr. Graves afterwards expressed to me
+—
+the rule in question:
+" Bisect the inclination ofthe factor-lines,
+and then double forward the angle between the linear unit and
+the bisecting line:" the rule of multiplying lengths being under-
+stood to be still observed. Mr. Graves made several acute re-
+marks on the consequences of this construction, and proposed a
+few supplementary ?^les to remove the porismatic character of
+some of them: but observed that, with these interpretations, the
+square-root ofthe negative unit-line^ or the triplet (-1, 0, 0)^,
+would still be indeterminate, and of the form (0, cos 0, sin 0),
+where remained arbitrary: while cases might arise, in which the
+"minutest alteration" ofa factor-line would make a "considerable
+change" in the position of the product-line: and this result he
+"
+conceived to be, or to lead to,
+a breach of the grand property
+of multiplication," respecting its operation on a sum. He left to
+"
+me the investigation of the general expressions for the
+consti-
+"
+tuent co-ordinates" of the resultant
+triplet," or product-line, in
+terms of the constituents ofthe factors: and in fact I had already
+obtained such expressions, and had found them to involve radi-
+cals and fractions, and to violate the distributive principle, as in
+the system recently described [37]; with which indeed the one
+;
+PREFACE. (37)
+here mentioned had been perceived by me to have a very close
+analytical connexion.*
+[39.] Mr. J. T. Graves, however, communicated to me at the
+same time another method, which he said that he preferred^
+"
+among all the modes that he had tried,
+of representing lines in
+space, and of multiplying such lines together." This method
+consisted in considering such a line as a species of" compound
+couple," or as determined by two couples, one in the plane of xy,
+and the other perpendicular to that plane: it having been easily
+perceived that the rules proposed by me for the addition and
+multiplication [17] of couples, agreed in all respects with the pre-
+viously known method [36], of representing the operations ofthe
+same names on lines in oneplane. From this conception of com-
+"
+pound couples Mr. Graves derived a
+general rule for the multi-
+plication of triplets," which I shall here transcribe,t only abridg-
+ing the notation by writing p and pi to represent the radicals
+\/{x'^ +y^) and \/(^i' +2/iO'^^ ^^^ projections of the factor-lines
+on the plane of xy: "(x, y, z) (.Ti, yi, Zi)= (xj, yj, Z2), where
+^i = \PPi~ ^^V (xXi-yyC\ f xy, + yxy
+h y^= \PP^~ ^^0 \ pp^ J ppi
+> ^2 =Zip+Zpu
+This particular system of expressions he does not seem to have
+developed farther, nor did it at the time attract much of my own
+• With the notations recently employed, the expressions which I had found
+for the co-ordinates of the product, in the case or system [38], are included in
+the equations,
+*" 4 rr' y" z" rx + r'x
+rx + rx ry +ry rz +r'z p + rr
+which only differ from those for the former case [37], by a change of sign in the
+radical r (or r), which represents the length of a factor-line. The conditions
+for both systems are contained in these other equations,
+XX +yy" + 22" =r' x, xx" +y'y" +z'z'-
+r'* .t, x"* + y^+ 2"^ = r' r'*
+and the quadratic equation in a", obtained by elimination ofy" and 2", resolves
+itself into two separate factors, each linear relatively to x\ namely,
+(^-rr) {x"—rr")— (rx— rx)'= 0,
+(p +rr) («"+ rr)- (rx + r'x)« =0.
+The first corresponds to the system [37]; the second to the system [38].
+tFrom Mr. Gx'avcs's Letter of August 8th, 1836.
+(38) PREFACE.
+attention: but 1 have thought it deserving of being put on re-
+cord here, especially as, by a remarkable coincidence, it came to
+be independently and otherwise arrived at by another member of
+the same family, at a date later by ten years, and to be again
+communicated to me.* And perhaps I may be excused if I here
+leave the order of time, to give some short account of the train
+of thought by which his brother, the Rev. Charles Graves, ap-
+pears to have been conducted, in 1846, to precisely the same re-
+lations between the constituents of three triplets.
+[40.] Professor Graves employed a system of two new ima-
+ginaries, i and^", of which he conceived that i had the effect of
+causing a rotation (generally conical) through 90° round the axis
+of z, whiles' caused a line to revolve through an equal angle in
+its own vertical plane (that is, in the plane of the line and of z)\
+and then he proceeded to multiply together the two triplets
+a; + iy +jzj x' + iy'+js^, by a peculiar process, and so to obtain a
+third triplet x"+iy"+jz": the relations thus resulting, between
+the co-ordinates or constituents, being (as it turned out) identi-
+cal with those which his brother had formerly found. These
+symbolsI andJ were each a sort offourth root ofunity: and the
+first, but 7iot the second, had the property of operating on a sum
+by operating on each of its parts separately. Thus, as Profes-
+sor Graves remarked, multiplication of triplets, on this plan,
+would not be a distributive operation, although it would be a
+commutative one. The method conducted him to an elegant ex-
+ponential expression for a line in space, namely, rc^'f-'^ where r
+was the radius vector, and /, X might be called the longitude and
+latitude of the line, so that the co-ordinate projections were
+(some peculiar considerations being employed in order to justify
+these expressions of them, as connected with that of the line)
+x = r cos / cos \, y = r sin I cos A, z = r sin X.
+And then the rule for the multiplication oftwo lines came to be
+expressed by the very simple formula
+V''^ *
+/•£«' fJ>
+. r't"' cJ^' = rr'e"*
+^'
+^"'
+;
+• By the Rev. Charles Graves, Professor of Mathematics in the University
+of Dublin, in a letter of November 1 4th, 1846.
+PREFACE. (39)
+the lengths being thus multiplied (as in the other systems above
+mentioned), but the longitudes and latitudes of the one line being
+respectively added to those of the other ; which was in fact the
+rule expressed by Mr. J. T. Graves's co-ordinate formulae [39].
+[41.] It will not (1 hope) be considered as claiming any me-
+rit to myselfin this matter, but merely as recording an unpursued
+guess, which may assist to illustrate this whole inquiry, if I ven-
+ture to mention here that the^r*^ conjecture respecting geometri-
+cal triplets, which I find noted among my papers (so long iigo as
+1830), was, that while lines in space might be at/rferf according
+to the same rule as in the plane, they might be multiplied by
+multiplying their lengths, and adding their polar angles. In the
+method [36], known to methen as that of Mr.Warren, if we write
+x=r cos 0, y=r sin 9, we have, for multiplication within the
+plane, equations which may be written thus, r" = rr', 0"=0+ 6'. It
+hence occurred to me, that if we employed for space these other
+known transformations of rectangular to polar co-ordinates,
+x=r cosO, y=r sin cos <p, z = r sin sin 0,
+it might be natural to dejine multiplication of lines in space by
+the slightly extended but analogous formulae,
+r" = rr', B"=B + &, f= ^ + f
+which, however, conducted to radicals, as in the expression,
+x"=XX - {y^ + 2^)* (y'2 + z'2)i,
+whereas within the plane there were rational values for the rect-
+angular co-ordinates of the product, namely (compare [17] ),
+x" = XX- yy', y"= xy + y^'.
+But this old (and uncommunicated) conjecture of mine, which
+was inconsistent with the distributive principle, though possess-
+ing some general resemblance to the lately mentioned results [39]
+[40] of Messrs. John and Charles Graves, cannot be considered
+to have been an anticipation of them. For while we all agreed
+in adding the longitudes of the two factors (in the sense lately
+mentioned), they added latitudes also; while I, less happily, had
+thought o{ adding the colatitudes, or the angular distances from
+a line (x), instead of those from a plane (xy). And this diffe-
+(40) PREFACE,
+rence of plan produced a very important difference of results.
+Indeed the two systems are totally distinct, although there exists
+some sort of analogy between them.
+[42.] I shall here mention one more system, which was com-
+municated to me* in 1840, by the elder of those two brothers,
+and which involved a method of representing the usual imagi-
+nary quantities of algebra, each by a corresponding unique point
+on the surface ofa sphere^ described (as in [37] ) about the ori-
+gin with a radius= 1: whence it appeared that the ordinary ima-
+ginary expression r (cos d + V^- 1 sin Q) might be denoted by a
+triplet (x, y, z), under the condition, ^2 + y^ + 2^^ =1: and that the
+rules thus obtained, for the multiplication oi such triplets, might
+perhaps afford some analogy, suggesting rulcsf for the more ge-
+neral case, where the constituents x,y, z are wholly independent
+of each other. Mr. J. T. Graves's
+" mode of representing quan-
+tity spherically" was stated by him to me as follows:—"All po-
+"
+sitive quantities r may be represented by points on an assumed
+<' semicircle, by taking the extremity ofthe arc 2 tan'^ r (counted
+*' from one end (a) of the semicircle) to represent r. Next let us
+*• consider our sphere as generated by the revolution of the semi-
+«' circle:}: abc round the axis ac (forwards or backwards, according
+"
+to arbitrary convention). When the semicircle has moved
+*' through an angle 0, let the position of a point on its circumfe-
+<' rence denote r (cos 0+ \^- 1 sin 0), if the same point in its ori-
+"
+ginal position denoted r." I make a very easy transformation
+of this statement, when I present it thus:—Construct all quan-
+tities (so called), real and imaginary, according to the known me-
+thod already described in [36], by drawing right lines from
+the assumed point (a) of the unit-sphere, in the tangent plane at
+that point; double all the lines so drawn, and treat the ends of
+• In a letter of October 17th, 1840, from J. T. Graves, Esq.
++ Mr. Graves appears not to have actually worked out such rules, at least I
+do not find that he communicated them to me. They would probably havebeen,
+on the plan described in [42], to have multiplied (as before) the lengths, and (as
+before) added the longitudes: but to have then multiplied the tangents ofthe halves
+ofthe colatitudes of the factors, in order to obtain the tangent of the half of the
+colatitude of the product.
+I A figure, which it seems unnecessary here to reproduce, accompanied Mr.
+Graves's Letter.
+PREFACE. (41)
+the doubled lines as the stereographic projections of points upon
+the sphere. Infinity was thus represented, in the particular system
+of Mr. Graves here described, by the point diametrically oppo-
+site to A. And in this endeavour of mine, to furnish faithfully a
+record ofevery circumstance, which, even as remotely suggesting
+to di friend a train of thought, may have indirectly stimulated
+myself I must not suppress the following acknowledgment of
+Mr. J. T.Graves:—"What led me to this was a passage in
+"a letter from De Morgan,* in which he expressed a wish to be
+** able to represent quantity circularly^ in order to explain the
+*' passage from positive to negative through infinity."
+[43.] The foregoing specimens may suffice to exemplify the
+attempts which were made, a considerable number of years ago,
+by Mr. Graves and by myself: on the one hand, to extend to
+space that geometrical construction for the multiplication oflines,
+which was known to us from the work of Mr. Warren; and on
+the other hand, to render more entirely definite my conception of
+algebraical triplets. I will not here trouble my readers with any
+further account of the conjectures on those subjects which at va-
+rious times occurred to him or me, before 1 was led to the qua-
+ternions, in a way which I shall presently explain. But I wish
+to mention first, that among the circumstances which assisted to
+prevent me from losing sight of the general subject, and from
+wholly abandoning the attempt to turn to some useful account
+those early speculations of mine, on triplets and on sets, was pro-
+bably the publication of Professor De Morgan's first Paper on
+the Foundation of Algebra,t of which he sent me a copy in 1841.
+In that Paper, besides the discussion of other and more impor-
+tant topics, my Essay on Pure Time was noticed, in a free but
+friendly spirit; and the subject of triplets was alluded to, in such
+—
+passages, for instance, as the following:
+" But in this branch
+of logical algebra" (that referred to in paragraph [36] of the pre-
+sent Preface), "the lines must be all in one plane, or at least
+affected by only one modification of direction : the branch which
+shall apply to a line drawn in any direction from a point, or mo-
+• Augustus De Morgan, Esq., Professor ofMathematics in University College,
+London.
+t In Vol. VII., Part il., of the Cambridge Philosopliical Transactions.
+/
+(42) PREFACE.
+dified by two distinct directions, is yet to be found." . . "An
+extension to geometry of three* dimensions is not practicable
+until we can assign two symbols, Q, and w, such that a + bQ+ cw
+= ai + biQi + CiU} gives a =ai, b=bi, andc= Ci: and no definite
+symbol of ordinary algebra will fulfil this condition." My sym-
+bols Xj, X3 (of 1834-5) had not then been published, nor other-
+wise exhibited to him ; they were designed to fulfil precisely the
+foregoing conditions : but I was not myself satisfied with them,
+as not considering them"
+definite" enough (compare [29] ).
+[44.] In the early numbers of the Cambridge Mathematical
+Journal, there appeared some ingenious and original Papers, by
+the late Mr. Gregory and by other able analysts, on the signs +
+and -, on the powers of +, on branches of curves in different
+planes, and on other connected subjects: but I hope that it will
+not be thought disrespectful if I confess that I do not remember
+their having had much influence on my own trains of thought.
+Perhaps 1 was not suflBciently prepared, or disposed, to look at
+algebra generally, and its applications to geometry, from the
+same point of view, and was thereby prevented from studying
+those Papers with the requisite attention. At least, if anything
+in my own views shall be found to be inconsistent with those put
+forward in the Papers thus alluded to, I wish it to be considered
+as offered with every deference, and not in a controversial spirit.
+And if for the present I omit all further mention of them, it is
+partly because, without a closer study, I should fear to do them
+injustice: and partly because 1 make no pretensions to be here
+• Professor De Morgan proposed at the same time a remarkable conjecture,
+which he maybe considered to have afterwards illustrated and systematised, by
+his theory oi cube-roots of negative unity, employed as geometrical operators, in
+his Paper on Triple Algebra (Camb. Phil. Trans., Vol. VIII., Part, iii.); namely,
+"
+that
+an extension to three dimensions" might" require a solution of the equa-
+tion (p^ x=-X." I much regret that my plan will not allow me to attempt the
+giving any further account, in this Preface, of that very original Paper of Pro-
+fessor De Morgan, the first suggestion of which he was pleased to attribute to
+the publication of my own remarks on Quaternions, in the Philosophical Maga-
+zine for July, 1844: and a similar expression ofregret applies to the independent
+but somewhat later researches of Messrs. John and Charles Graves, in the same
+year, respecting other Triplet Systems, which involved cube-roots of positive
+unity, and of which some account has been preserved in the Proceedings of the
+Royal Irish Academy.
+PREFACE. (43)
+an historian ofscience^ even in one department of mathematical
+speculation, or to give anything more than an account ofthe pro-
+gress ofmy own thoughts, upon one class of subjects. For the
+same reasons, I pass over some other investigations having refe-
+rence to the imaginary* symbol of algebra, which were not used
+as suggestions by myself, and proceed at once to the quaternions.
+[45.] With such preparations as I have described, I resumed
+(in 1843) the endeavour to adapt the general conception of trip-
+lets to the multiplication of lines in space, resolving to retainihe
+distributive principle, with which some formerly conjectured sys-
+tems had been inconsistent, and at first supposing that I could
+preserve the commutative principle also, or the convertibility
+[24] [29] of the factors as to their order. Instead of my old
+symbols xj, x^, xs (see [22] ), I wrote more shortly 1, i,j; so that
+a numerical triplet took the form x + iy +jz, where I proposed to
+interpret a;, y, z as three rectangular co-ordinates, and the trip-
+let itself as denoting a line in space. From the analogy of cou-
+• I am unwilling, however, to leare unmentioned here (although it did not
+happen to supply me with any suggestion), a remarkable use of the symbol
+V-1, which was made by the late Professor Mac Cullagh, ofDublin, whose great
+and original powers in mathematical and physical science must ever be remem-
+bered with admiration, and which he seems to have connected (in 1843) with in-
+Testigations respecting the total reflexion of light. (See Proceedings of the
+R. I. A. for the date of January 13, 1845.) This use of imaginaries was founded
+on a theorem relative to the ellipse, which was expressed by him as follows, in
+a question proposed at the Examination for the Election of Junior Fellows in
+1842 (see Dublin University Examination Papers for that year, published in
+—
+1843, p. Ixxxiv.):
+" Detur in spatio ellipsis, cujus centrum est origo co-ordina-
+tarum. Puncta xyz, x y'z in ellipsi sint termini diametrorum conjugatarum.
+Ostendendum est quantitates imaginarias
+x+jt'V-I Z + jr'V-l'
+constantes esse pro quolibet systemate diametrorum conjugatarum." This
+elegant theorem of Professor Mac Cullagh may easily be proved, without em*
+ploying any but the usual principles respecting the symbol V-l, by observing
+that the following expressions, for the six co-ordinates in question,
+x =a cos v + a' sin V, y = b cos « +6 sin v, z=c cos v + c sin d,
+X =a cos V—a sin t;, y = b' cos v— b sin v, z =c' cos «—
+c sin v,
+give
+ar+a'V-l y-i-yV-1 z-fi'V-l
+a + a'V-1 6 + 6'V-l c + c'V-1
+= cos t;- sin w V-l.
+(44) PREFACE.
+pies, 1 assumed i^=- 1 ; and tried the effect of assuming also
+J*
+=- 1, which I interpreted as answering to a rotation through
+two right angles in the plane of xz, as i* = -l had corresponded
+to such a rotation in the plane of xy. And because I at first
+supposed that zjandjt were to be equals as in the ordinary cal-
+culations of algebra, the product of two triplets appeared to take
+the form,
+(a + ib +jc) (x + }y +jz)= (ax-by- cz) + i (ay + bx)
++y (az + ex) + ij (bz + cy):
+but I did not at once see what to do with ihQ product ij. The
+theory of triplets seemed to require that it should be itself a
+triplet, of the form,
+ij = a^ i^ +jy,
+the coefficients a, /3, 7 being some three constant numbers : but
+the question arose, how were those numbers to be determined, so
+as to adapt in the best way the resulting formuJa of multiplica-
+tion to some guiding geometrical analogies.
+[46.] To assist myself in applying such analogies, I consi-
+dered the case where the co-ordinates b, c were proportional to
+y, z, so that the two factor-lines were in one common plane, con-
+taining the unit-line, or the axis of x. In that particular case,
+there was ready a known signification [36] for the product line,
+considered as the fourth proportional to the unit-line (assumed
+here on the last-mentioned axis), and to the two coplanar factor-
+lines. And I found, without difficulty, that the co-ordinate pro-
+jections of such a fourth proportional were here,
+ax -by-cz, ay + bx, az + ex,
+that is to say, the coefficients of 1, i,j, in the recently written
+expression for the product of the two triplets, which had been
+supposed to represent the factor-lines. In fact, if we assume
+y =Xb, z = Xc, where X is any coefficient, we have the two iden-
+tical equations,
+(ax - Xb'- Xc^)- + (Xa + xY(b' + c') = (a' + b' +c^) (x^ + X'b' + X' c'),
+tan- 1
+(Xa + X) (b' + c')^ (b-'+c')^ , X(6^ + c2)^
+^^ r^T-
+—-^= tan-i^ r-L+ tan"'—
+^^
+ax-X (0' + c^) a X
+>
+PREFACE. (45)
+which express that the required geometrical conditions are satis-
+fied. It was allowed then, in this case ofcoplanarity^ or under
+the particular condition^
+bz- cy = 0,
+to treat the triplet,
+(ax- by- cz) + i (ay + bx) +J(az + ex),
+as denoting a line which might, consistently with known analo-
+gies, be regarded as the product of the two lines denoted by the
+two proposed triplets,
+a + ib +jc, and x + iy \jz.
+And here ihefourth term,
+ij(bz+cy)y
+appeared to be simply swperfiuous: which induced me for a mo-
+ment to fancy that perhaps the "product ij was to be regarded as
+= 0. But I saw that this fourth term (or part) of the product
+was more immediately given, in the calculation, as the sum of
+the two following,
+ib.jz, jc.iy,
+and that this sum would vanish, under the present condition
+bz=cy) if we made what appeared to me a less harsh supposition,
+namely, the supposition (for which my old speculations on sets
+had prepared me) that
+«;=->':
+or that
+V= + h,ji= -ky
+the value of the product k being still left undetermined.
+[47.] In this manner, without now assuming bz-cy-0, I
+had generally for the product oftwo triplets, the expression of
+quadrinomialform
+,
+(a + ib +jc) (x +iy +jz)= (ax -by- cz) + i (ay + bx)
++j (az+ ex) + k (bz-cy) ;
+and I saw that although the product of the sums of squares of
+the constituents of the two factors could not in general be decom-
+posed into three squares of rational functions of them, yet it
+could be generally presented as the sum offour such squares,
+(46) PREFACE.
+namely, the squares of the four coefficients of 1, i,j\ k, in the
+expression just deduced: for, without any relation being assumed
+between a, i, c, a?, y, z, there was the identity,
+(a^ + 6' + c^) {x^ + y^ -{ z"") =^ {ax- bi/- czf + {ay + 6a;)»
++ {az + ca;)* + (6^- cyy.
+This led me to conceive that perhaps instead of seeking to con-
+fine ourselves to triplets, such as a+ib +Jc or {a, b, c), we ought
+to regard these as only imperfectforms o/quaternions, such as
+a+ ib+jc+ kd, or (a, 6, c, d), the symbol k denoting some new
+sort of unit operator: and that thus my old conception o{ sets
+[30] might receive a new and useful application. But it was ne-
+cessary, for operating definitely with such quaternions, to fix the
+value of the square k^, of this new symbol k, and also the values
+of the products, ik^jk, ki, kj. It seemed natural, after assuming
+as above that i^=f=- 1, and that ij =k,ji= -ky to assume also
+that ki =-ik=- i^j= +j, and kj= -jk=fi =- i. The assump-
+tion to be made respecting h} was less obvious ; and I was for a
+while disposed to consider this square as equal to positive unity,
+because i^f=+ 1 : but it appeared more convenient to, suppose, in
+consistency with the foregoing expressions for the products of
+i,jy ky that
+k"" = ijij=- iijj= -i'f=- {-\) {-\)= -\.
+[48.] Thus all the fundamental assumptions for the multipli-
+cation oftwo quaternions were completed, and were included in
+the formulae,
+i'i =y^= ^2 =-1 ; ij =-ji= k
+; jk=-kj= i; ki=- ik =j:
+which gave me the equation,
+(a, 6, c, d) (a, b\ c', d')= (a", b\ c", d"),
+or
+(a +ib -^jc + kd) {a + ib' +jc'+kd")=a"+ib" +jc"+ kd",
+when and only when the followingyowr separate equations were
+satisfied by the constituents ofthese three quaternions:
+a" =aa'-bb'-cc- dd\
+b" = {ab' + ba') + {cd'-dc),
+c"-= {ac +ca') + {db'- bd'),
+d'= {ad'+ da) + {be- cb').
+PREFACE. (47)
+And I perceived on trial, for I was not acquainted with a theorem
+of Euler respecting sums offour squares, which might have
+enabled me to anticipate the result, that these expressions for
+a", b", c", d" had the following modularproperty
+q"2 + ^"2 + c"2 + d"2 =(a^ + b' + c^ + d^) (a'^ + b'' + c' + d'^).
+I saw also that if, instead of representing a line by a triplet of
+the form x + iy +jZf we should agree to represent it by this other
+trinomialform,
+ix ^jy+ Az,
+we should then be able to express the desired product oftwo lines
+in space by a quaternion, of which the constituents have very
+simple geometrical significations, namely, by the following,
+{ix -irjy + kz) (ix -^jy +hz)= w"+ ix -¥Jy" + kz",
+where
+w"=-xx-
+yy-z£y
+x"-yzf- zy\ y"= za/-xz\ z" = xy- yx';
+so that the part w'\ independent of i;/t, in this expression for the
+product, represents \)s\q product ofthe lengths ofthe twofactor-
+lines, multiplied by the cosine ofthe supplement oftheir inclina-
+tion to each other; and the remaining part ix" -^jy"+kz" of the
+same product of the two trinomials represents a line, which is in
+length the product ofthe same two lengths, multiplied by the sine
+ofthe same inclination, while in direction it is perpendicular to
+the plane ofthefactor-lines, and is such that the rotation round
+the multiplier-line, from the multiplicand-line towards the pro-
+duct-line (or towards the line-part of the whole quaternion pro-
+duct), has the same right-handed (or left-handed) character, as
+the rotation round the positive semiaxis of^ (or of 2), from the
+positive semiaxis of i (or ofx), towards that oij (or of y).
+[49.] When the conception, above described, had been so far
+unfolded and fixed in my mind, I felt that the new instrument for
+applying calculation to geometry, for which 1 had so long sought,
+was now, at least in part, attained. And although 1 had left se-
+veral former conjectures respecting /r?jo/e/5 for many years uncom-
+municated, except by name, even to friends, yet 1 at once pro-
+ceeded to lay these results respecting quaternions before the
+(48) PREFACE.
+Royal Irish Academy (at a Meeting of Council* in October,
+1843,and at a General Meeting! shortly subsequent): introducing
+also a theory of their connexion with spherical trigonometry, some
+sketch ofwhich appeared a few months later inLondon (in thePhi-
+losophical MagazineforJuly, 1844). On that connexion ofquater-
+nions with spherical trigonometry^ and generally with spherical
+geometry^ I need not at present dwell, since it is sufficiently ex-
+plained in the concluding Lectures ofthis Volume : but it may be
+not improper that a brief account should here be given, of a not
+much later but hitherto unpublished speculation, of a character
+partly geometrical, but partly also metaphysical (or a priori), by
+which I sought to explain and confirm some results that might
+at first seem strange, among those to which myanalysis had con-
+ducted me, respecting the quadrinomialform, and non-commuta-
+tive property, of the product of two directed lines in space.
+[50.] Let, then, the product of two co-initial lines, or of two
+vectors from a commonorigin, be conceived to be something which
+has QUANTITY, in the sense that it is doubled, tripled, &c., by dou-
+bling, tripling, &c., either factor; let it also be conceived to have
+in some sense, quality, analogous to direction, which is in some
+waydefinitely connected with the directions of the two factor lines.
+In particular let us conceive, in order to preserve so far an ana-
+logy to algebraic multiplication, that its direction is in all re-
+spects reversed, when either of those directions is reversed; and
+therefore that it is restored, when both of them are reversed. On
+• The Minutes of Council of the R. I. A., for October 16th, 1843, record
+" Leave given to the President to read a paper on a new species of imaginary
+quantities, connected with a theory of quaternions." It may be necessary to
+state, in explanation, that the Chair of the Academy, which has since been so
+well filled by my friends, Drs. Lloyd and Robinson, was at that time occupied
+by me.
+t At the Meeting of November 13th, 1843, as recorded in the ^^Proceedings"
+of that date, in which the fundamental formulae and interpretations respecting
+the symbols ijk are given. Two letters on the subject, which have since been
+printed, were also written in October, 1843, to the friend so often mentioned in
+this Preface, Mr. J. T. Graves: and the chief results were also exhibited to his
+brother, the Rev. C. Graves, before the public communication of November,
+1843. These circumstances (or some of them) have been stated elsewhere : but
+it seemed proper not to pass them over without some short notice here, as con-
+nected with the date of the invention and publication of the quaternions.
+;
+PREFACE. (49)
+the other hand, for the sake of recognising what may be called
+the symmetry ofspace, let this direction ofthe product, so far as
+it can be constructed or represented by that of any line in space,
+be conceived as not changing its relation to the system ofthose
+twofactordirections, when that system is in any mannerturnedin
+space: its own direction, «« a line, being at the same time turned
+with them, as if it formed a part ofone common and rigid system
+and the numerical element of the same product (if it have any
+such) undergoing no change by such rotation. Let the product
+in question be conceived to be entirely determined, when the fac-
+tors are determined; let it be made, if other conditions will allow,
+for the sake of general analogies, a distributivefunction of those
+two factors, summation of lines being performed by the same rules
+as composition of motions; and finally, if these various conditions
+can all be satisfied, and still leave anything undetermined, in the
+rules for multiplication of lines, let the iiirleterminateness be re-
+moved in such a way as to make these rules approach as much
+as possible to the other usual rules for the multiplication of num-
+bers in algebra.
+[51.] The square ofa given line must not be any line in-
+clined to that given line; for, even if we chose any particular
+angle of inclination, there would be nothing to determine the
+plane, and thus the square would be indeterminate, urdess we
+selected some one direction in space as eminent, which selection
+we are endeavouring to avoid. Nor can the square of a given
+line be a line in the same direction, nor in the direction opposite;
+for if ez7Aer of these directions were selected, by a definition, then
+this definition would oblige us to consider the square as reversed
+in direction, when the line of which it is the square is reversed;
+whereas if the two factors of a product both change sign, the di-
+rection of the product is always (by what has been above agreed
+on) preserved, or rather restored. We must, therefore, consider
+the SQUARE OF A LINE as having no direction in space, and there-
+fore as being not (properly) itself a line ; but nothing hitherto
+prevents us from regarding the square as a number, which has
+always one determined sign (as yet unknown), and varies in the
+duplicate ratio of the length of the line to be squared. If, then,
+the length of a line a contain a times the unit of length, we arc
+9
+;
+(50) PREFACE.
+led to consider aa or a^ as a symbol equivalent to /a% in which I
+is some numerical coefficient, positive or negative, as yet un-
+known, but constant for all lines in space, or having one common
+value for all. And, consequently, if a, /3 be any two lines in any
+one common direction, and having their lengths denoted by the
+numbers a and 6, we are led to regard the product a/3 as equal to
+the number lab, I being the same coefficient as before. But if the
+direction of/3 be exactly opposite to that of a, their lengths being
+still a and b, their product is then equal to the opposite number,
+—
+lab. The same general conclusions might perhaps have been
+more easily arrived at, if we had begun by considering the pro-
+duct of two equally long but opposite lines; for it might perhaps
+then have been even easier to see that, consistently with the sym-
+metry ofspace, no one line rather than another could represent,
+even in part, the direction of the product.
+[52.] Next, let us consider the product aj3 of two mutually
+perpendicular lines, a and j3, of which each has its length equal
+to 1. Let a', j3' be lines respectively equal in length to these,
+but respectively opposite in direction. Then a'j3 = - aj3= aj3'
+a'/3'= a/3. If the sought product aj3 were equal to any number,
+or even if it contained a number as a part ofits expression, then,
+on our changing the multiplier a to its own opposite line a', this
+product or part ought/or one reason(the symmetry ofspace) to re-
+main constant (because the system of the factors would have been
+merely turned in space); and for another reason (a'j3 =-a/3) the
+same product or part ought to change sign (because one factor
+would have been reversed): but this co-existence of opposite re-
+sults would be absurd. We are led therefore to try whether the
+present condition {oi rectangularity ofthe twofactors) allows us
+to suppose the product a/3 to be a line.
+[53.] Let y be a third line, of which the length is unity, and
+which is at the positive side of /3, with reference to a as an axis
+of rotation ; right-handed (or left-handed) rotation having been
+previously selected as positive; let also y be the line opposite
+to y. Then any line in space may be denoted by ma-V n^+py,
+we are therefore to try whether we can consistently suppose a/3
+= 7Wa + w/3 + p7, m, n, p being some three numerical constants.
+If so, we should have (by the principle ofthe symmetry ofspace)
+PREFACB. (51)
+o'/3 = md+ w/3 +Pf'\ and therefore (by a change of all the signs)
+a^=ma+nfi'+py] therefore nfi' =
+nfi, and consequently -w=
+«, or
+finally n= 0. In like manner, since a/3 = -a/3' =- {ma+ w/3' +jo-y')
+=»Ja'+n/3 +py, we should have ma = ma, and therefore m= 0.
+But there is no objection of this kind against supposing a)3 =pyi
+pbeing some numerical coefficient, constant for all pairs of rectan-
+gular lines in space: for the reversal of the direction of a factor
+has the effect of turning the system through two right angles
+round the other factor as an axis, and so reverses the direction of
+the product. And then if the lengths of these two lines a, /3, in-
+stead ofbeing each= 1, are respectively a and b, their product a/3
+will be =paby; that is, it will be a line perpendicular to both fac-
+tors, with a length denoted by pab, and situated always to the
+positive or always to the negative side ofthe multiplicand line /3,
+with respect to the multiplierline a as an axis ofrotation, accord-
+ing as the constant numberp is positive or negative.
+[54.] So far, then, without having yet used any property of
+multiplication, algebraical or geometrical, beyond the three prin-
+ciples: 1st, that no one direction in space is to be regarded as
+eminent above another; 2nd, that to multiply either/actor by any
+number, positive or negative, multiplies the product by the same;
+and 3rd, that the product oftwo determinedfactors is itselfde-
+termined; we are led to assign interpretations: 1st, to the pro-
+duct of two co-axal vectors, or of two lines parallel to each other,
+or to one common axis; and 2nd, to the product of two rectan-
+gular vecion; which interpretations introduce only two constant,
+but as yet unknown, numerical coefficients, I and p, depending,
+however, partly on the assumed unit of length. And we see
+that for any two co-axal vectors, a, /3, the equation a/3- /3a=
+holds good; but that for any two rectangular vectors, a/3 +/3a = 0.
+hproduct oftwo rectangular lines is, therefore, so far as the
+foregoing investigation leads us to conclude, not a commutative
+function ofthem.
+[pd."] Since then we are compelled, by considerations which
+appear more primary, to give up the commutative property of
+multiplication, as not holding generally for lines, let us at least
+try (as was proposed) whether we can retain the distributive pro-
+perty. If so, and if the multiplicand line /3 be the sum of two
+(52) PREFACE.
+Others, /3, and /3a, of which one (/3i) is co-axal with the n>ukiplier
+line a, while the other (fii) is perpendicular thereto, we must in-
+terpret the product aji as equal to the sum ofthe two partial
+products, a/3i and aj^. But one of these is a nunaber, and the
+other is a line ; we are, therefore, led to consider a numberas being
+under these circumstances added to a line, and as forming with it
+a certain suiriy or systeiUy denoted by aj3i +ajSz, or more shortly
+by a[i^. And such a sum of line and number may perhaps be
+called a grammarithm,* from the two Greek words, ypafifiru a
+line, and apiOfiog, a number. Agrammarithm is thus to be con-
+ceived as being entirely determined, whenits twoparts or elements
+are so; that is, whenits ^ram;/2/c part is a known line,andits ari'M-
+mic part is a known number. A change in either part is to be
+conceived as changing the grammarithm: thus, an equation be-
+tween two grammarithms includes generally two other equations,
+one between two numbers, and another between two lines.
+Adopting this view ofa grammarithm, and defining that aj3= a/3i
++ afhi when j3
+=/3i + /Bz, j3i i a, jSz ± a, the product of any deter-
+mined multiplier line and any determined multiplicand line will
+be itself entirely determined, as soon as the unit of length and
+the numbers / and p shall have been chosen ;. and it remains to
+consider whether these numbers can now be so selected, as to
+make the rules of multiplication of lines approach more closely
+still to the rules of multiplication oinumbers.
+{p^-'\ The general distributive principle will be found to give
+no new condition; and we have seen cause to reject the commu-
+tative principle or property, as not generally holding good in the
+present inquiry. It remains, then, to try whether we can deter-
+mine or connect the two coefficients, / and jt?, so as to satisfy the
+associative principle, or to verify the formula,
+a. (iy= aj3. y-
+• The word "grammarithm" was subsequently proposed in a communication
+to the Royal Irish Academy (see the Proceedings of July, 1846), as one which
+?niyht replace the word"
+quaternion," at least in the geometrical view of the
+subject: but it did not appear that there would be anything gained by the sys-
+tematic adoption of this change of expression, although the mere suygestion of
+another name, as not inapplicable, seemed to throw a little additional light on
+tiie whole theory.
+PREFACE. (53)
+For this purpose we may first distribute the factors j3, 7 into
+others, ^i^tyiyzy^ which shall be parallel or perpendicular to
+it and to each other; and then shall have to satisfy, if possible,
+six conditions, which may be reduced to the six following
+a' aa—aa. a\ a» aa = aa . a ; a. aa = aa> a" ',
+a. aa = aa- a', a. a'a = aa. a ; a. a'a" = aa. u"
+;
+a, a', a" being three rectangular unit-lines, so placed that the ro-
+tation round a from a to a" is positive. Then, by what has been
+already found, the following relations will hold good
+aa =a'a' = aa"= I ; aa =—a'a=pa"',
+aa' =—a'a =—pa; olcl' =- a'a = +p)a ;
+and the six conditions to be satisfied become,
+a. 1=1. a; a.pa"= I. a'; a .-pa'= 1 . a',
+a . -pa =pa. a\ a. 1 = pa" .a"; a. pa=pa". a".
+Ofthese the first suggests to us to treat an arithmic factor as
+commutative (as regards order) with a grammic one, or to treat
+the product"
+line into number" as equivalent to
+" number into
+line;" the fourth and sixth conditions aflFord no new information;
+and the second, third, and fifth become,
+-p^a= la ;
+-p"^ a = la ; -p^ a = la.
+The conditions ofassociation are therefore all satisfied by our
+assuming, with the present signification of the symbols,
+al=la, and l=-p^;
+and they cannot be satisfied otherwise. The constant I is, there-
+fore, by those conditions, necessarily negative; and every line
+in tridimensional space has its square (on this plan) equal to a
+NEGATIVE number: which is one of the most novel but essential
+elements of the whole quaternion theory. (Compare the recent
+paragraph [48]; also art. 85, pages 81, 82, of the Lectures.) And
+that a grammarithm [55] may properly be called a quaternion,
+appears from the consideration that the /me, which in it is added
+to a number, depends itself upon a system ofthree numbers, or
+may be represented by a trinomial expression, because it is al-
+ways the sum ofthree lines (actual or null), which are parallel
+(54) PREFACB.
+to three fixed directions (compare Lecture III.). The coefficient
+p remains still undetermined, and may be made equal to positive
+one, by a suitable choice of the unit of length, and the direction
+of positive rotation. In this way we shall have finally the very
+simple values,
+/> = + 1, /=-l;
+and the rules for the multiplication oflines in space will then be-
+come entirely definite^ and will agree in all respects with the re-
+lations [48], between the symbols ijk.
+[57.] Another train of a priori reasoning, by which I early
+sought to confirm, or (if it had been necessary) to correct, the
+results expressed by those new symbols, was stated to the R. I.
+Academy* in (substantially) the following way. Admitting,for di-
+rected and co;?/anar lines, the conception [36] oiproportion; and
+retaining the symbols ijk, or more fully, + 1, +j, + A, to denote
+three rectangular unit-lines as above, while the three respectively
+opposite lines may be denoted by-
+1, -j, -k; but not assuming
+the knowledge of any laws respecting their multiplication^ I
+sought to determine what ought to he considered as the fourth
+PROPORTIONAL, M, to the three rectangular directions]j, t, A,
+consistently with that knownconception [362/ordirections within
+the plane, and with some general and guiding principles, respect-
+ing ratios and proportions. These latter assumed principles
+(of a regulative rather than a constitutive kind) were simply
+the following: 1st, that ratios similar to the same ratio must
+be regarded as similar to each other; 2nd, that the respec-
+tively inverse ratios are also mutually similar; and 3rd, that
+ratios are similar, if they be similarly compounded of similar
+ratios: this similarity of composition being understood to include
+generally a sameness of order. It seemed to me that any pro-
+posed definitional^ use of the word ratio, which should be in-
+• See the Proceedings of November 11th, 1844.
+I In the abstract published in the Proceedings, the words" South, West,
+Up" were used at first instead ofthe symbols i,j, h ; and the sought fourth pro-
+portional tojik, which is here denoted byu, was called, provisionally," Forward."
+X As an example of the use of the first of these very simple principles, in
+serving to exclude a definition which might for a moment appear plausible, let us
+take the construction [38], and inquire whether (as that construction would
+PRBFACB. (55)
+consistent with these principles, would depart thereby too widely
+from known analogies^ mathematical andmetaphysical, and would
+involvean improprietyoflanguage: while,on the other hand,it ap-
+peared that if these principles were attended to, andother analogies
+observed,itwaspermitted to extend the use ofthat wordra^to, and
+suggest) we canproperly say that/our directions (or four diverging unit-lines),
+a, /3, y, S, form generally a proportion in space, when the angles aS, /3y, between
+the extremes and means have one common bisector (j). If so, when the three di-
+rections a, ji, y became rectangular, we should have a: /3: : y:
+—
+a, and y:
+—a
+:: p-.-y, but we should have also, a: /3: : /3:
+- a, and not a: j3 :: p:
+-
+y; so that
+the two ratios, a: /3 and j3:-
+y, would be said to be similar to one common ratio
+(y:
+-a), without being similar to each other, if the foregoing constructionfor a
+fourth proportional were to be, by definition, adopted: and this objection alone
+would be held by me to be decisive against the introduction of such a definition ;
+and therefore also against the adoption ofthe connected rule mentioned in [38],
+as having at one time occurred to a friend (J. T. G.) and to.myself, for the mul-
+tiplication of lines in space, even if there were no other reasons (as in fact there
+are), for the rejection ofthatrule. Asimilar objection applies, withequal decisive-
+ness, against the rule mentioned in [37], as an earlier conjecture ofmyown. On
+theother hand,an analogous and equally simple argumentmay serve tojustify the
+notation d—c=b—a, employed by me in the followingLectures, andelsewhere,to
+express that the two right lines ab and CD are equally long and similarly directed,
+against an objection made some years ago, in a perfectly candid spirit, by an
+able writer in the Philosophical Magazine (for June, 1849, p. 410); who thought
+that interpretation more arbitrary than it had appeared to me to be; and
+suggested that the same notation might as well have been employed to signify
+this other conception:—that the two equally long lines ab, cd met somewhere, at
+a finite or infinite distance. I could not admit this extension ; for it would lead
+to the conclusion that two lines ab, ef might be equal to the same third line cd,
+without being equal to each other : which would (in my opinion) be so great a
+violation of analogy, as to render the use of the word "equal," or ofthe sign =,
+with the interpretation referred to, an embarrassment instead of an assistance.
+But I do not feel that analogies are thus violated, by the simultaneous admis-
+sion of the two contrastedproportions (see (3) (4) (5) of [57] ),
+u:i.:j:k, u:j:: ii- k;
+for the elementary theorem called often '• alternando," (ivaWd^ Xoyof, Euc. V.
+Def.13, and Prop. 16) is byits nature limited (in its original meaning) to the case
+where the meows which change places are homogeneous with each other ; whereas
+two rectangular directions, as here i andj, are in this whole theory regarded as
+being in some sense heterogeneous. They have at least no relation to each other,
+which can be represented by any ratio, such as Euclid considers, of magnitude
+to magnitude; and therefore we have no right to expect, from analogy to old re-
+sults, that alternation shall generally be allowed in a, proportion involving such
+directions : although, within the plane, alternation isfound to be admissible.
+(56) PREFACE.
+the connected phrase proportion^ not only from quantity to direc-^
+tion, within one plane^ as had been done [36] by other writers,*
+• Since the note to paragraph [36], pp. (31) (32), was in type, I have had an
+opportunityof re-consulting the fourth volume ofthe Annates de Mathematiques,
+and have found myrecollections (agreeing indeed in the main with the formerly
+cited page 228 of Dr. Peacock's admirable Report), respecting the admitted
+priority of Argand, confirmed. Franyais, indeed (in 1813), published in those
+Annales (Tome IV., pp. 61,. . 71) a paper which contained a theory of "pro-
+portion de grandeur et de position," with a connected theory of multiplication
+(and also of addition) of lines in a given plane; but he expressly and honourably
+stated at the same time (p. 70), that he owed the substance of those new ideas
+to another person ("le fond de ces ideas nouvelles ne ra' appartient pas"):
+and on being soon afterwards shewn, through Gergonne, whose conduct in the
+whole matterdeserves praise, a copyofArgand's earlier andprinted Essay (Paris,
+1806), Franyais mostfully and distinctly recognised(p. 225)that the true author of
+the method was Argand ("il n'y a pas le moindre doute qu'on ne doive ii M. Ar-
+gand la premiere idee de rcpresenter g^ometriqueraent les quantites imagi-
+naires"). Nothing more lucid than Argand's own statements (see the same
+volume, pp. 136, 137, 138), as regards thefundamentalprinciples of the theory of
+the addition and multiplication of coplanar lines, has since (so far as I know)
+appeared; not even in the writings of Professor De Morgan on Double Algebra,
+referred to in former notes. But Argand had not anticipated De Morgan's
+theory of Logometers; and was on the contrary disposed (pp. 144,.. 146) to
+_V~1
+regard the symbol V— 1
+, notwithstanding Euler's well-known result, as de-
+noting a /('we (kp), perpendicular to the plane of the lines 1 and V— 1: and to con-
+sider it as offering an example of a quantity which was irreducible to theform
+p-\- q V- 1, and was (according to him) as heterogeneous with respect to V— 1, as
+the latter with respect to + 1 (" aussi hetcrogene" &c ). The word modulus
+(" modulo"), so well known by the important writings of M. Cauchy, occurs in a
+later paper by Argand, in the following volume of the Annales, as denoting
+the real quantity ^/p'^ + q'. If I have seemed to dwell too much on the specula-
+tions of Argand (not all adopted by myself), it has been partly because (so far
+as I have observed) his merits as an original inventor have not yet been suffi-
+ciently recognised by mathematicians in these countries: and partly because one
+ofthe two most essential linhs {the other hti'ing addition) between Double Algebra
+and Quaternions, is Argand's ma,maiX\dfundamentalprinciple respecting copla-
+nar PROPORTION, expressed by him as follows (Annales, T. IV., pp. 136, 137):
+"
+Si (fig. 2) Ang. akb= Ang. a'kb', on a, abstraction faite des grandeurs abso-
+lues, KA: KB : : k'a': KB. C'est li le principe fondamental de la theorie dont
+nous avons essaye de poser les premieres bases, dans 1' ecrit dont nous donnons
+ici un extrait" (namely, Argand's printed Essay of 1806, exhibited by Gergonne
+to Fran9ais, after the appearance of the first paper of the latter author on the
+subject in 1813). Argand continued thus (in p. 137):
+" Ce principe n'a rien
+au fond de plus etrange quo celui sur lequel est fondee la conception du rapport
+geometrique entre deux ligncs de signes diiferens, et il n' en est proprement
+qu' une g6neralisation :" a remark in which I perfectly concur.
+;
+PREFACE. (57)
+but also from the plane to space.* The supposed propor-
+tion,
+j:ii:k:u, (1)
+gave thus, by inversion,
+u:k::i:j', (2)
+but also, in the planes of y, ik, there were the two proportions,
+i :j ::j:-i, and k:i :: -i:k; (3)
+compounding therefore, on the one hand, the two ratios, u: k and
+k : I, and, on the other hand, the two respectively similar ratios,
+j: -if and -e: A, there resulted the new proportion,
+u:i::j:k; (4)
+which differed from the proportion (2) only by a cyclical trans-
+• Although the observations in par. [37] relate rather to proportions than to
+imaginaries, yet the present may be a convenient occasion for remarking that
+Bu6e, and even Wallis, had speculated, before Argand and Fran9ais, on inter-
+pretations ofthe symbol V— 1, which should extend to space: but that the nearest
+approach to an anticipation oj^ the quaternions, or at least to an anticipation of
+triplets, seems to me to have been made by Servois, in a passage of the lately
+cited volume of Gergonne's Annales, which appears curious and appropriate
+enough to be extracted here. Servois hadbeen following up a hint ofGergonne,
+respecting the representation of ordinary imaginaries of the form x+y'^-l
+(* and y being whole numbers), by a table of double argument (p. 71); and
+thought (p. 235) that such a table mightbe regarded as only a slice (une tranche)
+of a table of trifle argument, for representing points {or lines) in space. He
+—
+thus continued:
+" Vous donneriez sans doute k chacune terme la forme trino-
+"miale; mais quel coefficient aurait le troisi^me terme? Je ne le vols pas trop.
+"
+L' analogic semblerait exiger que le trin6me fut de la forme, pcos a + q cos /3
+•' +r cos y, a, j3, y etant les angles d'une droitc avec trois axes rectangulaires
+"et qu'on efit
+"(pcosa+gcos/3+r cos y) (p'cos a+q'cos(i+r' cos y)=cos* a +cos2/3 + cos^ y
+=1.
+*' Les valeurs de p, q, r, p, q, r qui satisferaient k cette condition seraient ab-
+"surdes" (" quantites non-reelles," as he shortly afterwards calls them):
+" mais
+"seraient-elles imaginaires reductibles a la forme g6nerale A+ B'^—1 ? Voila
+'•une question d' analise fort singuliere, que je soumets a vos lumi^res." The
+six NON-REALS which Servois thus with remarkable sagacityybresaw, without
+being able to determine them, maynow be identified with the then unknownsym-
+bols +1, +y, + A,-
+-
+1,
+J,
+-A, of the quaternion theory: at least, these latter
+symbols fulfil precisely the condition proposed by him, and furnish an answer to
+"
+his
+singular question." It may be proper to state that my own theory had
+been constructed and published for a long time, before the lately cited passage
+happened to meet ray eye.
+h
+(58) PREFACE.
+position of the three directions ijk. For the same reason, we
+may make another cyclical change of the same sort, and may
+write
+u:j:: k:i; (5)
+while, in this cycle of three rectangular directions, ijk, the right-
+handed (or left-handed) character of the rotation, round the first
+from the second to the third, is easily seen to be unaffected by
+such a transposition. Again compounding the two similar ratios
+(1) with these two others, which are evidently similar, whatever
+the unknown direction u may be,
+i: -i :: u:-u, (6)
+we find this other proportion,
+j:-i::k:-u', (7)
+and therefore, by (2) and (3),
+u:h:: k:-u. (8)
+In like manner,
+u:i :: i:- Ui and u:j ::j:-u; (9)
+and in any one of these proportions, any two terras, whether be-
+longing to the same or to different ratios, may have their signs
+changed together. All these proportions, (2). . (9), follow from
+the original supposition (1), by the general principles above
+stated, without the direction u being as yet any otherwise deter-
+mined.
+[58.] Suppose now that the two rectangular directionsj and
+k are made to turn together^ in their own plane, round i as an
+axis, till they take two new positions^i and k^ which will there-
+fore satisfy the proportion,
+j:k::j\:k,. (10)
+Weshall then have, by (4),
+u:i::jr.k,; (11)
+and therefore, by a cyclical change of these three new rectan-
+gular directions,
+u:ji:: kr. i:: l:ii, (12)
+if / and t'l be obtained from ^i and i by any common rotation
+roundel. Another cyclical change, combined with a rotation
+round the new line /, gives finally.
+PREFACE. (59)
+u:l::h:j\::m:n; (13)
+where /, m, n may represent any three rectangular directions
+whatever, subject only to the condition that the rotation round
+/ from m to n shall be of the same character as that round i from
+j to k. With this condition, therefore, the first assumed propor-
+tion ( I ) may be replaced by this more general one
+n'.m::l:u', (14)
+while for (8) and (9) may now be written, with the same signi-
+fication of the symbols,
+u:l::l:-u\ u:m::m:-U', u:n::n:-u; (15)
+and because n: m :: m:-n,we have these other and not less ge-
+neral proportions,
+mi-n :: l:u\ m:n :: l:-u. (16)
+If, then, there be any such fourth proportional, m, as has been
+above supposed, to the three given rectangular directions^, i, yfc,
+the same direction u, or the opposite direction-
+u, will also be,
+in the same sense, the fourth proportional to any other three rect-
+angular directions, n, w, /, or w, n, I, according as the character
+of a certain rotation is preserved or reversed.
+[59.] This remarkable result appeared to me to justify the
+regarding the directions here called + u and-u rather as nume-
+rical (or algebraical) than as linear (or geometrical) units; and
+to make it proper to denote them simply by the symbols +
+and -1; because their directions were seen to admit only ofa
+certain contrast between themselves, but not of any other change:
+all that geometrical variety, which results from the conception of
+tridimensional space, having been found to disappear, as regarded
+them, in an investigation conducted as above. And in fact it is
+not permitted, on the foregoing principles, to identify the direc-
+tion u with that oi any line (/) whatever: for in that case the
+proportion (13) would give the result I: I :: m:n, which must be
+regarded in this theory as an absurd one, the two terms of one
+ratio being coincident directions, while those of the other ratio
+are rectangular. But there is no objection of this sort against
+our supposing, as above, that
++ M = 4 1, -«=- 1; and then the proportions, derived from (13), (15),
+(17)
+(60) PREFACB.
+l:l::m:n::n:-m; !:/::/:-!, (18)
+maybe conveniently and concisely expressed by formulae oimul-
+tiplicatioHi as follows:
+lm= n; ln-=-m; l^ =-l. (19)
+[60.] In this way, then, or in one not essentially diflFerent,
+the fundamental formulae [48] of the calculus of quaternions, as
+first exhibited to the R. I. A. in 1843, namely, the equations,
+l'=-l,/=-l,^^ =-1, (A)
+ij =+k,Jk= +i, ki =
+ji=-k, kj=^-i, ik = -j, +J, (b)
+(c)
+were shewn (in 1844) to be consistent with a priori principles, and
+with considerations of a general nature ; a product being here
+regarded as a fourth proportional, to a certain extra-spatial*
+unitf and to two directed factor-lines in space: whereas, in the
+investigation of paragraphs [50] to [pQ^, it was viewed rather as
+a certain function ofthose two factors, theform ofwhich func-
+tion was to be determined in the manner most consistent with
+some general and guiding analogies, and with the conception of
+the symmetry ofspace. But there was still another view of the
+whole subject, sketched not long afterwards in another commu-
+nication to the R. I. Academy,t on which it is unnecessary to say
+more than a few words in this place, because it is, in substance,
+the view adopted in the following Lectures, and developed with
+some fulness in them : namely, that view according to which a
+Quaternion is considered as the Quotient of two directed lines
+in tridimensional space.
+• It seemed (and still seems) to me natural to connect this extra-spatial unit
+with the conception [3] of time, regarded here merely as an axis of continuous
+and uni-dimcnsional progression. But whether we thus considerjointly time and
+space, or conceive generally any system offour independent axes, or scales of pro-
+gression (m, i,j, k), I am disposed to infer from the above investigation the fol-
+lowing LAW OF THE FOUR SCALES, as One which is at least consistent with
+analogy, and admissible as a definitional extension of the fundamental equations
+—
+of quaternions:
+" A formula oiproportion between four independent and directed
+units is to be considered as remaining true, when any two of them change places
+with each other (in the formula), provided that the direction (or sign) of one be
+reversed." Whatever may be thought of these abstract and semi-metaphysical
+views, theformula (a) (b) (c) of par. [GO] are in any event a sufficient basis for
+the erection of a calculds of quaternions.
+t See the Proceedings of Feb. 10th, 1845.
+PREFACE. (61)
+[61.] Ofsuch a geometrical quotienty* b -§. a, the fundamen-
+tal property is in this theory conceived to be, that by operating^
+as a multiplier (or at least in a way analogous to multiplication),
+on the divisor-line^ a, \i produces (or generates) the dividend-
+line, b; and that thus it may be interpreted as satisfying the
+general and identical formula (compare [9] )
+(b -^*a) X a =b.
+The analogy to multiplication consists partly in the operation
+being one which is performed at once on length and on direction,
+as in the ordinary multiplication of a line by a positive or nega-
+tive number; or as is done in that known generalization [36] of
+such multiplication, for lines within one plane, which (for reasons
+assigned in notes to former paragraphs) ought (I think) to be
+called the Method of Argand: and partly in the circumstance
+that the new operation possesses, like that older one (from which,
+however, it is entirely distinct,^ in many other and important re-
+spects), the distributive and associative^X though not like it (ge-
+nerally) the commutative properties, of what is called multipli-
+• This view of a geometrical quotient was also developed to a certain extent,
+in an unfinished series of papers, which appeared a few years ago in the Cam-
+bridge and Dublin Mathematical Journal, under the head of Symbolical Geome-
+try: a title adopted to mark that I had attempted, in the composition of that
+particular series, to allow a more prominent influence to the general laws of
+symbolical language than in some former papers of mine ; and that to this extent
+I had on that occasion sought to imitate the Symbolical Algebra of Dr. Peacock,
+and to profit also by some of the remarks of Gregory and Ohm.
+f Among these distinctions of method, it is important to bear in mind that no
+one line is taken, in my system, as representing the direction ofpositive unity: and
+that, on the contrary, every vector-unit is regarded as one ofthe square roots of
+negative unity. It is to be remarked, also, that the product of two inclined but
+non-rectangular vectors is considered in this theory as not a line, but a quater-
+nion: all which will be found fully illustrated in the Lectures.
+i To this associative principle, or property of multiplication, I attach much
+importance, andhave taken pains to shew, in the Fifth and Sixth Lectures, that
+it can be geometrically proved for quaternions, independently of the distributive
+principle, which may, however, in a different arrangement of the subject, bo
+made to precede and assist the proof of the associative property, as shewn in th«
+Seventh Lecture, and elsewhere. The absence of the associative principle ap-
+pears to me to be an inconvenience in the octaves or octonomials of Messrs. J. T.
+Graves and Arthur Cayley (see Appendix B, p. 730): thus in the notation of the
+former we should indeed have, as in quaternions, ij=k, but not generally i.ju
+=k(ii, if (u represent an octave; for i.jl = iH =
+— o =—hl=—tj .1.
+(62) PREFACE.
+cation in algebra;* at least when a few definitional formulae
+(resembling those in par. [9] ) are established. And the motive
+(in this view) for calling such a quotient a Quaternion, or the
+ground for connecting its conception with the number Four, is
+derived from the consideration that while the relative length
+of the two lines compared depends only on one number^ express-
+ing their ratio (of the ordinary kind), their relative direc-
+tion depends on a system ofthree numbers : one denoting the
+angle (a^
+b) between the two lines, and the two others serving
+to determine the aspect of the plane of that angle, or the direc-
+tion of the AXIS of the positive rotation in that plane,/row the
+divisor-line (a) to the dividend-line (b).
+• The expression"
+algebra," or "ordinary algebra," occurs several times in
+these Lectures, as denoting merely that usual species of algebra, in which the
+equation ab =ba is treated as universally true, and not (of course) as implying
+any degree of disrespect to those many and eminent writers, who have not hi-
+therto chosen to admit into their calculations such equations as a/3 =-/3a, for
+the multiplication of two rectangular lines, or for other and more abstract pur-
+poses. It is proper to state here, that a species of non-commutative multiplication
+for inclined lines (aussere Multiplikation) occurs in a very original and remark-
+able work by Prof. H. Grassmann (Ausdehnungslehre, Leipzig, 1844), which I
+did not meet with till after years had elapsed from the invention and communi-
+cation of the quaternions: in which work I have also noticed (when too late to
+acknowledge it elsewhere) an employment of the symbol^ -a, to denote the
+directed line (Strecke), drawn from the point a to the point /3. Nothwithstand-
+ing these, and perhaps some other coincidences ofview. Prof. Grassmann's system
+and mine appear to be perfectly distinct and independent of each other, in their
+conceptions, methods, and results. At least, that the profound and philosophi-
+cal author of the Ausdehnungslehre was not, at the time of its publication, in
+possession of the theory of the quaternions, which had in the preceding year
+(1843) been applied by me as a sort of organ or calculusfor spherical trigonome-
+try, seems clear from a passage of his Preface (Vorrede, p. xiv.), in which he
+states (under date of June 28th, 1844), that he had not then succeeded in ex-
+tending the use of imaginariesfrom the plane to space; and generally that unsur-
+mounted difficulties had opposed themselves to his attempts to construct, on his
+principles, a theory of angles in space (hingegen ist es nicht mehr moglich, ver-
+mittclst des Imaginaren auch die Gesetze fiir den Raum abzuleiten. Auch
+stellen sich iiberhaupt der Betrachtung dcr Winkel im Raume Schwierigkeiten
+entgegen, zu deren allseitiger Losung rair noch nicht hinreichende Musse gewor-
+den ist). The earlier treatise by Prof. A. F. Miibius (der barycentrische Calcul,
+Leipzig, 1827), referred to in the same Preface by Grassmann, appears to be
+a work which likewise well deserves attention, for its conceptions, notations,
+and results ; as does also another work of Mobius (Mechanik des Himmels,
+Leipzig, 1843), elsewhere referred to in these Lectures (page 614).
+PREFACE. (63)
+[62.] For the unfolding of this general view,* and the deduc-
+tion from it of many geometricalf and of some physical^ conse-
+quences, I must refer to the following Lectures ; of which a
+considerable part has been drawn up in a more popular§ style than
+this Preface: while the whole has been composed under the in-
+fluence of a sincere desire to render the exposition ofthe subject
+as clear and elementary as possible. The prefixed Table of
+Contents (pp. ix. to Ixxii.), though somewhat fuller than usual,
+will be found useful (it is hoped) not merely as an analytical
+Index, assisting a reader to refer easily to any part ofthe volume
+which he has once carefully read, but also as a general abridg-
+ment of the work, and in some places as a commentary.^ The
+• I mayjust hint here that the biqdaternionb of Lcct. VII. admit of being
+geometrically interpreted (comp. note to [19] ), by considering each as a couple of
+quotients (-, -), constructed by a tribadiajl (a, /3, y), and multiplied by a com-
+mutative factor of the form V-1 (compare [16] ), when the line-couple (/3, y) is
+changed to (- y, /3), or when the angle (3y is changed to an adjacent angle.
+f Notwithstanding some references to works of M. Chasles, and other emi-
+nent foreign geometers, myacquaintance with their writings is far too imperfect
+to give me any confidence in the novelty of various theorems in the VII"' Lec-
+ture and Appendix (such as those respecting generations of the ellipsoid, and
+inscriptions of gauche polygons in surfaces of the second order), beyond what
+is derived from the opinion ofa few geometrical friends.
+X Some such physical applications were early suggested by Sir J. Herschel.
+§ It had been designed that these Lectures should not go much more into
+detail than those which have been actually delivered on the subject by me, in
+successive years, in the Halls of this University; and the First Lecture, printed
+in 1848 (as the astronomical allusions at its commencement may indicate), wag
+in fact delivered in that year, in very nearly the form in which it now appears.
+But it was soon found necessary to extend the plan ofthe composition:
+and it is
+evident that the subsequent Lectures, as printed, are too long, and that the last
+of them involves too much calculation, to have been delivered in their present
+form: though something ofthe style of actual lecturing has been here and there
+Fetained. The real divisions of the work are not so much the Lectures them-
+selves, as the shorter and more numerous Articles, to which accordingly the
+references have been chiefly made. An intermediate form of subdivision into
+Sections has however been used in drawing up the Contents, which the reader
+may adopt or not at his discretion, marking or leaving unmarked the margin of
+the Lectures accordingly. Some new terms and symbols have been unavoidably
+introduced into the work, but it is hoped that they will not be found embarrass-
+ing, or difficult to remember and apply.
+For instance, as regards the formation of the Adeuteric Function (p. xliii.)II
+(64) PREFACE.
+Diagramsare numerous, and have been engraved* with care from
+my drawings: some of them may perhaps be thought to have
+been unnecessary, but it appeared better to err, if at all, on the
+side ofclearness and fulness of illustration, especially in the early
+parts of a work based on a new mathematical conception, and
+designed to furnish, to those who may be disposed to employ it,
+a new mathematical organ. Whatever may be thought of the
+degree of success with which my exertions in this matter have
+been attended, it will be felt, at least, that they must have been
+arduous and persevering. My thanks are due, at this last stage,
+to the friends who have cheered me throughout by their conti-
+nued sympathy; to the scientific contemporaries! who have at
+moments turned aside from their own original researches, to no-
+tice, and in some instances to extend, results or speculations of
+mine; to my academical superiors who have sanctioned, as a
+subject of public and repeated examination in this University,
+the theory to which this Volume relates, and have contributed to
+lighten, to an important extent, the pecuniary risk of its publi-
+cation: but, above all, to that Great Being, who has graciously
+spared to me such a measure of health and energy as was required
+for bringing to a close this long and laborious undertaking.
+William Rowan Hamilton.
+Observatory of T. CD., June, 1853.
+• By Mr. W. Oldham, whose fidelity and diligence are hereby acknowledged.
+\ In these countries, Messrs. Boole, Carmichael, Cayley, Cockle, De Morgan,
+Donkin, Charles andJohn Graves, Kirkman, O'Brien, Spottiswoode, Young, and
+perhaps others: some of whose researches or remarks on subjects connected with
+quaternions (such as the triplets, tessarines, octaves, and pluquaternions) have
+been elsewhere alluded to, butof which I much regret the impossibility of giving
+here a fuller account. As regards the theory of algebraic keys (clefs algebriques),
+lately proposed by one of the most eminent of continental analysts, as one that
+includes the quaternions (Comptes Rendus for Jan. 10, 1853, p. 73), it appears to
+me to be virtually included in that theory of sets in algebra (explained in the
+present Preface), which was announced by me in 1835, and published in 1848
+(Trans. R.I. A., Vol. XXL, Partii., p. 229, &c., the symbols x, being in fact
+what M.Cauchy calls keys), as an extension ofthe theoryofcoup/es (and therefore
+also of imaginaries): ofwhich sets I have always considered the qdateknions
+(in their symbolical aspect) to be merely aparticular case. Before the publica-
+tion of those sets, the closely connected conception of an "algebra ofthe n"" cha-
+racter" had occurred to Prof. De Morgan in 1844, avowedly aa a suggestion from
+the quaternions. (Trans. Camb. Phil. Soc, Vol. VIII., Part lu.)

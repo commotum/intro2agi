@@ -1,0 +1,2243 @@
+Transcript
+
+
+Search in video
+intro
+0:00
+hi everyone today we are continuing our implementation of make more now in the last lecture we implemented the multier
+0:06
+perceptron along the lines of benj 2003 for character level language modeling so we followed this paper took in a few
+0:12
+characters in the past and used an MLP to predict the next character in a sequence so what we'd like to do now is
+0:18
+we'd like to move on to more complex and larger neural networks like recurrent neural networks and their variations
+0:23
+like the grw lstm and so on now before we do that though we have to stick around the level of malalia perception
+0:30
+on for a bit longer and I'd like to do this because I would like us to have a very good intuitive understanding of the
+0:35
+activations in the neural net during training and especially the gradients that are flowing backwards and how they
+0:41
+behave and what they look like and this is going to be very important to understand the history of the development of these architectures
+0:48
+because we'll see that recurr neural networks while they are very expressive in that they are a universal
+0:53
+approximator and can in principle Implement uh all the algorithms uh we'll see that they are not very easily
+0:59
+optimizable with the first order gradient based techniques that we have available to us and that we use all the time and the key to understanding why
+1:06
+they are not optimizable easily is to understand the the activations and the gradients and how they behave during
+1:11
+training and we'll see that a lot of the variants since recur neural networks have tried to improve that situation and
+1:19
+so that's the path that we have to take and uh let's get started so the starting code for this lecture is largely the
+starter code
+1:25
+code from before but I've cleaned it up a little bit so you'll see that we are importing all the torch and math plb utilities
+1:33
+we're reading in the words just like before these are eight example words there's a total of 32,000 of them here's
+1:39
+a vocabulary of all the lowercase letters and the special dot token here
+1:44
+we are reading the data set and processing it and um creating three
+1:49
+splits the train Dev and the test split now in MLP this is the identical same
+1:55
+MLP except you see that I removed a bunch of magic numbers that we had here and instead we have the dimensionality
+2:01
+of the embedding space of the characters and the number of hidden units in the hidden layer and so I've pulled them
+2:06
+outside here uh so that we don't have to go and change all these magic numbers all the time we have the same neural net
+2:12
+with 11,000 parameters that we optimize now over 200,000 steps with a batch size of 32 and you'll see that I refactor I
+2:20
+refactored the code here a little bit but there are no functional changes I just created a few extra variables a few
+2:26
+more comments and I removed all the magic numbers and otherwise is the exact same thing then when we optimize we saw
+2:33
+that our loss looked something like this we saw that the train and Val loss were about
+2:39
+2.16 and so on here I refactored the uh code a little bit for the evaluation of
+2:45
+arbitary splits so you pass in a string of which split you'd like to evaluate and then here depending on train Val or
+2:52
+test I index in and I get the correct split and then this is the forward pass of the network and evaluation of the
+2:58
+loss and printing it so just making that nicer uh one thing that you'll notice
+3:04
+here is I'm using a decorator torch. nograd which you can also um look up and
+3:09
+read the documentation of basically what this decorator does on top of a function is that whatever happens in this
+3:16
+function is assumed by uh torch to never require any gradients so it will not do
+3:22
+any of the bookkeeping that it does to keep track of all the gradients in anticipation of an eventual backward
+3:28
+pass it's it's almost as if all the tensors that get created here have a required grad of false and so it just
+3:35
+makes everything much more efficient because you're telling torch that I will not call that backward on any of this computation and you don't need to
+3:41
+maintain the graph under the hood so that's what this does and you can also
+3:46
+use a context manager uh with torch du nograd and you can look those
+3:52
+up then here we have the sampling from a model um just as before just a for
+3:57
+Passive neural nut getting the distribution sent from it adjusting the context window and repeating until we
+4:03
+get the special end token and we see that we are starting to get much nicer looking words simple from the model it's
+4:10
+still not amazing and they're still not fully name like uh but it's much better than what we had with the BAM
+4:16
+model so that's our starting point now the first thing I would like to scrutinize is the initialization I can tell that our
+fixing the initial loss
+4:24
+network is very improperly configured at initialization and there's multiple things wrong with it but let's just
+4:29
+start with the first one look here on the zeroth iteration the very first iteration we are recording a loss of 27
+4:37
+and this rapidly comes down to roughly one or two or so so I can tell that the initialization is all messed up because
+4:42
+this is way too high in training of neural Nets it is almost always the case that you will have a rough idea for what
+4:48
+loss to expect at initialization and that just depends on the loss function and the problem setup in this case I do
+4:55
+not expect 27 I expect a much lower number and we can calculate it together basically at initialization what we like
+5:03
+is that um there's 27 characters that could come next for any one training example at initialization we have no
+5:10
+reason to believe any characters to be much more likely than others and so we'd expect that the propy distribution that
+5:15
+comes out initially is a uniform distribution assigning about equal probability to all the 27
+5:22
+characters so basically what we' like is the probability for any character would
+5:27
+be roughly 1 over 20 7 that is the probability we should
+5:32
+record and then the loss is the negative log probability so let's wrap this in a
+5:38
+tensor and then then we can take the log of it and then the negative log probability is the loss we would expect
+5:46
+which is 3.29 much much lower than 27 and so what's happening right now is
+5:51
+that at initialization the neural nut is creating probity distributions that are all messed up some characters are very
+5:57
+confident and some characters are very not confident confident and then basically what's happening is that the network is very confidently wrong and uh
+6:06
+that that's what makes it um record very high loss so here's a smaller four-dimensional example of the issue
+6:13
+let's say we only have four characters and then we have logits that come out of the neural net and they are very very
+6:19
+close to zero then when we take the softmax of all zeros we get probabilities there are a diffused
+6:26
+distribution so sums to one and is exactly uniform and then in this case if the
+6:32
+label is say two it doesn't actually matter if this if the label is two or three or one or zero because it's a
+6:38
+uniform distribution we're recording the exact same loss in this case 1.38 so this is the loss we would expect for a
+6:44
+four-dimensional example and now you can see of course that as we start to manipulate these logits uh we're going
+6:50
+to be changing the law here so it could be that we lock out and by chance uh this could be a very high number like
+6:57
+you know five or something like that then case we'll record a very low loss because we're assigning the correct probability at initialization by chance
+7:04
+to the correct label much more likely it is that some other dimension will have a
+7:11
+high uh logit and then what will happen is we start to record much higher loss
+7:17
+and what can come what can happen is basically the logits come out like something like this you know and they
+7:22
+take on Extreme values and we record really high loss
+7:27
+um for example if we have to 4. random of four so these are uniform um sorry
+7:34
+these are normally distributed um numbers uh four of
+7:39
+them then here we can also print the logits probabilities that come out of it
+7:45
+and the loss and so because these logits are near zero for the most part the loss
+7:51
+that comes out is is okay uh but suppose this is like times 10
+7:57
+now you see how because these are more extreme values it's very unlikely that you're going to be guessing the correct
+8:05
+bucket and then you're confidently wrong and recording very high loss if your loes are coming out even more
+8:11
+extreme you might get extremely insane losses like infinity even at
+8:17
+initialization um so basically this is not good and we want the loges to be roughly zero um
+8:25
+when the network is initialized in fact the lits can don't have to be just zero they just have to be equal so for
+8:31
+example if all the logits are one then because of the normalization inside the softmax this will actually come out okay
+8:38
+but by symmetry we don't want it to be any arbitrary positive or negative number we just want it to be all zeros
+8:43
+and record the loss that we expect at initialization so let's now concretely see where things go wrong in our example
+8:49
+here we have the initialization let me reinitialize the neuronet and here let me break after the very first iteration
+8:56
+so we only see the initial loss which is 27 so that's way too high and intuitively
+9:02
+now we can expect the variables involved and we see that the logits here if we just print some of
+9:08
+these if we just print the first row we see that the Lo just take on quite extreme values and that's what's
+9:14
+creating the fake confidence in incorrect answers and makes the loss um
+9:20
+get very very high so these loes should be much much closer to zero so now let's
+9:25
+think through how we can achieve logits coming out of this neur not to be more closer to zero you see here that loes
+9:33
+are calculated as the hidden states multip by W2 plus B2 so first of all
+9:38
+currently we're initializing B2 as random values uh of the right size but
+9:45
+because we want roughly zero we don't actually want to be adding a bias of random numbers so in fact I'm going to add a times zero here to make sure that
+9:52
+B2 is just um basically zero at initialization and second this is H
+9:58
+multip by W2 so if we want logits to be very very small then we would be multiplying W2 and making that
+10:06
+smaller so for example if we scale down W2 by 0.1 all the elements then if I do
+10:12
+again just a very first iteration you see that we are getting much closer to what we expect so rough roughly what we
+10:18
+want is about 3.29 this is 4.2 I can make this maybe even
+10:24
+smaller 3.32 okay so we're getting closer and closer now you're probably
+10:30
+wondering can we just set this to zero then we get of course exactly what we're looking for um at
+10:37
+initialization and the reason I don't usually do this is because I'm I'm very nervous and I'll show you in a second
+10:43
+why you don't want to be setting W's or weights of a neural nut exactly to zero um you you usually want it to be small
+10:50
+numbers instead of exactly zero um for this output layer in this specific case
+10:55
+I think it would be fine but I'll show you in a second where things go wrong very quick quickly if you do that so
+11:00
+let's just go with 0.01 in that case our loss is close enough but has some entropy it's not
+11:07
+exactly zero it's got some little entropy and that's used for symmetry breaking as we'll see in a second the
+11:13
+logits are now coming out much closer to zero and everything is well and good so if I just erase these and I now take
+11:22
+away the break statement we can run the optimization with this new initialization and let's
+11:28
+just see what losses we record okay so I let it run and you see that we started off good
+11:35
+and then we came down a bit the plot of the loss uh now doesn't have this hockey shape appearance um
+11:43
+because basically what's happening in the hockey stick the very first few iterations of the loss what's happening
+11:48
+during the optimization is the optimization is just squashing down the logits and then it's rearranging the
+11:54
+logits so basically we took away this easy part of the loss function where just the the weights were just being
+12:00
+shrunk down and so therefore we're we don't we don't get these easy gains in the beginning and we're just getting
+12:06
+some of the hard gains of training the actual neural nut and so there's no hockey stick appearance so good things
+12:12
+are happening in that both number one losset initialization is what we expect and the the loss doesn't look like a
+12:19
+hockey stick and this is true for any neuron that you might train um and something to look out for and second the
+12:26
+loss that came out is actually quite a bit improved unfortunately I erased what we had here before I believe this was 2.
+12:33
+um2 and this was this was 2.16 so we get a slightly improved result and the
+12:40
+reason for that is uh because we're spending more Cycles more time optimizing the neuronet actually instead
+12:46
+of just uh spending the first several thousand iterations probably just squashing down the
+12:52
+weights because they are so way too high in the beginning in the initialization so something to look out for and uh
+12:58
+that's number one now let's look at the second problem let me reinitialize our neural net and let me reintroduce The
+fixing the saturated tanh
+13:04
+Brak statement so we have a reasonable initial loss so even though everything is looking good on the level of the loss
+13:10
+and we get something that we expect there's still a deeper problem looking inside this neural net and its
+13:16
+initialization so the logits are now okay the problem now is with the values
+13:21
+of H the activations of the Hidden States now if we just visualize this
+13:26
+Vector sorry this tensor h it's kind of hard to see but the problem here roughly speaking is you see how many of the
+13:32
+elements are one or negative 1 now recall that torch. 10 the 10 function is
+13:39
+a squashing function it takes arbitrary numbers and it squashes them into a range of negative 1 and one and it does
+13:44
+so smoothly so let's look at the histogram of H to get a better idea of the distribution of the values inside
+13:51
+this tensor we can do this first well we can see that H is 32
+13:57
+examples and 200 activations in each example we can view it as1 to stretch it
+14:03
+out into one large vector and we can then call two list to
+14:08
+convert this into one large python list of floats and then we can pass this into
+14:15
+PLT doist for histogram and we say we want 50 bins and a semicolon to suppress
+14:21
+a bunch of output we don't want so we see this histogram and we see that most the values by far take on
+14:28
+value of netive one and one so this 10 H is very very active and we can also look
+14:34
+at basically why that is we can look at the pre activations that feed into the
+14:41
+10 and we can see that the distribution of the pre activations are is very very
+14:46
+broad these take numbers between -5 and 15 and that's why in a torure 10
+14:52
+everything is being squashed and capped to be in the range of negative 1 and one and lots of numbers here take on very
+14:57
+extreme values now if you are new to neural networks you might not actually see this as an issue but if you're well
+15:04
+vered in the dark arts of back propagation and then having an intuitive sense of how these gradients flow through a neural net you are looking at
+15:11
+your distribution of 10h activations here and you are sweating so let me show you why we have to keep in mind that
+15:17
+during back propagation just like we saw in microad we are doing backward passs starting at the loss and flowing through
+15:22
+the network backwards in particular we're going to back propagate through this torch. 10h and this layer here is made up of
+15:30
+200 neurons for each one of these examples and uh it implements an elementwise 10 so let's look at what
+15:37
+happens in 10h in the backward pass we can actually go back to our previous uh microgr code in the very first lecture
+15:44
+and see how we implemented 10 AG we saw that the input here was X and then we
+15:49
+calculate T which is the 10 age of X so that's T and T is between 1 and 1 it's
+15:54
+the output of the 10 H and then in the backward pass how do we back propagate through a 10 H we take out that grad um
+16:02
+and then we multiply it this is the chain rule with the local gradient which took the form of 1 - t ^2 so what
+16:09
+happens if the outputs of your t h are very close to1 or 1 if you plug in t one
+16:15
+here you're going to get a zero multiplying out. grad no matter what out. grad is we are killing the gradient
+16:22
+and we're stopping effectively the back propagation through this 10 unit similarly when t is1 this will again
+16:29
+become zero and out that grad just stops and intuitively this makes sense because
+16:35
+this is a 10h neuron and what's happening is if its output is very close to one then we are
+16:41
+in the tail of this 10 and so changing basically the
+16:48
+input is not going to impact the output of the 10 too much because it's it's so
+16:53
+it's in a flat region of the 10 H and so therefore there's no impact on the loss
+16:58
+and so so indeed the the weights and the biases along with the 10h neuron do not
+17:04
+impact the loss because the output of the 10 unit is in the flat region of the 10 and there's no influence we can we
+17:10
+can be changing them whatever we want however we want and the loss is not impacted that's so that's another way to
+17:15
+justify that indeed the gradient would be basically zero it vanishes indeed uh when T equals zero we
+17:24
+get one times out that grad so when the 10 h takes on exactly value of zero then
+17:31
+out grad is just passed through so basically what this is doing right is if
+17:37
+T is equal to zero then this the 10 unit is uh sort of inactive and uh gradient
+17:43
+just passes through but the more you are in the flat tails the more the gradient is squashed so in fact you'll see that
+17:50
+the the gradient flowing through 10 can only ever decrease and the amount that it decreases is um proportional through
+17:59
+a square here um depending on how far you are in the flat tail so this 10 H
+18:05
+and so that's kind of what's Happening Here and through this the concern here is that if all of these um outputs H are
+18:12
+in the flat regions of negative 1 and one then the gradients that are flowing through the network will just get
+18:18
+destroyed at this layer now there is some redeeming quality here and that we can actually
+18:25
+get a sense of the problem here as follows I wrote some code here and basically what we want to do here is we
+18:30
+want to take a look at H take the the absolute value and see how often it is
+18:36
+in the in a flat uh region so say greater than 099 and what you get is the following
+18:44
+and this is a Boolean tensor so uh in the Boolean tensor you get a white if
+18:49
+this is true and a black if this is false and so basically what we have here is the 32 examples and 200 hidden
+18:56
+neurons and we see that a lot of this is white and what that's telling us is that
+19:01
+all these 10h neurons were very very active and uh they're in a flat tail and
+19:09
+so in all these cases uh the back the backward gradient would get uh
+19:15
+destroyed now we would be in a lot of trouble if for for any one of these 200
+19:21
+neurons if it was the case that the entire column is white because in that
+19:26
+case we have what's called a dead neuron and this is could be a 10 neuron where the initialization of the weights and the biases could be such that no single
+19:33
+example ever activates uh this 10h in the um sort of active part of the 10age
+19:39
+if all the examples land in the tail then this neuron will never learn it is
+19:44
+a dead neuron and so just scrutinizing this and looking for Columns of
+19:50
+completely white uh we see that this is not the case so uh I don't see a single
+19:56
+neuron that is all of uh you know white and so therefore it is the case that for every one of these 10h neurons uh we do
+20:04
+have some examples that activate them in the uh active part of the 10 and so some gradients will flow through and this
+20:10
+neuron will learn and the neuron will change and it will move and it will do something but you can sometimes get get
+20:17
+yourself in cases where you have dead neurons and the way this manifests is that um for 10h neuron this would be
+20:24
+when no matter what inputs you plug in from your data set this 10h neuron always fir completely one or completely negative
+20:30
+one and then it will just not learn because all the gradients will be just zeroed out uh this is true not just for
+20:37
+10 but for a lot of other nonlinearities that people use in neural networks so we certainly used 10 a lot but sigmoid will
+20:43
+have the exact same issue because it is a squashing neuron and so the same will be true for sigmoid uh but um but um you
+20:53
+know um basically the same will actually apply to sigmoid the same will also apply to reu
+20:59
+so reu has a completely flat region here below zero so if you have a reu neuron
+21:05
+then it is a pass through um if it is positive and if it's if the preactivation is negative it will just
+21:11
+shut it off since the region here is completely flat then during back propagation uh this would be exactly
+21:18
+zeroing out the gradient um like all of the gradient would be set exactly to zero instead of just like a very very
+21:24
+small number depending on how positive or negative T is and so you can get for
+21:29
+example a dead reu neuron and a dead reu neuron would basically look like
+21:35
+basically what it is is if a neuron with a reu nonlinearity never activates so
+21:41
+for any examples that you plug in in the data set it never turns on it's always in this flat region then this re neuron
+21:48
+is a dead neuron its weights and bias will never learn they will never get a gradient because the neuron never
+21:54
+activated and this can sometimes happen at initialization uh because the way and a biases just make it so that by chance
+22:00
+some neurons are just forever dead but it can also happen during optimization if you have like a too high of learning
+22:06
+rate for example sometimes you have these neurons that get too much of a gradient and they get knocked out off
+22:11
+the data manifold and what happens is that from then on no example ever activates this
+22:17
+neuron so this neuron remains dead forever so it's kind of like a permanent brain damage in a in a mind of a network
+22:23
+and so sometimes what can happen is if your learning rate is very high for example and you have a neural net with neurons you train the neuron net and you
+22:30
+get some last loss but then actually what you do is you go through the entire training set and you forward um your
+22:38
+examples and you can find neurons that never activate they are dead neurons in your network and so those neurons will
+22:45
+will never turn on and usually what happens is that during training these Rel neurons are changing moving Etc and
+22:50
+then because of a high gradient somewhere by chance they get knocked off and then nothing ever activates them and
+22:56
+from then on they are just dead uh so that's kind of like a permanent brain damage that can happen to some of these
+23:02
+neurons these other nonlinearities like leyu will not suffer from this issue as much because you can see that it doesn't
+23:08
+have flat Tails you'll almost always get gradients and uh elu is also fairly uh
+23:14
+frequently used um it also might suffer from this issue because it has flat parts so that's just something to be
+23:21
+aware of and something to be concerned about and in this case we have way too many um activations AG that take on
+23:29
+Extreme values and because there's no column of white I think we will be okay
+23:34
+and indeed the network optimizes and gives us a pretty decent loss but it's just not optimal and this is not
+23:39
+something you want especially during initialization and so basically what's happening is that uh this H
+23:45
+preactivation that's floating to 10 H it's it's too extreme it's too large
+23:51
+it's creating very um it's creating a distribution that is too saturated in both sides of the 10 H and it's not
+23:57
+something you want because it means that there's less training uh for these neurons because they update um less
+24:04
+frequently so how do we fix this well H preactivation is MCAT which comes from C
+24:12
+so these are uniform gsan but then it's multiply by W1 plus B1 and H preact is
+24:18
+too far off from zero and that's causing the issue so we want this reactivation to be closer to zero very similar to
+24:25
+what we had with logits so here we want actually something very very
+24:30
+similar now it's okay to set the biases to very small number we can either multiply by 0 01 to get like a little
+24:37
+bit of entropy um I sometimes like to do that um just so that there's like a
+24:43
+little bit of variation and diversity in the original initialization of these 10 H neurons and I find in practice that
+24:50
+that can help optimization a little bit and then the weights we can also just like squash so let's multiply everything
+24:57
+by 0.1 let's rerun the first batch and now let's look at this and well first let's
+25:04
+look here you see now because we multiply dou by 0.1 we have a much better histogram
+25:11
+and that's because the pre activations are now between 1.5 and 1.5 and this we expect much much less white okay there's
+25:19
+no white so basically that's because there are no neurons that saturated
+25:24
+above 99 in either direction so this actually a pretty decent place to be um
+25:31
+maybe we can go up a little bit sorry am I am I changing W1 here so
+25:39
+maybe we can go to 0 2 okay so maybe something like this is
+25:44
+is a nice distribution so maybe this is what our initialization should be so let me now
+25:50
+erase these and let me starting with
+25:55
+initialization let me run the full optimization without the break and uh let's see what
+26:02
+we get okay so the optimization finished and I re the loss and this is the result that we get and then just as a reminder
+26:09
+I put down all the losses that we saw previously in this lecture so we see that we actually do get an improvement
+26:14
+here and just as a reminder we started off with a validation loss of 2.17 when we started by fixing the softmax being
+26:21
+confidently wrong we came down to 2.13 and by fixing the 10h layer being way too saturated we came down to 2.10
+26:28
+and the reason this is happening of course is because our initialization is better and so we're spending more time doing productive training instead of um
+26:36
+not very productive training because our gradients are set to zero and uh we have to learn very simple things like uh the
+26:43
+overconfidence of the softmax in the beginning and we're spending Cycles just like squashing down the weight Matrix so
+26:50
+this is illustrating um basically initialization and its impacts on performance uh just by being aware of
+26:57
+the internals of these neural net and their activations their gradients now we're working with a very small Network
+27:02
+this is just one layer multi-layer perception so because the network is so shallow the optimization problem is
+27:08
+actually quite easy and very forgiving so even though our initialization was terrible the network still learned
+27:14
+eventually it just got a bit worse result this is not the case in general though once we actually start um working
+27:21
+with much deeper networks that have say 50 layers uh things can get uh much more complicated and uh these problems stack
+27:29
+up and so you can actually get into a place where the network is basically not training at all if your initialization
+27:35
+is bad enough and the deeper your network is and the more complex it is the less forgiving it is to some of
+27:41
+these errors and so um something to definitely be aware of and uh something
+27:47
+to scrutinize something to plot and something to be careful with and um yeah
+calculating the init scale: “Kaiming init”
+27:53
+okay so that's great that that worked for us but what we have here now is all these magic numbers like0 2 like where
+27:59
+do I come up with this and how am I supposed to set these if I have a large neural net with lots and lots of layers
+28:05
+and so obviously no one does this by hand there's actually some relatively principled ways of setting these scales
+28:11
+um that I would like to introduce to you now so let me paste some code here that I prepared just to motivate the
+28:17
+discussion of this so what I'm doing here is we have some random input here x that is drawn
+28:23
+from a gan and there's 1,000 examples that are 10 dimensional and then we have a waiting layer here
+28:30
+that is also initialized using caution just like we did here and we these
+28:36
+neurons in the hidden layer look at 10 inputs and there are 200 neurons in this hidden layer and then we have here just
+28:43
+like here um in this case the multiplication X multip by W to get the pre activations of these
+28:49
+neurons and basically the analysis here looks at okay suppose these are uniform gion and these weights are uniform gion
+28:57
+if I do X W and we forget for now the bias and the
+29:02
+nonlinearity then what is the mean and the standard deviation of these gions so in the beginning here the input is uh
+29:09
+just a normal Gan distribution mean zero and the standard deviation is one and the standard deviation again is just the
+29:15
+measure of a spread of the gion but then once we multiply here and we look at the um histogram of Y we see
+29:23
+that the mean of course stays the same it's about zero because this is a symmetric operation but we see here that
+29:29
+the standard deviation has expanded to three so the input standard deviation was one but now we've grown to three and
+29:36
+so what you're seeing in the histogram is that this Gan is expanding and so um we're expanding this
+29:43
+Gan um from the input and we don't want that we want most of the neural net to have relatively similar activations uh
+29:50
+so unit gion roughly throughout the neural net and so the question is how do we scale these W's to preserve the uh um
+29:58
+to preserve this distribution to uh remain aan and so intuitively if I multiply
+30:05
+here uh these elements of w by a larger number let's say by
+30:11
+five then this gsan gross and gross in standard deviation so now we're at 15 so
+30:17
+basically these numbers here in the output y take on more and more extreme values but if we scale it down like .2
+30:25
+then conversely this Gan is getting smaller and smaller and it's shrinking
+30:31
+and you can see that the standard deviation is 6 and so the question is what do I multiply by here to exactly
+30:37
+preserve the standard deviation to be one and it turns out that the correct answer mathematically when you work out
+30:43
+through the variance of uh this multiplication here is that you are supposed to divide by the square root of
+30:51
+the fan in the fan in is the basically the uh number of input elements here 10
+30:58
+so we are supposed to divide by 10 square root and this is one way to do the square root you raise it to a power
+31:03
+of 0. five that's the same as doing a square root so when you divide by the um
+31:09
+square root of 10 then we see that the output caution it has exactly standard
+31:15
+deviation of one now unsurprisingly a number of papers have looked into how
+31:21
+but to best initialized neural networks and in the case of multilayer perceptrons we can have fairly deep
+31:26
+networks that have these nonlinearity in between and we want to make sure that the activations are well behaved and
+31:32
+they don't expand to infinity or Shrink all the way to zero and the question is how do we initialize the weights so that
+31:37
+these activations take on reasonable values throughout the network now one paper that has studied this in quite a
+31:43
+bit of detail that is often referenced is this paper by King hatal called delving deep into rectifiers now in this
+31:49
+case they actually study convolution neur neurals and they study especially the reu nonlinearity and the p
+31:56
+nonlinearity instead of a 10h nonlinearity but the analysis is very similar and um basically what happens
+32:04
+here is for them the the relu nonlinearity that they care about quite a bit here is a squashing function where
+32:11
+all the negative numbers are simply clamped to zero so the positive numbers are pass through but everything negative
+32:18
+is just set to zero and because uh you are basically throwing away half of the distribution they find in their analysis
+32:25
+of the forward activations in the neural that you have to compensate for that with a
+32:31
+gain and so here they find that basically when they initialize their
+32:36
+weights they have to do it with a zero mean Gan whose standard deviation is square < TK of 2 over the Fanon what we
+32:43
+have here is we are initializing gashin with the square root of Fanon this NL
+32:49
+here is the Fanon so what we have is sare root of one over the Fanon because
+32:55
+we have the division here now they have to add this factor of two because of the reu which basically
+33:02
+discards half of the distribution and clamps it at zero and so that's where you get an additional Factor now in
+33:08
+addition to that this paper also studies not just the uh sort of behavior of the activations in the forward pass of the
+33:14
+neural net but it also studies the back propagation and we have to make sure that the gradients also are well behaved
+33:21
+and so um because ultimately they end up updating our parameters and what they
+33:26
+find here through a lot of analysis that I invite you to read through but it's not exactly approachable what they find
+33:32
+is basically if you properly initialize the forward pass the backward pass is also approximately initialized up to a
+33:40
+constant factor that has to do with the size of the number of um hidden neurons
+33:45
+in an early and a late layer and uh but basically they find
+33:50
+empirically that this is not a choice that matters too much now this timing initialization is also implemented in
+33:57
+pytorch so if you go to torch. and then. init documentation you'll find climing normal and in my opinion this is
+34:03
+probably the most common way of initializing neural networks now and it takes a few keyword arguments here so
+34:09
+number one it wants to know the mode would you like to normalize the activations or would you like to
+34:15
+normalize the gradients to to be always uh gsh in with zero mean and a unit or
+34:20
+one standard deviation and because they find in the paper that this doesn't matter too much most of the people just
+34:25
+leave it as the default which is Fan in and then second passing the nonlinearity that you are using because depending on
+34:32
+the nonlinearity we need to calculate a slightly different gain and so if your nonlinearity is just um linear so
+34:39
+there's no nonlinearity then the gain here will be one and we have the exact same uh kind of formula that we've come
+34:45
+up here but if the nonlinearity is something else we're going to get a slightly different gain and so if we
+34:50
+come up here to the top we see that for example in the case of reu this gain is a square root of two and the reason it's
+34:56
+a square root because in this
+35:02
+paper you see how the two is inside of the square root so the gain is a square
+35:07
+root of two in the case of linear or identity we just get a gain of one in a
+35:14
+case of 10 H which is what we're using here the advised gain is a 5 over3 and intuitively why do we need a gain on top
+35:21
+of the initialization is because 10 just like reu is a contractive uh
+35:26
+transformation so that means is you're taking the output distribution from this matrix multiplication and then you are
+35:32
+squashing it in some way now reu squashes it by taking everything below zero and clamping it to zero 10 also
+35:38
+squashes it because it's a contractive operation it will take the Tails and it will squeeze them in and so in order to
+35:45
+fight the squeezing in we need to boost the weights a little bit so that we renormalize everything back to standard
+35:51
+unit standard deviation so that's why there's a little bit of a gain that comes out now I'm skipping through this
+35:57
+section A little bit quickly and I'm doing that actually intentionally and the reason for that is because about 7
+36:03
+years ago when this paper was written you had to actually be extremely careful with the activations and ingredients and
+36:09
+their ranges and their histograms and you had to be very careful with the precise setting of gains and the scrutinizing of the nonlinearities used
+36:16
+and so on and everything was very finicky and very fragile and to be very properly arranged for the neural nut to
+36:22
+train especially if your neural nut was very deep but there are a number of modern innovations that have made everything significantly more stable and
+36:28
+more well behaved and it's become less important to initialize these networks exactly right and some of those modern
+36:34
+Innovations for example are residual connections which we will cover in the future the use of a number of uh
+36:41
+normalization uh layers like for example batch normalization layer normalization group normalization we're going to go
+36:47
+into a lot of these as well and number three much better optimizers not just stochastic gradient descent the simple
+36:53
+Optimizer we're basically using here but a slightly more complex optimizers like ARS prop and especially Adam and so all
+37:00
+of these modern Innovations make it less important for you to precisely calibrate the neutralization of the neural net all
+37:06
+that being said in practice uh what should we do in practice when I initialize these neurals I basically
+37:12
+just uh normalize my weights by the square root of the Fanon uh so basically
+37:17
+uh roughly what we did here is what I do now if we want to be exactly accurate here we and go by um in it of uh timing
+37:26
+normal this is how it would implemented we want to set the standard deviation to be gain over the square root of fan in
+37:34
+right so to set the standard deviation of our weights we will proceed as
+37:40
+follows basically when we have a torch. Ranon and let's say I just create a th numbers we can look at the standard
+37:46
+deviation of this and of course that's one that's the amount of spread let's make this a bit bigger so it's closer to one so that's the spread of the Gan of
+37:55
+zero mean and unit standard deviation now basically when you take these and you multiply by
+38:01
+say2 that basically scales down the Gan and that makes it standard deviation 02
+38:07
+so basically the number that you multiply by here ends up being the standard deviation of this caution so
+38:12
+here this is a um standard deviation point2 caution here when we sample our
+38:18
+W1 but we want to set the standard deviation to gain over square root of
+38:23
+fan mode which is Fanon so in other words we want to mul mly by uh gain
+38:29
+which for 10 H is 5 over3 5 over3 is the gain and then
+38:38
+times
+38:43
+um or I guess sorry divide uh square root of the fan in and
+38:51
+in this example here the fan in was 10 and I just noticed that actually here the fan in for W1 is is actually an
+38:58
+embed times block size which as you all recall is actually 30 and that's because each character is 10 dimensional but
+39:04
+then we have three of them and we can catenate them so actually the fan in here was 30 and I should have used 30 here probably but basically we want 30
+39:11
+uh square root so this is the number this is what our standard deviation we want to be and this number turns out to
+39:18
+be3 whereas here just by fiddling with it and looking at the distribution and making sure it looks okay uh we came up
+39:24
+with 02 and so instead what we want to do here is we want to make the standard deviation b
+39:32
+um 5 over3 which is our gain divide this
+39:38
+amount times2 square root and these brackets here are not that uh necessary
+39:44
+but I'll just put them here for clarity this is basically what we want this is the timing in it in our case for a 10h
+39:51
+nonlinearity and this is how we would initialize the neural net and so we're multiplying by .3 instead of multiplying
+39:58
+by .2 and so we can we can initialize this
+40:04
+way and then we can train the neural net and see what we get okay so I trained the neural net and we end up in roughly
+40:11
+the same spot so looking at the validation loss we now get 2.10 and previously we also had 2.10 there's a
+40:17
+little bit of a difference but that's just the randomness of the process I suspect but the big deal of course is we get to the same spot but we did not have
+40:25
+to introduce any um magic numbers that we got from just looking at histograms
+40:31
+and guessing checking we have something that is semi- principled and will scale us to uh much bigger networks and uh
+40:37
+something that we can sort of use as a guide so I mentioned that the precise setting of these initializations is not
+batch normalization
+40:43
+as important today due to some Modern Innovations and I think now is a pretty good time to introduce one of those modern Innovations and that is batch
+40:50
+normalization so bat normalization came out in uh 2015 from a team at Google and
+40:56
+it was an extremely impact paper because it made it possible to train very deep neuron Nets quite reliably and uh it
+41:03
+basically just worked so here's what bash rization does and let's implement it
+41:08
+um basically we have these uh hidden States H preact right and we were
+41:14
+talking about how we don't want these uh these um preactivation states to be way
+41:19
+too small because the then the 10 H is not um doing anything but we don't want them to be too large because then the 10
+41:25
+H is saturated in fact we want them to be roughly roughly Gan so zero mean and
+41:31
+a unit or one standard deviation at least at initialization so the Insight from the
+41:37
+bachor liation paper is okay you have these hidden States and you'd like them to be roughly Gan then why not take the
+41:44
+hidden States and uh just normalize them to be Gan and it sounds kind of crazy but you
+41:50
+can just do that because uh standardizing hidden States so that
+41:55
+their unit caution is a perfect ly differentiable operation as we'll soon see and so that was kind of like the big Insight in this paper and when I first
+42:02
+read it my mind was blown because you can just normalize these hidden States and if you'd like unit Gan States in
+42:08
+your network uh at least initialization you can just normalize them to be unit gion so uh let's see how that works so
+42:16
+we're going to scroll to our preactivation here just before they enter into the 10h now the idea again is
+42:22
+remember we're trying to make these roughly Gan and that's because if these are way too small numbers then the 10 H
+42:28
+here is kind of inactive but if these are very large numbers then the 10 H is
+42:33
+way too saturated and gr is no flow so we'd like this to be roughly goshan so
+42:39
+the Insight in Bat normalization again is that we can just standardize these activations so they are exactly Gan so
+42:47
+here H preact has a shapee of 32 by 200 32
+42:52
+examples by 200 neurons in the hidden layer so basically what we can do is we can take H pract and we can just
+42:59
+calculate the mean um and the mean we want to calculate across the zero
+43:04
+Dimension and we want to also keep them as true so that we can easily broadcast
+43:10
+this so the shape of this is 1 by 200 in other words we are doing the mean over
+43:17
+all the uh elements in the batch and similarly we can calculate the
+43:22
+standard deviation of these activations and that will also be 1 by
+43:28
+200 now in this paper they have the uh sort of prescription here and see
+43:35
+here we are calculating the mean which is just taking uh the average
+43:40
+value of any neurons activation and then the standard deviation is basically kind
+43:45
+of like um this the measure of the spread that we've been using which is
+43:50
+the distance of every one of these values away from the mean and that
+43:56
+squared and averaged that's the that's the variance
+44:01
+and then if you want to take the standard deviation you would square root the variance to get the standard
+44:06
+deviation so these are the two that we're calculating and now we're going to normalize or standardize these X's by
+44:13
+subtracting the mean and um dividing by the standard deviation so basically
+44:18
+we're taking in pract and we subtract the mean
+44:29
+and then we divide by the standard deviation this is exactly what these two
+44:35
+STD and mean are calculating oops sorry this is the mean and this is
+44:42
+the variance you see how the sigma is a standard deviation usually so this is Sigma Square which the variance is the
+44:47
+square of the standard deviation so this is how you standardize these values and what this will do is
+44:54
+that every single neuron now and its firing rate will be exactly unit Gan on these 32 examples at least of this batch
+45:01
+that's why it's called batch normalization we are normalizing these batches and then we could in principle
+45:08
+train this notice that calculating the mean and your standard deviation these are just mathematical formulas they're
+45:13
+perfectly differentiable all of this is perfectly differentiable and we can just train this the problem is you actually
+45:19
+won't achieve a very good result with this and the reason for that
+45:24
+is we want these to be roughly Gan but only at initialization uh but we don't
+45:30
+want these be to be forced to be Garian always we we'd like to allow the neuron
+45:35
+net to move this around to potentially make it more diffuse to make it more sharp to make some 10 neurons maybe be
+45:42
+more trigger more trigger happy or less trigger happy so we'd like this distribution to move around and we'd
+45:47
+like the back propagation to tell us how the distribution should move around and so in addition to this idea of
+45:54
+standardizing the activations that any point in the network uh we have to also
+46:00
+introduce this additional component in the paper here described as scale and shift and so basically what we're doing
+46:06
+is we're taking these normalized inputs and we are additionally scaling them by some gain and offsetting them by some
+46:13
+bias to get our final output from this layer and so what that amounts to is the
+46:19
+following we are going to allow a batch normalization gain to be initialized at
+46:25
+just uh once and the ones will be in the shape of 1 by n
+46:31
+hidden and then we also will have a BN bias which will be torch. zeros and it
+46:37
+will also be of the shape n by 1 by n hidden and then here the BN gain will
+46:45
+multiply this and the BN bias will offset it here so because this is initialized to
+46:52
+one and this to zero at initialization each neurons firing values in this batch will be
+47:00
+exactly unit gion and will have nice numbers no matter what the distribution of the H pract is coming in coming out
+47:07
+it will be un Gan for each neuron and that's roughly what we want at least at initialization um and then during
+47:14
+optimization we'll be able to back propagate into BN gain and BM bias and change them so the network is given the
+47:20
+full ability to do with this whatever it wants uh internally here we just have to make
+47:26
+sure sure that we um include these in the parameters of the neural nut because
+47:32
+they will be trained with back propagation so let's initialize this and
+47:37
+then we should be able to
+47:44
+train and then we're going to also copy this line which is the batch
+47:50
+normalization layer here on a single line of code and we're going to swing down here and we're also going to do the
+47:56
+exact same thing at test time here so similar to train time we're
+48:03
+going to normalize uh and then scale and that's going to give us our train and validation
+48:09
+loss and we'll see in a second that we're actually going to change this a little bit but for now I'm going to keep it this way so I'm just going to wait
+48:16
+for this to converge okay so I allowed the neural nut to converge here and when we scroll down we see that our
+48:21
+validation loss here is 2.10 roughly which I wrote down here and we see that
+48:26
+this is actually kind of comparable to some of the results that we've achieved uh previously now I'm not actually
+48:32
+expecting an improvement in this case and that's because we are dealing with a very simple neural nut that has just a
+48:37
+single hidden layer so in fact in this very simple case of just one hidden layer we were able to actually calculate
+48:44
+what the scale of w should be to make these pre activations already have a roughly Gan shape so the bat
+48:50
+normalization is not doing much here but you might imagine that once you have a much deeper neural nut that has lots of
+48:56
+different types of operations and there's also for example residual connections which we'll cover and so on
+49:02
+it will become basically very very difficult to tune the scales of your weight matrices such that all the
+49:09
+activations throughout the neural nut are roughly gsen and so that's going to become very quickly intractable but
+49:16
+compared to that it's going to be much much easier to sprinkle batch normalization layers throughout the neural net so in particular it's common
+49:24
+to to look at every single linear layer like this one one this is a linear layer multiplying by a weight Matrix and adding a bias or for example
+49:31
+convolutions which we'll cover later and also perform basically a multiplication with a weight Matrix but in a more
+49:37
+spatially structured format it's custom it's customary to take these linear layer or convolutional layer and append
+49:45
+a b rization layer right after it to control the scale of these activations at every point in the neural nut so we'd
+49:52
+be adding these bom layers throughout the neural nut and then this controls the scale of these AC ations throughout
+49:57
+the neural net it doesn't require us to do uh perfect mathematics and care about the activation distributions uh for all
+50:04
+these different types of neural network uh Lego building blocks that you might want to introduce into your neural net
+50:09
+and it significantly stabilizes uh the training and that's why these uh layers are quite popular now the stability
+50:15
+offered by bash normalization actually comes at a terrible cost and that cost is that if you think about what's
+50:21
+Happening Here something something terribly strange and unnatural is happening it used to be that we have a
+50:28
+single example feeding into a neural nut and then uh we calculate its activations and its loits and this is a
+50:35
+deterministic sort of process so you arrive at some logits for this example and then because of efficiency of
+50:41
+training we suddenly started to use batches of examples but those batches of examples were processed independently
+50:47
+and it was just an efficiency thing but now suddenly in batch normalization because of the normalization through the
+50:53
+batch we are coupling these examples mathematically and in the forward pass and the backward pass of a neural l so
+50:59
+now the hidden State activations H pract in your log jits for any one input
+51:04
+example are not just a function of that example and its input but they're also a function of all the other examples that
+51:11
+happen to come for a ride in that batch and these examples are sampled randomly
+51:16
+and so what's happening is for example when you look at H pract that's going to feed into H the hidden State activations
+51:22
+for for example for for any one of these input examples is going to actually change slightly depending on what other
+51:28
+examples there are in a batch and and depending on what other examples happen to come for a ride H is going to change
+51:35
+subtly and it's going to like Jitter if you imagine sampling different examples because the the statistics of the mean
+51:41
+and the standard deviation are going to be impacted and so you'll get a Jitter for H and you'll get a Jitter for
+51:47
+loits and you think that this would be a bug uh or something undesirable but in a
+51:53
+very strange way this actually turns out to be good in your Network training and
+51:58
+as a side effect and the reason for that is that you can think of this as kind of like a regularizer because what's
+52:04
+happening is you have your input and you get your age and then depending on the other examples this is jittering a bit
+52:10
+and so what that does is that it's effectively padding out any one of these input examples and it's introducing a
+52:15
+little bit of entropy and um because of the padding out it's actually kind of like a form of a data augmentation which
+52:21
+we'll cover in the future and it's kind of like augmenting the input a little bit and jittering it and that makes it
+52:27
+harder for the neural nut to overfit to these concrete specific examples so by introducing all this noise it actually
+52:34
+like Pats out the examples and it regularizes the neural nut and that's one of the reasons why uh deceivingly as
+52:40
+a second order effect uh this is actually a regularizer and that has made it harder uh for us to remove the use of
+52:46
+batch normalization uh because basically no one likes this property that the the examples in the batch are coupled
+52:53
+mathematically and in the forward pass and at least all kinds of like strange uh results uh we'll go into some of that
+52:59
+in a second as well um and it leads to a lot of bugs and um and so on and so no
+53:05
+one likes this property uh and so people have tried to um deprecate the use of
+53:10
+bat normalization and move to other normalization techniques that do not couple the examples of a batch examples
+53:15
+are ler normalization instance normalization group normalization and so on and we'll come we'll come some these
+53:21
+uh later um but basically long story short bat normalization was the first
+53:27
+kind of normalization layer to be introduced it worked extremely well it happened to have this regularizing
+53:32
+effect it stabilized training and people have been trying to remove it and move
+53:38
+to some of the other normalization techniques uh but it's been hard because it it just works quite well and some of
+53:44
+the reason that it works quite well is again because of this regular rizing effect and because of the because it is
+53:49
+quite effective at um controlling the activations and their distributions uh so that's kind of like
+53:55
+the brief story of Bash normalization and I'd like to show you one of the other weird sort of outcomes of this
+54:02
+coupling so here's one of the strange outcomes that I only glossed over previously when I was evaluating the
+54:08
+loss on the validation set basically once we've trained a neural net we'd like to deploy it in some kind of a
+54:15
+setting and we'd like to be able to feed in a single individual example and get a prediction out from our neural net but
+54:21
+how do we do that when our neural net now in a forward pass estimates the statistics of the mean understand
+54:26
+deviation of a batch the neur lot expects batches as an input now so how do we feed in a single example and get
+54:32
+sensible results out and so the proposal in the batch normalization paper is the
+54:37
+following what we would like to do here is we would like to basically have a step after training that uh calculates
+54:46
+and sets the bach uh mean and standard deviation a single time over the training set and so I wrote this code
+54:53
+here in interest of time and we're going to call what's called calibrate the bachor statistics and basically what we
+54:59
+do is torch torch. nograd telling pytorch that none of this we will call
+55:05
+Dot backward on and it's going to be a bit more efficient we're going to take the training set get the pre activations
+55:11
+for every single training example and then one single time estimate the mean and standard deviation over the entire
+55:16
+training set and then we're going to get B and mean and B and standard deviation and now these are fixed numbers
+55:22
+estimating over the entire training set and here instead of estimating it
+55:28
+dynamically we are going to instead here use B and mean and here we're just going to use B
+55:35
+and standard deviation and so at test time we are going to fix these clamp them and use
+55:41
+them during inference and now you see that we get basically
+55:46
+identical result uh but the benefit that we've gained is that we can now also forward a single example because the
+55:53
+mean and standard deviation are now fixed uh sort of tensor that said nobody actually wants to
+55:58
+estimate this mean and standard deviation as a second stage after neural network training because everyone is
+56:04
+lazy and so this batch normalization paper actually introduced one more idea which is that we are can we can estimate
+56:11
+the mean and standard deviation in a running man running manner during training of the neuron nut and then we
+56:17
+can uh simply just have a single stage of training and on the side of that training we are estimating the running
+56:23
+mean and standard deviation so let's see what that would look like let me basically take the mean here that we are
+56:29
+estimating on the batch and let me call this B and mean on the I iteration um and then here this is BN
+56:39
+sdd um bnsd at I
+56:45
+okay uh and the mean comes here and the STD comes here so so far I've done
+56:53
+nothing I've just uh moved around and I created these EXT extra variables for the mean and standard deviation and I've
+56:58
+put them here so so far nothing has changed but what we're going to do now is we're going to keep running mean of
+57:04
+both of these values during training so let me swing up here and let me create a BN meanor running and I'm going to
+57:12
+initialize it at uh zeros and then BN STD running which I'll
+57:19
+initialize at once because um in the beginning because
+57:25
+of the way we ized W1 uh and B1 H pract will be roughly unit gion so the mean
+57:31
+will be roughly zero and a standard deviation roughly one so I'm going to initialize these that way but then here
+57:37
+I'm going to update these and in pytorch um uh these uh mean and standard
+57:43
+deviation that are running uh they're not actually part of the gradient based optimization we're never going to derive gradients with respect to them they're
+57:50
+they're updated on the side of training and so what we're going to do here is we're going to say with torch. nograd
+57:58
+telling pytorch that the update here is not supposed to be building out a graph because there will be no dot
+58:04
+backward but this running is basically going to be 0.99 uh9 times the current
+58:12
+Value Plus 0.001 times the um this value
+58:18
+this new mean and in the same way bnsd running will be mostly what it used to be
+58:28
+but it will receive a small update in the direction of what the current standard deviation
+58:34
+is and as you're seeing here this update is outside and on the side of the
+58:39
+gradient based optimization and it's simply being updated not using gradient scent it's just being updated using U
+58:45
+janky like Smooth um sort of uh running
+58:50
+mean Manner and so while the network is training and these pre activations are
+58:57
+sort of changing and shifting around during during back propagation we are keeping track of the typical mean and
+59:02
+standard deviation and we're estimating them once and when I run
+59:08
+this now I'm keeping track of this in the running Manner and what we're hoping for of course is that the me BN meore
+59:14
+running and BN meore STD are going to be very similar to the ones that we
+59:20
+calculated here before and that way we don't need a second stage because we've sort of combined the two stages and
+59:26
+we've put them on the side of each other if you want to look at it that way and this is how this is also implemented in
+59:32
+The Bash normalization uh layer impi torch so during training um the exact
+59:37
+same thing will happen and then later when you're using inference it will use the estimated running mean of both the
+59:44
+mean and standard deviation of those hidden States so let's wait for the optimization to converge and hopefully
+59:50
+the running mean and standard deviation are roughly equal to these two and then we can simply use it here and we don't
+59:56
+need this stage of explicit calibration at the end okay so the optimization finished I'll rerun the explicit
+1:00:02
+estimation and then the B and mean from the explicit estimation is here and B
+1:00:08
+and mean from the running estimation during the during the optimization you
+1:00:13
+can see is very very similar it's not identical but it's pretty close and the same way BN STD is this
+1:00:22
+and BN STD running is this and so you can see that once again they are fairly
+1:00:28
+similar values not identical but pretty close and so then here instead of being
+1:00:33
+mean we can use the BN mean running instead of bnsd we can use bnsd
+1:00:38
+running and uh hopefully the validation loss will not be impacted too much okay so it's basically identical
+1:00:46
+and this way we've eliminated the need for this explicit stage of calibration because we are doing it in line over
+1:00:53
+here okay so we're almost done with batch normalization there are only two more notes that I'd like to make number
+1:00:58
+one I've skipped a discussion over what is this plus Epsilon doing here this Epsilon is usually like some small fixed
+1:01:04
+number for example one5 by default and what it's doing is that it's basically preventing a division by zero in the
+1:01:11
+case that the variance over your batch is exactly zero in that case uh here we
+1:01:17
+normally have a division by zero but because of the plus Epsilon uh this is going to become a small number in the denominator instead and things will be
+1:01:24
+more well behaved so feel free to also add a plus Epsilon here of a very small number it doesn't actually substantially
+1:01:30
+change the result I'm going to skip it in our case just because uh this is unlikely to happen in our very simple example here and the second thing I want
+1:01:37
+you to notice is that we're being wasteful here and it's very subtle but right here where we are adding the bias
+1:01:43
+into H preact these biases now are actually useless because we're adding
+1:01:48
+them to the H preact but then we are calculating the mean for every one of these neurons and subtracting it so
+1:01:56
+whatever bias you add here is going to get subtracted right here and so these
+1:02:01
+biases are not doing anything in fact they're being subtracted out and they don't impact the rest of the calculation
+1:02:07
+so if you look at b1. grad it's actually going to be zero because it's being subtracted out and doesn't actually have
+1:02:12
+any effect and so whenever you're using bash normalization layers then if you have any weight layers before like a
+1:02:18
+linear or a c or something like that you're better off coming here and just like not using bias so you don't want to
+1:02:25
+use bias and then here you don't want to add it because it's that spirous instead
+1:02:31
+we have this B normalization bias here and that b rization bias is now in charge of the biasing of this
+1:02:37
+distribution instead of this B1 that we had here originally and so uh basically
+1:02:43
+bash normalization layer has its own bias and there's no need to have a bias in the layer before it because that bias
+1:02:49
+is going to be subtracted out anyway so that's the other small detail to be careful with sometimes it's not going to
+1:02:55
+do anything catastrophic this B1 will just be useless it will never get any gradient uh it will not learn it will
+1:03:01
+stay constant and it's just wasteful but it doesn't actually really uh impact anything otherwise okay so I rearranged
+batch normalization: summary
+1:03:07
+the code a little bit with comments and I just wanted to give a very quick summary of The Bash normalization layer
+1:03:13
+we are using bash normalization to control the statistics of activations in the neural net it is common to sprinkle
+1:03:20
+bash normalization layer across the neural net and usually we will place it after layer that have multiplications
+1:03:27
+like for example a linear layer or convolutional layer which we may cover in the future now the bat normalization
+1:03:34
+internally has parameters for the gain and the bias and these are trained using
+1:03:40
+back propagation it also has two buffers the buffers are the mean and the
+1:03:45
+standard deviation the running mean and the running mean of the standard deviation and these are not trained
+1:03:51
+using back propagation these are trained using this uh janky update of kind of like a running mean
+1:03:58
+update so um these are sort of the parameters and the buffers of Bator layer and then
+1:04:05
+really what it's doing is it's calculating the mean and a standard deviation of the activations uh that are
+1:04:10
+feeding into the Bator layer over that batch then it's centering that batch to
+1:04:16
+be unit gion and then it's offsetting and scaling it by the Learned bias and
+1:04:23
+gain and then on top of that it's keeping track of the mean and standard deviation of the inputs and it's
+1:04:30
+maintaining this running mean and standard deviation and this will later be used at inference so that we don't
+1:04:35
+have to reestimate the mean stand deviation all the time and in addition that allows us to basically forward
+1:04:41
+individual examples at test time so that's the bash normalization layer it's a fairly complicated layer um but this
+1:04:48
+is what it's doing internally now I wanted to show you a little bit of a real example so you can search resnet
+real example: resnet50 walkthrough
+1:04:55
+which is a residual neural network and these are common types of neural networks used for image
+1:05:01
+classification and of course we haven't come resnets in detail so I'm not going to explain all the pieces of it but for
+1:05:08
+now just note that the image feeds into a reset on the top here and there's many many layers with repeating structure all
+1:05:15
+the way to predictions of what's inside that image this repeating structure is made up of these blocks and these blocks
+1:05:21
+are just sequentially stacked up in this deep neural network now the code for
+1:05:26
+this uh the block basically that's used and repeated sequentially in series is
+1:05:32
+called this bottleneck block bottleneck block and there's a lot here this is all
+1:05:37
+pych and of course we haven't covered all of it but I want to point out some small pieces of it here in the init is
+1:05:44
+where we initialize the neuronet so this code of block here is basically the kind of stuff we're doing here we're initializing all the layers and in the
+1:05:51
+forward we are specifying how the neuron lot acts once you actually have the input so this code here is along the
+1:05:57
+lines of what we're doing here and now these blocks are replicated
+1:06:04
+and stacked up serially and that's what a residual Network would be and so
+1:06:09
+notice What's Happening Here com one um these are convolution layers and these
+1:06:15
+convolution layers basically they're the same thing as a linear layer except convolutional layers don't apply um
+1:06:22
+convolutional layers are used for images and so they have SP structure and basically this linear multiplication and
+1:06:28
+bias offset are done on patches instead of math instead of the full input so
+1:06:34
+because these images have structure spatial structure convolutions just basically do WX plus b but they do it on
+1:06:41
+overlapping patches of the input but otherwise it's WX plus P then we have the norm layer which by
+1:06:48
+default here is initialized to be a bash Norm in 2D so two- dimensional bash normalization layer and then we have a
+1:06:54
+nonlinearity like reu so instead of uh here they use reu we are using 10 in
+1:07:01
+this case but both both are just nonlinearities and you can just use them relatively interchangeably for very deep
+1:07:07
+networks re typically empirically work a bit better so see the motif that's being
+1:07:13
+repeated here we have convolution bat normalization reu convolution bat normalization re Etc and then here this
+1:07:19
+is residual connection that we haven't covered yet but basically that's the exact same pattern we have here with we
+1:07:25
+have a weight layer like a convolution or like a linear layer bash
+1:07:31
+normalization and then 10h which is nonlinearity but basically a weight
+1:07:36
+layer a normalization layer and nonlinearity and that's the motif that you would be stacking up when you create
+1:07:42
+these deep neural networks exactly as it's done here and one more thing I'd like you to notice is that here when
+1:07:47
+they are initializing the com layers like com 1 by one the depth for that is
+1:07:53
+right here and so it's initializing an nn. Tod which is a convolution layer in pytorch and there's a bunch of keyword
+1:07:59
+arguments here that I'm not going to explain yet but you see how there's bias equals false the bias equals false is
+1:08:05
+exactly for the same reason as bias is not used in our case you see how I eras
+1:08:10
+the use of bias and the use of bias is spous because after this weight layer there's a bash normalization and The
+1:08:16
+Bash normalization subtracts that bias and then has its own bias so there's no need to introduce these spous parameters
+1:08:23
+it wouldn't hurt performance it's just useless and so because they have this motif of C Bast umbrell they don't need
+1:08:30
+a bias here because there's a bias inside here so by the way this example
+1:08:35
+here is very easy to find just do resonet pie torch and uh it's this example here so
+1:08:41
+this is kind of like the stock implementation of a residual neural network in pytorch and uh you can find
+1:08:47
+that here but of course I haven't covered many of these parts yet and I would also like to briefly descend into
+1:08:52
+the definitions of these pytorch layers and the the parameters that they take now instead of a convolutional layer
+1:08:58
+we're going to look at a linear layer uh because that's the one that we're using here this is a linear layer and I
+1:09:04
+haven't cover covered convolutions yet but as I mentioned convolutions are basically linear layers except on
+1:09:10
+patches so a linear layer performs a WX plus b except here they're calling the W
+1:09:16
+A transpose um so to calcul WX plus b very much like we did here to initialize this
+1:09:22
+layer you need to know the fan in the fan out and that's so that they can
+1:09:27
+initialize this W this is the fan in and the fan out so they know how how big the
+1:09:33
+weight Matrix should be you need to also pass in whether you whether or not you want a bias and if you set it to false
+1:09:40
+then no bias will be uh inside this layer um and you may want to do that
+1:09:45
+exactly like in our case if your layer is followed by a normalization layer such as batch
+1:09:50
+Norm so this allows you to basically disable a bias now in terms of the initial ation if we swing down here this
+1:09:57
+is reporting the variables used inside this linear layer and our linear layer
+1:10:02
+here has two parameters the weight and the bias in the same way they have a weight and a bias and they're talking
+1:10:09
+about how they initialize it by default so by default P will initialize your weights by taking the
+1:10:15
+Fanon and then um doing one over fanin square root and then instead of a normal
+1:10:22
+distribution they are using a uniform distribution so it's very much the same thing but
+1:10:28
+they are using a one instead of 5 over three so there's no gain being calculated here the gain is just one but
+1:10:33
+otherwise is exactly one over the square root of fan in exactly as we have
+1:10:39
+here so one over the square root of K is the is the scale of the weights but when
+1:10:45
+they are drawing the numbers they're not using a gussion by default they're using a uniform distribution by default and so
+1:10:51
+they draw uniformly from negative of K to squ of K but it's the exact same thing and the
+1:10:57
+same motivation from for with respect to what we've seen in this lecture and the
+1:11:03
+reason they're doing this is if you have a roughly gsan input this will ensure that out of this layer you will have a
+1:11:10
+roughly Gan output and you you basically achieve that by scaling the weights by
+1:11:15
+one over the square root of fan in so that's what this is doing and then the second thing is the
+1:11:21
+bash normalization layer so let's look at what that looks like in pytorch so here we have a onedimensional b
+1:11:27
+normalization layer exactly as we are using here and there are a number of keyword arguments going into it as well
+1:11:33
+so we need to know the number of features uh for us that is 200 and that is needed so that we can initialize
+1:11:39
+these parameters here the gain the bias and the buffers for the running uh mean
+1:11:44
+and standard deviation then they need to know the value of Epsilon here and by default
+1:11:50
+this is one5 you don't typically change this too much then they need to know the momentum
+1:11:56
+and the momentum here as they explain is basically used for these uh running mean and running standard deviation so by
+1:12:03
+default the momentum here is 0.1 the momentum we are using here in this example is
+1:12:08
+0.001 and basically rough you may want to change this sometimes and roughly
+1:12:14
+speaking if you have a very large batch size then typically what you'll see is that when you estimate the mean and the
+1:12:20
+standard deviation for every single batch size if it's large enough you're going to get roughly the same result
+1:12:26
+and so therefore you can use slightly higher momentum like 0.1 but for a batch size as small as 32
+1:12:34
+the mean and standard deviation here might take on slightly different numbers because there's only 32 examples we are using to estimate the mean and standard
+1:12:41
+deviation so the value is changing around a lot and if your momentum is 0.1
+1:12:46
+that that might not be good enough for this value to settle and um converge to
+1:12:51
+the actual mean and standard deviation over the entire training set and so basically if your batch size is very
+1:12:56
+small uh momentum of 0.1 is potentially dangerous and it might make it so that the running uh mean and stand deviation
+1:13:02
+are is thrashing too much during training and it's not actually converging
+1:13:08
+properly uh aine equals true determines whether this batch normalization layer has these learnable Aline parameters the
+1:13:16
+uh the gain and the bias and this is almost always kept to true I'm not actually sure why you would want to
+1:13:22
+change this to false um then track running stats is determining
+1:13:28
+whether or not B rization layer of pytorch will be doing this and um one reason you may you may
+1:13:35
+want to skip the running stats is because you may want to for example estimate them at the end as a stage two
+1:13:42
+like this and in that case you don't want the bat normalization layer to be doing all this extra compute that you're not going to
+1:13:47
+use and uh finally we need to know which device we're going to run this bash normalization on a CPU or a GPU and what
+1:13:55
+the data type should be uh half Precision single Precision double precision and so on so that's the bat normalization layer
+1:14:02
+otherwise they link to the paper is the same formula we've implemented and everything is the same exactly as we've
+1:14:08
+done here okay so that's everything that I wanted to cover for this lecture really
+summary of the lecture
+1:14:14
+what I wanted to talk about is the importance of understanding the activations and the gradients and their statistics in neural networks and this
+1:14:20
+becomes increasingly important especially as you make your neural networks bigger larger and deeper we looked at the distributions basically
+1:14:27
+at the output layer and we saw that if you have two confident mispredictions because the activations are too messed
+1:14:33
+up at the last layer you can end up with these hockey stick losses and if you fix this you get a better loss at the end of
+1:14:39
+training because your training is not doing wasteful work then we also saw that we need to control the activations
+1:14:45
+we don't want them to uh you know squash to zero or explode to infinity and
+1:14:51
+because that you can run into a lot of trouble with all of these uh nonlinearities and these neural Nets and basically you want everything to be
+1:14:57
+fairly homogeneous throughout the neural net you want roughly goshan activations throughout the neural net let me talked
+1:15:03
+about okay if we want roughly Gan activations how do we scale these weight matrices and biases during
+1:15:09
+initialization of the neural nut so that we don't get um you know so everything is as controlled as
+1:15:15
+possible um so that give us a large boost in Improvement and then I talked
+1:15:20
+about how that strategy is not actually uh Poss for much much deeper neural nuts
+1:15:27
+because um when you have much deeper neural nuts with lots of different types of layers it becomes really really hard
+1:15:33
+to precisely set the weights and the biases in such a way that the activations are roughly uniform
+1:15:39
+throughout the neural nut so then I introduced the notion of a normalization layer now there are many normalization
+1:15:45
+layers that that people use in practice bat normalization layer normalization instance normalization group
+1:15:51
+normalization we haven't covered most of them but I've introduced the first one and also the one that I believe came out
+1:15:57
+first and that's called Bat normalization and we saw how bat normalization Works uh this is a layer
+1:16:03
+that you can sprinkle throughout your deep neural net and the basic idea is if you want roughly gsh in activations well
+1:16:10
+then take your activations and um take the mean and the standard deviation and Center your data and you can do that
+1:16:17
+because the centering operation is differentiable but and on top of that we
+1:16:22
+actually had to add a lot of bells and whistles and that gave you a sense of the complexities of the batch normalization layer because now we're
+1:16:29
+centering the data that's great but suddenly we need the gain and the bias and now those are
+1:16:34
+trainable and then because we are coupling all of the training examples now suddenly the question is how do you
+1:16:39
+do the inference where to do to do the inference we need to now estimate these
+1:16:45
+um mean and standard deviation once uh or the entire training set and then use
+1:16:50
+those at inference but then no one likes to do stage two so instead we fold everything everything into the bat
+1:16:56
+normalization later during training and try to estimate these in the running manner so that everything is a bit
+1:17:01
+simpler and that gives us the bat normalization layer um and as I
+1:17:07
+mentioned no one likes this layer it causes a huge amount of bugs um and
+1:17:13
+intuitively it's because it is coupling examples um in the for pass of a neural nut and uh I've shot myself in the foot
+1:17:21
+with this layer over and over again in my life and I don't want you to suffer the same uh so basically try to avoid it
+1:17:29
+as much as possible uh some of the other alternatives to these layers are for example group normalization or layer
+1:17:35
+normalization and those have become more common uh in more recent deep learning
+1:17:40
+uh but we haven't covered those yet uh but definitely bash normalization was very influential at the time when it
+1:17:46
+came out in roughly 2015 because it was kind of the first time that you could train reliably uh much deeper neural
+1:17:54
+nuts and fundamentally the reason for that is because this layer was very effective at controlling the statistics
+1:18:00
+of the activations in the neural nut so that's the story so far and um that's
+1:18:06
+all I wanted to cover and in the future lectures hopefully we can start going into recurrent R Nets and um recurring
+1:18:13
+neural Nets as we'll see are just very very deep networks because you uh you unroll the loop and uh when you actually
+1:18:19
+optimize these neurals and that's where a lot of this um analysis around the activation
+1:18:26
+statistics and all these normalization layers will become very very important for uh good performance so we'll see
+1:18:33
+that next time bye okay so I lied I would like us to do one more summary here as a bonus and I think it's useful
+just kidding: part2: PyTorch-ifying the code
+1:18:40
+as to have one more summary of everything I've presented in this lecture but also I would like us to start by torify our code a little bit so
+1:18:47
+it looks much more like what you would encounter in PCH so you'll see that I will structure our code into these
+1:18:53
+modules like a link uh module and a borm module and I'm
+1:18:59
+putting the code inside these modules so that we can construct neural networks very much like we would construct them in pytorch and I will go through this in
+1:19:05
+detail so we'll create our neural net then we will do the optimization loop as
+1:19:11
+we did before and then the one more thing that I want to do here is I want to look at the activation statistics
+1:19:16
+both in the forward pass and in the backward pass and then here we have the evaluation and sampling just like before
+1:19:22
+so let me rewind all the way up here and and go a little bit slower so here I creating a linear layer you'll notice
+1:19:29
+that torch.nn has lots of different types of layers and one of those layers is the linear layer torch. n. linear
+1:19:36
+takes a number of input features output features whether or not we should have a bias and then the device that we want to
+1:19:41
+place this layer on and the data type so I will emit these two but otherwise we
+1:19:46
+have the exact same thing we have the fan in which is the number of inputs fan out the number of outputs and whether or
+1:19:53
+not we want to use a bias and internally inside this layer there's a weight and a bias if you'd like it it
+1:20:00
+is typical to initialize the weight using um say random numbers drawn from
+1:20:05
+aashan and then here's the coming initialization um that we discussed already in this lecture and that's a
+1:20:11
+good default and also the default that I believe pytor chooses and by default the bias is usually initialized to zeros now
+1:20:18
+when you call this module uh this will basically calculate W * X plus b if you
+1:20:23
+have a b and then when you also call that parameters on this module it will return uh the tensors that are the
+1:20:30
+parameters of this layer now next we have the bash normalization layer so I've written that here and this is very
+1:20:38
+similar to pytorch nn. bashor 1D layer as shown here so I'm kind of um taking these
+1:20:46
+three parameters here the dimensionality the Epsilon that we will use in the division and the momentum that we will
+1:20:52
+use in keeping track of these running stats the running mean and the running variance um now py actually takes quite
+1:20:59
+a few more things but I'm assuming some of their settings so for us Aline will be true that means that we will be using
+1:21:05
+a gamma and beta after the normalization the track running stats will be true so we will be keeping track of the running
+1:21:11
+mean and the running variance in the in the bat Norm our device by default is the CPU and the data type by default is
+1:21:18
+uh float float 32 so those are the defaults otherwise
+1:21:24
+uh we are taking all the same parameters in this bachom layer so first I'm just saving them now here's something new
+1:21:31
+there's a doc training which by default is true and pytorch andn modules also have this attribute. training and that's
+1:21:37
+because many modules in borm is included in that have a different Behavior
+1:21:43
+whether you are training your interet and or whether you are running it in an evaluation mode and calculating your
+1:21:48
+evaluation loss or using it for inference on some test examples and bashor is an example of this because
+1:21:54
+when we are training we are going to be using the mean and the variance estimated from the current batch but
+1:22:00
+during inference we are using the running mean and running variance and so also if we are training we are updating
+1:22:06
+mean and variance but if we are testing then these are not being updated they're kept fixed and so this flag is necessary
+1:22:13
+and by default true just like in pytorch now the parameters of B 1D are the gamma and the beta
+1:22:20
+here and then the running mean and running variance are called buffers in pyto
+1:22:26
+nomenclature and these buffers are trained using exponential moving average
+1:22:32
+here explicitly and they are not part of the back propagation and stochastic radient descent so they are not sort of
+1:22:37
+like parameters of this layer and that's why when we C when we have a parameters here we only return gamma and beta we do
+1:22:44
+not return the mean and the variance this is trained sort of like internally here um every forward pass using
+1:22:51
+exponential moving average so that's the initialization now in a forward pass if
+1:22:58
+we are training then we use the mean and the variance estimated by the batch let me pull up the paper
+1:23:04
+here we calculate the mean and the variance now up above I was estimating
+1:23:10
+the standard deviation and keeping track of the standard deviation here in the running standard deviation instead of
+1:23:16
+running variance but let's follow the paper exactly here they calculate the variance which is the standard deviation
+1:23:23
+squared and that's what's get track of in a running variance instead of a running standard
+1:23:28
+deviation uh but those two would be very very similar I believe um if we are not training then
+1:23:34
+we use running mean and variance we normalize and then here I am calculating
+1:23:40
+the output of this layer and I'm also assigning it to an attribute called out now out is something that I'm using in
+1:23:48
+our modules here uh this is not what you would find in pytorch we are slightly deviating from it I'm creating a DOT out
+1:23:54
+because I would like to very easily um maintain all those variables so that we can create statistics of them and plot
+1:24:00
+them but pytorch and modules will not have a do out attribute and finally here
+1:24:05
+we are updating the buffers using again as I mentioned exponential moving average uh provide given the provided
+1:24:11
+momentum and importantly you'll notice that I'm using the torch. nogra context manager and I doing this because if we
+1:24:18
+don't use this then pytorch will start building out an entire computational graph out of these tensors because it is
+1:24:25
+expecting that we will eventually call Dot backward but we are never going to be calling dot backward on anything that
+1:24:30
+includes running mean and running variance so that's why we need to use this context manager so that we are not
+1:24:36
+um sort of maintaining them using all this additional memory um so this will make it more efficient and it's just
+1:24:42
+telling pyour that there will no backward we just have a bunch of tensors we want to update them that's it and
+1:24:48
+then we return okay now scrolling down we have the 10h layer this is very very similar
+1:24:53
+to uh torch. 10h and it doesn't do too much it just calculates 10 as you might
+1:24:59
+expect so uh that's torch. 10h and uh there's no parameters in this layer but
+1:25:05
+because these are layers um it now becomes very easy to sort of like stack them up into uh basically just a list um
+1:25:13
+and uh we can do all the initializations that we're used to so we have the initial sort of embedding Matrix we have
+1:25:19
+our layers and we can call them sequentially and then again with Tor no grb but there's some initializations
+1:25:25
+here so we want to make the output softmax a bit less confident like we saw and in addition to that because we are
+1:25:31
+using a six layer multi-layer percep on here so you see how I'm stacking linear 10age linear Tage Etc uh I'm going to be
+1:25:39
+using the gain here and I'm going to play with this in a second so you'll see how uh when we change this what happens
+1:25:45
+to the statistics finally the parameters are basically the embedding Matrix and all
+1:25:50
+the parameters in all the layers and notice here I'm using a double list apprehension if you want to call it that
+1:25:56
+but for every layer in layers and for every parameter in each of those layers we are just stacking up all those piece
+1:26:03
+uh all those parameters now in total we have 46,000 um
+1:26:08
+parameters and I'm telling P that all of them require
+1:26:15
+gradient then here uh we have everything here we are actually mostly used to uh
+1:26:20
+we are sampling a batch we are doing a forward pass the forward pass now is just the linear application of all the
+1:26:25
+layers in order followed by the cross entropy and then in the backward pass you'll notice that for every single
+1:26:31
+layer I now iterate over all the outputs and I'm telling pytorch to retain the gradient of them and then here we are
+1:26:38
+already used to uh all the all the gradient set To None do the backward to fill in the gradients uh do an update
+1:26:44
+using stochastic gradient sent and then uh track some statistics and then I am going to break after a single iteration
+viz #1: forward pass activations statistics
+1:26:52
+now here in this cell in this diagram I I'm visualizing the histogram the histograms of the for pass activations
+1:26:58
+and I'm specifically doing it at the 10 each layers so iterating over all the layers except for the very last one
+1:27:05
+which is basically just the U soft Max layer um if it is a 10h layer and I'm
+1:27:11
+using a 10h layer just because they have a finite output netive 1 to 1 and so it's very easy to visualize here so you
+1:27:17
+see 1 to one and it's a finite range and easy to work with I take the out tensor
+1:27:23
+from that layer into T and then I'm calculating the mean the standard deviation and the percent saturation of
+1:27:29
+T and the way I Define the percent saturation is that t. absolute value is greater than 97 so that means we are
+1:27:36
+here at the tals of the 10 H and remember that when we are in the tales of the 10 H that will actually stop
+1:27:41
+gradients so we don't want this to be too high now here I'm calling torch.
+1:27:48
+histogram and then I am plotting this histogram so basically what this is doing is that every different type of
+1:27:53
+layer and they have a different color we are looking at how many um values in
+1:27:58
+these tensors take on any of the values Below on this axis here so the first
+1:28:04
+layer is fairly saturated uh here at 20% so you can see that it's got Tails here
+1:28:10
+but then everything sort of stabilizes and if we had more layers here it would actually just stabilize at around the standard deviation of about 65 and the
+1:28:18
+saturation would be roughly 5% and the reason that the stabilizes and gives us a nice distribution here is because gain
+1:28:25
+is set to 5 over3 now here this gain you see that by
+1:28:31
+default we initialize with 1 /un of fan in but then here during initialization I
+1:28:37
+come in and I erator all the layers and if it's a linear layer I boost that by the gain now we saw that one so
+1:28:44
+basically if we just do not use a gain then what happens if I redraw this you
+1:28:50
+will see that the standard deviation is shrinking and the saturation is coming
+1:28:55
+to zero and basically what's happening is the first layer is you know pretty decent but then further layers are just
+1:29:02
+kind of like shrinking down to zero and it's happening slowly but it's shrinking to zero and the reason for that is when
+1:29:09
+you just have a sandwich of linear layers alone then a then initializing
+1:29:15
+our weights in this manner we saw previously would have conserved the standard deviation of one but because we
+1:29:22
+have this interspersed 10 in layers in there these 10h layers are squashing
+1:29:28
+functions and so they take your distribution and they slightly squash it and so some gain is necessary to keep
+1:29:35
+expanding it to fight the squashing so it just turns out that 5
+1:29:41
+over3 is a good value so if we have something too small like one we saw that things will come toward zero but if it's
+1:29:49
+something too high let's do two then here we see that um
+1:29:56
+well let me do something a bit more extreme because so it's a bit more visible let's try three okay so we see here that the
+1:30:03
+saturations are going to be way too large okay so three would create way too
+1:30:08
+saturated activations so 5 over3 is a good setting for a sandwich of linear
+1:30:15
+layers with 10h activations and it roughly stabilizes the standard deviation at a reasonable point now
+1:30:23
+honestly I have no idea where 5 over3 came from in pytorch um when we were looking at the coming initialization um
+1:30:30
+I see empirically that it stabilizes this sandwich of linear an 10age and that the saturation is in a good range
+1:30:36
+um but I don't actually know if this came out of some math formula I tried searching briefly for where this comes
+1:30:41
+from uh but I wasn't able to find anything uh but certainly we see that empirically these are very nice ranges
+1:30:47
+our saturation is roughly 5% which is a pretty good number and uh this is a good
+1:30:52
+setting of The gain in this context similarly we can do the exact same thing with the gradients so here is a very
+viz #2: backward pass gradient statistics
+1:30:59
+same Loop if it's a 10h but instead of taking a layer do out I'm taking the grad and then I'm also showing the mean
+1:31:05
+and the standard deviation and I'm plotting the histogram of these values and so you'll see that the gradient
+1:31:11
+distribution is uh fairly reasonable and in particular what we're looking for is that all the different layers in this
+1:31:16
+sandwich has roughly the same gradient things are not shrinking or exploding so
+1:31:22
+uh we can for example come here and we can take a look at what happens if this gain was way too small so this was
+1:31:29
+0.5 then you see the first of all the activations are shrinking to zero but also the gradients are doing something
+1:31:35
+weird the gradients started out here and then now they're like expanding out and similarly if we for example have
+1:31:43
+a too high of a gain so like three then we see that also the gradients have there's some asymmetry
+1:31:49
+going on where as you go into deeper and deeper layers the activation CS are changing and so that's not what we want
+1:31:55
+and in this case we saw that without the use of batro as we are going through right now we had to very carefully set
+1:32:02
+those gains to get nice activations in both the forward pass and the backward pass now before we move on to bat
+the fully linear case of no non-linearities
+1:32:09
+normalization I would also like to take a look at what happens when we have no 10h units here so erasing all the 10
+1:32:15
+nonlinearities but keeping the gain at 5 over3 we now have just a giant linear
+1:32:21
+sandwich so let's see what happens to the activations as we saw before the correct gain here
+1:32:26
+is one that is the standard deviation preserving gain so 1.66 7 is too high
+1:32:33
+and so what's going to happen now is the following uh I have to change this to be linear so we are because there's no more
+1:32:40
+10h layers and let me change this to linear as well so what we're seeing is um the
+1:32:48
+activations started out on the blue and have by layer four become very diffuse
+1:32:55
+so what's happening to the activations is this and with the gradients on the top layer the activation the gradient
+1:33:02
+statistics are the purple and then they diminish as you go down deeper in the layers and so basically you have an
+1:33:08
+asymmetry like in the neuron net and you might imagine that if you have very deep neural networks say like 50 layers or
+1:33:14
+something like that this just uh this is not a good place to be uh so that's why
+1:33:19
+before bash normalization this was incredibly tricky to to set in particular if this is too large of a
+1:33:26
+gain this happens and if it's too little of a gain then this happens so the opposite
+1:33:32
+of that basically happens here we have a um shrinking and a uh diffusion
+1:33:39
+depending on which direction you look at it from and so certainly this is not what you want and in this case the
+1:33:44
+correct setting of The gain is exactly one just like we're doing at initialization and then we see that the
+1:33:52
+uh statistics for the forward and a backward pass are well behaved and so the reason I want to show you this is
+1:33:59
+that basically like getting neural nness to train before these normalization layers and before the use of advanced
+1:34:05
+optimizers like adom which we still have to cover and residual connections and so on uh training neurs basically looked
+1:34:12
+like this it's like a total Balancing Act you have to make sure that everything is precisely orchestrated and
+1:34:18
+you have to care about the activations and the gradients and their statistics and then maybe you can train something uh but it was it was basically
+1:34:24
+impossible to train very deep networks and this is fundamentally the the reason for that you'd have to be very very
+1:34:29
+careful with your initialization um the other point here is you might be asking yourself by the
+1:34:35
+way I'm not sure if I covered this why do we need these 10h layers at all uh
+1:34:40
+why do we include them and then have to worry about the gain and uh the reason for that of course is that if you just have a stack of linear layers then
+1:34:48
+certainly we're getting very easily nice activations and so on uh but this is just massive linear sandwich and it
+1:34:54
+turns out that it collapses to a single linear layer in terms of its uh representation power so if you were to
+1:35:00
+plot the output as a function of the input you're just getting a linear function no matter how many linear layers you stack up you still just end
+1:35:07
+up with a linear transformation all the WX plus BS just collapse into a large WX
+1:35:13
+plus b with slightly different W's and slightly different B um but interestingly even though the forward
+1:35:19
+pass collapses to just a linear layer because of back propagation and uh the dynamics of the backward pass the
+1:35:26
+optimization natur is not identical you actually end up with uh all kinds of interesting um Dynamics in the backward
+1:35:33
+pass uh because of the uh the way the chain Ru is calculating it and so optimizing a linear layer by itself and
+1:35:41
+optimizing a sandwich of 10 linear layers in both cases those are just a linear transformation in the forward
+1:35:46
+pass but the training Dynamics would be different and there's entire papers that analyze in fact like infinitely layered
+1:35:52
+uh linear layers and and so on and so there's a lot of things to that you can play with there uh but basically the tal
+1:35:59
+linearities allow us to um turn this sandwich from just a
+1:36:07
+linear uh function into uh a neural network that can in principle um
+1:36:13
+approximate any arbitrary function okay so now I've reset the code to use the linear tanh sandwich like before and I
+viz #3: parameter activation and gradient statistics
+1:36:20
+reset everything so the gain is 5 over three uh we can run a single step of optimization and we can look at the
+1:36:27
+activation statistics of the forward pass and the backward pass but I've added one more plot here that I think is
+1:36:32
+really important to look at when you're training your neural nuts and to consider and ultimately what we're doing
+1:36:37
+is we're updating the parameters of the neural nut so we care about the parameters and their values and their
+1:36:43
+gradients so here what I'm doing is I'm actually iterating over all the parameters available and then I'm only
+1:36:49
+um restricting it to the two-dimensional parameters which are basically the weights of the linear layers and I'm
+1:36:54
+skipping the biases and I'm skipping the um gamas and the betas in the bom just
+1:37:00
+for Simplicity but you can also take a look at those as well but what's happening with the weights is um
+1:37:06
+instructive by itself so here we have all the different weights their shapes uh so this is the
+1:37:13
+embedding layer the first linear layer all the way to the very last linear layer and then we have the mean the
+1:37:18
+standard deviation of all these parameters the histogram and you can see that actually doesn't look that amazing
+1:37:24
+so there's some trouble in Paradise even though these gradients looked okay there's something weird going on here
+1:37:30
+I'll get to that in a second and the last thing here is the gradient to data ratio so sometimes I like to visualize
+1:37:37
+this as well because what this gives you a sense of is what is the scale of the gradient compared to the scale of the
+1:37:44
+actual values and this is important because we're going to end up taking a step update um that is the learning rate
+1:37:51
+times the gradient onto the data and so if the gradient has too large of magnitude if the numbers in there are
+1:37:57
+too large compared to the numbers in data then you'd be in trouble but in this case the gradient to data is our
+1:38:04
+low numbers so the values inside grad are 1,000 times smaller than the values
+1:38:09
+inside data in these weights most of them now notably that is not true about
+1:38:15
+the last layer and so the last layer actually here the output layer is a bit of a troublemaker in the way that this
+1:38:21
+is currently arranged because you can see that the um last layer here in pink
+1:38:28
+takes on values that are much larger than some of the values inside um inside
+1:38:34
+the neural nut so the standard deviations are roughly 1 and3 throughout except for the last last uh layer which
+1:38:41
+actually has roughly one -2 standard deviation of gradients and so the gradients on the last layer are
+1:38:47
+currently about 100 times greater sorry 10 times greater than all the other
+1:38:53
+weights inside the neural net and so that's problematic because in the simple stochastic rting theend setup you would
+1:39:00
+be training this last layer about 10 times faster than you would be training the other layers at
+1:39:06
+initialization now this actually like kind of fixes itself a little bit if you train for a bit longer so for example if
+1:39:12
+I greater than 1,000 only then do a break let me reinitialize and then let
+1:39:17
+me do it 1,000 steps and after 1,000 steps we can look at the forward pass
+1:39:24
+okay so you see how the neurons are a bit are saturating a bit and we can also look at the backward pass but otherwise
+1:39:30
+they look good they're about equal and there's no shrinking to zero or exploding to Infinities and you can see
+1:39:36
+that here in the weights uh things are also stabilizing a little bit so the Tails of the last pink layer are
+1:39:42
+actually coming coming in during the optimization but certainly this is like a little bit of troubling especially if
+1:39:49
+you are using a very simple update rule like stochastic gradient descent instead of a modern Optimizer like Adam now I'd
+viz #4: update:data ratio over time
+1:39:55
+like to show you one more plot that I usually look at when I train neural networks and basically the gradient to
+1:40:01
+data ratio is not actually that informative because what matters at the end is not the gradient to data ratio
+1:40:06
+but the update to the data ratio because that is the amount by which we will actually change the data in these
+1:40:11
+tensors so coming up here what I'd like to do is I'd like to introduce a new update to data uh ratio it's going to be
+1:40:20
+list and we're going to build it out every single iteration and here I'd like to keep track of basically the
+1:40:26
+ratio every single iteration so without any gradients I'm
+1:40:33
+comparing the update which is learning rate times the times the gradient that is the update that we're
+1:40:39
+going to apply to every parameter uh so see I'm iterating over all the parameters and then I'm taking
+1:40:45
+the basically standard deviation of the update we're going to apply and divided by the um actual content the data of of
+1:40:53
+that parameter and its standard deviation so this is the ratio of basically how great are the updates to
+1:41:00
+the values in these tensors then we're going to take a log of it and actually I'd like to take a log
+1:41:05
+10 um just so it's a nicer visualization um so we're going to be
+1:41:10
+basically looking at the exponents of uh the of this division here and then that
+1:41:17
+item to pop out the float and we're going to be keeping track of this for all the parameters and adding it to
+1:41:22
+these UD answer so now let me reinitialize and run a th iterations we
+1:41:27
+can look at the activations the gradients and the parameter gradients as
+1:41:33
+we did before but now I have one more plot here to introduce and what's Happening Here is
+1:41:38
+we're are interval parameters and I'm constraining it again like I did here to just the
+1:41:43
+weights so the number of dimensions in these sensors is two and then I'm basically plotting all of these um
+1:41:50
+update ratios over time so when I plot this I plot those ratios
+1:41:57
+and you can see that they evolve over time during initialization they take on certain values and then these updates s
+1:42:02
+of like start stabilizing usually during training then the other thing that I'm plotting here is I'm plotting here like
+1:42:08
+an approximate value that is a Rough Guide for what it roughly should be and it should be like roughly
+1:42:14
+one3 and so that means that basically there's some values in the tensor um and
+1:42:20
+they take on certain values and the updates to them at every iteration are no more than roughly 1,000th of the
+1:42:27
+actual like magnitude in those tensors uh if this was much larger like for example if this was um if the log of
+1:42:36
+this was like say negative 1 this is actually updating those values quite a lot they're undergoing a lot of change
+1:42:42
+but the reason that the final rate the final uh layer here is an outlier is because this layer was artificially
+1:42:49
+shrunk down to keep the soft Max um incom unconfident
+1:42:54
+so here you see how we multiplied The Weight by 0.1 uh in the initialization to make the
+1:43:00
+last layer prediction less confident that made that artificially made the
+1:43:07
+values inside that tensor way too low and that's why we're getting temporarily a very high ratio but you see that that
+1:43:12
+stabilizes over time once uh that weight starts to learn starts to learn but
+1:43:18
+basically I like to look at the evolution of this update ratio for all my parameters usually and I like to make
+1:43:23
+sure that it's not too much above onean neg3 roughly uh so around3 on this log
+1:43:32
+plot if it's below -3 usually that means that the parameters are not trained fast enough so if our learning rate was very
+1:43:38
+low let's do that experiment uh let's initialize and then let's actually do a learning rate of say
+1:43:45
+one3 here so 0.001 if your learning rate is way too
+1:43:50
+low this plot will typically reveal it so
+1:43:56
+you see how all of these updates are way too small so the size of the update is
+1:44:02
+uh basically uh 10,000 times um in magnitude to the size of the numbers in
+1:44:09
+that tensor in the first place so this is a symptom of training way too slow so this is another way to sometimes
+1:44:16
+set the learning rate and to get a sense of what that learning rate should be and ultimately this is something that you would uh keep track of
+1:44:25
+if anything the learning rate here is a little bit on the higher side uh because
+1:44:30
+you see that um we're above the black line of3 we're somewhere around -2.5
+1:44:35
+it's like okay and uh but everything is like somewhat stabilizing and so this looks like a pretty decent setting of of
+1:44:42
+um learning rates and so on but this is something to look at and when things are miscalibrated you will you will see very
+1:44:47
+quickly so for example everything looks pretty well behaved right but just as a comparison
+1:44:53
+when things are not properly calibrated what does that look like let me come up here and let's say that for example uh
+1:45:00
+what do we do let's say that we forgot to apply this a fan in normalization so
+1:45:05
+the weights inside the linear layers are just sampled from aaan and all the stages what happens to our how do we
+1:45:12
+notice that something's off well the activation plot will tell you whoa your neurons are way too saturated uh the
+1:45:18
+gradients are going to be all messed up uh the histogram for these weights are going to be all messed up as well and
+1:45:25
+there's a lot of asymmetry and then if we look here I suspect it's all going to be also pretty messed up so uh you see
+1:45:31
+there's a lot of uh discrepancy in how fast these layers are learning and some of them are learning way too fast so uh1
+1:45:40
+1.5 those are very large numbers in terms of this ratio again you should be somewhere around3 and not much more
+1:45:46
+about that um so this is how miscalibrations of your neuron nuts are going to manifest and these kinds of
+1:45:53
+plots here are a good way of um sort of bringing um those miscalibrations sort
+1:45:59
+of uh to your attention and so you can address them okay so so far we've seen
+bringing back batchnorm, looking at the visualizations
+1:46:05
+that when we have this linear tanh sandwich we can actually precisely calibrate the gains and make the
+1:46:10
+activations the gradients and the parameters and the updates all look pretty decent but it definitely feels a
+1:46:16
+little bit like balancing of a pencil on your finger and that's because this gain
+1:46:22
+has to be very precisely calibrated so now let's introduce bat normalization layers into the fix into the mix and
+1:46:30
+let's let's see how that helps fix the problem so here I'm going to take the bachom 1D
+1:46:37
+class and I'm going to start placing it inside and as I mentioned before the
+1:46:43
+standard typical place you would place it is between the linear layer so right after it but before the nonlinearity but
+1:46:49
+people have definitely played with that and uh in fact you can get very similar results even if you place it after the
+1:46:55
+nonlinearity um and the other thing that I wanted to mention is it's totally fine to also place it at the end uh after the
+1:47:02
+last linear layer and before the L function so this is potentially fine as well um and in this case this would be
+1:47:10
+output would be WAP size um now because the last layer is
+1:47:16
+Bash we would not be changing the weight to make the softmax less confident we'd be changing the gamma because gamma
+1:47:23
+remember in the bathroom is the variable that multiplicatively interacts with the output of that
+1:47:31
+normalization so we can initialize this sandwich now we can train and we can see
+1:47:37
+that the activations uh are going to of course look uh very good and they are going to necessarily look good because
+1:47:44
+now before every single 10h layer there is a normalization in the bashor so this
+1:47:50
+is unsurprisingly all uh looks pretty good it's going to be standard deviation of roughly 65 2% and roughly equal
+1:47:57
+standard deviation throughout the entire layers so everything looks very homogeneous the gradients look good the
+1:48:04
+weights look good and their distributions and then the
+1:48:10
+updates also look um pretty reasonable uh we are going above3 a little bit but
+1:48:16
+not by too much so all the parameters are training at roughly the same rate um
+1:48:22
+here but now what we've gained is um we are going to be slightly less
+1:48:30
+um brittle with respect to the gain of these so for example I can make the gain
+1:48:35
+be say2 here um which is much much much slower than what we had with the tan
+1:48:41
+H but as we'll see the activations will actually be exactly unaffected uh and that's because of again this explicit
+1:48:48
+normalization the gradients are going to look okay the weight gradients are going to look okay okay but actually the
+1:48:54
+updates will change and so even though the forward and backward pass to a very large extent
+1:49:00
+look okay because of the backward pass of the Bator and how the scale of the incoming activations interacts in the
+1:49:07
+Bator and its uh backward pass this is actually changing the um the scale of
+1:49:14
+the updates on these parameters so the grades on gradients of these weights are affected so we still don't get it
+1:49:21
+completely free pass to pass in arbitral um weights here but it everything else
+1:49:26
+is significantly more robust in terms of the forward backward and the weight
+1:49:32
+gradients it's just that you may have to retune your learning rate if you are changing sufficiently the the scale of
+1:49:38
+the activations that are coming into the batch Norms so here for example this um we changed the gains of these linear
+1:49:45
+layers to be greater and we're seeing that the updates are coming out lower as a
+1:49:50
+result and then finally we can also so if we are using borms we don't actually need to necessarily let me reset this to
+1:49:57
+one so there's no gain we don't necessarily even have to um normalize by fan in sometimes so if I take out the
+1:50:04
+fan in so these are just now uh random gsh in we'll see that because of borm
+1:50:09
+this will actually be relatively well behaved so the statistic look of course in the
+1:50:16
+forward pass look good the gradients look good the uh backward uh the weight
+1:50:21
+updates look okay A little bit of fat tails on some of the layers and uh this looks okay as well
+1:50:29
+but as you as you can see uh we're significantly below ne3 so we'd have to bump up the learning rate of this bachor
+1:50:36
+uh so that we are training more properly and in particular looking at this roughly looks like we have to 10x the
+1:50:42
+learning rate to get to about one3 so we' come here and we would
+1:50:48
+change this to be update of 1.0 and if I reinitialize
+1:50:59
+then we'll see that everything still of course looks good and now we are roughly here and we expect this to be an okay
+1:51:05
+training run so long story short we are significantly more robust to the gain of these linear layers whether or not we
+1:51:12
+have to apply the fan in and then we can change the gain uh but we actually do
+1:51:17
+have to worry a little bit about the update um scales and making sure that uh the learning rate is properly calibrated
+1:51:23
+here but this the activations of the forward backward pass and the updates are are looking significantly more well
+1:51:29
+behaved except for the global scale that is potentially being adjusted here okay
+summary of the lecture for real this time
+1:51:34
+so now let me summarize there are three things I was hoping to achieve with this section number one I wanted to introduce
+1:51:40
+you to bat normalization which is one of the first modern innovations that we're looking into that helped stabilize very
+1:51:47
+deep neural networks and their training and I hope you understand how the B normalization works and um how it would
+1:51:54
+be used in a neural network number two I was hoping to py torify some of our code
+1:51:59
+and wrap it up into these uh modules so like linear bash 1D 10h Etc these are
+1:52:04
+layers or modules and they can be stacked up into neural nuts like Lego building blocks and these layers
+1:52:12
+actually exist in pytorch and if you import torch NN then you can actually
+1:52:17
+the way I've constructed it you can simply just use pytorch by prepending n and Dot to all these different
+1:52:24
+layers and actually everything will just work because the API that I've developed
+1:52:29
+here is identical to the API that pytorch uses and the implementation also is basically as far as I'm Weare
+1:52:36
+identical to the one in pytorch and number three I tried to introduce you to the diagnostic tools that you would use
+1:52:42
+to understand whether your neural network is in a good State dynamically so we are looking at the statistics and
+1:52:48
+histograms and activation of the forward pass activ activations the backward pass gradients and then also we're looking at
+1:52:55
+the weights that are going to be updated as part of stochastic gradi in ascent and we're looking at their means standard deviations and also the ratio
+1:53:02
+of gradients to data or even better the updates to data and we saw that
+1:53:08
+typically we don't actually look at it as a single snapshot Frozen in time at some particular iteration typically
+1:53:14
+people look at this as a over time just like I've done here and they look at these update to data ratios and they
+1:53:19
+make sure everything looks okay and in particular I said said that um W3 or basically ne3 on the lock scale is
+1:53:27
+a good uh rough euristic for what you want this ratio to be and if it's way too high then probably the learning rate
+1:53:34
+or the updates are a little too too big and if it's way too small that the learning rate is probably too small so
+1:53:39
+that's just some of the things that you may want to play with when you try to get your neural network to uh work with
+1:53:45
+very well now there's a number of things I did not try to achieve I did not try to
+1:53:50
+beat our previous performance as an example by introducing using the bash layer actually I did try um and I found
+1:53:56
+the new I used the learning rate finding mechanism that I've described before I tried to train a borm layer a borm
+1:54:02
+neural nut and uh I actually ended up with results that are very very similar to what we've obtained before and that's
+1:54:08
+because our performance now is not bottlenecked by the optimization which is what borm is helping with the
+1:54:15
+performance at this stage is bottleneck by what I suspect is the context length of our context so currently we are
+1:54:22
+taking three characters to predict the fourth one and I think we need to go beyond that and we need to look at more powerful architectures like recurrent
+1:54:29
+neural networks and Transformers in order to further push um the lock probabilities that we're achieving on
+1:54:34
+this data set and I also did not try to have a full explanation of all of these
+1:54:41
+activations the gradients and the backward pass and the statistics of all these gradients and so you may have found some of the parts here un
+1:54:47
+intuitive and maybe you're slightly confused about okay if I change the uh gain here how come that we need a
+1:54:53
+different learning rate and I didn't go into the full detail because you'd have to actually look at the backward pass of all these different layers and get an
+1:54:59
+intuitive understanding of how that works and I did not go into that in this lecture the purpose really was just to
+1:55:05
+introduce you to the diagnostic tools and what they look like but there's still a lot of work remaining on the intuitive level to understand the
+1:55:11
+initialization the backward pass and how all of that interacts uh but you shouldn't feel too bad because honestly
+1:55:18
+we are getting to The Cutting Edge of where the field is we certainly haven't I would say soled
+1:55:24
+initialization and we haven't soled back propagation and these are still very much an active area of research people
+1:55:30
+are still trying to figure out what is the best way to initialize these networks what is the best update rule to use um and so on so none of this is
+1:55:38
+really solved and we don't really have all the answers to all the to you know all these cases but at least uh you know
+1:55:45
+we're making progress and at least we have some tools to tell us uh whether or not things are on the right track for
+1:55:50
+now so I think we've made positive progress in this lecture and I hope you enjoyed that
+1:55:56
+and I will see you next time

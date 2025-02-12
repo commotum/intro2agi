@@ -1,0 +1,834 @@
+About
+
+
+697,509 views  May 25, 2023  #MSBuild
+Learn about the training pipeline of GPT assistants like ChatGPT, from tokenization to pretraining, supervised finetuning, and Reinforcement Learning from Human Feedback (RLHF). Dive deeper into practical techniques and mental models for the effective use of these models, including prompting strategies, finetuning, the rapidly growing ecosystem of tools, and their future extensions.
+
+Speakers:
+Andrej Karpathy
+
+
+Session Information:
+This video is one of many sessions delivered for the Microsoft Build 2023 event. View the full session schedule and learn more about Microsoft Build at https://build.microsoft.com 
+
+BRK216HFS | English (US) | AI
+
+
+#MSBuild
+
+Transcript
+
+
+Search in video
+Intro
+0:00
+[MUSIC]
+0:07
+ANNOUNCER: Please welcome AI researcher and founding member of OpenAI, Andrej Karpathy.
+0:21
+ANDREJ KARPATHY: Hi, everyone. I'm happy to be here to tell you about the state of GPT and more generally about
+0:28
+the rapidly growing ecosystem of large language models. I would like to partition the talk into two parts.
+0:35
+In the first part, I would like to tell you about how we train GPT Assistance, and then in the second part,
+0:40
+we're going to take a look at how we can use these assistants effectively for your applications.
+0:46
+First, let's take a look at the emerging recipe for how to train these assistants and keep in mind that this is all very new and still rapidly evolving,
+0:53
+but so far, the recipe looks something like this. Now, this is a complicated slide, I'm going to go through it piece by
+GPT Assistant training pipeline
+0:59
+piece, but roughly speaking, we have four major stages, pretraining,
+1:04
+supervised finetuning, reward modeling, reinforcement learning, and they follow each other serially.
+1:09
+Now, in each stage, we have a dataset that powers that stage. We have an algorithm that for our purposes will be
+1:17
+a objective and over for training the neural network, and then we have a resulting model,
+1:23
+and then there are some notes on the bottom. The first stage we're going to start with as the pretraining stage. Now, this stage is special in this diagram,
+1:31
+and this diagram is not to scale because this stage is where all of the computational work basically happens. This is 99 percent of the training
+1:38
+compute time and also flops. This is where we are dealing with
+1:44
+Internet scale datasets with thousands of GPUs in the supercomputer and also months of training potentially.
+1:51
+The other three stages are finetuning stages that are much more along the lines of small few number of GPUs and hours or days.
+1:59
+Let's take a look at the pretraining stage to achieve a base model. First, we are going to gather a large amount of data.
+Data collection
+2:07
+Here's an example of what we call a data mixture that comes from this paper that was released by
+2:13
+Meta where they released this LLaMA based model. Now, you can see roughly the datasets that
+2:18
+enter into these collections. We have CommonCrawl, which is a web scrape, C4, which is also CommonCrawl,
+2:25
+and then some high quality datasets as well. For example, GitHub, Wikipedia, Books, Archives, Stock Exchange and so on.
+2:31
+These are all mixed up together, and then they are sampled according to some given proportions,
+2:36
+and that forms the training set for the GPT. Now before we can actually train on this data,
+2:43
+we need to go through one more preprocessing step, and that is tokenization. This is basically a translation of
+2:48
+the raw text that we scrape from the Internet into sequences of integers because
+2:53
+that's the native representation over which GPTs function. Now, this is a lossless translation
+3:00
+between pieces of texts and tokens and integers, and there are a number of algorithms for the stage.
+3:05
+Typically, for example, you could use something like byte pair encoding, which iteratively merges text chunks
+3:11
+and groups them into tokens. Here, I'm showing some example chunks of these tokens,
+3:16
+and then this is the raw integer sequence that will actually feed into a transformer. Now, here I'm showing
+2 example models
+3:23
+two examples for hybrid parameters that govern this stage.
+3:28
+GPT-4, we did not release too much information about how it was trained and so on, I'm using GPT-3s numbers,
+3:33
+but GPT-3 is of course a little bit old by now, about three years ago. But LLaMA is a fairly recent model from Meta.
+3:40
+These are roughly the orders of magnitude that we're dealing with when we're doing pretraining. The vocabulary size is usually a couple 10,000 tokens.
+3:48
+The context length is usually something like 2,000, 4,000, or nowadays even 100,000,
+3:53
+and this governs the maximum number of integers that the GPT will look at when it's trying to
+3:58
+predict the next integer in a sequence. You can see that roughly the number of parameters say,
+4:04
+65 billion for LLaMA. Now, even though LLaMA has only 65B parameters compared to GPP-3s 175 billion parameters,
+4:11
+LLaMA is a significantly more powerful model, and intuitively, that's because the model is trained for significantly longer.
+4:17
+In this case, 1.4 trillion tokens, instead of 300 billion tokens. You shouldn't judge the power of a model by
+4:23
+the number of parameters that it contains. Below, I'm showing some tables of rough hyperparameters that typically
+4:31
+go into specifying the transformer neural network, the number of heads, the dimension size, number of layers,
+4:36
+and so on, and on the bottom I'm showing some training hyperparameters. For example, to train the 65B model,
+4:44
+Meta used 2,000 GPUs, roughly 21 days of training and a roughly several million dollars.
+4:52
+That's the rough orders of magnitude that you should have in mind for the pre-training stage.
+4:57
+Now, when we're actually pre-training, what happens? Roughly speaking, we are going to take our tokens,
+5:03
+and we're going to lay them out into data batches. We have these arrays that will feed into the transformer,
+5:09
+and these arrays are B, the batch size and these are all independent examples stocked up in rows and B by T,
+5:16
+T being the maximum context length. In my picture I only have 10 the context lengths, so this could be 2,000, 4,000, etc.
+5:23
+These are extremely long rows. What we do is we take these documents, and we pack them into rows,
+5:28
+and we delimit them with these special end of texts tokens, basically telling the transformer where a new document begins.
+5:35
+Here, I have a few examples of documents and then I stretch them out into this input.
+5:41
+Now, we're going to feed all of these numbers into transformer. Let me just focus on a single particular cell,
+5:49
+but the same thing will happen at every cell in this diagram. Let's look at the green cell. The green cell is going to take
+5:56
+a look at all of the tokens before it, so all of the tokens in yellow, and we're going to feed that entire context
+6:03
+into the transforming neural network, and the transformer is going to try to predict the next token in
+6:08
+a sequence, in this case in red. Now the transformer, I don't have too much time to, unfortunately, go into the full details of this
+6:14
+neural network architecture is just a large blob of neural net stuff for our purposes, and it's got several,
+6:20
+10 billion parameters typically or something like that. Of course, as I tune these parameters, you're getting slightly different predicted distributions
+6:26
+for every single one of these cells. For example, if our vocabulary size is 50,257 tokens,
+6:34
+then we're going to have that many numbers because we need to specify a probability distribution for what comes next.
+6:40
+Basically, we have a probability for whatever may follow. Now, in this specific example, for this specific cell,
+6:45
+513 will come next, and so we can use this as a source of supervision to update our transformers weights.
+6:51
+We're applying this basically on every single cell in the parallel, and we keep swapping batches, and we're trying to get the transformer to make
+6:58
+the correct predictions over what token comes next in a sequence. Let me show you more concretely what this looks
+7:03
+like when you train one of these models. This is actually coming from the New York Times, and they trained a small GPT on Shakespeare.
+7:11
+Here's a small snippet of Shakespeare, and they train their GPT on it. Now, in the beginning, at initialization,
+7:17
+the GPT starts with completely random weights. You're getting completely random outputs as well. But over time, as you train the GPT longer and longer,
+7:26
+you are getting more and more coherent and consistent samples from the model,
+7:31
+and the way you sample from it, of course, is you predict what comes next, you sample from that distribution and
+7:36
+you keep feeding that back into the process, and you can basically sample large sequences.
+7:42
+By the end, you see that the transformer has learned about words and where to put spaces and where to put commas and so on.
+7:48
+We're making more and more consistent predictions over time. These are the plots that you are looking at when you're doing model pretraining.
+7:54
+Effectively, we're looking at the loss function over time as you train, and low loss means that our transformer
+8:00
+is giving a higher probability to the next correct integer in the sequence.
+8:06
+What are we going to do with model once we've trained it after a month? Well, the first thing that we noticed, we the field,
+Base models learn powerful, general representations
+8:14
+is that these models basically in the process of language modeling, learn very powerful general representations,
+8:21
+and it's possible to very efficiently fine tune them for any arbitrary downstream tasks you might be interested in.
+8:26
+As an example, if you're interested in sentiment classification, the approach used to be that you collect a bunch of positives
+8:33
+and negatives and then you train some NLP model for that, but the new approach is:
+8:38
+ignore sentiment classification, go off and do large language model pretraining,
+8:43
+train a large transformer, and then you may only have a few examples and you can very efficiently fine tune
+8:48
+your model for that task. This works very well in practice. The reason for this is that basically
+8:55
+the transformer is forced to multitask a huge amount of tasks in the language modeling task,
+9:00
+because in terms of predicting the next token, it's forced to understand a lot about the structure of the text and all the different concepts therein.
+9:09
+That was GPT-1. Now around the time of GPT-2, people noticed that actually even better than fine tuning,
+9:15
+you can actually prompt these models very effectively. These are language models and they want to complete documents,
+9:20
+you can actually trick them into performing tasks by arranging these fake documents.
+9:25
+In this example, for example, we have some passage and then we like do QA, QA, QA.
+9:31
+This is called Few-shot prompt, and then we do Q, and then as the transformer is tried to complete the document is actually answering our question.
+9:37
+This is an example of prompt engineering based model, making it believe that it's imitating a document and getting it to perform a task.
+9:45
+This kicked off, I think the era of, I would say, prompting over fine tuning and seeing that this
+9:50
+actually can work extremely well on a lot of problems, even without training any neural networks, fine tuning or so on.
+9:56
+Now since then, we've seen an entire evolutionary tree of base models that everyone has trained.
+10:02
+Not all of these models are available. for example, the GPT-4 base model was never released.
+10:08
+The GPT-4 model that you might be interacting with over API is not a base model, it's an assistant model, and we're going to cover how to get those in a bit.
+10:15
+GPT-3 based model is available via the API under the name Devanshi and GPT-2 based model
+10:21
+is available even as weights on our GitHub repo. But currently the best available base model
+10:27
+probably is the LLaMA series from Meta, although it is not commercially licensed.
+10:32
+Now, one thing to point out is base models are not assistants. They don't want to make answers to your questions,
+10:41
+they want to complete documents. If you tell them to write a poem about the bread and cheese,
+10:46
+it will answer questions with more questions, it's completing what it thinks is a document.
+10:51
+However, you can prompt them in a specific way for base models that is more likely to work.
+10:57
+As an example, here's a poem about bread and cheese, and in that case it will autocomplete correctly. You can even trick base models into being assistants.
+11:06
+The way you would do this is you would create a specific few-shot prompt that makes it look like there's some document between the human and assistant
+11:13
+and they're exchanging information. Then at the bottom, you put your query at the end and the base model
+11:21
+will condition itself into being a helpful assistant and answer,
+11:26
+but this is not very reliable and doesn't work super well in practice, although it can be done. Instead, we have a different path to make
+11:32
+actual GPT assistants not base model document completers. That takes us into supervised finetuning.
+11:39
+In the supervised finetuning stage, we are going to collect small but high quality data-sets, and in this case,
+11:45
+we're going to ask human contractors to gather data of the form prompt and ideal response.
+11:52
+We're going to collect lots of these typically tens of thousands or something like that. Then we're going to still do language
+11:58
+modeling on this data. Nothing changed algorithmically, we're swapping out a training set. It used to be Internet documents,
+12:04
+which has a high quantity local for basically Q8 prompt response data.
+12:11
+That is low quantity, high quality. We will still do language modeling and then after training,
+12:16
+we get an SFT model. You can actually deploy these models and they are actual assistants and they work to some extent.
+12:22
+Let me show you what an example demonstration might look like. Here's something that a human contractor might come up with.
+12:28
+Here's some random prompt. Can you write a short introduction about the relevance of the term monopsony or something like that?
+12:34
+Then the contractor also writes out an ideal response. When they write out these responses, they are following extensive labeling
+12:40
+documentations and they are being asked to be helpful, truthful, and harmless.
+12:45
+These labeling instructions here, you probably can't read it, neither can I, but they're long and this is people
+12:52
+following instructions and trying to complete these prompts. That's what the dataset looks like. You can train these models. This works to some extent.
+12:59
+Now, you can actually continue the pipeline from here on, and go into RLHF,
+13:05
+reinforcement learning from human feedback that consists of both reward modeling and reinforcement learning.
+13:10
+Let me cover that and then I'll come back to why you may want to go through the extra steps and how that compares to SFT models.
+13:16
+In the reward modeling step, what we're going to do is we're now going to shift our data collection to be of the form of comparisons.
+13:23
+Here's an example of what our dataset will look like. I have the same identical prompt on the top,
+RM Dataset
+13:28
+which is asking the assistant to write a program or a function that checks if a given string is a palindrome.
+13:35
+Then what we do is we take the SFT model which we've already trained and we create multiple completions.
+13:41
+In this case, we have three completions that the model has created, and then we ask people to rank these completions.
+13:47
+If you stare at this for a while, and by the way, these are very difficult things to do to compare some of these predictions.
+13:52
+This can take people even hours for a single prompt completion pairs,
+13:57
+but let's say we decided that one of these is much better than the others and so on. We rank them.
+14:03
+Then we can follow that with something that looks very much like a binary classification on all the possible pairs between these completions.
+RM Training
+14:10
+What we do now is, we lay out our prompt in rows, and the prompt is identical across all three rows here.
+14:16
+It's all the same prompt, but the completion of this varies. The yellow tokens are coming from the SFT model.
+14:21
+Then what we do is we append another special reward readout token at the end and we basically only
+14:28
+supervise the transformer at this single green token. The transformer will predict some reward
+14:34
+for how good that completion is for that prompt and basically it makes
+14:39
+a guess about the quality of each completion. Then once it makes a guess for every one of them,
+14:44
+we also have the ground truth which is telling us the ranking of them. We can actually enforce that some of
+14:50
+these numbers should be much higher than others, and so on. We formulate this into a loss function and we train our model to make reward predictions
+14:56
+that are consistent with the ground truth coming from the comparisons from all these contractors. That's how we train our reward model.
+15:02
+That allows us to score how good a completion is for a prompt. Once we have a reward model,
+15:09
+we can't deploy this because this is not very useful as an assistant by itself, but it's very useful for the reinforcement
+15:15
+learning stage that follows now. Because we have a reward model, we can score the quality of any arbitrary completion for any given prompt.
+15:22
+What we do during reinforcement learning is we basically get, again, a large collection of prompts and now we do
+15:28
+reinforcement learning with respect to the reward model. Here's what that looks like. We take a single prompt,
+15:34
+we lay it out in rows, and now we use basically the model we'd like to train which
+15:39
+was initialized at SFT model to create some completions in yellow, and then we append the reward token again
+15:45
+and we read off the reward according to the reward model, which is now kept fixed. It doesn't change any more. Now the reward model
+15:53
+tells us the quality of every single completion for all these prompts and so what we can do is we can now just basically apply the same
+15:59
+language modeling loss function, but we're currently training on the yellow tokens, and we are weighing
+16:06
+the language modeling objective by the rewards indicated by the reward model. As an example, in the first row,
+16:13
+the reward model said that this is a fairly high-scoring completion and so all the tokens that we
+16:18
+happen to sample on the first row are going to get reinforced and they're going to get higher probabilities for the future.
+16:25
+Conversely, on the second row, the reward model really did not like this completion, -1.2. Therefore, every single token that we sampled in
+16:32
+that second row is going to get a slightly higher probability for the future. We do this over and over on many prompts on many batches and basically,
+16:39
+we get a policy that creates yellow tokens here. It's basically all the completions here will
+16:46
+score high according to the reward model that we trained in the previous stage.
+16:51
+That's what the RLHF pipeline is. Then at the end, you get a model that you could deploy.
+16:58
+As an example, ChatGPT is an RLHF model, but some other models that you might come across for example,
+17:05
+Vicuna-13B, and so on, these are SFT models. We have base models, SFT models, and RLHF models.
+17:12
+That's the state of things there. Now why would you want to do RLHF? One answer that's not
+17:19
+that exciting is that it works better. This comes from the instruct GPT paper. According to these experiments a while ago now,
+17:25
+these PPO models are RLHF. We see that they are basically preferred in a lot
+17:30
+of comparisons when we give them to humans. Humans prefer basically tokens
+17:36
+that come from RLHF models compared to SFT models, compared to base model that is prompted to be an assistant. It just works better.
+17:43
+But you might ask why does it work better? I don't think that there's a single amazing answer
+17:49
+that the community has really agreed on, but I will offer one reason potentially.
+17:55
+It has to do with the asymmetry between how easy computationally it is to compare versus generate.
+18:02
+Let's take an example of generating a haiku. Suppose I ask a model to write a haiku about paper clips.
+18:07
+If you're a contractor trying to train data, then imagine being a contractor collecting basically data for the SFT stage,
+18:14
+how are you supposed to create a nice haiku for a paper clip? You might not be very good at that, but if I give you a few examples of
+18:20
+haikus you might be able to appreciate some of these haikus a lot more than others. Judging which one of these is good is a much easier task.
+18:27
+Basically, this asymmetry makes it so that comparisons are a better way to potentially leverage
+18:33
+yourself as a human and your judgment to create a slightly better model. Now, RLHF models are not
+18:40
+strictly an improvement on the base models in some cases. In particular, we'd notice for example that they lose some entropy.
+18:46
+That means that they give more peaky results. They can output samples
+Mode collapse
+18:54
+with lower variation than the base model. The base model has lots of entropy and will give lots of diverse outputs.
+19:00
+For example, one place where I still prefer to use a base model is in the setup
+19:06
+where you basically have n things and you want to generate more things like it.
+19:13
+Here is an example that I just cooked up. I want to generate cool Pokemon names.
+19:18
+I gave it seven Pokemon names and I asked the base model to complete the document and it gave me a lot more Pokemon names.
+19:24
+These are fictitious. I tried to look them up. I don't believe they're actual Pokemons. This is the task that I think the base model would be
+19:31
+good at because it still has lots of entropy. It'll give you lots of diverse cool more things that look like whatever you give it before.
+19:41
+Having said all that, these are the assistant models that are probably available to you at this point.
+19:47
+There was a team at Berkeley that ranked a lot of the available assistant models and give them basically Elo ratings.
+19:53
+Currently, some of the best models, of course, are GPT-4, by far, I would say, followed by Claude, GPT-3.5, and then a number of models,
+20:00
+some of these might be available as weights, like Vicuna, Koala, etc. The first three rows here are
+20:07
+all RLHF models and all of the other models to my knowledge, are SFT models, I believe.
+20:15
+That's how we train these models on the high level. Now I'm going to switch gears and let's look at how we can
+20:22
+best apply the GPT assistant model to your problems. Now, I would like to work
+20:27
+in setting of a concrete example. Let's work with a concrete example here.
+20:32
+Let's say that you are working on an article or a blog post, and you're going to write this sentence at the end.
+20:38
+"California's population is 53 times that of Alaska." So for some reason, you want to compare the populations of these two states.
+20:44
+Think about the rich internal monologue and tool use and how much work actually goes computationally in
+20:50
+your brain to generate this one final sentence. Here's maybe what that could look like in your brain.
+20:55
+For this next step, let me blog on my blog, let me compare these two populations.
+21:01
+First I'm going to obviously need to get both of these populations. Now, I know that I probably
+21:06
+don't know these populations off the top of my head so I'm aware of what I know or don't know of my self-knowledge.
+21:12
+I go, I do some tool use and I go to Wikipedia and I look up California's population and Alaska's population.
+21:19
+Now, I know that I should divide the two, but again, I know that dividing 39.2 by 0.74 is very unlikely to succeed.
+21:26
+That's not the thing that I can do in my head and so therefore, I'm going to rely on the calculator so I'm going to use a calculator,
+21:33
+punch it in and see that the output is roughly 53. Then maybe I do some reflection and sanity checks in
+21:40
+my brain so does 53 makes sense? Well, that's quite a large fraction, but then California is the most
+21:45
+populous state, so maybe that looks okay. Then I have all the information I might need, and now I get to the creative portion of writing.
+21:52
+I might start to write something like "California has 53x times greater" and then I think to myself,
+21:58
+that's actually like really awkward phrasing so let me actually delete that and let me try again.
+22:03
+As I'm writing, I have this separate process, almost inspecting what I'm writing and judging whether it looks good
+22:09
+or not and then maybe I delete and maybe I reframe it, and then maybe I'm happy with what comes out.
+22:15
+Basically long story short, a ton happens under the hood in terms of your internal monologue when you create sentences like this.
+22:21
+But what does a sentence like this look like when we are training a GPT on it? From GPT's perspective, this
+22:28
+is just a sequence of tokens. GPT, when it's reading or generating these tokens,
+22:34
+it just goes chunk, chunk, chunk, chunk and each chunk is roughly the same amount of computational work for each token.
+22:40
+These transformers are not very shallow networks they have about 80 layers of reasoning,
+22:45
+but 80 is still not like too much. This transformer is going to do its best to imitate,
+22:51
+but of course, the process here looks very different from the process that you took. In particular, in our final artifacts
+22:59
+in the data sets that we create, and then eventually feed to LLMs, all that internal dialogue was completely stripped and unlike you,
+23:07
+the GPT will look at every single token and spend the same amount of compute on every one of them. So, you can't expect it
+23:13
+to do too much work per token and also in particular,
+23:21
+basically these transformers are just like token simulators, they don't know what they don't know.
+23:26
+They just imitate the next token. They don't know what they're good at or not good at. They just tried their best to imitate the next token.
+23:32
+They don't reflect in the loop. They don't sanity check anything. They don't correct their mistakes along the way.
+23:37
+By default, they just are sample token sequences. They don't have separate inner monologue streams
+23:43
+in their head right? They're evaluating what's happening. Now, they do have some cognitive advantages,
+23:48
+I would say and that is that they do actually have a very large fact-based knowledge across a vast number of areas because they have,
+23:55
+say, several, 10 billion parameters. That's a lot of storage for a lot of facts. They also, I think have
+24:02
+a relatively large and perfect working memory. Whatever fits into the context window
+24:07
+is immediately available to the transformer through its internal self attention mechanism and so it's perfect memory,
+24:14
+but it's got a finite size, but the transformer has a very direct access to it and so it can a losslessly remember anything that
+24:22
+is inside its context window. This is how I would compare those two and the reason I bring all of this up is because I
+24:27
+think to a large extent, prompting is just making up for this cognitive difference between
+24:34
+these two architectures like our brains here and LLM brains.
+24:39
+You can look at it that way almost. Here's one thing that people found for example works pretty well in practice.
+24:45
+Especially if your tasks require reasoning, you can't expect the transformer to do too much reasoning per token.
+24:52
+You have to really spread out the reasoning across more and more tokens. For example, you can't give a transformer
+24:57
+a very complicated question and expect it to get the answer in a single token. There's just not enough time for it. "These transformers need tokens to
+25:04
+think," I like to say sometimes. This is some of the things that work well, you may for example have a few-shot prompt that
+25:10
+shows the transformer that it should show its work when it's answering question and if you give a few examples,
+25:17
+the transformer will imitate that template and it will just end up working out better in terms of its evaluation.
+25:24
+Additionally, you can elicit this behavior from the transformer by saying, let things step-by-step.
+25:29
+Because this conditions the transformer into showing its work and because
+25:34
+it snaps into a mode of showing its work, is going to do less computational work per token.
+25:40
+It's more likely to succeed as a result because it's making slower reasoning over time.
+25:46
+Here's another example, this one is called self-consistency. We saw that we had the ability
+Ensemble multiple attempts
+25:51
+to start writing and then if it didn't work out, I can try again and I can try multiple times
+25:56
+and maybe select the one that worked best. In these approaches,
+26:02
+you may sample not just once, but you may sample multiple times and then have some process for finding
+26:07
+the ones that are good and then keeping just those samples or doing a majority vote or something like that. Basically these transformers in the process as
+26:14
+they predict the next token, just like you, they can get unlucky and they could sample a not a very good
+26:19
+token and they can go down like a blind alley in terms of reasoning. Unlike you, they cannot recover from that.
+26:27
+They are stuck with every single token they sample and so they will continue the sequence, even if they know that this sequence is not going to work out.
+26:34
+Give them the ability to look back, inspect or try to basically sample around it.
+26:40
+Here's one technique also, it turns out that actually LLMs, they know when they've screwed up,
+Ask for reflection
+26:47
+so as an example, say you ask the model to generate a poem that does not
+26:52
+rhyme and it might give you a poem, but it actually rhymes. But it turns out that especially for the bigger models like GPT-4,
+26:58
+you can just ask it "did you meet the assignment?" Actually GPT-4 knows very well that it did not meet the assignment.
+27:04
+It just got unlucky in its sampling. It will tell you, "No, I didn't actually meet the assignment here. Let me try again."
+27:10
+But without you prompting it it doesn't know to revisit and so on.
+27:17
+You have to make up for that in your prompts, and you have to get it to check, if you don't ask it to check,
+27:23
+its not going to check by itself it's just a token simulator.
+27:28
+I think more generally, a lot of these techniques fall into the bucket of what I would say recreating our System 2.
+27:34
+You might be familiar with the System 1 and System 2 thinking for humans. System 1 is a fast automatic process and I
+27:40
+think corresponds to an LLM just sampling tokens. System 2 is the slower deliberate
+27:46
+planning part of your brain. This is a paper actually from
+27:51
+just last week because this space is pretty quickly evolving, it's called Tree of Thought.
+27:56
+The authors of this paper proposed maintaining multiple completions for any given prompt
+28:02
+and then they are also scoring them along the way and keeping the ones that are going well if that makes sense.
+28:08
+A lot of people are really playing around with prompt engineering
+28:13
+to basically bring back some of these abilities that we have in our brain for LLMs.
+28:19
+Now, one thing I would like to note here is that this is not just a prompt. This is actually prompts that are together
+28:25
+used with some Python Glue code because you actually have to maintain multiple prompts and you also have to do
+28:30
+some tree search algorithm here to figure out which prompts to expand, etc. It's a symbiosis of Python Glue code and
+28:38
+individual prompts that are called in a while loop or in a bigger algorithm. I also think there's a really cool
+28:43
+parallel here to AlphaGo. AlphaGo has a policy for placing the next stone when it plays go,
+28:48
+and its policy was trained originally by imitating humans. But in addition to this policy,
+28:54
+it also does Monte Carlo Tree Search. Basically, it will play out a number of possibilities in its head and evaluate all of
+29:00
+them and only keep the ones that work well. I think this is an equivalent of AlphaGo but for text if that makes sense.
+29:08
+Just like Tree of Thought, I think more generally people are starting to really explore
+29:13
+more general techniques of not just the simple question-answer prompts, but something that looks a lot more like
+29:19
+Python Glue code stringing together many prompts. On the right, I have an example from this paper called React where they
+29:25
+structure the answer to a prompt as a sequence of thought-action-observation,
+29:32
+thought-action-observation, and it's a full rollout and a thinking process to answer the query.
+29:38
+In these actions, the model is also allowed to tool use. On the left, I have an example of AutoGPT.
+29:45
+Now AutoGPT by the way is a project that I think got a lot of hype recently,
+29:51
+but I think I still find it inspirationally interesting. It's a project that allows an LLM to keep
+29:58
+the task list and continue to recursively break down tasks. I don't think this currently works very well and I would
+30:04
+not advise people to use it in practical applications. I just think it's something to generally take inspiration
+30:09
+from in terms of where this is going, I think over time. That's like giving our model System 2 thinking.
+30:16
+The next thing I find interesting is, this following serve I would say almost psychological quirk of LLMs,
+30:23
+is that LLMs don't want to succeed, they want to imitate. You want to succeed, and you should ask for it.
+30:31
+What I mean by that is, when transformers are trained, they have training sets and there can be
+30:38
+an entire spectrum of performance qualities in their training data. For example, there could be some kind of a prompt
+30:43
+for some physics question or something like that, and there could be a student's solution that is completely wrong but there can also be an expert
+30:49
+answer that is extremely right. Transformers can't tell the difference between low,
+30:54
+they know about low-quality solutions and high-quality solutions, but by default, they want to imitate all of
+30:59
+it because they're just trained on language modeling. At test time, you actually have to ask for a good performance.
+31:06
+In this example in this paper, they tried various prompts. Let's think step-by-step was very powerful
+31:13
+because it spread out the reasoning over many tokens. But what worked even better is, let's work this out in a step-by-step way
+31:19
+to be sure we have the right answer. It's like conditioning on getting the right answer, and this actually makes the transformer work
+31:25
+better because the transformer doesn't have to now hedge its probability mass on low-quality solutions,
+31:31
+as ridiculous as that sounds. Basically, feel free to ask for a strong solution.
+31:37
+Say something like, you are a leading expert on this topic. Pretend you have IQ 120, etc. But don't try to ask for too much IQ because if
+31:44
+you ask for IQ 400, you might be out of data distribution, or even worse, you could be in data distribution for
+31:51
+something like sci-fi stuff and it will start to take on some sci-fi, or like roleplaying or something like that.
+31:56
+You have to find the right amount of IQ. I think it's got some U-shaped curve there.
+32:02
+Next up, as we saw when we are trying to solve problems, we know what we are good at and what we're not good at,
+32:09
+and we lean on tools computationally. You want to do the same potentially with your LLMs.
+Tool use / Plugins
+32:15
+In particular, we may want to give them calculators, code interpreters,
+32:20
+and so on, the ability to do search, and there's a lot of techniques for doing that.
+32:27
+One thing to keep in mind, again, is that these transformers by default may not know what they don't know.
+32:32
+You may even want to tell the transformer in a prompt you are not very good at mental arithmetic. Whenever you need to do very large number addition,
+32:40
+multiplication, or whatever, instead, use this calculator. Here's how you use the calculator, you use this token combination, etc.
+32:46
+You have to actually spell it out because the model by default doesn't know what it's good at or not good at, necessarily, just like you and I might be.
+32:54
+Next up, I think something that is very interesting is we went from a world that was retrieval only all the way,
+33:02
+the pendulum has swung to the other extreme where its memory only in LLMs. But actually, there's this entire space in-between of
+33:08
+these retrieval-augmented models and this works extremely well in practice. As I mentioned, the context window of
+33:14
+a transformer is its working memory. If you can load the working memory with any information that is relevant to the task,
+33:21
+the model will work extremely well because it can immediately access all that memory. I think a lot of people are really interested
+33:28
+in basically retrieval-augment degeneration. On the bottom, I have an example of LlamaIndex which is
+33:35
+one data connector to lots of different types of data. You can index all
+33:41
+of that data and you can make it accessible to LLMs. The emerging recipe there is you take relevant documents,
+33:47
+you split them up into chunks, you embed all of them, and you basically get embedding vectors that represent that data.
+33:53
+You store that in the vector store and then at test time, you make some kind of a query to your vector store and you fetch chunks that
+34:00
+might be relevant to your task and you stuff them into the prompt and then you generate. This can work quite well in practice.
+34:06
+This is, I think, similar to when you and I solve problems. You can do everything from your memory and
+34:11
+transformers have very large and extensive memory, but also it really helps to reference some primary documents.
+34:17
+Whenever you find yourself going back to a textbook to find something, or whenever you find yourself going back to documentation of the library to look something up,
+34:25
+transformers definitely want to do that too. You have some memory over how
+34:30
+some documentation of the library works but it's much better to look it up. The same applies here.
+34:35
+Next, I wanted to briefly talk about constraint prompting. I also find this very interesting.
+34:41
+This is basically techniques for forcing a certain template in the outputs of LLMs.
+34:50
+Guidance is one example from Microsoft actually. Here we are enforcing that the output from the LLM will be JSON.
+34:57
+This will actually guarantee that the output will take on this form because they go in and they mess with the probabilities of
+35:03
+all the different tokens that come out of the transformer and they clamp those tokens and then the transformer is only filling in the blanks here,
+35:09
+and then you can enforce additional restrictions on what could go into those blanks. This might be really helpful, and I think
+35:15
+this constraint sampling is also extremely interesting. I also want to say
+35:20
+a few words about fine tuning. It is the case that you can get really far with prompt engineering, but it's also possible to
+35:27
+think about fine tuning your models. Now, fine tuning models means that you are actually going to change the weights of the model.
+35:33
+It is becoming a lot more accessible to do this in practice, and that's because of a number of techniques that have been
+35:39
+developed and have libraries for very recently. So for example parameter efficient fine tuning techniques like Laura,
+35:46
+make sure that you're only training small, sparse pieces of your model. So most of the model is kept clamped at
+35:53
+the base model and some pieces of it are allowed to change and this still works pretty well empirically and makes
+35:58
+it much cheaper to tune only small pieces of your model. It also means that because most of your model is clamped,
+36:05
+you can use very low precision inference for computing those parts because you are not going to be updated by
+36:10
+gradient descent and so that makes everything a lot more efficient as well. And in addition, we have a number of open source, high-quality base models.
+36:17
+Currently, as I mentioned, I think LLaMa is quite nice, although it is not commercially licensed, I believe right now.
+36:23
+Some things to keep in mind is that basically fine tuning is a lot more technically involved.
+36:29
+It requires a lot more, I think, technical expertise to do right. It requires human data contractors for
+36:34
+datasets and/or synthetic data pipelines that can be pretty complicated. This will definitely slow down
+36:40
+your iteration cycle by a lot, and I would say on a high level SFT is achievable because you're continuing
+36:47
+the language modeling task. It's relatively straightforward, but RLHF, I would say is very much research territory
+36:53
+and is even much harder to get to work, and so I would probably not advise that someone just tries to roll their own RLHF of implementation.
+37:00
+These things are pretty unstable, very difficult to train, not something that is, I think, very beginner friendly right now,
+37:06
+and it's also potentially likely also to change pretty rapidly still.
+37:11
+So I think these are my default recommendations right now. I would break up your task into two major parts.
+Default recommendations
+37:18
+Number 1, achieve your top performance, and Number 2, optimize your performance in that order.
+37:23
+Number 1, the best performance will currently come from GPT-4 model. It is the most capable of all by far.
+37:29
+Use prompts that are very detailed. They have lots of task content, relevant information and instructions.
+37:36
+Think along the lines of what would you tell a task contractor if they can't email you back, but then also keep in mind that a task contractor is a
+37:43
+human and they have inner monologue and they're very clever, etc. LLMs do not possess those qualities.
+37:48
+So make sure to think through the psychology of the LLM almost and cater prompts to that.
+37:54
+Retrieve and add any relevant context and information to these prompts. Basically refer to a lot of
+38:01
+the prompt engineering techniques. Some of them I've highlighted in the slides above, but also this is a very large space and I would
+38:07
+just advise you to look for prompt engineering techniques online. There's a lot to cover there.
+38:13
+Experiment with few-shot examples. What this refers to is, you don't just want to tell, you want to show whenever it's possible.
+38:19
+So give it examples of everything that helps it really understand what you mean if you can.
+38:25
+Experiment with tools and plug-ins to offload tasks that are difficult for LLMs natively,
+38:30
+and then think about not just a single prompt and answer, think about potential chains and reflection and how you glue
+38:36
+them together and how you can potentially make multiple samples and so on. Finally, if you think you've squeezed
+38:42
+out prompt engineering, which I think you should stick with for a while, look at some potentially
+38:48
+fine tuning a model to your application, but expect this to be a lot more slower in the vault and then
+38:54
+there's an expert fragile research zone here and I would say that is RLHF, which currently does work a bit
+39:00
+better than SFT if you can get it to work. But again, this is pretty involved, I would say. And to optimize your costs,
+39:06
+try to explore lower capacity models or shorter prompts and so on.
+39:12
+I also wanted to say a few words about the use cases in which I think LLMs are currently well suited for.
+39:18
+In particular, note that there's a large number of limitations to LLMs today, and so I would keep that
+39:24
+definitely in mind for all of your applications. Models, and this by the way could be an entire talk. So I don't have time to cover it in full detail.
+39:30
+Models may be biased, they may fabricate, hallucinate information, they may have reasoning errors, they may struggle in entire classes of applications,
+39:38
+they have knowledge cut-offs, so they might not know any information above, say, September, 2021.
+39:43
+They are susceptible to a large range of attacks which are coming out on Twitter daily,
+39:48
+including prompt injection, jailbreak attacks, data poisoning attacks and so on. So my recommendation right now is
+39:54
+use LLMs in low-stakes applications. Combine them always with human oversight.
+40:00
+Use them as a source of inspiration and suggestions and think co-pilots, instead of completely autonomous agents
+40:05
+that are just like performing a task somewhere. It's just not clear that the models are there right now.
+40:11
+So I wanted to close by saying that GPT-4 is an amazing artifact. I'm very thankful that it exists, and it's beautiful.
+40:18
+It has a ton of knowledge across so many areas. It can do math, code and so on. And in addition, there's this
+40:24
+thriving ecosystem of everything else that is being built and incorporated into the ecosystem. Some of these things I've talked about,
+40:31
+and all of this power is accessible at your fingertips. So here's everything that's needed in terms of
+40:37
+code to ask GPT-4 a question, to prompt it, and get a response. In this case, I said,
+40:44
+can you say something to inspire the audience of Microsoft Build 2023? And I just punched this into Python and verbatim
+40:50
+GPT-4 said the following: And by the way, I did not know that they
+40:55
+used this trick in the keynote. So I thought I was being clever, but it is really good at this.
+41:02
+It says, ladies and gentlemen, innovators and trailblazers Microsoft Build 2023. Welcome to the gathering of brilliant
+41:08
+minds like no other, you are the architects of the future, the visionaries molding the digital realm
+41:13
+in which humanity thrives. Embrace the limitless possibilities of technologies and let your ideas soar as high as your imagination.
+41:20
+Together, let's create a more connected, remarkable, and inclusive world for generations to come. Get ready to unleash your creativity,
+41:27
+canvas the unknown, and turn dreams into reality. Your journey begins today!

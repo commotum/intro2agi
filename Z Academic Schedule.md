@@ -67,9 +67,9 @@
 - [X] 🟩 Post-lecture Quiz: Structs (5 points - Tuesday 01/28)
 - [X] 🟩 Post-lecture Quiz: File I/O (5 points - Tuesday 01/28)
 - [X] 🟩 Lab 4 (10 points - Tuesday 01/28)
-- [ ] 🟥 RQ 1.4 Reading Quiz (10 points - Due Thursday 01/28)
+- [X] 🟥 RQ 1.4 Reading Quiz (10 points - Due Thursday 01/28)
 - [ ] 🟥 Lecture and Reading Notes 1.4 (Due Thursday 01/28)
-- [ ] 🟥 RQ 1.5 Reading Quiz (10 points - Due Thursday 01/30)
+- [X] 🟥 RQ 1.5 Reading Quiz (10 points - Due Thursday 01/30)
 - [ ] 🟥 Lecture and Reading Notes 1.5 (Due Thursday 01/30)
 - [X] 🟥 Achieve 1.3 The Fundamental Theorem of Calculus (100 points - Due Thursday 01/30)
 - [ ] 🟥 R4 Recitation Activity (10 points - Due Thursday 01/30)
@@ -82,7 +82,8 @@
 - [ ] 🟧 5h53 Total
 
 ### Week 5 (Sunday 02/02 - Saturday 02/08)
-- [ ] 🟥 RQ 1.6 Reading Quiz (10 points - Due Sunday 02/02)
+- [X] 🟥 RQ 1.6 Reading Quiz (10 points - Due Sunday 02/02)
+- [ ] 🟥 Lecture and Reading Notes 1.6 (10 points - Due Sunday 02/02)
 - [X] 🟥 Reflection 2 (100 points - Due Monday 02/03)
 - [X] 🟥 Achieve 4.10 Antiderivatives (100 points - Due Monday 02/03)
 - [X] 🟥 Achieve 1.4 Integration Formulas and Net Change Theorem (100 points - Due Monday 02/03)
@@ -119,21 +120,21 @@
         - [X] 🟧 Enable caching headers (Due Tuesday 02/04)
         - [X] 🟧 Optimize bundle size (Due Tuesday 02/04)
         - [X] 🟧 Implement lazy loading (Due Tuesday 02/04)
-- [ ] 🟥 Achieve 1.5 Substitution (100 points - Due Thursday 02/06)
+- [X] 🟥 Achieve 1.5 Substitution (100 points - Due Thursday 02/06)
 - [ ] 🟥 R5 Recitation Activity (10 points - Due Thursday 02/06)
 - [X] 🟩 Midterm (100 points - Tuesday 02/04)
 - [X] 🟥 Mini-Exam 2 During Lecture (50 points - Friday 02/07)
 - [ ] 🟧 [Let's Build GPT: From Scratch, in Code, Spelled Out](https://www.youtube.com/watch?v=kCc8FmEb1nY&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=7) (01:56:20 - Due Saturday 02/08)
 - [ ] 🟧 [State of GPT](https://www.youtube.com/watch?v=bZQun8Y4L2A&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=8) (00:42:40 - Due Saturday 02/08)
 - [ ] 🟧 [Let's Build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=9) (02:13:35 - Due Saturday 02/08)
-- [ ] 🟧 [Deep Dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) (03:31:23 - Due Saturday 02/08)
+- [X] 🟧 [Deep Dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) (03:31:23 - Due Saturday 02/08)
 - [ ] 🟧 8h24 Total
 
 ### Week 6 (Sunday 02/09 - Saturday 02/15)
-- [ ] 🟥 RQ 3.1 Reading Quiz (10 points - Due Sunday 02/09)
+- [X] 🟥 RQ 3.1 Reading Quiz (10 points - Due Sunday 02/09)
 - [ ] 🟥 Lecture and Reading Notes 3.1 (Due Sunday 02/09)
 - [ ] 🟥 Achieve 1.6 Integrals with Exponential and Logarithmic Functions (100 points - Due Monday 02/10)
-- [ ] 🟥 DR5 Discussion on Exam (15 points - Due Monday 02/10)
+- [X] 🟥 DR5 Discussion on Exam (15 points - Due Monday 02/10)
 - [ ] 🟩 Design Quiz 3: Pokemon Battle Multiple-Choice (10 points - Monday 02/10)
 - [ ] 🟩 Design Quiz 3: Pokemon Battle Open-Answer (10 points - Monday 02/10)
 - [ ] 🟥 RQ 3.2 Reading Quiz (10 points - Due Tuesday 02/11)
@@ -145,9 +146,10 @@
 - [ ] 🟥 WHW4 Written Homework (20 points - Due Thursday 02/13)
 - [ ] 🟩 Post-lecture Quiz: The Big Three (5 points - Thursday 02/13)
 - [ ] 🟧 [Let's Reproduce GPT-2 (124M)](https://www.youtube.com/watch?v=l8pRSuU81PU&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=10) (04:21:06 - Due Saturday 02/15)
+- [ ] 🟧 4h21 Total
 - [ ] 🟩 Post-lecture Quiz: Inheritance (Part 1) (5 points - Saturday 02/15)
 - [ ] 🟩 Post-lecture Quiz: Inheritance (Part 2) (5 points - Saturday 02/15)
-- [ ] 🟧 4h21 Total
+
 
 ### Week 7 (Sunday 02/16 - Saturday 02/22)
 - [ ] 🟥 RQ 3.3 Reading Quiz (10 points - Due Sunday 02/16)
