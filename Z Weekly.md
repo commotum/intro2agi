@@ -1,7 +1,7 @@
 - [ ] ⬛ 🟧 Read "A Neural Probabilistic Language Model" by Bengio et al. (2003) (Due Saturday 01/25)
 - [ ] ⬛ 🟧 Complete [Makemore Exercises](../../01%20-%20Lecture%20Series/03/exercises.md) (Due Saturday 01/25)
 
-- [ ] ⬛ 🟥 Lecture and Reading Notes 1.4 (Due Thursday 01/28)
+- [ ] ⬛ 🟥 Lecture and Reading Notes 1.4 (Due Tuesday 01/28)
 
 - [ ] ⬛ 🟥 Lecture and Reading Notes 1.5 (Due Thursday 01/30)
 - [ ] ⬛ 🟥 R4 Recitation Activity (10 points - Due Thursday 01/30)
