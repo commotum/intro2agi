@@ -148,3 +148,11 @@ The key difference from your description is:
 - Characters end up close to each other as a side effect of being used in similar ways, not because we're explicitly trying to make them close
 
 The embeddings become meaningful because characters that serve similar functions in names (like vowels) need similar representations to help the network make accurate predictions about what comes next.
+
+
+
+Let’s pretend you have a huge dictionary with about 291,500 different words. If you try to build a simple table that stores the probability of every possible 10‑word combination from that dictionary, you’d need one “parameter” (a single number) for each combination. That’s 291,500^10 different possibilities—a number so big it’s roughly 10^55 (a 1 with 55 zeros).
+
+When we talk about “parameters” in a model, we mean the knobs the model can adjust to learn from data. If you had to keep a separate knob for every single 10‑word combination, you’d need 10^55 knobs! This is obviously unmanageably huge—way bigger than the entire 20‑volume Oxford English Dictionary (which only has about 291,500 entries, not 10^55).
+
+That’s why language modeling is hard if you try to store everything in a giant table. Models like neural networks instead learn patterns (like “cat” and “dog” being semantically related) so they don’t have to memorize every possible combination—this lets them get away with a far smaller (but still large) number of parameters.

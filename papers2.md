@@ -7,9 +7,8 @@ This paper presents a method for improving language model alignment with human i
 > _"Fine-tuning with human feedback significantly improves the ability of language models to follow instructions, reducing toxicity and hallucination while enhancing truthfulness."_
 > _"Even though InstructGPT is 100x smaller than GPT-3, human evaluators still preferred its responses."_
 ---
-
 ### **2. Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity**
-**By** William Fedus, Barret Zoph, Noam Shazeer  
+**By** William Fedus, Barret Zoph, Noam Shazeer
 **Date** April 2022
 #### **Summary**
 This paper introduces Switch Transformers, a scalable mixture-of-experts (MoE) model that reduces computation while increasing model size. By activating only a subset of model parameters per input, Switch Transformers achieve state-of-the-art performance across multiple NLP benchmarks while maintaining constant computational cost. The model outperforms dense transformers like T5, offering up to 7x faster pre-training and 4x speedup over the largest T5 models. Key contributions include improvements in MoE routing, training stability with lower precision, and applications in multilingual settings. The study highlights MoE as a promising approach for scaling deep learning models efficiently.
@@ -17,7 +16,6 @@ This paper introduces Switch Transformers, a scalable mixture-of-experts (MoE) m
 > _"Sparse activation allows us to scale to trillion-parameter models while maintaining constant computational cost."_
 > _"Switch Transformers achieve a 7x increase in pre-training speed with the same computational resources, outperforming dense transformers in efficiency and scalability."_
 ---
-
 ### **3. DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning**
 **By** DeepSeek-AI  
 **Date** January 22, 2025
@@ -27,7 +25,6 @@ DeepSeek-R1 explores reinforcement learning (RL) as a method to enhance reasonin
 > _"By leveraging reinforcement learning without supervised fine-tuning, DeepSeek-R1-Zero naturally discovers reasoning capabilities."_
 > _"Our model achieves performance on par with OpenAI-o1-1217 while maintaining efficiency, demonstrating the power of pure reinforcement learning in reasoning tasks."_
 ---
-
 ### **4. Those Who Understand: Knowledge Growth in Teaching**
 **By** Lee S. Shulman  
 **Date** February 1986
@@ -37,7 +34,6 @@ Shulman critiques the historical underestimation of teacher knowledge and propos
 > _"Teaching is not simply the transmission of knowledge, but the development of a deep conceptual understanding that allows students to think in new ways."_
 > _"Teachers must possess both subject matter expertise and pedagogical skill to transform knowledge in ways that are meaningful to learners."_
 ---
-
 ### **5. Signature Pedagogies in the Professions**
 **By** Lee S. Shulman  
 **Date** Summer 2005
@@ -47,7 +43,6 @@ Shulman examines how different professions develop distinctive teaching methods�
 > _"Signature pedagogies define the fundamental ways in which future practitioners are educated in their disciplines—each profession has its own pedagogical fingerprint."_
 > _"In law, students learn to 'think like a lawyer'; in medicine, they learn to 'perform like a doctor.' These pedagogies are deeply ingrained and shape professional identity."_
 ---
-
 ### **6. Accommodation of a Scientific Conception: Toward a Theory of Conceptual Change**
 **By** George J. Posner, Kenneth A. Strike, Peter W. Hewson, William A. Gertzog  
 **Date** April 1982
@@ -57,7 +52,6 @@ This paper explores how students' existing knowledge structures interact with ne
 > _"Conceptual change is not merely the accumulation of new facts; it is a restructuring of prior knowledge to accommodate fundamentally new ways of thinking."_
 > _"Scientific misconceptions persist because they form stable conceptual frameworks that resist simple correction."_
 ---
-
 ### **7. NSF Ideas Lab: Personalized Engineering Learning (PEL) Program Solicitation**
 **By** National Science Foundation (NSF)  
 **Date** 2023
@@ -67,7 +61,6 @@ This NSF solicitation invites proposals for research on personalized engineering
 > _"The future of engineering education lies in adaptive, personalized learning systems that leverage AI and multimodal data to optimize instruction for individual students."_
 > _"This initiative seeks to develop the next generation of engineering pedagogy by integrating cognitive science, AI, and team-based learning models."_
 ---
-
 ### **8. The Atomic Components of Thought**
 **By** John R. Anderson, Christian Lebiere  
 **Date** 1998
@@ -77,7 +70,6 @@ This book introduces ACT-R, a cognitive architecture that models human thought p
 > _"Cognition emerges from modular components—atomic units of knowledge—that interact to produce intelligent behavior."_
 > _"ACT-R models can accurately simulate human problem-solving, skill acquisition, and decision-making by integrating symbolic and subsymbolic processing."_
 ---
-
 ### **9. Knowledge and Teaching: Foundations of the New Reform**
 **By** Lee S. Shulman  
 **Date** February 1987
@@ -87,7 +79,6 @@ Shulman argues for a reconceptualization of teaching as a profession that requir
 > _"Teaching requires a specialized form of knowledge that goes beyond subject mastery—it involves the ability to make content comprehensible to learners."_
 > _"Pedagogical content knowledge is the missing paradigm in teacher education, connecting subject expertise with effective instruction."_
 ---
-
 ### **10. ACT-R: A Theory of Higher-Level Cognition and Its Relation to Visual Attention**
 **By** John R. Anderson et al.  
 **Date** Unknown
@@ -97,7 +88,6 @@ ACT-R is a cognitive architecture that models human thought and behavior, partic
 > _"ACT-R provides a unified theory of cognition that explains how perception, memory, and decision-making interact in real-world tasks."_
 > _"By modeling human attention, ACT-R predicts how people allocate cognitive resources in complex environments."_
 ---
-
 ### **11. The Emergence of Understanding in a Computer Model of Concepts and Analogy-Making**
 **By** Melanie Mitchell, Douglas R. Hofstadter  
 **Date** 1990
@@ -107,7 +97,6 @@ This paper introduces **Copycat**, a computational model designed to simulate hu
 > _"Analogy-making emerges from a network of perceptual agents that dynamically interact, forming fluid and adaptable mental representations."_
 > _"Copycat demonstrates that high-level perception is not rule-based but arises from the interaction of simple, competing cognitive processes."_
 ---
-
 ### **12. Knowledge Visualization: A New Framework for Interactive Graphic Interface Design**
 **By** Fanya S. Montalvo  
 **Date** 1992
@@ -117,7 +106,6 @@ This paper presents a **taxonomy-based framework** for designing **interactive g
 > _"Diagrams communicate massive amounts of information at a glance, simplifying complex domains into intuitive representations."_
 > _"A structured approach to knowledge visualization enhances human-computer interaction, making systems more accessible and interpretable."_
 ---
-
 ### **13. Mimicking Thought**
 **By** Earl Hunt  
 **Date** 1968
@@ -127,7 +115,6 @@ Earl Hunt explores how **computational simulations** can model human **thinking 
 > _"A computer simulation of thought is not about replicating human physiology but about replicating human-like behavior."_
 > _"If a system can generate the same output from the same input as a human would, then we have a working theory of cognition."_
 ---
-
 ### **14. The Conditions of Conceptual Change in the Classroom**
 **By** Peter W. Hewson, N. Richard Thorley  
 **Date** 1989
@@ -142,7 +129,6 @@ The study examines how teachers can **facilitate these conditions** in the class
 > _"For conceptual change to occur, students must find the new idea intelligible, plausible, and fruitful."_
 > _"Dissatisfaction with prior conceptions is essential—students will not change their beliefs unless they see them as inadequate."_
 ---
-
 ### **15. Conceptual Change and Science Teaching**
 **By** Kenneth A. Strike, George J. Posner  
 **Date** 1982
@@ -152,7 +138,6 @@ Strike and Posner explore how **scientific learning parallels scientific revolut
 > _"Learning science is not just about acquiring facts—it requires a transformation of conceptual frameworks."_
 > _"Effective science teaching must account for how students' prior beliefs shape their learning process."_
 ---
-
 ### **16. STaR: Self-Taught Reasoner – Bootstrapping Reasoning With Reasoning**
 **By** Eric Zelikman, Yuhuai Wu, Jesse Mu, Noah D. Goodman  
 **Date** 2022
@@ -166,7 +151,6 @@ STaR achieves significant **performance gains** on reasoning benchmarks like **C
 > _"By iteratively generating rationales and learning from them, STaR enables language models to self-improve their reasoning abilities."_
 > _"STaR demonstrates that bootstrapped self-training can be as effective as scaling model size for enhancing reasoning skills."_
 ---
-
 ### **17. An Integrated Theory of the Mind**
 **By** John R. Anderson, Daniel Bothell, Michael D. Byrne, et al.  
 **Date** 2004
@@ -176,7 +160,6 @@ This paper advances **ACT-R (Adaptive Control of Thought-Rational)** as a compre
 > _"Cognition is an integrated system of modular processes—perception, memory, and decision-making work together to produce intelligent behavior."_
 > _"ACT-R 5.0 models brain function at a detailed level, providing insights into human cognition and learning."_
 ---
-
 ### **18. The Role of Examples and Rules in the Acquisition of a Cognitive Skill**
 **By** John R. Anderson, Jon M. Fincham, Scott Douglass  
 **Date** 1997
@@ -189,7 +172,6 @@ Through **controlled experiments**, the authors find that skill learning involve
 > _"Skill learning is a dynamic process that involves both examples and rules—examples provide intuition, while rules enable generalization."_
 > _"Expertise emerges when learners transition from relying on examples to applying abstract rules efficiently."_
 ---
-
 ### **19. Examining Pedagogical Content Knowledge**
 **Edited By** Julie Gess-Newsome, Norman G. Lederman  
 **Date** 1999
@@ -203,7 +185,6 @@ The research highlights how **effective teaching requires not just knowledge of 
 > _"Effective teaching requires knowledge that bridges subject expertise and instructional strategies—this is the essence of pedagogical content knowledge (PCK)."_
 > _"Teachers who integrate content and pedagogy more effectively produce deeper student understanding."_
 ---
-
 ### **20. The 2 Sigma Problem: The Search for Methods of Group Instruction as Effective as One-to-One Tutoring**
 **By** Benjamin S. Bloom  
 **Date** June-July 1984
@@ -213,7 +194,6 @@ Bloom identifies the "2 Sigma Problem," showing that **students who receive one-
 > _"One-to-one tutoring produces learning gains two standard deviations above conventional classroom instruction—meaning that tutored students outperform 98% of classroom learners."_
 > _"The challenge is to develop alternative instructional methods that replicate the effectiveness of tutoring at scale."_
 ---
-
 ### **21. High-Level Perception, Representation, and Analogy: A Critique of Artificial Intelligence Methodology**
 **By** David J. Chalmers  
 **Date** 1992
@@ -223,7 +203,6 @@ Chalmers critiques AI methodologies for failing to adequately address **high-lev
 > _"Traditional AI struggles with analogy-making because it relies too heavily on rigid symbolic structures instead of fluid, context-sensitive representations."_
 > _"Understanding human intelligence requires more than just scaling up models—it demands integrating richer, more adaptable cognitive structures."_
 ---
-
 ### **22. Textbooks Are All You Need**
 **By** Suriya Gunasekar, Yi Zhang, Jyoti Aneja, et al. (Microsoft Research)  
 **Date** 2023
@@ -233,7 +212,6 @@ This paper introduces **phi-1**, a **1.3B parameter LLM** trained on **"textbook
 > _"Instead of relying on vast quantities of internet data, a small model trained on carefully curated 'textbook-quality' data can match or even exceed larger models in specialized tasks."_
 > _"The efficiency of learning is not just about model size but also about data quality—structured training can yield disproportionately better results."_
 ---
-
 ### **23. Textbooks Are All You Need II: phi-1.5 Technical Report**
 **By** Yuanzhi Li, Sébastien Bubeck, Ronen Eldan, et al. (Microsoft Research)  
 **Date** September 2023
@@ -243,7 +221,6 @@ Building on the original **phi-1 model**, phi-1.5 is a **1.3B parameter LLM** tr
 > _"Phi-1.5, a 1.3B parameter model, achieves reasoning performance comparable to models 5× its size, demonstrating that 'textbook data' can significantly boost efficiency."_
 > _"Filtered web data and synthetic textbook-like training improve model safety, reducing hallucinations while maintaining strong problem-solving capabilities."_
 ---
-
 ### **24. Let's Verify Step by Step**
 **By** Hunter Lightman, Vineet Kosaraju, Yura Burda, et al. (OpenAI)  
 **Date** May 2023
@@ -253,7 +230,6 @@ This paper investigates **process supervision vs. outcome supervision** in train
 > _"Process supervision—providing feedback on each reasoning step—significantly improves AI accuracy over outcome supervision, which only evaluates final answers."_
 > _"By systematically verifying steps, we enable AI to self-correct and reduce reasoning errors, leading to stronger mathematical and logical performance."_
 ---
-
 ### **25. Training Verifiers to Solve Math Word Problems**
 **By** Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, et al. (OpenAI)  
 **Date** 2021
@@ -263,7 +239,6 @@ This paper introduces **GSM8K**, a dataset of **8.5K high-quality grade school m
 > _"Verifiers can evaluate AI-generated solutions and select the best one, improving problem-solving accuracy without requiring larger models."_
 > _"Verification outperforms naive scaling—an approach that requires 30× more parameters to achieve the same gains."_
 ---
-
 ### **26. Emergent Tool Use from Multi-Agent Autocurricula**
 **By** Bowen Baker, Ingmar Kanitscheider, Todor Markov, et al. (OpenAI)  
 **Date** 2020
@@ -273,7 +248,6 @@ Through **multi-agent reinforcement learning**, this study shows how **agents sp
 > _"Through multi-agent self-play, AI agents discovered increasingly sophisticated strategies, including tool use, fort construction, and deception—none of which were explicitly programmed."_
 > _"Competition-based learning generates human-relevant skills more effectively than intrinsic motivation alone, enabling open-ended intelligence."_
 ---
-
 ### **27. Interpretable and Pedagogical Examples**
 **By** Smitha Milli, Pieter Abbeel, Igor Mordatch  
 **Date** 2018

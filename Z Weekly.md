@@ -1,8 +1,6 @@
 - [ ] ⬛ 🟧 Read "A Neural Probabilistic Language Model" by Bengio et al. (2003) (Due Saturday 01/25)
 - [ ] ⬛ 🟧 Complete [Makemore Exercises](../../01%20-%20Lecture%20Series/03/exercises.md) (Due Saturday 01/25)
 
-- [ ] ⬛ 🟥 Lecture and Reading Notes 1.4 (Due Tuesday 01/28)
-
 - [ ] ⬛ 🟥 Lecture and Reading Notes 1.5 (Due Thursday 01/30)
 - [ ] ⬛ 🟥 R4 Recitation Activity (10 points - Due Thursday 01/30)
 - [ ] ⬛ 🟥 WHW3 Written Homework (20 points - Due Thursday 01/30)
@@ -34,11 +32,9 @@
 - [ ] ⬛ 🟩 Post-lecture Quiz: Constructors and Destructors (5 points - Tuesday 02/11)
 - [ ] ⬛ 🟩 Lab 6 (10 points - Tuesday 02/11)
 
-🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
-
 - [ ] ⬜ 🟥 Achieve 3.1 Integration by Parts (100 points - Due Thursday 02/13)
 - [ ] ⬜ 🟥 R6 Recitation Activity (10 points - Due Thursday 02/13)
-- [ ] ⬜ 🟥 WHW4 Written Homework (20 points - Due Thursday 02/13)
+- [X] ⬜ 🟥 WHW4 Written Homework (20 points - Due Thursday 02/13)
 - [ ] ⬜ 🟩 Post-lecture Quiz: The Big Three (5 points - Thursday 02/13)
 
 - [ ] ⬛ 🟧 [Let's Reproduce GPT-2 (124M)](https://www.youtube.com/watch?v=l8pRSuU81PU&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=10) (04:21:06 - Due Saturday 02/15)
@@ -46,6 +42,7 @@
 - [ ] ⬜ 🟩 Post-lecture Quiz: Inheritance (Part 1) (5 points - Saturday 02/15)
 - [ ] ⬜ 🟩 Post-lecture Quiz: Inheritance (Part 2) (5 points - Saturday 02/15)
 
+🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 
 ### Week 7 (Sunday 02/16 - Saturday 02/22)
 - [ ] ⬜ 🟥 RQ 3.3 Reading Quiz (10 points - Due Sunday 02/16)

@@ -231,6 +231,5 @@ This approach scaffolds the student’s learning through:
 - **Reinforcement questions** to solidify the concept.
 - **Retest questions** to confirm understanding.
 
-Would you like to try another example to reinforce this skill?
 
 
