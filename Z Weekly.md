@@ -1,70 +1,83 @@
-### Week 3 (Sunday 01/19 - Saturday 01/25)
-- [X] 🟧 [Building Makemore Part 2: MLP](https://www.youtube.com/watch?v=TCH_1BHY58I&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=3) (01:15:40 - Due Saturday 01/25)
-    - [ ] 🟧 Read "A Neural Probabilistic Language Model" by Bengio et al. (2003) (Due Saturday 01/25)
-    - [ ] 🟧 Complete [Makemore Exercises](../../01%20-%20Lecture%20Series/03/exercises.md) (Due Saturday 01/25)
-
-### Week 4 (Sunday 01/26 - Saturday 02/01)
-- [ ] 🟥 Lecture and Reading Notes 1.5 (Due Thursday 01/30)
-- [ ] 🟥 R4 Recitation Activity (10 points - Due Thursday 01/30)
-- [ ] 🟥 WHW3 Written Homework (20 points - Due Thursday 01/30)
-- [ ] 🟧 [Building Makemore Part 3: Activations & Gradients, BatchNorm](https://www.youtube.com/watch?v=P6sfmUTpUmc&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=4) (01:55:58 - Due Saturday 02/01)
-- [ ] 🟧 [Building Makemore Part 4: Becoming a Backprop Ninja](https://www.youtube.com/watch?v=q8SA3rM6ckI&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=5) (01:55:24 - Due Saturday 02/01)
-- [ ] 🟧 [Building Makemore Part 5: Building a WaveNet](https://www.youtube.com/watch?v=t3YJ5hKiMQ0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=6) (00:56:22 - Due Saturday 02/01)
+	╔════╦════╦════╦════╦════╦════╦════╗
+	║ XX ║ XX ║ XX ║ XX ║ XX ║ XX ║ 01 ║
+	╠════╬════╬════╬════╬════╬════╬════╣
+	║ 02 ║ 03 ║ 04 ║ 05 ║ 06 ║ 07 ║ 08 ║
+	╠════╬════╬════╬════╬════╬════╬════╣
+	║ 09 ║ 10 ║ 11 ║ 12 ║ 13 ║ 14 ║ 15 ║
+	╠════╬════╬════╬════╬════╬════╬════╣
+	║ 16 ║ 17 ║ 18 ║ 19 ║ 20 ║ 21 ║ 22 ║
+	╚════╩════╩════╩════╩════╩════╩════╝
 
 
-### Week 5 (Sunday 02/02 - Saturday 02/08)
-- [ ] 🟥 Lecture and Reading Notes 1.6 (10 points - Due Sunday 02/02)
-- [ ] 🟥 R5 Recitation Activity (10 points - Due Thursday 02/06)
-- [ ] 🟧 [Let's Build GPT: From Scratch, in Code, Spelled Out](https://www.youtube.com/watch?v=kCc8FmEb1nY&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=7) (01:56:20 - Due Saturday 02/08)
-- [ ] 🟧 [State of GPT](https://www.youtube.com/watch?v=bZQun8Y4L2A&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=8) (00:42:40 - Due Saturday 02/08)
-- [ ] 🟧 [Let's Build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=9) (02:13:35 - Due Saturday 02/08)
+## Week 8 (Sunday 02/23 - Saturday 03/01)
 
-### Week 6 (Sunday 02/09 - Saturday 02/15)
-- [ ] 🟥 Lecture and Reading Notes 3.1 (Due Sunday 02/09)
-- [ ] 🟥 Lecture and Reading Notes 3.2 (Due Tuesday 02/11)
-- [ ] 🟩 Lab 6 (10 points - Tuesday 02/11)
-- [ ] 🟥 Achieve 3.1 Integration by Parts (100 points - Due Thursday 02/13)
-- [ ] 🟧 [Let's Reproduce GPT-2 (124M)](https://www.youtube.com/watch?v=l8pRSuU81PU&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=10) (04:21:06 - Due Saturday 02/15)
+#### Friday 02/28
 
-### Week 7 (Sunday 02/16 - Saturday 02/22)
+
+#### Saturday 03/01
 - [ ] 🟥 Achieve 3.2 Trigonometric Integrals (100 points - Due Monday 02/17)
-- [ ] 🟩 Lab 7 (10 points - Tuesday 02/18)
-- [ ] 🟥 Achieve 3.3 Trigonometric Substitution (100 points - Due Wednesday 02/19)
-- [ ] 🟥 R7 Recitation Activity (10 points - Due Thursday 02/20)
-- [X] 🟥 Mini-Exam 3 During Lecture (50 points - Friday 02/21)
-
-### Week 8 (Sunday 02/23 - Saturday 03/01)
-- [ ] 🟥 RQ 2.1 Reading Quiz (10 points - Due Sunday 02/23)
-- [ ] 🟥 Lecture and Reading Notes 2.1 (Due Sunday 02/23)
+- [-] 🟥 Lecture and Reading Notes 3.3 (Due Sunday 02/16)
+- [ ] 🟥 Achieve 3.3 Trigonometric Substitution (100 points - Due Thursday 2/20)
+- [ ] 🟥 Lecture and Reading Notes 3.4 (Due Tuesday 02/18)
 - [ ] 🟥 Achieve 3.4 Partial Fractions (100 points - Due Monday 02/24)
-- [ ] 🟥 Reflection 3 (100 points - Due Monday 02/24)
-- [ ] 🟥 DR7 Discussion on Exam (15 points - Due Monday 02/24)
-- [ ] 🟩 Design Quiz 4: Hunt the Wumpus (Multiple-Choice) (10 points - Due Monday 02/24)
-- [ ] 🟩 Design Quiz 4: Hunt the Wumpus (Open-Answer) (10 points - Due Monday 02/24)
-- [ ] 🟥 RQ 2.2 Reading Quiz (10 points - Due Tuesday 02/25)
-- [ ] 🟥 Lecture and Reading Notes 2.2 (Due Tuesday 02/25)
-- [ ] 🟩 Post-lecture Quiz: Vectors (5 points - Due Tuesday 02/25)
-- [ ] 🟩 Lab 8 (10 points - Tuesday 02/25)
-- [ ] 🟩 Post-lecture Quiz: Templates and the STL (5 points - Due Thursday 02/27)
-- [ ] 🟥 Achieve 2.1 Areas between Curves (100 points - Due Thursday 02/27)
-- [ ] 🟥 R8 Recitation Activity (10 points - Due Thursday 02/27)
-- [ ] 🟥 WHW5 Written Homework (20 points - Due Thursday 02/27)
-- [ ] 🟥 RQ 2.3 Reading Quiz (10 points - Due Thursday 02/27)
-- [ ] 🟥 Lecture and Reading Notes 2.3 (Due Thursday 02/27)
-- [ ] 🟩 Post-lecture Quiz: Linked Lists (5 points - Due Saturday 03/01)
 
 
 ### Week 9 (Sunday 03/02 - Saturday 03/08)
-- [ ] 🟥 Achieve 2.2 Volumes by Slicing and Disc/Washer Method (100 points - Due Monday 03/03)
-- [ ] 🟥 DR8 Discussion on WHW (15 points - Due Monday 03/03)
+
+#### Sunday 03/02
+- [ ] 🟥 Lecture and Reading Notes 2.1 (Due Sunday 02/23)
+- [ ] 🟥 Achieve 2.1 Areas between Curves (100 points - Due Thursday 02/27)
+- [ ] 🟥 Lecture and Reading Notes 2.2 (Due Tuesday 02/25)
+- [ ] 🟥 R8 Recitation Activity (10 points - Due Thursday 02/27)
+- [-] 🟥 WHW5 Written Homework (20 points - Due Thursday 02/27)
+
+
+#### Monday 03/03
 - [ ] 🟩 Programming Assignment 4: Hunt the Wumpus (100 points - Due Monday 03/03)
+- [ ] 🟩 Post-lecture Quiz: Linked Lists (5 points - Due Tuesday 03/04)
+- [ ] 🟥 Achieve 2.2 Volumes by Slicing and Disc/Washer Method (100 points - Due Monday 03/03)
+- [ ] 🟥 Lecture and Reading Notes 2.3 (Due Thursday 02/27)
+- [ ] 🟥 DR8 Discussion on WHW (15 points - Due Monday 03/03)
+
+#### Tuesday 03/04
 - [ ] 🟥 RQ 2.4 Reading Quiz (10 points - Due Tuesday 03/04)
+
+
+#### Wednesday 03/05
+- [ ] 🟩 Post-lecture Quiz: Recursion (5 points - Due Thursday 03/06)
 - [ ] 🟥 Lecture and Reading Notes 2.4 (Due Tuesday 03/04)
-- [ ] 🟩 Lab 8 (10 points - Tuesday 03/04)
+
+
+
+#### Thursday 03/06
 - [ ] 🟥 Achieve 2.3 Volumes of Revolution: Cylindrical Shells (100 points - Due Thursday 03/06)
 - [ ] 🟥 R9 Recitation Activity (10 points - Due Thursday 03/06)
+- [ ] 🟥 Unit 4 Review (Friday 03/07)
+
+
+#### Friday 03/07
+- [ ] 🟥 Achieve 2.4 Arc Length of a Curve (100 points - Due Monday 03/10)
 - [ ] 🟥 Mini-Exam 4 During Lecture (50 points - Friday 03/07)
 
 
-🟥 🟧 🟨 🟩 🟦 🟪 🟫 ⬜
+#### Saturday 03/08
+- [ ] 🟩 Lab 9 (10 points - Due Tuesday 03/04)
+- [ ] 🟩 Post-lecture Quiz: Searching and Sorting (5 points - Due Saturday 03/08)
+
+
+- [-] 🟥 Lecture and Reading Notes 1.2 (Due Sunday 01/12)
+- [ ] 🟥 Unit 1 Review (Due Friday 01/24)
+- [ ] 🟥 R4 Recitation Activity (10 points - Due Thursday 01/30)
+- [-] 🟥 WHW3 Written Homework (20 points - Due Thursday 01/30)
+- [ ] 🟥 Lecture and Reading Notes 1.5 (Due Thursday 01/30)
+
+- [ ] 🟥 Lecture and Reading Notes 1.6 (Due Sunday 02/02)
+- [ ] 🟥 Lecture and Reading Notes 4.10 (Due Tuesday 02/04)
+- [ ] 🟥 R5 Recitation Activity (10 points - Due Thursday 02/06)
+
+- [-] 🟥 R7 Recitation Activity (10 points - Due Thursday 02/20)
+- [-] 🟥 Unit 3 Review (Due Friday 02/21)
+
+
+
 
