@@ -2,6 +2,8 @@
 ## The Psychology of Invention in the Mathematical Field
 ### By Jacques Hadamard
 
+---
+
 **PRINCETON UNIVERSITY PRESS**  
 PRINCETON, NEW JERSEY
 
@@ -29,7 +31,11 @@ Princeton University Press books are printed on acid-free paper and meet the gui
 Printed in the United States of America  
 3 5 7 9 10 8 6 4 2
 
+---
+
 *A la compagne de ma vie et de mon oeuvre.*
+
+---
 
 ## Contents
 
