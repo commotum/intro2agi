@@ -1,8 +1,6 @@
 # The Mathematician's Mind
-
 ## The Psychology of Invention in the Mathematical Field
-
-By Jacques Hadamard
+### By Jacques Hadamard
 
 **PRINCETON UNIVERSITY PRESS**  
 PRINCETON, NEW JERSEY
