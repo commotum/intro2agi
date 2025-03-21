@@ -55,746 +55,130 @@ FINAL REMARKS................................133
 APPENDIX I...................................137  
 APPENDIX II..................................142
 
+---
 
-PREFACE TO THE PAPERBACK EDITION
-THIS book is a small masterpiece. Its author, Jacques
-Hadamard (1865-1963), was a distinguished French math-
-ematician who in New York City during World War II turned
-his attention to the question of how mathematicians invent
-new ideas.1 He was inspired by some observations on math-
-ematical creation made by his illustrious predecessor Henri
-Poincare in Science and Methode. But Hadamard made his
-own introspections on the creative process and asked major
-scientists, mathematicians, and artists for their views as well.
-He reported some of their insights, including those of the lin-
-guist Roman Jakobson, the anthropologist Claude Levi-
-Strauss, and the mathematicians George Polya and Norbert
-Wiener. Perhaps his most famous informant, however, was
-Albert Einstein, who described his own thinking process. In
-a letter to Hadamard, Einstein wrote that words seemed to
-play no role in his mechanism of thought, which instead re-
-lied on "certain signs and more or less clear images" (see
-Appendix II).
-The basis for Hadamard's theorizing was the observation
-that mathematicians, and other creative individuals, often
-struggle unavailingly for some days on a problem, but subse-
-quently, whilst consciously engaged in another activity, the
-answer comes to mind in a sudden inspiration. Thus, Poincare
-told of a solution that popped into his head from out of no-
-where, just as he put his foot on the step of an omnibus from
-Coutances (see p. 13). Hadamard himself had a similar expe-
-rience, as did Gauss, Helmholtz, and others.
-1S. Mandelbrojt wrote: "Few branches of mathematics were uninfluenced
-by the creative genius of Hadamard." In the Dictionary of Scientific Biogra-
-phy, ed. Charles C. Gillespie.
-x PREFACE (1996)
-How are we to understand this phenomenon? Hadamard
-proposed four chronological stages in the process of creation:
-(1) Preparation. You work hard on a problem, giving your
-conscious attention to it.
-(2) Incubation. Your conscious preparation sets going an
-unconscious mechanism that searches for the solution.
-Poincare wrote that ideas are like the hooked atoms of
-Epicurus: preparation sets them in motion and they continue
-their dance during incubation. The unconscious mechanism
-evaluates the resulting combinations on aesthetic criteria,
-but most of them are useless.
-(3) Illumination. An idea that satisfies your unconscious
-criteria suddenly emerges into your consciousness.
-(4) Verification. You carry out further conscious work in
-order to verify your illumination, to formulate it more pre-
-cisely, and perhaps to follow up on its consequences.
-This theory has been enormously influential, and some
-recent authors take it to be a theory that Hadamard himself
-formulated.2 However, as he made clear, the four stages of
-the creative process were distinguished by Graham Wallace
-in The Art of Thought, which was published in 1926. Wallace,
-in turn, was anticipated both by Helmholtz and by Poincar6,
-who suggested that a sudden inspiration was the manifest
-sign of long, unconscious prior work.
-Hadamard had much more to tell us about creation in
-general and mathematical invention in particular. His book
-was extraordinarily prescient. In the 1940s, America was in
-the midst of the dark ages of Behaviorism—the doctrine that
-psychology should eschew introspection as a method and
-mental processes as a topic of investigation. Hadamard would
-have none of this. Moreover, he considered what would now
-be termed the "modularity" hypothesis: the notion, which he
-2 See, e.g., P. Langley and R. Jones, " A Computational Model of Scientific
-Insight." In The Nature of Creativity, ed. Robert J. Sternberg (New York:
-Cambridge University Press, 1988), pp. 177-201.
-PREFACE (1996) xi
-correctly traced back to Gall and the phrenologists, that there
-are separate mental faculties for each subject—a faculty for
-mathematics, a faculty for language, and so on. In Hadamard's
-view, however, modularity did not go far enough. Mental fac-
-ulties that seemed at first to be simple often turned out to be
-composite, and here he cited the precursors to modern
-cognitive neuropsychology, observations of the effects of brain
-damage on mental competence. There are, he said, distinct
-components of mathematical ability and distinct styles of
-mathematicians (see Chapter VII).
-Hadamard made a cogent case for the existence of uncon-
-scious mental processes. In recognizing a face, he noted, one
-is sensitive to hundreds of features without being explicitly
-aware of them. Many parallel unconscious processes must
-therefore underlie this everyday ability. Hadamard rejected
-the view that thinking is possible only with the use of lan-
-guage, and he argued that many mathematicians, like
-Einstein, make use of images and "mental pictures." Levi-
-Strauss, it seemed, made use of three-dimensional mental
-representations. Hadamard was thus the first to discuss
-mental imagery during this Behaviorist epoch, and he an-
-ticipated its rehabilitation in psychology by some fifteen years.
-He had intimations too of many notions that have become
-standard elements of contemporary cognitive science: the dis-
-tinction between what the mind does and how it does it; the
-study of naive physics and of idiot savants; the notion that
-attention resembles a flashlight with a central focus of full
-consciousness and a penumbra of elements on the fringe; the
-hypothesis that creation may depend on lateral thinking,
-which in his own delightful English Hadamard called "think-
-ing aside"; and the need for a certain degree of disorder (or
-chaos) in the generation of original ideas—not pure chance
-on the one hand, and not pure logic on the other.
-What has happened in the fifty years of research into math-
-ematical invention since he first published this book? The
-xii PREFACE (1996)
-biggest single change has been made by the computer. Com-
-puters have been programmed to assist in the proof of major
-mathematical theorems, to automate theorem-proving logic,
-and to model the process of developing interesting mathemati-
-cal conjectures (with more than a little help from their hu-
-man friends).3 If creation is a computational process, then a
-case can be made that there are only three sorts of creative
-processes.4 First, processes that mimic the neo-Darwinian
-account of the origin of species: a generative stage in which
-there is a random combination or modification of existing
-ideas and a critical stage in which knowledge is used to
-select the more viable possibilities. Evolution depends on re-
-peated iterations of these two stages. Second, neo-Lamarck-
-ian processes that use all their knowledge to constrain the
-generative stage and make a random selection when knowl-
-edge fails to select among equally viable alternatives. Such
-processes seem particularly appropriate for creation in "real
-time," such as musical improvisation or poetic extemporiza-
-tion. Third, and most plausible for mathematical invention,
-processes that use knowledge both to generate ideas and to
-3 In 1976, Kenneth Appel and Wolfgang Haken used many hours of com-
-puter time to help prove the famous four-color-map theorem; i.e., the differ-
-ent regions of any map on a planar surface can be distinguished from their
-neighbors using no more than four colors (see "The Solution of the Four-
-Color-Map Problem," Scientific American, September 1977,108-121). There
-is a vast literature on fully automated theorem-proving; for a review, see
-Robert C. Moore's "Automatic Deduction," Overview, Section A of Chapter
-XII in The Handbook of Artificial Intelligence. Volume 5, ed. P. R. Cohen and
-E. A. Feigenbaum (Reading, Mass.: Addison-Wesley, 1982). Douglas Lenat's
-program, AM, does not prove theorems, but rather searches for interesting
-mathematical conjectures. It relies on guidance from its human user (see,
-e.g., D. B. Lenat and J. S. Brown, "Why AM and Eurisko Appear to Work,"
-Artificial Intelligence 23 (1984): 269-294.
-4 This case is made by the present author; see, e.g., the chapter on cre-
-ation in his book, The Computer and the Mind (Cambridge, Mass.: Harvard
-University Press, 1988).
-PREFACE (1996) xiii
-evaluate viable possibilities. The first stage is presumably
-unconscious, and the second is conscious.
-But is mathematical invention a computable process?
-Hadamard did not address the issue, but one of his succes-
-sors, the mathematician and physicist Roger Penrose, gives
-a negative answer. Penrose argues that consciousness and
-visual images depend on noncomputational processes.5 Cer-
-tain physical processes are not computational—for example,
-the bleaching of visual pigment in retinal cells when light
-falls on them—but such processes can kt least be modeled in
-a computer program. According to Penrose, however, the
-mental processes of mathematical invention cannot even be
-modeled computationally. This singular state of affairs is pos-
-sible, but, as yet, there is no decisive evidence either way.
-Ironically, the roots of creativity for Hadamard lie not in
-consciousness, but in the long unconscious work of incuba-
-tion and in the unconscious aesthetic selection of ideas that
-thereby pass into consciousness. Latterday cognitive scien-
-tists accept the notion of unconscious processes, but
-Hadamard's particular conception of the unconscious is more
-problematic.6 Cognitive scientists argue that conscious per-
-formance rests on a raft of unconscious mechanisms that con-
-struct its contents; that is, ideas do not simply pass like pack-
-ets from the unconscious system to the conscious system. Your
-awareness of the meaning of the previous sentence, for
-example, depends on many unconscious processes that trans-
-form sensory information into a conscious construct. In con-
-trast, incubation is supposed to proceed whilst the conscious
-mind is otherwise engaged on quite different matters, and to
-deliver to consciousness a fully formed packet of inspiration.
-5 Roger Penrose, Shadows of the Mind (New York: Oxford University Press,
-1994).
-6 For a thoughtful analysis of creativity and incubation, see David N.
-Perkins, The Mind's Best Work (Cambridge, Mass.: Harvard University Press,
-1981).
-xiv PREFACE (1996)
-Can one really ruminate about a profound mathematical prob-
-lem whilst paying attention to breakfast television? What
-evidence exists on this matter justifies some skepticism. In
-one study, chess experts either worked continuously on a chess
-puzzle or were allowed a two-hour break for incubation to
-occur. They did not differ in their performance.7 Hadamard
-would have surely discounted this study. He would have ar-
-gued that the duration of the experiment—hours rather than
-days—and the nature of the task—chess puzzles rather than
-deep mathematical problems—preclude proper incubation (cf.
-his remarks in Section III on Catherine Patrick's experiment
-in which the subjects were required to write poems). The
-single most important unanswered question about the psy-
-chology of creation is accordingly whether incubation, as con-
-ceived by Hadamard and his peers, is a genuine phenom-
-enon. The question cannot be answered by introspection, and
-it has yet to be definitively resolved in the psychological labo-
-ratory.
-Few psychological works outlast their time; the works that
-do have several principal holds on our attention. They ex-
-press themselves vividly, and what they have to say is wise.
-They convey an insight into psychological phenomena that is
-not doctrinaire and that has a timeless good sense. And so
-the reader—even though he or she may know better than the
-author on some matters—nonetheless comes away from the
-book with a deeper understanding of mental life. Hadamard's
-volume is no exception. Since he wrote, the psychological prob-
-lem of invention in the mathematical field seems to have
-grown more difficult to solve. Yet the seeds of its solution are
-more than likely to be found in this book.
-P. N. JOHNSON-LAIRD
+# Preface to the Paperback Edition (1996)
+
+THIS book is a small masterpiece. Its author, Jacques Hadamard (1865-1963), was a distinguished French mathematician who in New York City during World War II turned his attention to the question of how mathematicians invent new ideas.[^1] He was inspired by some observations on mathematical creation made by his illustrious predecessor Henri Poincaré in *Science and Methode*. But Hadamard made his own introspections on the creative process and asked major scientists, mathematicians, and artists for their views as well. He reported some of their insights, including those of the linguist Roman Jakobson, the anthropologist Claude Levi-Strauss, and the mathematicians George Polya and Norbert Wiener. Perhaps his most famous informant, however, was Albert Einstein, who described his own thinking process. In a letter to Hadamard, Einstein wrote that words seemed to play no role in his mechanism of thought, which instead relied on "certain signs and more or less clear images" (see Appendix II).
+
+The basis for Hadamard's theorizing was the observation that mathematicians, and other creative individuals, often struggle unavailingly for some days on a problem, but subsequently, whilst consciously engaged in another activity, the answer comes to mind in a sudden inspiration. Thus, Poincaré told of a solution that popped into his head from out of nowhere, just as he put his foot on the step of an omnibus from Coutances (see p. 13). Hadamard himself had a similar experience, as did Gauss, Helmholtz, and others.
+
+[^1]: S. Mandelbrojt wrote: "Few branches of mathematics were uninfluenced by the creative genius of Hadamard." In the *Dictionary of Scientific Biography*, ed. Charles C. Gillespie.
+
+How are we to understand this phenomenon? Hadamard proposed four chronological stages in the process of creation: (1) Preparation. You work hard on a problem, giving your conscious attention to it. (2) Incubation. Your conscious preparation sets going an unconscious mechanism that searches for the solution. Poincaré wrote that ideas are like the hooked atoms of Epicurus: preparation sets them in motion and they continue their dance during incubation. The unconscious mechanism evaluates the resulting combinations on aesthetic criteria, but most of them are useless. (3) Illumination. An idea that satisfies your unconscious criteria suddenly emerges into your consciousness. (4) Verification. You carry out further conscious work in order to verify your illumination, to formulate it more precisely, and perhaps to follow up on its consequences.
+
+This theory has been enormously influential, and some recent authors take it to be a theory that Hadamard himself formulated. However, as he made clear, the four stages of the creative process were distinguished by Graham Wallace in *The Art of Thought*, which was published in 1926. Wallace, in turn, was anticipated both by Helmholtz and by Poincaré, who suggested that a sudden inspiration was the manifest sign of long, unconscious prior work.
+
+Hadamard had much more to tell us about creation in general and mathematical invention in particular. His book was extraordinarily prescient. In the 1940s, America was in the midst of the dark ages of Behaviorism—the doctrine that psychology should eschew introspection as a method and mental processes as a topic of investigation. Hadamard would have none of this. Moreover, he considered what would now be termed the "modularity" hypothesis: the notion, which he correctly traced back to Gall and the phrenologists, that there are separate mental faculties for each subject—a faculty for mathematics, a faculty for language, and so on. In Hadamard's view, however, modularity did not go far enough. Mental faculties that seemed at first to be simple often turned out to be composite, and here he cited the precursors to modern cognitive neuropsychology, observations of the effects of brain damage on mental competence. There are, he said, distinct components of mathematical ability and distinct styles of mathematicians (see Chapter VII).
+
+Hadamard made a cogent case for the existence of unconscious mental processes. In recognizing a face, he noted, one is sensitive to hundreds of features without being explicitly aware of them. Many parallel unconscious processes must therefore underlie this everyday ability. Hadamard rejected the view that thinking is possible only with the use of language, and he argued that many mathematicians, like Einstein, make use of images and "mental pictures." Levi-Strauss, it seemed, made use of three-dimensional mental representations. Hadamard was thus the first to discuss mental imagery during this Behaviorist epoch, and he anticipated its rehabilitation in psychology by some fifteen years. He had intimations too of many notions that have become standard elements of contemporary cognitive science: the distinction between what the mind does and how it does it; the study of naive physics and of idiot savants; the notion that attention resembles a flashlight with a central focus of full consciousness and a penumbra of elements on the fringe; the hypothesis that creation may depend on lateral thinking, which in his own delightful English Hadamard called "thinking aside"; and the need for a certain degree of disorder (or chaos) in the generation of original ideas—not pure chance on the one hand, and not pure logic on the other.
+
+What has happened in the fifty years of research into mathematical invention since he first published this book? The biggest single change has been made by the computer. Computers have been programmed to assist in the proof of major mathematical theorems, to automate theorem-proving logic, and to model the process of developing interesting mathematical conjectures (with more than a little help from their human friends).[^2] If creation is a computational process, then a case can be made that there are only three sorts of creative processes. First, processes that mimic the neo-Darwinian account of the origin of species: a generative stage in which there is a random combination or modification of existing ideas and a critical stage in which knowledge is used to select the more viable possibilities. Evolution depends on repeated iterations of these two stages. Second, neo-Lamarckian processes that use all their knowledge to constrain the generative stage and make a random selection when knowledge fails to select among equally viable alternatives. Such processes seem particularly appropriate for creation in "real time," such as musical improvisation or poetic extemporization. Third, and most plausible for mathematical invention, processes that use knowledge both to generate ideas and to evaluate viable possibilities. The first stage is presumably unconscious, and the second is conscious.
+
+But is mathematical invention a computable process? Hadamard did not address the issue, but one of his successors, the mathematician and physicist Roger Penrose, gives a negative answer. Penrose argues that consciousness and visual images depend on noncomputational processes. Certain physical processes are not computational—for example, the bleaching of visual pigment in retinal cells when light falls on them—but such processes can at least be modeled in a computer program. According to Penrose, however, the mental processes of mathematical invention cannot even be modeled computationally. This singular state of affairs is possible, but, as yet, there is no decisive evidence either way.
+
+Ironically, the roots of creativity for Hadamard lie not in consciousness, but in the long unconscious work of incubation and in the unconscious aesthetic selection of ideas that thereby pass into consciousness. Latterday cognitive scientists accept the notion of unconscious processes, but Hadamard's particular conception of the unconscious is more problematic. Cognitive scientists argue that conscious performance rests on a raft of unconscious mechanisms that construct its contents; that is, ideas do not simply pass like packets from the unconscious system to the conscious system. Your awareness of the meaning of the previous sentence, for example, depends on many unconscious processes that transform sensory information into a conscious construct. In contrast, incubation is supposed to proceed whilst the conscious mind is otherwise engaged on quite different matters, and to deliver to consciousness a fully formed packet of inspiration.
+
+[^2]: In 1976, Kenneth Appel and Wolfgang Haken used many hours of computer time to help prove the famous four-color-map theorem; i.e., the different regions of any map on a planar surface can be distinguished from their neighbors using no more than four colors (see "The Solution of the Four-Color-Map Problem," *Scientific American*, September 1977,108-121). There is a vast literature on fully automated theorem-proving; for a review, see Robert C. Moore's "Automatic Deduction," Overview, Section A of Chapter XII in *The Handbook of Artificial Intelligence. Volume 5*, ed. P. R. Cohen and E. A. Feigenbaum (Reading, Mass.: Addison-Wesley, 1982). Douglas Lenat's program, AM, does not prove theorems, but rather searches for interesting mathematical conjectures. It relies on guidance from its human user (see, e.g., D. B. Lenat and J. S. Brown, "Why AM and Eurisko Appear to Work," *Artificial Intelligence* 23 (1984): 269-294.
+
+Can one really ruminate about a profound mathematical problem whilst paying attention to breakfast television? What evidence exists on this matter justifies some skepticism. In one study, chess experts either worked continuously on a chess puzzle or were allowed a two-hour break for incubation to occur. They did not differ in their performance. Hadamard would have surely discounted this study. He would have argued that the duration of the experiment—hours rather than days—and the nature of the task—chess puzzles rather than deep mathematical problems—preclude proper incubation (cf. his remarks in Section III on Catherine Patrick's experiment in which the subjects were required to write poems). The single most important unanswered question about the psychology of creation is accordingly whether incubation, as conceived by Hadamard and his peers, is a genuine phenomenon. The question cannot be answered by introspection, and it has yet to be definitively resolved in the psychological laboratory.
+
+Few psychological works outlast their time; the works that do have several principal holds on our attention. They express themselves vividly, and what they have to say is wise. They convey an insight into psychological phenomena that is not doctrinaire and that has a timeless good sense. And so the reader—even though he or she may know better than the author on some matters—nonetheless comes away from the book with a deeper understanding of mental life. Hadamard's volume is no exception. Since he wrote, the psychological problem of invention in the mathematical field seems to have grown more difficult to solve. Yet the seeds of its solution are more than likely to be found in this book.
+
+P. N. JOHNSON-LAIRD  
 Princeton, 1995
-7 Robert M. Olton, "Experimental Studies of Incubation: Searching for
-the Elusive," Journal of Creative Behavior 13 (1979): 9-22.
-FOREWORD
-"Je dirai que j'ai trouve la demonstration de
-tel theoreme dans telles circonstances; ce
-theoreme aura un nom barbare, que beaucoup
-d'entre vous ne connaitront pas; mats cela n9a
-pas a"importance: ce qui est interessant pour
-le psychologue, ce n'est pas le theoreme, ce
-sont les circonstances"
-—Henri Poincare
-THIS study, like everything which could be writ-
-ten on mathematical invention, was first inspired
-by Henri Poincare's famous lecture before the
-Societe de Psychologie in Paris. I first came back
-to the subject in a meeting at the Centre de Syn-
-th&se in Paris (1937). But a more thorough
-treatment of it has been given in an extensive
-course of lectures delivered (1943) at the Ecole
-Libre des Hautes Etudes, New York City.
-I wish to express my gratitude to Princeton
-University Press, for the interest taken in this
-work and the careful help brought to its pub-
-lication.
-JACQUES HADAMARD
-August 21, 1944
+
+---
+
+# Foreword
+
+> "Je dirai que j'ai trouvé la démonstration de tel théorème dans telles circonstances; ce théorème aura un nom barbare, que beaucoup d'entre vous ne connaîtront pas; mais cela n'a pas d'importance: ce qui est intéressant pour le psychologue, ce n'est pas le théorème, ce sont les circonstances"
+>
+> —Henri Poincaré
+
+THIS study, like everything which could be written on mathematical invention, was first inspired by Henri Poincaré's famous lecture before the Société de Psychologie in Paris. I first came back to the subject in a meeting at the Centre de Synthèse in Paris (1937). But a more thorough treatment of it has been given in an extensive course of lectures delivered (1943) at the École Libre des Hautes Études, New York City.
+
+I wish to express my gratitude to Princeton University Press, for the interest taken in this work and the careful help brought to its publication.
+
+JACQUES HADAMARD  
+August 21, 1944  
 New York, N.Y.
-INTRODUCTION
-CONCERNING the title of this study, two remarks are use-
-ful. We speak of invention: it would be more correct to
-speak of discovery. The distinction between these two
-words is well known: discovery concerns a phenomenon, a
-law, a being which already existed, but had not been per-
-ceived. Columbus discovered America: it existed before
-him; on the contrary, Franklin invented the lightning rod:
-before him there had never been any lightning rod.
-Such a distinction has proved less evident than appears
-at first glance. Toricelli has observed that when one inverts
-a closed tube on the mercury trough, the mercury ascends
-to a certain determinate height: this is a discovery; but,
-in doing this, he has invented the barometer; and there are
-plenty of examples of scientific results which are just as
-much discoveries as inventions. Franklin's invention of the
-lightning rod is hardly different from his discovery of the
-electric nature of thunder. This is a reason why the afore-
-said distinction does not truly concern us; and, as a mat-
-ter of fact, psychological conditions are quite the same
-for both cases.
-On the other hand, our title is "Psychology of Invention
-in the Mathematical Field," and not "Psychology of
-Mathematical Invention." It may be useful to keep in mind
-that mathematical invention is but a case of invention in
-general, a process which can take place in several domains,
-whether it be in science, literature, in art or also tech-
-nology.
-Modern philosophers even say more. They have per-
-x v i i i INTRODUCTION
-ceived that intelligence is perpetual and constant inven-
-tion, that life is perpetual invention. As Ribot says,1
-"Invention in Fine Arts or Sciences is but a special case.
-In practical life, in mechanical, military, industrial, com-
-mercial inventions, inv religious, social, political institu-
-tions, the human mind has spent and used as much imagina-
-tion as anywhere else"; and Bergson,2 with a still higher
-and more general intuition, states:
-"The inventive effort which is found in all domains of
-life by the creation of new species has found in mankind
-alone the means of continuing itself by individuals on
-whom has been bestowed, along with intelligence, the fac-
-ulty of initiative, independence and liberty."
-Such an audacious comparison has its analogue in Met-
-schnikoff, who observes, at the end of his book on phagocy-
-tosis, that, in the human species, the fight against microbes
-is the work not only of phagocytes, but also of the brain,
-by creating bacteriology.
-One cannot say that various kinds of invention proceed
-exactly in the same way. As the psychologist Souriau has
-noticed, there is, between the artistic domain and the scien-
-tific one, the difference that art enjoys a greater freedom,
-since the artist is governed only by his own fantasy, so
-that works of art are truly inventions. Beethoven's sym-
-phonies and even Racine's tragedies are inventions. The
-scientist behaves quite otherwise and his work properly
-concerns discoveries. As my master, Hermite, told me:
-"We are rather servants than masters in Mathematics."
-Although the truth is not yet known to us, it preexists and
-1 See Delacroix, L'Invention et le Ge"nie (in G. Dumas' Nouveau TraiU
-de Psychology, Vol. VI), p. 449.
-2 ibid., p. 447.
-INTRODUCTION xix
-inescapably imposes on us the path we must follow under
-penalty of going astray.
-This does not preclude many analogies between these
-two activities, as we shall have occasion to observe. These
-analogies appeared when, in 1937, at the Centre de Syn-
-these in Paris, a series of lectures was delivered on inven-
-tion of various kinds, with the help of the great Genevese
-psychologist, Claparede. A whole week was devoted to the
-various kinds of invention, with one session for mathemat-
-ics. Especially, invention in experimental sciences was
-treated by Louis de Broglie and Bauer, poetical invention
-by Paul Valery. The comparison between the circum-
-stances of invention in these various fields may prove very
-fruitful.
-It is all the more useful, perhaps, to deal with a special
-case such as the mathematical one, which I shall discuss,
-since it is the one I know best. Results in one sphere (and
-we shall see that important achievements have been reached
-in that field, thanks to a masterly lecture of Henri Poin-
-care) may always be helpful in order to understand what
-happens in other ones.
+
+---
+
+# Introduction
+
+CONCERNING the title of this study, two remarks are useful. We speak of invention: it would be more correct to speak of discovery. The distinction between these two words is well known: discovery concerns a phenomenon, a law, a being which already existed, but had not been perceived. Columbus discovered America: it existed before him; on the contrary, Franklin invented the lightning rod: before him there had never been any lightning rod.
+
+Such a distinction has proved less evident than appears at first glance. Toricelli has observed that when one inverts a closed tube on the mercury trough, the mercury ascends to a certain determinate height: this is a discovery; but, in doing this, he has invented the barometer; and there are plenty of examples of scientific results which are just as much discoveries as inventions.
+
+Franklin's invention of the lightning rod is hardly different from his discovery of the electric nature of thunder. This is a reason why the aforementioned distinction does not truly concern us; and, as a matter of fact, psychological conditions are quite the same for both cases.
+
+On the other hand, our title is "Psychology of Invention in the Mathematical Field," and not "Psychology of Mathematical Invention." It may be useful to keep in mind that mathematical invention is but a case of invention in general, a process which can take place in several domains, whether it be in science, literature, in art or also technology.
+
+Modern philosophers even say more. They have perceived that intelligence is perpetual and constant invention, that life is perpetual invention. As Ribot says,[^3] "Invention in Fine Arts or Sciences is but a special case. In practical life, in mechanical, military, industrial, commercial inventions, in religious, social, political institutions, the human mind has spent and used as much imagination as anywhere else"; and Bergson,[^4] with a still higher and more general intuition, states:
+
+"The inventive effort which is found in all domains of life by the creation of new species has found in mankind alone the means of continuing itself by individuals on whom has been bestowed, along with intelligence, the faculty of initiative, independence and liberty."
+
+Such an audacious comparison has its analogue in Metchnikoff, who observes, at the end of his book on phagocytosis, that, in the human species, the fight against microbes is the work not only of phagocytes, but also of the brain, by creating bacteriology.
+
+One cannot say that various kinds of invention proceed exactly in the same way. As the psychologist Souriau has noticed, there is, between the artistic domain and the scientific one, the difference that art enjoys a greater freedom, since the artist is governed only by his own fantasy, so that works of art are truly inventions. Beethoven's symphonies and even Racine's tragedies are inventions. The scientist behaves quite otherwise and his work properly concerns discoveries. As my master, Hermite, told me: "We are rather servants than masters in Mathematics."
+
+Although the truth is not yet known to us, it preexists and inescapably imposes on us the path we must follow under penalty of going astray.
+
+This does not preclude many analogies between these two activities, as we shall have occasion to observe. These analogies appeared when, in 1937, at the Centre de Synthèse in Paris, a series of lectures was delivered on invention of various kinds, with the help of the great Genevese psychologist, Claparede. A whole week was devoted to the various kinds of invention, with one session for mathematics. Especially, invention in experimental sciences was treated by Louis de Broglie and Bauer, poetical invention by Paul Valery. The comparison between the circumstances of invention in these various fields may prove very fruitful.
+
+It is all the more useful, perhaps, to deal with a special case such as the mathematical one, which I shall discuss, since it is the one I know best. Results in one sphere (and we shall see that important achievements have been reached in that field, thanks to a masterly lecture of Henri Poincaré) may always be helpful in order to understand what happens in other ones.
+
 THE
 MATHEMATICIAN'S
 MIND
 /. GENERAL VIEWS AND INQUIRIES
-THE SUBJECT we are dealing with is far from unexplored
-and though, of course, it still holds many mysteries for us,
-we seem to possess fairly copious data, more copious and
-more coherent than might have been expected, consider-
-ing the difficulty of the problem.
-That difficulty is not only an intrinsic one, but one
-which, in an increasing number of instances, hampers the
-progress of our knowledge: I mean the fact that the sub-
-ject involves two disciplines, psychology and mathematics,
-and would require, in order to be treated adequately, that
-one be both a psychologist and a mathematician. Owing to
-the lack of this composite equipment, the subject has been
-investigated by mathematicians on one side, by psycholo-
-gists on the other and even, as we shall see, by a neurolo-
-gist.
-As always in psychology, two kinds of methods are avail-
-able: the "subjective" and the "objective" methods.1 Sub-
-11 speak of objective or introspective methods. I see that the modern
-behaviorist distinguishes between objective psychology and introspective
-'psychology (the latter being said to belong to the past since the death
-of William James and Titchener), as though these were two different
-sciences, differing as to their object, while it seems to me that both
-kinds of methods of observation could be applied and even help each
-other for the study of the same psychological processes. I understand,
-however, that for the behaviorist, the object of introspection, i.e., thought
-and consciousness, is to be ignored.
-Already, in older times, the prominent biologist Le Dantec eliminated
-consciousness by qualifying it as an "epiphenomenon." I have always
-considered that an unscientific attitude, because if consciousness were
-an epiphenomenon, it would be the only epiphenomenon in nature, where
-everything reacts on everything else. But, epiphenomenon or not, it exists
-and can be observed. We are not unjustified in presenting such observa-
-2 GENERAL VIEWS
-jective (or "introspective") methods are those which
-could be called "observing from the inside," that is, those
-where information about the ways of thought is directly
-obtained by the thinker himself who, looking inwards, re-
-ports on his own mental process. The obvious disadvantage
-of such a procedure is that the observer may disturb the
-very phenomenon which he is investigating. Indeed, as
-both operations—to think and to observe one's thought—
-are to take place at the same time, it may be supposed a
-priori that they are likely to hamper each other. We shall
-see, however, that this is less to be feared in the inventive
-process (at least, in some of its stages) than in other men-
-tal phenomena. In the present study, I shall use the results
-of introspection, the only ones I feel qualified to speak of.
-In our case, these results are clear enough to deserve, it
-would seem, a certain degree of confidence. In doing so,
-I face an objection for which I apologize in advance: that
-is, the writer is obliged to speak too much about himself.
-Objective methods—observing from the outside—are
-those in which the experimenter is other than the thinker.
-Observation and thought do not interfere with each other;
-tions, made by ourselves or by others, as I shall do in the course of this
-study.
-It must be noticed that most instances considered by behaviorists (I
-found them in J. B. Watson's Behaviorism) are very different from those
-which may concern us, being generally taken from thoughts having a
-direct relation with our bodily sensations and which are more easily
-interpreted in terms of the doctrine than others. In such cases, cor-
-respondences between bodily phenomena and states of consciousness
-are easily seen and are more or less known things. They are more hid-
-den for cases of abstract thought, such as those we are going to study;
-but there is no reason why they should not be discovered at some future
-date. This may happen, for instance, with the help of the electric
-waves which accompany cerebral processes (a suggestion which I take
-from an article of Henri Laugier in the Revue Modeme, reproduced
-in his book Service de France an Canada).
-GENERAL VIEWS 3
-but on the other hand, only indirect information is thus
-obtained, the significance of which is not easily seen. One
-chief reason why they chance to be difficult to employ in
-our case is because they require the comparison of numer-
-ous instances. In agreement with the general principle of
-experimental science, this would be an essential condition
-for arriving at the "fact of great yield," as'Poincare says,
-that is, the fact which penetrates deeply into the nature of
-the question; but, precisely, these instances cannot be
-found for such an exceptional phenomenon as invention.
-The Mathematics "Bump" Objective methods have
-generally been applied to invention of any kind, no special
-investigation being devoted to mathematics. One excep-
-tion, which we shall very briefly mention, is a curious at-
-tempt which has been initiated by the celebrated Gall. It
-depends on his principle of the so-called "phrenology,"
-that is, on the connection of every mental aptitude with
-a greater development not only of some part of the brain,
-but also of the corresponding part of the skull; a rather
-unhappy idea, as recent neurologists think, of that man
-who had other very fruitful ones (he was a forerunner of
-the notion of cerebral localization). According to that
-principle, mathematical ability ought to be characterized
-by a special "bump" on the head, the localization of which
-he actually indicates.
-Gall's ideas were taken up (1900)2 by the neurologist
-Mobius, who happened to be the grandson of a mathema-
-tician, though he himself had no special knowledge of
-mathematics.
-Mobius5 book is a rather extensive and thorough study
-of mathematical ability from the naturalist's standpoint.
-2Die Anlage zur Mathematik (Leipzig).
-4 GENERAL VIEWS
-It contains a series of data which, eventually, are likely to
-be of interest for that study. They bear, for instance, on
-heredity (families of mathematicians),3 longevity, abilities
-of other kinds, etc. Though such an important collection
-of data may prove useful at a later date, it seems so far
-not to have given rise to any general rule except as con-
-cerns the artistic inclinations of mathematicians. (Mobius
-confirms the somewhat classic opinion that most mathema-
-ticians are fond of music, and asserts that they are also
-interested in other arts.)
-Now, Mobius agrees with Gall's conclusions in general,
-considering, however, in the first place, that the mathe-
-matical sign, though always present, may assume a greater
-variety of forms than would be understood from Gall's
-description.
-However, that "bump" hypothesis of Gall-Mobius has
-not met with agreement. Anatomists and neurologists
-strongly assailed the "Gall redivivus," as they called him,
-because Gall's phrenological principle, i.e., conformity of
-skull to brain form, is now considered inaccurate.
-Let us not insist any longer on this phase of the ques-
-3 There had been, some years earlier (1869), an important work of
-Francis Galton on Hereditary Genius (London and New York). An
-extensive chapter is devoted to men of science.
-In connection with the methods to which Mobius' book was generally
-devoted, interesting data are contained in Leonard George Guthrie's
-Contributions to the Study of Precocity in Children, concerning early
-inclinations of prominent men. To speak only of mathematicians,
-Galilei's first calling was toward painting, after which, when seventeen,
-he began to study medicine, and only later mathematics. William
-HerschelPs first education was as a musician. Besides, it is known that
-Gauss hesitated between mathematics and philology.
-Similar instances exist as concerns contemporary men. I heard from
-Paul Painleve* himself that he hesitated greatly between devoting himself
-to mathematics or to political life. He at first adopted the former
-activity, but, as is well known, finally engaged in both of them.
-GENERAL VIEWS 5
-tjon, which is to be left to specialists. But it is not useless
-to speak of it from the mathematical standpoint. From
-that point of view also, some objections can be raised, at
-least at a first glance, against the very principle of such
-research. It is more than doubtful that there exists one
-definite "mathematical aptitude." Mathematical creation
-and mathematical intelligence are not without connection
-with creation in general and with general intelligence. It
-rarely happens, in high schools, that the pupil who is first
-in mathematics is the last in other branches of learning;
-and, to consider a higher level, a great proportion of
-prominent mathematicians have been creators in other
-fields. One of the greatest, Gauss, carried out important
-and classical experiments on magnetism; and Newton's
-fundamental discoveries in optics are well known. Was the
-shape of the head of Descartes or Leibniz influenced by
-their mathematical abilities or by their philosophical
-ones ?
-Also there is a counterpart. We shall see that there is
-not just one single category of mathematical minds, but
-several kinds, the differences being important enough
-to make it doubtful that all such minds correspond to
-one and the same characteristic of the brain.
-All this would not be contradictory to the principle of
-Gall interpreted in a general way, i.e., to interdependence
-of the mathematical functioning of the mind with the
-physiology and anatomy of the brain; but the first appli-
-cation of it which Gall and Mobius proposed does not seem
-to be justified.
-Generally speaking, we must admit that mental faculties
-which seem at first to be simple are composite in an un-
-expected way. It has been recognized by objective methods
-6 GENERAL VIEWS
-(observation of the effects of wounds or other injuries of
-the head) that such is the case with the best known faculty
-of all, the language faculty, which consists of several
-different ones. There are cerebral localizations, as Gall
-had announced, but without such simple and precise cor-
-respondences as he supposed.
-There is every reason to think that the mathematical
-faculty must be at least as composite as has been found
-for the faculty of language. Though, of course, decisive
-documents are not and will probably never be available
-in the former case as they are in the latter, observations
-on the one phenomenon may help us to understand the
-other.
-Psychologists' Views on the Subject. Many psycholo-
-gists have also meditated not especially on mathematical in-
-vention, but on invention in general. Among them, I shall
-mention only two names, Souriau and Paulhan. These two
-psychologists show a contrast in their opinions. Souriau
-(1881) was, it seems, the first to have maintained that
-invention occurs by pure chance, while Paulhan (1901)4
-remains faithful to the more classic theory of logic and
-systematic reasoning. There is also a difference in method,
-which can hardly be accounted for by the small difference
-in the dates, for while Paulhan has taken much information
-from scientists and other inventors, there is hardly any
-to be found in Souriau's work. It is curious that, operating
-in such a way, he is led to some very shrewd and accurate
-remarks; but, on the other hand, he has not avoided one
-or two serious errors which we shall have to mention.
-Later on, a most important study in that line was
-• Souriau, ThSorie de VInvention (Paris, 1881). Paulhan, Psychologie
-de VInvention,
-GENERAL VIEWS 7
-conducted (1937) at the Centre de Synthese in Paris, as
-mentioned in the introduction.
-Mathematical Inquiries. Let us come to mathematicians.
-One of them, Maillet, started a first inquiry as to their
-methods of work. One famous question, in particular, was
-already raised by him: that of the "mathematical dream,"
-it having been suggested often that the solution of prob-
-lems that have defied investigation may appear in dreams.
-Though not asserting the absolute non-existence of
-"mathematical dreams," Maillet's inquiry shows that they
-cannot be considered as having a serious significance.
-Only one remarkable observation is reported by the prom-
-inent American mathematician, Leonard Eugene Dickson,
-who can positively assert its accuracy. His mother and
-her sister, who, at school, were rivals in geometry, had spent
-a long and futile evening over a certain problem. During
-the night, his mother dreamed of it and began developing
-the solution in a loud and clear voice; her sister, hearing
-that, arose and took notes. On the following morning in
-class, she happened to have the right solution which Dick-
-son's mother failed to know.
-This observation, an important one on account of the
-personality of the relator and the certitude with which it is
-reported, is a most extraordinary one. Except for that very
-curious case, most of the 69 correspondents who answered
-Maillet on that question never experienced any mathemat-
-ical dream (I never did) or, in that line, dreamed of wholly
-absurd things, or were unable to state precisely the ques-
-tion they happened to dream of. Five dreamed of quite
-naive arguments. There is one more positive answer; but
-it is difficult to take account of it, as its author remains
-anonymous.
-8 GENERAL VIEWS
-Besides, in that matter, there is a confusion which raises
-grave doubts. One phenomenon is certain and I can vouch
-for its absolute certainty: the sudden and immediate
-appearance of a solution at the very moment of sudden
-awakening. On being very abruptly awakened by an ex-
-ternal noise, a solution6 long searched for appeared to me
-at once without the slightest instant of reflection on my
-part—the fact was remarkable enough to have struck me
-unforgettably—and in a quite different direction from
-any of those which I had previously tried to follow. Of
-course, such a phenomenon, which is fully certain in my
-own case, could be easily confused with a "mathematical
-dream," from which it differs.
-I shall not dwell any longer on Maillet's inquiry because
-a more important one was started, a few years later, by
-some mathematicians with the help of Claparede and an-
-other prominent Genevese psychologist, Flournoy, and
-published in the periodical UEnseignement Mathema-
-tique. An extensive questionnaire was sent out, consisting
-of a few more than 30 questions (See Appendix I). These
-questions (including "mathematical dream") belonged to
-both classes of investigation methods which we have
-already differentiated, some of them being "objective"
-(as much as a questionnaire can be). For instance, mathe-
-maticians were asked whether they were influenced by
-noises and to what extent, or by meteorological circum-
-stances, whether literary or artistic courses of thought
-were considered useful or harmful.
-Other questions were of a more introspective character
-s For technicians, the beginning of No. 27 (pp. 199-200) in Journal de
-KatMmatiques pures et appliqutes, Series 4, Vol. IX, 1898 (valuation
-of a determinant).
-GENERAL VIEWS 9
-and penetrated more directly and deeply into the nature
-of the subject. Authors were asked whether they were
-deeply interested in reading the works of their prede-
-cessors or, on the contrary, preferred to study problems
-directly by themselves; whether they were in the habit of
-abandoning a problem for a while to resume it again only
-later on (which I, personally, do in many cases and which
-I always recommend to beginners who consult me). Above
-all, they were asked what they could say on the genesis
-of their chief discoveries.
-Some Criticisms. Reading that questionnaire, one may
-notice the lack of some questions, even when analogous
-to some which have actually been asked. For instance,
-when asking mathematicians whether they indulged in
-music or poetry, the questionnaire did not mention possible
-interest in sciences other than mathematics. Especially,
-biology, as Hermite used to observe, may be a most useful
-study even for mathematicians, as hidden and eventually
-fruitful analogies may appear between processes in both
-kinds of study.
-Similarly, when inquiring about the influence of mete-
-orological circumstances or the existence of periods of
-exaltation or depression, no more precise question was
-asked concerning the influence of the psychical state of
-the worker and especially the emotions which he may be
-experiencing. This question is all the more interesting
-because it has been taken up by Paul Valery in a lecture
-at the French Society of Philosophy, in which he sug-
-gested that emotions are evidently likely to influence
-poetical production. Now, however likely it may seem at
-first glance that some kind of emotions may favor poetry
-because they more or less directly find their expression in
-10 GENERAL VIEWS
-poetry, it is not certain that the cause is the right one or
-at least the only one. Indeed, I know by personal ex-
-perience that powerful emotions may favor entirely dif-
-ferent kinds of mental creation (e.g., the mathematical
-one1) ; and in this connection, I should agree with this
-curious statement of Daunou: "In Sciences, even the most
-rigid ones, no truth is born of the genius of an Archimedes
-or a Newton without a poetical emotion and some quivering
-of intelligent nature."
-Moreover, the most essential question—I mean the one
-which concerns the genesis of discovery—suggests another
-one, which is not mentioned in the questionnaire though
-its interest is obvious. Mathematicians are asked how they
-have succeeded. Now, there are not only successes but also
-failures, and the reasons for failures would be at least as
-important to know.
-This is in relation to the most important criticism
-which can be formulated against such inquiries as Maillet's
-or Claparede and Flournoy's: indeed, such inquiries are
-subject to a cause of error which they can hardly avoid.
-Who can be considered a mathematician, especially a
-mathematician whose creative processes are worthy of in-
-terest? Most of the answers which reached the inquirers
-come from alleged mathematicians whose names are now
-completely unknown. This explains why they could not
-be asked for the reasons of their failures, which only first-
-rate men would dare to speak of. In the above mentioned
-inquiries, I could hardly find one or two significant names,
-such as the physico-mathematician Boltzmann. Such
-1 The above mentioned finding of a solution on a sudden awakening
-occurred during such a period of emotion.
-GENERAL VIEWS 11
-masters as Appell, Darboux, Picard, Painleve sent no
-answers, which was perhaps a mistake on their part.
-Since most answers to the inquiries of Maillet and of
-the Enseignement Mathematique were of slight interest
-for that reason, it occurred to me to submit some of the
-questions to a man whose mathematical creation is one of
-the most audacious and penetrating, Jules Drach. Some
-of his answers were especially suggestive, in the first place,
-as concerns biology in which, like Hermite, he takes much
-interest and, chiefly, on the study of previous discoverers.
-This is a question where it appears that even among men
-who are born mathematicians, important mental differ-
-ences may exist. The historians of the amazing life of
-Evariste Galois have revealed to us that, according to the
-testimony of one of his schoolfellows, even from his high
-school time, he hated reading treatises on algebra, because
-he failed to find in them the characteristic traits of in-
-ventors. Now, Mr. Drach, whose work, besides, is closely
-related to Galois9
-, has the same way of approach. He al-
-ways wishes to refer to the very form in which discoveries
-have appeared to their authors. On the contrary, most
-mathematicians who have answered Claparede and Flour-
-noy's inquiry prefer, when studying any previous work, to
-think it out and rediscover it by themselves. This is my
-approach, so that finally I know, in any case, of only one
-inventor, who is myself.
-Poincare's Statements. Again, we shall put aside the in-
-quiry of the Enseignement Mathematique. While it failed,
-as we have said, to distinguish adequately between those
-who replied, it did, on the other hand, provoke, somewhat
-later, a testimony which was the most authoritative one
-could wish to obtain. Conditions of invention have been
-12 GENERAL VIEWS
-investigated by the greatest genius which our science has
-known during the last half century, by the man whose
-impulse is felt throughout contemporary mathematical
-science. I allude to the celebrated lecture of Henri Poin-
-care at the Societe de Psychologie in Paris.6 Poincare's
-observations throw a resplendent light on relations be-
-tween the conscious and the unconscious, between the logi-
-cal and the fortuitous which lie at the base of the problem.
-Notwithstanding possible objections which will be dis-
-cussed in due time, the conclusions which he reaches in
-that lecture seem to me fully justified and, at least in the
-first five sections, I shall follow him7 throughout.
-Poincare's example is taken from one of his greatest
-discoveries, the first which has consecrated his glory, the
-theory of fuchsian groups and fuchsian functions. In the
-first place, I must take Poincare's own precaution and
-state that we shall have to use technical terms without the
-reader's needing to understand them. "I shall say, for.
-example," he says, "that I have found the demonstration
-of such a theorem under such circumstances. This theorem
-will have a barbarous name, unfamiliar to many, but that is
-unimportant; what is of interest for the psychologist is
-not the theorem, but the circumstances."8
-So, we are going to speak of fuchsian functions. At first,
-Poincare attacked the subject vainly for a fortnight, at-
-« "Mathematical Creation," in The Foundations of Science. Translated
-by G. Bruce Halsted (New York: The Science Press, 1913), p. 387.
-7 Quotations without an author's name which will be found in the
-following pages are taken from Poincare's lecture.
-8 Poincare* deals with the case of mathematics. As Dr. de Saussure,
-to whom I am indebted for various interesting remarks, suggested
-to me, independence between the process of invention and the invented
-thing may be less in more concrete subjects (see below, Section IX,
-p. 131).
-GENERAL VIEWS 13
-tempting to prove that there could not be any such func-
-tions : an idea which was going to prove to be a false one.
-Indeed, during a night of sleeplessness and under con-
-ditions to which we shall come back, he builds up one first
-class of those functions. Then he wishes to find an expres-
-sion for them.
-"I wanted to represent these functions by the quotient
-of two series; this idea was perfectly conscious and de-
-liberate; the analogy with elliptic functions guided me.
+THE SUBJECT we are dealing with is far from unexplored and though, of course, it still holds many mysteries for us, we seem to possess fairly copious data, more copious and more coherent than might have been expected, considering the difficulty of the problem.
+
+That difficulty is not only an intrinsic one, but one which, in an increasing number of instances, hampers the progress of our knowledge: I mean the fact that the subject involves two disciplines, psychology and mathematics, and would require, in order to be treated adequately, that one be both a psychologist and a mathematician. Owing to the lack of this composite equipment, the subject has been investigated by mathematicians on one side, by psychologists on the other and even, as we shall see, by a neurolo-gist.
+
+As always in psychology, two kinds of methods are available: the "subjective" and the "objective" methods. I speak of objective or introspective methods. I see that the modern behaviorist distinguishes between objective psychology and introspective psychology (the latter being said to belong to the past since the death of William James and Titchener), as though these were two different sciences, differing as to their object, while it seems to me that both kinds of methods of observation could be applied and even help each other for the study of the same psychological processes. I understand, however, that for the behaviorist, the object of introspection, i.e., thought and consciousness, is to be ignored.
+
+Already, in older times, the prominent biologist Le Dantec eliminated consciousness by qualifying it as an "epiphenomenon." I have always considered that an unscientific attitude, because if consciousness were an epiphenomenon, it would be the only epiphenomenon in nature, where everything reacts on everything else. But, epiphenomenon or not, it exists and can be observed. We are not unjustified in presenting such observations, made by ourselves or by others, as I shall do in the course of this study.
+
+It must be noticed that most instances considered by behaviorists (I found them in J. B. Watson's Behaviorism) are very different from those which may concern us, being generally taken from thoughts having a direct relation with our bodily sensations and which are more easily interpreted in terms of the doctrine than others. In such cases, correspondences between bodily phenomena and states of consciousness are easily seen and are more or less known things. They are more hidden for cases of abstract thought, such as those we are going to study; but there is no reason why they should not be discovered at some future date. This may happen, for instance, with the help of the electric waves which accompany cerebral processes (a suggestion which I take from an article of Henri Laugier in the Revue Moderne, reproduced in his book Service de France an Canada).
+
+Generally speaking, we must admit that mental faculties which seem at first to be simple are composite in an unexpected way. It has been recognized by objective methods (observation of the effects of wounds or other injuries of the head) that such is the case with the best known faculty of all, the language faculty, which consists of several different ones. There are cerebral localizations, as Gall had announced, but without such simple and precise correspondences as he supposed.
+
+There is every reason to think that the mathematical faculty must be at least as composite as has been found for the faculty of language. Though, of course, decisive documents are not and will probably never be available in the former case as they are in the latter, observations on the one phenomenon may help us to understand the other.
+
+Psychologists' Views on the Subject. Many psychologists have also meditated not especially on mathematical invention, but on invention in general. Among them, I shall mention only two names, Souriau and Paulhan. These two psychologists show a contrast in their opinions. Souriau (1881) was, it seems, the first to have maintained that invention occurs by pure chance, while Paulhan (1901)[^5] remains faithful to the more classic theory of logic and systematic reasoning. There is also a difference in method, which can hardly be accounted for by the small difference in the dates, for while Paulhan has taken much information from scientists and other inventors, there is hardly any to be found in Souriau's work. It is curious that, operating in such a way, he is led to some very shrewd and accurate remarks; but, on the other hand, he has not avoided one or two serious errors which we shall have to mention.
+
+Later on, a most important study in that line was conducted (1937) at the Centre de Synthese in Paris, as mentioned in the introduction.
+
+Mathematical Inquiries. Let us come to mathematicians. One of them, Maillet, started a first inquiry as to their methods of work. One famous question, in particular, was already raised by him: that of the "mathematical dream," it having been suggested often that the solution of problems that have defied investigation may appear in dreams. Though not asserting the absolute non-existence of "mathematical dreams," Maillet's inquiry shows that they cannot be considered as having a serious significance. Only one remarkable observation is reported by the prominent American mathematician, Leonard Eugene Dickson, who can positively assert its accuracy. His mother and her sister, who, at school, were rivals in geometry, had spent a long and futile evening over a certain problem. During the night, his mother dreamed of it and began developing the solution in a loud and clear voice; her sister, hearing that, arose and took notes. On the following morning in class, she happened to have the right solution which Dickson's mother failed to know.
+
+This observation, an important one on account of the personality of the relator and the certitude with which it is reported, is a most extraordinary one. Except for that very curious case, most of the 69 correspondents who answered Maillet on that question never experienced any mathematical dream (I never did) or, in that line, dreamed of wholly absurd things, or were unable to state precisely the question they happened to dream of. Five dreamed of quite naive arguments. There is one more positive answer; but it is difficult to take account of it, as its author remains anonymous.
+
+Besides, in that matter, there is a confusion which raises grave doubts. One phenomenon is certain and I can vouch for its absolute certainty: the sudden and immediate appearance of a solution at the very moment of sudden awakening. On being very abruptly awakened by an external noise, a solution[^6] long searched for appeared to me at once without the slightest instant of reflection on my part—the fact was remarkable enough to have struck me unforgettably—and in a quite different direction from any of those which I had previously tried to follow. Of course, such a phenomenon, which is fully certain in my own case, could be easily confused with a "mathematical dream," from which it differs.
+
+I shall not dwell any longer on Maillet's inquiry because a more important one was started, a few years later, by some mathematicians with the help of Claparede and another prominent Genevese psychologist, Flournoy, and published in the periodical UEnseignement Mathema-tique. An extensive questionnaire was sent out, consisting of a few more than 30 questions (See Appendix I). These questions (including "mathematical dream") belonged to both classes of investigation methods which we have already differentiated, some of them being "objective" (as much as a questionnaire can be). For instance, mathematicians were asked whether they were influenced by noises and to what extent, or by meteorological circumstances, whether literary or artistic courses of thought were considered useful or harmful.
+
+Other questions were of a more introspective character and penetrated more directly and deeply into the nature of the subject. Authors were asked whether they were deeply interested in reading the works of their predecessors or, on the contrary, preferred to study problems directly by themselves; whether they were in the habit of abandoning a problem for a while to resume it again only later on (which I, personally, do in many cases and which I always recommend to beginners who consult me). Above all, they were asked what they could say on the genesis of their chief discoveries.
+
+Some Criticisms. Reading that questionnaire, one may notice the lack of some questions, even when analogous to some which have actually been asked. For instance, when asking mathematicians whether they indulged in music or poetry, the questionnaire did not mention possible interest in sciences other than mathematics. Especially, biology, as Hermite used to observe, may be a most useful study even for mathematicians, as hidden and eventually fruitful analogies may appear between processes in both kinds of study.
+
+Similarly, when inquiring about the influence of meteorological circumstances or the existence of periods of exaltation or depression, no more precise question was asked concerning the influence of the psychical state of the worker and especially the emotions which he may be experiencing. This question is all the more interesting because it has been taken up by Paul Valery in a lecture at the French Society of Philosophy, in which he suggested that emotions are evidently likely to influence poetical production. Now, however likely it may seem at first glance that some kind of emotions may favor poetry because they more or less directly find their expression in poetry, it is not certain that the cause is the right one or at least the only one. Indeed, I know by personal experience that powerful emotions may favor entirely different kinds of mental creation (e.g., the mathematical one[^7]) ; and in this connection, I should agree with this curious statement of Daunou: "In Sciences, even the most rigid ones, no truth is born of the genius of an Archimedes or a Newton without a poetical emotion and some quivering of intelligent nature."
+
+Moreover, the most essential question—I mean the one which concerns the genesis of discovery—suggests another one, which is not mentioned in the questionnaire though its interest is obvious. Mathematicians are asked how they have succeeded. Now, there are not only successes but also failures, and the reasons for failures would be at least as important to know.
+
+This is in relation to the most important criticism which can be formulated against such inquiries as Maillet's or Claparede and Flournoy's: indeed, such inquiries are subject to a cause of error which they can hardly avoid. Who can be considered a mathematician, especially a mathematician whose creative processes are worthy of interest? Most of the answers which reached the inquirers come from alleged mathematicians whose names are now completely unknown. This explains why they could not be asked for the reasons of their failures, which only first-rate men would dare to speak of. In the above mentioned inquiries, I could hardly find one or two significant names, such as the physico-mathematician Boltzmann. Such masters as Appell, Darboux, Picard, Painleve sent no answers, which was perhaps a mistake on their part.
+
+Since most answers to the inquiries of Maillet and of the Enseignement Mathematique were of slight interest for that reason, it occurred to me to submit some of the questions to a man whose mathematical creation is one of the most audacious and penetrating, Jules Drach. Some of his answers were especially suggestive, in the first place, as concerns biology in which, like Hermite, he takes much interest and, chiefly, on the study of previous discoverers. This is a question where it appears that even among men who are born mathematicians, important mental differences may exist. The historians of the amazing life of Evariste Galois have revealed to us that, according to the testimony of one of his schoolfellows, even from his high school time, he hated reading treatises on algebra, because he failed to find in them the characteristic traits of inventors. Now, Mr. Drach, whose work, besides, is closely related to Galois[^8], has the same way of approach. He always wishes to refer to the very form in which discoveries have appeared to their authors. On the contrary, most mathematicians who have answered Claparede and Flournoy's inquiry prefer, when studying any previous work, to think it out and rediscover it by themselves. This is my approach, so that finally I know, in any case, of only one inventor, who is myself.
+
+Poincare's Statements. Again, we shall put aside the inquiry of the Enseignement Mathematique. While it failed, as we have said, to distinguish adequately between those who replied, it did, on the other hand, provoke, somewhat later, a testimony which was the most authoritative one could wish to obtain. Conditions of invention have been investigated by the greatest genius which our science has known during the last half century, by the man whose impulse is felt throughout contemporary mathematical science. I allude to the celebrated lecture of Henri Poincare at the Societe de Psychologie in Paris. Poincare's observations throw a resplendent light on relations between the conscious and the unconscious, between the logical and the fortuitous which lie at the base of the problem. Notwithstanding possible objections which will be discussed in due time, the conclusions which he reaches in that lecture seem to me fully justified and, at least in the first five sections, I shall follow him[^9] throughout.
+
+Poincare's example is taken from one of his greatest discoveries, the first which has consecrated his glory, the theory of fuchsian groups and fuchsian functions. In the first place, I must take Poincare's own precaution and state that we shall have to use technical terms without the reader's needing to understand them. "I shall say, for example," he says, "that I have found the demonstration of such a theorem under such circumstances. This theorem will have a barbarous name, unfamiliar to many, but that is unimportant; what is of interest for the psychologist is not the theorem, but the circumstances."[^10]
+
+So, we are going to speak of fuchsian functions. At first, Poincare attacked the subject vainly for a fortnight, attempting to prove that there could not be any such functions : an idea which was going to prove to be a false one. Indeed, during a night of sleeplessness and under conditions to which we shall come back, he builds up one first class of those functions. Then he wishes to find an expression for them.
+
+"I wanted to represent these functions by the quotient of two series; this idea was perfectly conscious and deliberate; the analogy with elliptic functions guided me.
 I asked myself what properties these series must have if
 they existed, and succeeded without difficulty in forming
 the series I have called thetafuchsian.
@@ -1016,7 +400,6 @@ by Nicolle (that is, by a man having pondered scientific
 subjects and the conditions of experiments for years and
 also having shown his marvellous ability) rather than by
 any of his nurses. And as to Poincare, if chance could ex-
-20 GENERAL VIEWS
 plain one of the genial intuitions which he describes in his
 lecture—which I cannot even believe—how would that
 explanation account for all those which he successively
@@ -2031,12 +1414,6 @@ so-called "Absolute Differential Calculus," the discovery
 of which belongs to Ricci and Levi Civita.
 Absolute differential calculus is closely connected with
 the theory of relativity; and in this connection, I must con-
-* For technicians: "If the coefficients of a Maclaurin series are real
-positive numbers, the radius of convergence being R, x = R must be a
-singular point"; "A Maclaurin series with a finite radius of convergence
-generally admits its whole circle of convergence as an essentially singular
-line."
-52 THE PREPARATION STAGE
 fess that, having observed that the equation of propaga-
 tion of light is invariant under a set of transformations
 (what is now known as Lorentz's group) by which space
@@ -2097,10 +1474,11 @@ to define.
 If he had only thought of juxtaposing these two state-
 ments, he would have found himself before a great problem
 of logic which not only enables us to understand the true
-5 For technicians: see pp. 257-260 of my Yale Lectures on Cauchy's
-Problem; pp. 351-355 of the French edition. The improved answer is
-given in Hilbert-Courant's Methoden der Mathematischen Physik (pp.
-425-430), following works of John and Asgueiersson.
+5 For technicians: "If the coefficients of a Maclaurin series are real
+positive numbers, the radius of convergence being R, x = R must be a
+singular point"; "A Maclaurin series with a finite radius of convergence
+generally admits its whole circle of convergence as an essentially singular
+line."
 54 THE PREPARATION STAGE
 meaning of the celebrated Euclid postulate, but, more gen-
 erally, has produced a profound revolution which, as we see
@@ -2134,7 +1512,6 @@ various others.
 Could we find other means of influencing our uncon-
 scious ? That would be of great importance, in fact not only
 for invention but also for the whole conduct of life and es-
-THE PREPARATION STAGE 55
 pecially for education. The study of that question, which
 deserves to be pursued, has been undertaken at least in one
 periodical, La Psychologie et la Vie; a whole fascicle was
@@ -2184,10 +1561,6 @@ should suppose that, thinking of an algebraic calculation
 before falling asleep, we might hope to find its result ready
 made upon our awakening; but nothing of the sort ever
 happens, and indeed we begin to understand that automa-
-i Poincare* notices that this happens to him especially in regard to
-ideas coming to him in the morning or evening, or in bed while in a
-semihypnagogic state.
-LATER CONSCIOUS WORK 57
 tism of the unconscious must not be understood in that
 way. On the contrary, effective calculations which require
 discipline, attention and volition, and, therefore, conscious-
@@ -2661,7 +2034,7 @@ s Galton, in his Inquiries into Human Faculty, has conducted inquiries,
 interpreted according to the rules of statistics, on mental imagery con-
 sidered in itself. The question for us would be to have a similar inquest
 on imagery as a help to thought.
-9 Etude Expdrimentale de Vlntelligence, Paris (1903).
+9 Etude Expdrimentale de VIntelligence, Paris (1903).
 72 DISCOVERY AS A SYNTHESIS
 method has been criticized and indeed there is the objection
 which can be advanced against almost every kind of psy-
@@ -2836,8 +2209,8 @@ DISCOVERY AS A SYNTHESIS 77
 I increase that product by 1, I see a second point a little
 say N plus 1. beyond the first.
 That number, if not a prime, I see a place somewhere be-
-must admit of a prime divi- tween the confused mass and
-sor, which is the required the first point,
+must admit of a prime divi-
+sor, which is the required
 number.
 What may be the use of such a strange and cloudy image-
 ry? Certainly, it is not meant to remind me of any prop-
@@ -2918,22 +2291,6 @@ I undertake some geometrical research, I have generally a
 mental view of the diagram itself, though generally an
 inadequate or incomplete one, in spite of which it affords
 the necessary synthesis—a tendency which, it would ap-
-is I have a rather bad memory o f physiognomies and a m much exposed
-to failures of recognition or false recognitions; on the contrary, I am
-very sensitive to the sound of names, being much more desirous to see
-such rivers as the Mohawk or the Mattawamkeag than even their beauty
-would warrant, because their mere names call to my mind the idea of
-forests and Indian life. Also, I am rather less sensible than others to like-
-nesses in faces and rather more sensible to likenesses in voices.
-Many mistakes by automatic writing (see Section II, p. 22) are due
-to auditory mental images. Examples of that kind are classic. Personally,
-they are frequent in my case: my conscious ego dictates to my uncon-
-scious one, which writes a word instead of another one if their sounds
-are somewhat alike. While writing the present work, I remember to have
-written "simple" instead of "same place" and "will she" instead of "we
-shall." I should think that such auditive mistakes are more frequent on
-my part when I am writing in English than in French—quite naturally.
-80 DISCOVERY AS A SYNTHESIS
 pear, results from a training which goes back to my very
 earliest childhood.
 Paradoxical as it seems, it very often happens that, in
@@ -3098,9 +2455,6 @@ mediately ; perhaps, it arises at the same time as the deci-
 sive idea. . .. The right word, the subtly appropriate word,
 helps us to recall the mathematical idea, perhaps less com-
 pletely and less objectively than a diagram or a mathe-
-1 9 At the moment of printing, a letter from Professor Einstein reaches
-me, containing information of capital interest. See Appendix II.
-DISCOVERY AS A SYNTHESIS 85
 matical notation, but in an analogous w a y . . . . It may con-
 tribute to fix it in the mind." Moreover, he finds that a
 proper notation—that is, a properly chosen letter to de-
@@ -3202,7 +2556,6 @@ ought by no means to inquire what those "things" may
 represent.
 Logically, of course—and this is all that is essential—
 the result announced is fully attained and every interven-
-88 DISCOVERY AS A SYNTHESIS
 tion of geometrical sense eliminated: that is, theoretically
 unnecessary to follow the reasoning from the beginning to
 the end. Is it the same from the psychological point of view?
@@ -3713,19 +3066,6 @@ certitude of the knowledge thus acquired; then, for its
 fruitfulness and the possibility of extending it.
 These characters can help us to understand what takes
 place, psychologically speaking, in the passage from the
-2 Same remark on this subject as on Hilbert's Principles. I have given
-a simplified proof of part (a) of Jordan's theorem. Of course, my proof
-is completely arithmetizable (otherwise it would be considered non-
-existent) ; but, investigating it, I never ceased thinking of the diagram
-(only thinking of a very twisted curve), and so do I still when remember-
-ing it. I cannot even say that I explicitly verified or verify every link of
-the argument as to its being arithmetizable (in other words, the arith-
-metized argument does not generally appear in my full consciousness).
-However, that each link can be arithmetized is doubtless as well for me
-as for any mathematician who will read the proof: I can give it instantly
-in its arithmetized form, which proves that that arithmetized form is
-present in my fringe-consciousness.
-104 KINDS OF MATHEMATICAL MINDS
 former state to the latter: in other words, what concerns
 the case of the student of mathematics.
 How commonly total misunderstandings and failures oc-
@@ -3993,13 +3333,6 @@ structing the diagram. This was the more difficult and the
 more evidently an act of genius because it meant breaking
 from the general methods which had continued to become
 more and more successful after the invention of infinitesi-
-8 An error for which, however, Poincar£ is not to be reproached (see
-next footnote).
-8 a Whether Weierstrass himself actually drew the diagram (or simply
-described it in words) cannot be said because he did not develop his
-method elsewhere than in his oral lectures. That method remained un-
-known for years, except to his former students.
-112 KINDS OF MATHEMATICAL MINDS
 mal calculus, which had been beautifully successful in the
 hands of Lagrange for obtaining the first stage of the
 solution, though not enabling anybody to complete it cor-
@@ -4213,13 +3546,6 @@ out using some of these general principles, no mention of
 which is made in his paper.
 Galois (1811-1831). Most striking is the personality
 of Evariste Galois whose tragic life, abruptly ended in his
-again illustrates the difference between two aspects of intuition which
-Poincare* believed to be identical. In general, Riemann's intuition, as
-Poincare* observes, is highly geometrical; but this is not the case for his
-memoir on prime numbers, the one in which that intuition is the most
-powerful and mysterious: in that memoir, there is no important role of
-geometrical elements.
-PARADOXICAL CASES OF INTUITION 119
 early youth, brought to science one of the most capital
 monuments we know of. Galois' passionate nature was cap-
 tivated by mathematical science from the moment he be-
