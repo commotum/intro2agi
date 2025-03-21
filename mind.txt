@@ -1,53 +1,57 @@
-THE
-MATHEMATICIAN'S
-MIND
-THE
-MATHEMATICIAN'S
-MIND
-The Psychology of Invention
-in the Mathematical Field
-Jacques Hadamard
-PRINCETON UNIVERSITY PRESS
+# The Mathematician's Mind
+
+## The Psychology of Invention in the Mathematical Field
+
+By Jacques Hadamard
+
+**PRINCETON UNIVERSITY PRESS**  
 PRINCETON, NEW JERSEY
-Published by Princeton University Press,
-41 William Street, Princeton,
+
+Published by Princeton University Press,  
+41 William Street, Princeton,  
 New Jersey 08540
-In the United Kingdom by Princeton University Press,
+
+In the United Kingdom by Princeton University Press,  
 Chichester, West Sussex
+
 All Rights Reserved
-Originally published as
-The Psychology of Invention in the Mathematical Field,
-Copyright © 1945 by Princeton University Press;
-Copyright renewed © 1973 by Princeton University Press;
-Preface to the paperback edition by P. N. Johnson-Laird © 1996 by
-Princeton University Press
+
+Originally published as  
+*The Psychology of Invention in the Mathematical Field*,  
+Copyright © 1945 by Princeton University Press;  
+Copyright renewed © 1973 by Princeton University Press;  
+Preface to the paperback edition by P. N. Johnson-Laird © 1996 by Princeton University Press
+
 ISBN 0-691-02931-8
+
 First paperback printing, for the Princeton Science Library, 1996
-Princeton University Press books are printed on acid-free paper and
-meet the guidelines for permanence and durability of the Committee
-on Production Guidelines for Book Longevity of
-the Council on Library Resources
-Printed in the United States of America
+
+Princeton University Press books are printed on acid-free paper and meet the guidelines for permanence and durability of the Committee on Production Guidelines for Book Longevity of the Council on Library Resources
+
+Printed in the United States of America  
 3 5 7 9 10 8 6 4 2
-A la compagne de ma vie et de mon oeuvre.
-CONTEXTS
-PREFACE TO THE PAPERBACK EDITION IX
-FOREWORD XV
-INTRODUCTION XVII
-I. GENERAL VIEWS AND INQUIRIES 1
-II. DISCUSSIONS ON UNCONSCIOUSNESS 21
-III. THE UNCONSCIOUS AND DISCOVERY 29
-IV. THE PREPARATION STAGE.
-LOGIC AND CHANCE 43
-V. THE LATER CONSCIOUS WORK 56
-VI. DISCOVERY AS A SYNTHESIS.
-THE HELP OF SIGNS 64
-VII. DIFFERENT KINDS OF MATHEMATICAL MINDS 100
-VIII. PARADOXICAL CASES OF INTUITION 116
-IX. THE GENERAL DIRECTION OF RESEARCH 124
-FINAL REMARKS 133
-APPENDK I 137
-APPENDIX II 142
+
+*A la compagne de ma vie et de mon oeuvre.*
+
+## Contents
+
+PREFACE TO THE PAPERBACK EDITION...................IX  
+FOREWORD.....................................XV  
+INTRODUCTION.................................XVII  
+I. GENERAL VIEWS AND INQUIRIES....................1  
+II. DISCUSSIONS ON UNCONSCIOUSNESS................21  
+III. THE UNCONSCIOUS AND DISCOVERY................29  
+IV. THE PREPARATION STAGE: LOGIC AND CHANCE.......43  
+V. THE LATER CONSCIOUS WORK.....................56  
+VI. DISCOVERY AS A SYNTHESIS: THE HELP OF SIGNS...64  
+VII. DIFFERENT KINDS OF MATHEMATICAL MINDS.......100  
+VIII. PARADOXICAL CASES OF INTUITION............116  
+IX. THE GENERAL DIRECTION OF RESEARCH...........124  
+FINAL REMARKS................................133  
+APPENDIX I...................................137  
+APPENDIX II..................................142
+
+
 PREFACE TO THE PAPERBACK EDITION
 THIS book is a small masterpiece. Its author, Jacques
 Hadamard (1865-1963), was a distinguished French math-
