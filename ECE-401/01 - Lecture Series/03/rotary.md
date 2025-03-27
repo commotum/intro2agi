@@ -197,3 +197,6 @@ Additionally, we have implemented rotary positional embeddings in x-transformers
   ```
 
 </details>
+N.B: The layout of the queries and keys in Mesh Transformer JAX is [seq, n_head, d_head] (no batch dim).
+
+
