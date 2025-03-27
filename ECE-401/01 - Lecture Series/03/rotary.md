@@ -197,6 +197,42 @@ Additionally, we have implemented rotary positional embeddings in x-transformers
   ```
 
 </details>
+
 N.B: The layout of the queries and keys in Mesh Transformer JAX is [seq, n_head, d_head] (no batch dim).
 
+### Experiments
+We have found rotary embeddings to be effective for many varieties of attention.
+
+#### Comparison against other PEs for Global attention
+We conducted comparisons of rotary embeddings with learned absolute positional embeddings, used in GPT-3 [1], and the learned relative positional embeddings (henceforth RPE) used in T5 [10] using our GPT-Neox codebase. Comparisons were done using 125M parameter models with the same hyperparameters as the equally-sized model from [1]. Models were trained on OpenWebText2, a large and diverse dataset of online text. We see faster convergence of training and validation curves and a lower overall validation loss with a minimal decrease in throughput.
+
+![OWT2 validation loss with 150M parameter models in GPT-NeoX](./rope-learned-rpe.png)
+
+| Type | OWT2 Loss | OWT2 Ppl. |
+|------|-----------|-----------|
+| Learned Absolute | 2.809 | 16.59 |
+| T5 RPE | 2.801 | 16.46 |
+| Rotary | 2.759 | 15.78 |
+
+Final validation loss / ppl scores on OWT2 validation set at 55k steps (~30B tokens)
+
+#### Billion+ parameter models
+We additionally conducted additional larger scale experiments with the mesh-transformer-jax codebase and 1.4B parameter models, against baselines of learned absolute position embeddings and T5 RPE. Hyperparameters similar to GPT3's 1.3B model were used, with the dataset being the Pile [3]. A similar increase in convergence speed was observed as seen over learned absolute (~30%), and a smaller improvement (10-20%) was still seen over the T5 relative position encoding, demonstrating scalability into the billion parameter regimen. For full details, see here.
+
+![Pile validation loss with 1.5B parameter models](./jax-experiments.png)
+
+| Type | Pile Loss | Pile Ppl. |
+|------|-----------|-----------|
+| Learned Absolute | 2.240 | 9.393 |
+| T5 RPE | 2.223 | 9.234 |
+| Rotary | 2.173 | 8.784 |
+
+Final validation loss / ppl scores on Pile validation set at 8k steps (~8B tokens)
+
+#### Comparison against learned absolute for Performer
+Performer [2] is an example of an alternative attention mechanism designed to avoid quadratic bottlenecks with respect to sequence lengths. We ran small scale tests of Performer on enwiki8, for 8 layer char-based transformers with 512 dimensions and 8 heads. These tests indicated that substituting rotary embeddings into the Performer leads to stark decreases in validation loss and to rapid convergence. Though these improvements do not close the gap between efficient and quadratic attention mechanisms, such a significant improvement makes mechanisms like Performer more attractive.
+
+In smaller scale tests, we have also put RoPE head to head against other alternatives including the relative position method of Shaw et al. [11], TUPE [5], and position-infused attention [8], seeing positive results across the board.
+
+![Enwik8 validation/train loss with performer](./performer.png)
 
