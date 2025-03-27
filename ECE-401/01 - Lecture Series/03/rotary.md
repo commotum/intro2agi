@@ -124,73 +124,78 @@ A naive implementation of rotary positional embeddings would use the block diago
 
 Additionally, we have implemented rotary positional embeddings in x-transformers, GPT-Neo, GPT-NeoX, and Mesh Transformer JAX. Below are implimentations for PyTorch and JAX pulled from these codebases.
 
+
 - <details><summary>GPT-NeoX (PyTorch)</summary>
-```python
-import torch
 
-class Rotary(torch.nn.Module):
-    def __init__(self, dim, base=10000):
-        super().__init__()
-        inv_freq = 1.0 / (base ** (torch.arange(0, dim, 2).float() / dim))
-        self.register_buffer("inv_freq", inv_freq)
-        self.seq_len_cached = None
-        self.cos_cached = None
-        self.sin_cached = None
+  ```python
+  import torch
 
-    def forward(self, x, seq_dim=1):
-        seq_len = x.shape[seq_dim]
-        if seq_len != self.seq_len_cached:
-            self.seq_len_cached = seq_len
-            t = torch.arange(x.shape[seq_dim], device=x.device).type_as(self.inv_freq)
-            freqs = torch.einsum("i,j->ij", t, self.inv_freq)
-            emb = torch.cat((freqs, freqs), dim=-1).to(x.device)
-            self.cos_cached = emb.cos()[:, None, None, :]
-            self.sin_cached = emb.sin()[:, None, None, :]
-        return self.cos_cached, self.sin_cached
+  class Rotary(torch.nn.Module):
+      def __init__(self, dim, base=10000):
+          super().__init__()
+          inv_freq = 1.0 / (base ** (torch.arange(0, dim, 2).float() / dim))
+          self.register_buffer("inv_freq", inv_freq)
+          self.seq_len_cached = None
+          self.cos_cached = None
+          self.sin_cached = None
 
-
-# rotary pos emb helpers:
-
-def rotate_half(x):
-    x1, x2 = x[..., : x.shape[-1] // 2], x[..., x.shape[-1] // 2 :]
-    return torch.cat(
-        (-x2, x1), dim=x1.ndim - 1
-    )  # dim=-1 triggers a bug in torch < 1.8.0
+      def forward(self, x, seq_dim=1):
+          seq_len = x.shape[seq_dim]
+          if seq_len != self.seq_len_cached:
+              self.seq_len_cached = seq_len
+              t = torch.arange(x.shape[seq_dim], device=x.device).type_as(self.inv_freq)
+              freqs = torch.einsum("i,j->ij", t, self.inv_freq)
+              emb = torch.cat((freqs, freqs), dim=-1).to(x.device)
+              self.cos_cached = emb.cos()[:, None, None, :]
+              self.sin_cached = emb.sin()[:, None, None, :]
+          return self.cos_cached, self.sin_cached
 
 
-@torch.jit.script
-def apply_rotary_pos_emb(q, k, cos, sin):
-    return (q * cos) + (rotate_half(q) * sin), (k * cos) + (rotate_half(k) * sin)
-```
-</details> 
+  # rotary pos emb helpers:
+
+  def rotate_half(x):
+      x1, x2 = x[..., : x.shape[-1] // 2], x[..., x.shape[-1] // 2 :]
+      return torch.cat(
+          (-x2, x1), dim=x1.ndim - 1
+      )  # dim=-1 triggers a bug in torch < 1.8.0
+
+
+  @torch.jit.script
+  def apply_rotary_pos_emb(q, k, cos, sin):
+      return (q * cos) + (rotate_half(q) * sin), (k * cos) + (rotate_half(k) * sin)
+  ```
+
+</details>
 
 - <details><summary>Mesh Transformer JAX (JAX)</summary>
-    ```python
-    import jax.numpy as jnp
-    import numpy as np
-    from einops import rearrange, repeat
+
+  ```python
+  import jax.numpy as jnp
+  import numpy as np
+  from einops import rearrange, repeat
 
 
-    def fixed_pos_embedding(x, seq_dim=0):
-        dim = x.shape[-1]
-        inv_freq = 1.0 / (10000 ** (np.arange(0, dim, 2) / dim))
+  def fixed_pos_embedding(x, seq_dim=0):
+      dim = x.shape[-1]
+      inv_freq = 1.0 / (10000 ** (np.arange(0, dim, 2) / dim))
 
-        sinusoid_inp = np.einsum("i , j -> i j", np.arange(x.shape[seq_dim]), inv_freq)
+      sinusoid_inp = np.einsum("i , j -> i j", np.arange(x.shape[seq_dim]), inv_freq)
 
-        return np.sin(sinusoid_inp), np.cos(sinusoid_inp)
-
-
-    def rotate_every_two(x):
-        x1 = x[:, :, ::2]
-        x2 = x[:, :, 1::2]
-
-        x = jnp.stack((-x2, x1), axis=-1)
-
-        return rearrange(x, "... d j -> ... (d j)")
+      return np.sin(sinusoid_inp), np.cos(sinusoid_inp)
 
 
-    def apply_rotary_pos_emb(x, sincos):
-        sin, cos = map(lambda t: repeat(t, "b n -> b (n j)", j=2)[:, None, :], sincos)
-        return (x * cos) + (rotate_every_two(x) * sin)
-    ```
+  def rotate_every_two(x):
+      x1 = x[:, :, ::2]
+      x2 = x[:, :, 1::2]
+
+      x = jnp.stack((-x2, x1), axis=-1)
+
+      return rearrange(x, "... d j -> ... (d j)")
+
+
+  def apply_rotary_pos_emb(x, sincos):
+      sin, cos = map(lambda t: repeat(t, "b n -> b (n j)", j=2)[:, None, :], sincos)
+      return (x * cos) + (rotate_every_two(x) * sin)
+  ```
+
 </details>
