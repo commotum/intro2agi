@@ -166,7 +166,6 @@ Additionally, we have implemented rotary positional embeddings in x-transformers
   ```
 
 </details>
-
 <details><summary>Mesh Transformer JAX (JAX)</summary>
 
   ```python
