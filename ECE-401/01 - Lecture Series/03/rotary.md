@@ -1,10 +1,10 @@
 # Rotary Embeddings: A Relative Revolution
 
-> Rotary Positional Embedding (RoPE) is a new type of position encoding that unifies absolute and relative approaches. We put it to the test.
->
-> Stella Biderman, Sid Black, Charles Foster, Leo Gao, Eric Hallahan, Horace He, Ben Wang, Phil Wang
->
-> April 20, 2021
+Rotary Positional Embedding (RoPE) is a new type of position encoding that unifies absolute and relative approaches.
+We put it to the test.
+
+Stella Biderman, Sid Black, Charles Foster, Leo Gao, Eric Hallahan, Horace He, Ben Wang, Phil Wang
+April 20, 2021
 
 
 ## TL;DR:
