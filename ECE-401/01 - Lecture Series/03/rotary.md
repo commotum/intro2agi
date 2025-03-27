@@ -97,14 +97,12 @@ where $M_j=\left(\begin{array}{cc}\cos m \theta_j & -\sin m \theta_j \\ \sin m \
 
 With relative ease RoPE can be extended into the multidimensional case. To represent two dimensions, two independent 1-dimensional rotary embeddings can be used. To implement this, we can split each of $\mathbf{q}$ and $\mathbf{k}$ in half and apply rotary piece-wise as follows:
 
-$$
-\begin{align}
+$$\begin{align}
 \langle f(\mathbf{q}, m, i), f(\mathbf{k}, n, j) \rangle 
 &= \left\langle f_1\left(\mathbf{q}_{: d / 2}, m\right), f_1\left(\mathbf{k}_{: d / 2}, n\right) \right\rangle + \left\langle f_2\left(\mathbf{q}_{d / 2:}, i\right), f_2\left(\mathbf{k}_{d / 2:}, j\right) \right\rangle \\
 &= g_1\left(\mathbf{q}_{: d / 2}, \mathbf{k}_{: d / 2}, m-n\right) + g_2\left(\mathbf{q}_{d / 2:}, \mathbf{k}_{d / 2:}, i-j\right) \\
 &= g(\mathbf{q}, \mathbf{k}, m-n, i-j)
-\end{align}
-$$
+\end{align}$$
 
 This formulation can also be further extended to data of an arbitrary number of dimensions. This sort of multi-dimensional relative coding would let us, for example, implement relative timing and relative pitch embeddings similar to Music Transformer [4] in a drastically simpler manner. More generally, we believe there is potentially a large class of invariances that first-principles positional codes like RoPE may enable us to capture.
 
