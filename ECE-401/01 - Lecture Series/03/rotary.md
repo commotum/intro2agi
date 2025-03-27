@@ -8,7 +8,7 @@ Rotary Positional Embedding (RoPE) is a new type of position encoding that unifi
 ## What's the Problem?
 Since Vaswani et al., 2017 [16] there have been many schemes introduced for encoding positional information in transformers. When applying self-attention to a given domain, the choice of position encoding typically involves tradeoffs between simplicity, flexibility, and efficiency. For example, learned absolute positional encoding is very simple, but may not generalize and are not always particularly meaningful due to the common practices [1, 3, 9, 15] of packing short sentences and phrases together in a single context and breaking up sentences across contexts.
 
-Another major limitation of existing methods is that they do not work with efficient transformers. Methods like T5's relative positional bias [10] require constructing the full *$N \times N$* attention matrix between positions, which is not possible when using many of the efficient alternatives to softmax attention, including kernelized variants like FAVOR+ [2].
+Another major limitation of existing methods is that they do not work with efficient transformers. Methods like T5's relative positional bias [10] require constructing the full ***$N \times N$*** attention matrix between positions, which is not possible when using many of the efficient alternatives to softmax attention, including kernelized variants like FAVOR+ [2].
 
 A principled, easy to implement, and generally-applicable method for relative position encoding---one that works for both vanilla and "efficient" attention---is of great interest. Rotary Positional Embedding (RoPE) is designed to address this need.
 
