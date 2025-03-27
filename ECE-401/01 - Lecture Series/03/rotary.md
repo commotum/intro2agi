@@ -125,7 +125,7 @@ A naive implementation of rotary positional embeddings would use the block diago
 Additionally, we have implemented rotary positional embeddings in x-transformers, GPT-Neo, GPT-NeoX, and Mesh Transformer JAX. Below are implimentations for PyTorch and JAX pulled from these codebases.
 
 
-- <details><summary>GPT-NeoX (PyTorch)</summary>
+<details><summary>GPT-NeoX (PyTorch)</summary>
 
   ```python
   import torch
@@ -167,7 +167,7 @@ Additionally, we have implemented rotary positional embeddings in x-transformers
 
 </details>
 
-- <details><summary>Mesh Transformer JAX (JAX)</summary>
+<details><summary>Mesh Transformer JAX (JAX)</summary>
 
   ```python
   import jax.numpy as jnp
