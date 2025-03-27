@@ -164,33 +164,33 @@ def apply_rotary_pos_emb(q, k, cos, sin):
 ```
 </details> 
 
-- <details><summary>Mesh Transformer JAX (JAX)</summary>
-```python
-import jax.numpy as jnp
-import numpy as np
-from einops import rearrange, repeat
+<details><summary>Mesh Transformer JAX (JAX)</summary>
+    ```python
+    import jax.numpy as jnp
+    import numpy as np
+    from einops import rearrange, repeat
 
 
-def fixed_pos_embedding(x, seq_dim=0):
-    dim = x.shape[-1]
-    inv_freq = 1.0 / (10000 ** (np.arange(0, dim, 2) / dim))
+    def fixed_pos_embedding(x, seq_dim=0):
+        dim = x.shape[-1]
+        inv_freq = 1.0 / (10000 ** (np.arange(0, dim, 2) / dim))
 
-    sinusoid_inp = np.einsum("i , j -> i j", np.arange(x.shape[seq_dim]), inv_freq)
+        sinusoid_inp = np.einsum("i , j -> i j", np.arange(x.shape[seq_dim]), inv_freq)
 
-    return np.sin(sinusoid_inp), np.cos(sinusoid_inp)
-
-
-def rotate_every_two(x):
-    x1 = x[:, :, ::2]
-    x2 = x[:, :, 1::2]
-
-    x = jnp.stack((-x2, x1), axis=-1)
-
-    return rearrange(x, "... d j -> ... (d j)")
+        return np.sin(sinusoid_inp), np.cos(sinusoid_inp)
 
 
-def apply_rotary_pos_emb(x, sincos):
-    sin, cos = map(lambda t: repeat(t, "b n -> b (n j)", j=2)[:, None, :], sincos)
-    return (x * cos) + (rotate_every_two(x) * sin)
-```
+    def rotate_every_two(x):
+        x1 = x[:, :, ::2]
+        x2 = x[:, :, 1::2]
+
+        x = jnp.stack((-x2, x1), axis=-1)
+
+        return rearrange(x, "... d j -> ... (d j)")
+
+
+    def apply_rotary_pos_emb(x, sincos):
+        sin, cos = map(lambda t: repeat(t, "b n -> b (n j)", j=2)[:, None, :], sincos)
+        return (x * cos) + (rotate_every_two(x) * sin)
+    ```
 </details>
