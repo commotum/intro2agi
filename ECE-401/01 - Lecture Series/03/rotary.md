@@ -164,7 +164,7 @@ def apply_rotary_pos_emb(q, k, cos, sin):
 ```
 </details> 
 
-<details><summary>Mesh Transformer JAX (JAX)</summary>
+- <details><summary>Mesh Transformer JAX (JAX)</summary>
     ```python
     import jax.numpy as jnp
     import numpy as np
