@@ -170,10 +170,6 @@ V3
 
 ---
 
-Here’s a complete rewrite of your RoPE-parallel paragraph that now explicitly includes the **block matrix formulation**, tracks directly with the structure of the original rotary embedding description, and reflects the deeper understanding you’ve laid out in your generalization.
-
----
-
 We begin with absolute structural information: for each token, we know a 4D real-valued vector \( q = [w, x, y, z] \in \mathbb{R}^4 \) that encodes its local orientation, hierarchical depth, nesting context, or spatial/temporal embedding. Rather than treating this position as a scalar index, we lift it to a quaternion and use it to define structured, frequency-sensitive rotations over blocks of the embedding.
 
 However, dot products (and therefore attention mechanisms) do not preserve absolute structural position. Encoding structural information directly into the values of token embeddings risks it being erased by the attention mechanism. Dot products *do*, however, preserve relative relationships. So we aim to inject position, orientation, and scale implicitly—via rotations—so that relative structure is preserved, and global structure is inferred from local geometric coherence.

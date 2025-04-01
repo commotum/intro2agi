@@ -52,15 +52,21 @@ As the wave travels through the waveplate, we can see how the magnitude of the w
 
 ### Derivation
 
+# P1
 We begin with absolute positional information: for each token, we know where it is in the sequence. However, dot products (and therefore attention) do not preserve absolute positional information, so if we encode that positional information in the absolute position of the embeddings, we will lose a significant amount of information. On the other hand, dot products do preserve relative position, so if we can encode the absolute positional information into the token embeddings in a way that only leverages relative positional information, that will be preserved by the attention function.
 
+# P2
 While it is common in machine learning to restrict our attention to the real numbers, for rotary embeddings it is mathematically more convenient to use the complex numbers as the base field for our space. Instead of working in the usual $\mathbb{R}^d$, we will work in $\mathbb{C}^{d/2}$ by considering consecutive pairs of elements of the query and key vectors to be a single complex number. Specifically, instead of viewing $\mathbf{q}=(q_1, q_2, q_3, q_4, \ldots, q_d)$ as a $d$-dimensional real vector we view it as $\mathbf{q}=(q_1+iq_2, q_3+iq_4, \ldots q_{d-1}+iq_d) \in \mathbb{C}^{d/2}$. As we will see, casting it in this fashion will make discussing the rotary embeddings easier. If $d$ is odd, we can pad it with a dummy coordinate to ensure things line up correctly. Alternatively, we can simply increase $d$ by one.
 
+# P3
 Let $\mathbf{q}$ and $\mathbf{k}$ be query and key vectors respectively and let $m$ and $n$ be the absolute positions of the corresponding tokens. Let $f(\mathbf{x}, \ell)$ be the function that takes the token embedding $\mathbf{x}$ in position $\ell$ and outputs a new embedding that contains (in some fashion) the relative positional information. Our goal is to find a "nice" function $f$ that does this. Once the positional information is encoded, we need to compute the inner product like so:
 
 $$\langle f(\mathbf{q}, m), f(\mathbf{k}, n)\rangle=g(\mathbf{q}, \mathbf{k}, m-n)$$
 
-where $g(\mathbf{q}, \mathbf{k}, m-n)$ now represents the pre-softmax logit of the usual attention equation. Writing these three functions in exponential form gives
+where $g(\mathbf{q}, \mathbf{k}, m-n)$ now represents the pre-softmax logit of the usual attention equation. 
+
+# P4
+Writing these three functions in exponential form gives
 
 $$\begin{aligned}
 f(\mathbf{q}, m) &= R_f(\mathbf{q}, m)e^{i\Theta_f(\mathbf{q}, m)} \\
@@ -68,6 +74,7 @@ f(\mathbf{k}, n) &= R_f(\mathbf{k}, n)e^{i\Theta_f(\mathbf{k}, n)} \\
 g(\mathbf{q}, \mathbf{k}, m-n) &= R_g(\mathbf{q}, \mathbf{k}, m-n)e^{i\Theta_g(\mathbf{q}, \mathbf{k}, m-n)}
 \end{aligned}$$
 
+# P5
 Computing the inner product and equating corresponding components yields
 
 $$\begin{aligned}
@@ -75,10 +82,12 @@ R_f(\mathbf{q}, m)R_f(\mathbf{k}, n) &= R_g(\mathbf{q}, \mathbf{k}, m-n) \\
 \Theta_f(\mathbf{q}, m)-\Theta_f(\mathbf{k}, n) &= \Theta_g(\mathbf{q}, \mathbf{k}, m-n)
 \end{aligned}$$
 
+# P6
 Substituting $m=n$ and applying the initial condition $f(\mathbf{x}, 0)=\mathbf{x}$ gives
 
 $$R_f(\mathbf{q}, m)R_f(\mathbf{k}, m)=R_g(\mathbf{q}, \mathbf{k}, 0)=R_f(\mathbf{q}, 0)R_f(\mathbf{k}, 0)=\mathbf{q}\mathbf{k}$$
 
+# P7
 As the prior equation is valid for all $m$, it means that $R_f$ is independent of the value of $m$, so we can set $R_f(\mathbf{x}, y)=\mathbf{x}$. Similarly, if we denote $\Theta(\mathbf{x})=\Theta_f(\mathbf{x}, 0)$ we obtain
 
 $$\Theta_f(\mathbf{q}, m)-\Theta_f(\mathbf{k}, m)=\Theta_g(\mathbf{q}, \mathbf{k}, 0)=\Theta_f(\mathbf{q}, 0)-\Theta_f(\mathbf{k}, 0)=\Theta(\mathbf{q})-\Theta(\mathbf{k})$$
@@ -87,13 +96,17 @@ which implies that $\Theta_f(\mathbf{q}, m)-\Theta(\mathbf{q})=\Theta_f(\mathbf{
 
 $$\varphi(m)-\varphi(m-1)=\Theta_g(\mathbf{q}, \mathbf{k}, 1)+\Theta(\mathbf{q})-\Theta(\mathbf{k})$$
 
+# P8
 Since the right-hand side does not depend on $m$, the left hand side must not either and so $\varphi$ is an arithmetic progression. Setting the initial values $\varphi(0)=0$ and $\varphi(1)=\theta$, we have $\varphi(m)=m\theta$.
 
 Putting all of these pieces together, we get the final formula for the rotary positional embedding:
 
 $$f(\mathbf{q}, m)=R_f(\mathbf{q}, m)e^{i\Theta_f(\mathbf{q}, m)}=\mathbf{q}e^{i(\Theta(\mathbf{q})+m\theta)}=\sum_{j=1}^{d/2} q_je^{im\theta_j}\vec{e}_j$$
 
-and likewise for $\mathbf{k}$. Since computers tend to like real numbers and matrices more than complex numbers, its convenient to convert this expression into the matrix equation
+and likewise for $\mathbf{k}$.
+
+# P9
+Since computers tend to like real numbers and matrices more than complex numbers, its convenient to convert this expression into the matrix equation
 
 $$f(\mathbf{q}, m)=\begin{pmatrix}
 M_1 & & & \\

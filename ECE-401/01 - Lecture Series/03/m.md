@@ -1,0 +1,38 @@
+# A Neural Probabilistic Language Model
+
+**Journal of Machine Learning Research 3 (2003) 1137–1155**  
+*Submitted 4/02; Published 2/03*
+
+## Authors
+- Yoshua Bengio (BENGIOY@IRO.UMONTREAL.CA)
+- Réjean Ducharme (DUCHARME@IRO.UMONTREAL.CA) 
+- Pascal Vincent (VINCENTP@IRO.UMONTREAL.CA)
+- Christian Jauvin (JAUVINC@IRO.UMONTREAL.CA)
+
+*Département d'Informatique et Recherche Opérationnelle*  
+*Centre de Recherche Mathématiques*  
+*Université de Montréal, Montréal, Québec, Canada*
+
+**Editors:** Jaz Kandola, Thomas Hofmann, Tomaso Poggio and John Shawe-Taylor
+
+## Abstract
+A goal of statistical language modeling is to learn the joint probability function of sequences of words in a language. This is intrinsically difficult because of thecurse of dimensionality: a word sequence on which the model will be tested is likely to be different from all the word sequences seen during training. Traditional but very successful approaches based on n-grams obtain generalization by concatenating very short overlapping sequences seen in the training set. We propose to fight the curse of dimensionality bylearning a distributed representation for words which allows each training sentence to inform the model about an exponential number of semantically neighboring sentences. The model learns simultaneously (1) a distributed representation for each word along with (2) the probability function for word sequences, expressed in terms of these representations. Generalization is obtained because a sequence of words that has never been seen before gets high probability if it is made of words that are similar (in the sense of having a nearby representation) to words forming an already seen sentence. Training such large models (with millions of parameters) within a reasonable time is itself a significant challenge. We report on experiments using neural networks for the probability function, showing on two text corpora that the proposed approach significantly improves on state-of-the-art n-gram models, and that the proposed approach allows to take advantage of longer contexts.
+
+**Keywords:** Statistical language modeling, artificial neural networks, distributed representation, curse of dimensionality
+
+## 1. Introduction
+A fundamental problem that makes language modeling and other learning problems difficult is the curse of dimensionality. It is particularly obvious in the case when one wants to model the joint distribution between many discrete random variables (such as words in a sentence, or discrete attributes in a data-mining task). For example, if one wants to model the joint distribution of 10 consecutive words in a natural language with a vocabulary $V$ of size 100,000 , there are potentially $100000^{10}-1=10^{50}-1$ free parameters. When modeling continuous variables, we obtain generalization more easily (e.g. with smooth classes of functions like multi-layer neural networks or Gaussian mixture models) because the function to be learned can be expected to have some local smoothness properties. For discrete spaces, the generalization structure is not as obvious: any change of these discrete variables may have a drastic impact on the value of the function to be estimated, and when the number of values that each discrete variable can take is large, most observed objects are almost maximally far from each other in hamming distance.
+
+A useful way to visualize how different learning algorithms generalize, inspired from the view of non-parametric density estimation, is to think of how probability mass that is initially concentrated on the training points (e.g., training sentences) is distributed in a larger volume, usually in some form of neighborhood around the training points. In high dimensions, it is crucial to distribute probability mass where it matters rather than uniformly in all directions around each training point. We will show in this paper that the way in which the approach proposed here generalizes is fundamentally different from the way in which previous state-of-the-art statistical language modeling approaches are generalizing.
+
+A statistical model of language can be represented by the conditional probability of the next word given all the previous ones, since
+
+$\hat{P}\left(w_1^T\right)=\prod_{t=1}^T \hat{P}\left(w_t \mid w_1^{t-1}\right)$
+
+where $w_t$ is the $t$-th word, and writing sub-sequence $w_i^j=\left(w_i, w_{i+1}, \cdots, w_{j-1}, w_j\right)$. Such statistical language models have already been found useful in many technological applications involving natural language, such as speech recognition, language translation, and information retrieval. Improvements in statistical language models could thus have a significant impact on such applications.
+
+When building statistical models of natural language, one considerably reduces the difficulty of this modeling problem by taking advantage of word order, and the fact that temporally closer words in the word sequence are statistically more dependent. Thus, n-gram models construct tables of conditional probabilities for the next word, for each one of a large number of contexts, i.e. combinations of the last $n-1$ words:
+
+$\hat{P}\left(w_t \mid w_1^{t-1}\right) \approx \hat{P}\left(w_t \mid w_{t-n+1}^{t-1}\right)$
+
+We only consider those combinations of successive words that actually occur in the training corpus, or that occur frequently enough. What happens when a new combination of $n$ words appears that was not seen in the training corpus? We do not want to assign zero probability to such cases, because such new combinations are likely to occur, and they will occur even more frequently for larger context sizes. A simple answer is to look at the probability predicted using a smaller context size, as done in back-off trigram models (Katz, 1987) or in smoothed (or interpolated) trigram models (Jelinek and Mercer, 1980). So, in such models, how is generalization basically obtained from sequences of words seen in the training corpus to new sequences of words? A way to understand how this happens is to think about a generative model corresponding to these interpolated or backoff n-gram models. Essentially, a new sequence of words is generated by "gluing" very short and overlapping pieces of length $1,2 \ldots$ or up to $n$ words that have been seen frequently in the training data. The rules for obtaining the probability of the next piece are implicit in the particulars of the back-off or interpolated $n$-gram algorithm. Typically researchers have used $n=3$, i.e. trigrams, and obtained state-of-the-art results, but see Goodman (2001) for how combining many tricks can yield to substantial improvements. Obviously there is much more information in the sequence that immediately precedes the word to predict than just the identity of the previous couple of words. There are at least two characteristics in this approach which beg to be improved upon, and that we will focus on in this paper. First, it is not taking into account contexts farther than 1 or 2 words, ${ }^1$ second it is not taking into account the "similarity" between words. For example, having seen the sentence "The cat is walking in the bedroom" in the training corpus should help us generalize to make the sentence " $A$ dog was running in a room" almost as likely, simply because "dog" and "cat" (resp. "the" and "a", "room" and "bedroom", etc...) have similar semantic and grammatical roles.
