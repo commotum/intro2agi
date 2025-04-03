@@ -1,13 +1,9 @@
-Here's the content of your PDF reformatted into clean, structured **Markdown**, with **no changes or deletions** to the original text:
-
----
-
 # Beyond the Pipe Dream:  
 ## Engineering and Architectural Solutions to the Missing Components of AI-Powered Personalized Learning  
 **Jake Peterson**  
-*jake.peterson@institution.edu*  
+*peterj29@oregonstate.edu*  
 **Devlin Montfort**  
-*devlin.montfort@institution.edu*  
+*devlin.montfort@oregonstate.edu*  
 **November 6, 2024**
 
 ---
