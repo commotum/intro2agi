@@ -52,7 +52,7 @@ Attempts to simulate this with external session logs or fine-tuning still fail t
 
 ---
 
-### 1.3 Tacit Knowledge and Pedagogical Content Intelligence
+### 1.3 Tacit Knowledge and Pedagogical Intelligence
 
 The third barrier is the absence of tacit pedagogical knowledge—those unspoken, experientially-acquired intuitions developed through countless hours of interaction with real learners. The most effective educators are not defined solely by their subject mastery. What distinguishes them is their **Pedagogical Content Knowledge (PCK)**: a refined understanding of how students typically misunderstand concepts, how to layer explanations over time, when to press or pivot, and how to tailor interventions to the individual.
 
