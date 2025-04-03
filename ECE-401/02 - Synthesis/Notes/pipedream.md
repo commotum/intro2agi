@@ -1,5 +1,5 @@
-# Beyond the Pipe Dream:  
-## Engineering and Architectural Solutions to the Missing Components of AI-Powered Personalized Learning  
+# Beyond the Pipe Dream
+## The Missing Components of AI-Powered Personalized Learning  
 **Jake Peterson**  
 *peterj29@oregonstate.edu*  
 **Devlin Montfort**  
