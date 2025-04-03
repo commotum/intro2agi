@@ -32,15 +32,13 @@ While popular discourse around AI’s shortcomings focuses heavily on concerns a
 
 ### 1.1 Structural Blindness: The Limits of 1D Token Streams
 
-The first major barrier is the strict one-dimensionality of transformer-based Large Language Models (LLMs). Despite their sophistication, LLMs perceive all input as a linear sequence of tokens—each token understood only in terms of what comes before or after. This positional relationship, while astonishingly powerful, encodes everything as a stream of causality. It sees no *above* or *below*, no *inside* or *outside*, no spatial simultaneity—only a flattened chronology of “next.”
+The first major barrier is the strict one-dimensionality of transformer-based Large Language Models (LLMs). LLMs perceive all input as a linear sequence of tokens—each token understood only in terms of what comes before or after. This positional relationship encodes everything as a stream of causality. And while powerful, it sees no *above* or *below*, no *inside* or *outside*, no spatial simultaneity—only a flattened chronology of “next.”
 
 Ironically, this constraint is also what made models like ChatGPT so successful: the data representation—sequential token prediction—closely mirrors the temporal and syntactic structure of human language. This 1D skeleton allowed for high generalization and flexibility across modalities, precisely because it mapped onto a core reality of how language unfolds.
 
 However, this one-dimensional worldview becomes a straightjacket when dealing with inherently multi-dimensional phenomena. Graphs, diagrams, and visual reasoning all involve relationships that can’t be flattened without loss. A node may connect *across* or *around*, a geometric figure may nest or contain, and a table might juxtapose variables orthogonally. These structures don’t fit neatly into a causal chain of words.
 
 While LLMs can describe how to generate a chart or narrate the relationships it encodes, they fundamentally lack an internal representational scaffold to model spatiality or structural abstraction. This absence isn’t just a failure of visualization—it’s a failure of dimensionality. Our theory is that richer, multi-dimensional structural embeddings are needed if AI is to engage with knowledge beyond linear narrative: visual, spatial, hierarchical, or otherwise.
-
----
 
 ### 1.2 Memory and Goal Tracking
 
@@ -59,3 +57,4 @@ This knowledge is inherently difficult to formalize. It is intuitive, nonverbal,
 Rather than asking instructors to externalize their tacit knowledge directly, we instead use AI to generate candidate teaching artifacts—examples, test items, explanations, or exercises—that would ordinarily require significant time and effort to create from scratch. The instructor’s role becomes one of selection and refinement: choosing the better of two AI-generated responses to a student, rejecting a flawed test question while optionally noting why it misfires, or tweaking a practice problem to better reveal a common misunderstanding.
 
 Each of these methods allows instructors to reflect on their own practice while simultaneously producing structured data. Rather than reducing pedagogy to a set of rules, this approach embraces its richness and variability—making expert teaching decisions more visible, transferable, and scaffoldable. By reviewing AI–student interactions, refining proposed learning trajectories, or rejecting weak examples, instructors provide high-signal corrections that encode structural pedagogical expertise. The AI handles the generative overhead; the instructor shapes its direction—transforming tacit knowledge into feedback loops that future systems can internalize.
+
