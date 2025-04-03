@@ -40,6 +40,8 @@ However, this one-dimensional worldview becomes a straightjacket when dealing wi
 
 While LLMs can describe how to generate a chart or narrate the relationships it encodes, they fundamentally lack an internal representational scaffold to model spatiality or structural abstraction. This absence isn’t just a failure of visualization—it’s a failure of dimensionality. Our theory is that richer, multi-dimensional structural embeddings are needed if AI is to engage with knowledge beyond linear narrative: visual, spatial, hierarchical, or otherwise.
 
+---
+
 ### 1.2 Memory and Goal Tracking
 
 The second barrier lies in LLMs’ lack of persistent memory and structural goal representation. Transformer-based models operate in a fundamentally reactive mode, bound by the window of tokens in a given prompt. They do not retain a structured model of the learner over time, nor can they plan across multiple interactions. Their idea of "progress" is entirely local to the current conversation. Without memory, there is no curriculum. Without goals, there is no pedagogy—only autocomplete.
@@ -47,6 +49,8 @@ The second barrier lies in LLMs’ lack of persistent memory and structural goal
 A real tutor doesn’t just respond to input. It scaffolds learning, setting long-term objectives, adjusting based on past successes and failures, and revisiting core misunderstandings with strategic repetition. These are not just memory features—they are structural affordances. They require the system to model **trajectories of understanding**, not just generate plausible responses.
 
 Attempts to simulate this with external session logs or fine-tuning still fail to capture what we believe is essential: **structured continuity**—a persistent, interpretable representation of what the learner knows, struggles with, and is ready to tackle next. In a truly personalized system, the model would maintain evolving maps of the learner’s conceptual terrain, allowing it to plan detours, circle back to confusion points, and explicitly mark milestones achieved. Until such structural memory mechanisms exist, the illusion of personal attention will remain just that—an illusion.
+
+---
 
 ### 1.3 Tacit Knowledge and Pedagogical Content Intelligence
 
@@ -57,4 +61,6 @@ This knowledge is inherently difficult to formalize. It is intuitive, nonverbal,
 Rather than asking instructors to externalize their tacit knowledge directly, we instead use AI to generate candidate teaching artifacts—examples, test items, explanations, or exercises—that would ordinarily require significant time and effort to create from scratch. The instructor’s role becomes one of selection and refinement: choosing the better of two AI-generated responses to a student, rejecting a flawed test question while optionally noting why it misfires, or tweaking a practice problem to better reveal a common misunderstanding.
 
 Each of these methods allows instructors to reflect on their own practice while simultaneously producing structured data. Rather than reducing pedagogy to a set of rules, this approach embraces its richness and variability—making expert teaching decisions more visible, transferable, and scaffoldable. By reviewing AI–student interactions, refining proposed learning trajectories, or rejecting weak examples, instructors provide high-signal corrections that encode structural pedagogical expertise. The AI handles the generative overhead; the instructor shapes its direction—transforming tacit knowledge into feedback loops that future systems can internalize.
+
+---
 
