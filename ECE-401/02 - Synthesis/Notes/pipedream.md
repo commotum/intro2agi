@@ -30,13 +30,15 @@ While popular discourse around AI’s shortcomings focuses heavily on concerns a
 
 ---
 
-### 1.1 Visual Processing Limitations
+### 1.1 Structural Blindness: The Limits of 1D Token Streams
 
-The first major barrier is Large Language Models’ (LLMs) limited ability to process and communicate visual information, relying solely on text-based input rather than integrating visual data like graphs, charts, or spatial layouts. This restriction makes it challenging for them to interpret or create visual representations, which are crucial for explaining concepts in fields like math, physics, and data analysis. For example, LLMs can describe how to plot a graph or analyze trends, but they can’t dynamically generate or interpret visuals in real time, making their explanations feel incomplete for topics that benefit from visual aids. Without access to non-textual forms of knowledge, LLMs miss a critical dimension of understanding, one that often enhances clarity and facilitates deeper learning.
+The first major barrier is the strict one-dimensionality of transformer-based Large Language Models (LLMs). Despite their sophistication, LLMs perceive all input as a linear sequence of tokens—each token understood only in terms of what comes before or after. This positional relationship, while astonishingly powerful, encodes everything as a stream of causality. It sees no *above* or *below*, no *inside* or *outside*, no spatial simultaneity—only a flattened chronology of “next.”
 
----
+Ironically, this constraint is also what made models like ChatGPT so successful: the data representation—sequential token prediction—closely mirrors the temporal and syntactic structure of human language. This 1D skeleton allowed for high generalization and flexibility across modalities, precisely because it mapped onto a core reality of how language unfolds.
 
-Perfect—here’s the full augmented **1.2** and **1.3** with your notes fully integrated, emphasizing structure, persistent goals, and tacit pedagogical knowledge acquisition.
+However, this one-dimensional worldview becomes a straightjacket when dealing with inherently multi-dimensional phenomena. Graphs, diagrams, and visual reasoning all involve relationships that can’t be flattened without loss. A node may connect *across* or *around*, a geometric figure may nest or contain, and a table might juxtapose variables orthogonally. These structures don’t fit neatly into a causal chain of words.
+
+While LLMs can describe how to generate a chart or narrate the relationships it encodes, they fundamentally lack an internal representational scaffold to model spatiality or structural abstraction. This absence isn’t just a failure of visualization—it’s a failure of dimensionality. Our theory is that richer, multi-dimensional structural embeddings are needed if AI is to engage with knowledge beyond linear narrative: visual, spatial, hierarchical, or otherwise.
 
 ---
 
@@ -48,19 +50,11 @@ A real tutor doesn’t just respond to input. It scaffolds learning, setting lon
 
 Attempts to simulate this with external session logs or fine-tuning still fail to capture what we believe is essential: **structured continuity**—a persistent, interpretable representation of what the learner knows, struggles with, and is ready to tackle next. In a truly personalized system, the model would maintain evolving maps of the learner’s conceptual terrain, allowing it to plan detours, circle back to confusion points, and explicitly mark milestones achieved. Until such structural memory mechanisms exist, the illusion of personal attention will remain just that—an illusion.
 
----
-
-Perfect. Here’s **1.3** with all references to Commoncog and external materials removed, while preserving the refined logic, tone, and structural insight:
-
----
-
 ### 1.3 Tacit Knowledge and Pedagogical Content Intelligence
 
 The third barrier is the absence of tacit pedagogical knowledge—those unspoken, experientially-acquired intuitions developed through countless hours of interaction with real learners. The most effective educators are not defined solely by their subject mastery. What distinguishes them is their **Pedagogical Content Knowledge (PCK)**: a refined understanding of how students typically misunderstand concepts, how to layer explanations over time, when to press or pivot, and how to tailor interventions to the individual.
 
-This knowledge is inherently difficult to formalize. It is intuitive, nonverbal, context-sensitive, and often invisible even to the educator themselves. It resides in instincts about timing, sequencing, phrasing, and emphasis—skills that emerge from direct teaching experience rather than explicit instruction.
-
-But while tacit, this knowledge is not inaccessible. It can be surfaced—not through annotation or introspection, but through **interaction and artifact**. The key is to design systems that collect pedagogical intelligence as a byproduct of tasks instructors already find meaningful.
+This knowledge is inherently difficult to formalize. It is intuitive, nonverbal, context-sensitive, and often invisible even to the educator themselves, residing in instructor instincts. But while tacit, this knowledge is not inaccessible. It can be surfaced—not through annotation or introspection, but through **interaction and artifact**. The key is to design systems that collect pedagogical intelligence as a byproduct of tasks instructors already find meaningful.
 
 Rather than asking instructors to externalize their tacit knowledge directly, we instead use AI to generate candidate teaching artifacts—examples, test items, explanations, or exercises—that would ordinarily require significant time and effort to create from scratch. The instructor’s role becomes one of selection and refinement: choosing the better of two AI-generated responses to a student, rejecting a flawed test question while optionally noting why it misfires, or tweaking a practice problem to better reveal a common misunderstanding.
 
