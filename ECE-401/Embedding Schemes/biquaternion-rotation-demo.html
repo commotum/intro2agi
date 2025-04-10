@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BiQUE: 2D Biquaternion Rotation Demo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f7f9fc;
+    }
+    .canvas-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    canvas {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+    }
+    .controls {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .control-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: inline-block;
+      width: 120px;
+      margin-right: 10px;
+    }
+    input[type="range"] {
+      width: 200px;
+    }
+    input[type="number"] {
+      width: 60px;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    .explanation {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    .description {
+      background-color: #e8f4f8;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .separator {
+      height: 1px;
+      background-color: #ddd;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>BiQUE: 2D Biquaternion Rotation Visualization</h1>
+  
+  <div class="description">
+    <p>This demo illustrates the 2D case of biquaternionic rotations as described in the BiQUE paper. A biquaternion in 2D is represented as <code>(w_r + w_i·I) + (x_r + x_i·I)·i</code> where <code>I</code> is the complex imaginary unit.</p>
+    <p>The demo shows how biquaternions unify circular and hyperbolic rotations in a single representation:</p>
+    <ul>
+      <li><strong>Left:</strong> The original point (red) and its transformed result (blue) after both rotations</li>
+      <li><strong>Center:</strong> Shows the circular rotation component M(u)</li>
+      <li><strong>Right:</strong> Shows the hyperbolic rotation component M(h)</li>
+    </ul>
+    <p><strong>Note:</strong> The visualization has been zoomed out to span from -64 to 64 on both axes.</p>
+  </div>
+
+  <div class="controls">
+    <h2>Point Coordinates</h2>
+    <div class="control-group">
+      <label for="w_r">w_r:</label>
+      <input type="range" id="w_r_range" min="-64" max="64" step="1" value="1">
+      <input type="number" id="w_r" min="-64" max="64" step="1" value="1">
+      
+      <label for="w_i">w_i:</label>
+      <input type="range" id="w_i_range" min="-64" max="64" step="1" value="2">
+      <input type="number" id="w_i" min="-64" max="64" step="1" value="2">
+    </div>
+    
+    <div class="control-group">
+      <label for="x_r">x_r:</label>
+      <input type="range" id="x_r_range" min="-64" max="64" step="1" value="3">
+      <input type="number" id="x_r" min="-64" max="64" step="1" value="3">
+      
+      <label for="x_i">x_i:</label>
+      <input type="range" id="x_i_range" min="-64" max="64" step="1" value="4">
+      <input type="number" id="x_i" min="-64" max="64" step="1" value="4">
+    </div>
+    
+    <div class="separator"></div>
+    
+    <h2>Rotation Parameters</h2>
+    <div class="control-group">
+      <label for="theta">Circular θ:</label>
+      <input type="range" id="theta_range" min="0" max="6.28" step="0.01" value="0.5">
+      <input type="number" id="theta" min="0" max="6.28" step="0.01" value="0.5"> rad
+    </div>
+    
+    <div class="control-group">
+      <label for="phi">Hyperbolic φ:</label>
+      <input type="range" id="phi_range" min="0" max="4" step="0.01" value="0.5">
+      <input type="number" id="phi" min="0" max="4" step="0.01" value="0.5"> rad
+    </div>
+    
+    <div class="control-group">
+      <label for="rotation-order">Rotation Order:</label>
+      <select id="rotation-order">
+        <option value="hu">Hyperbolic then Circular (M(u)·M(h))</option>
+        <option value="uh" selected>Circular then Hyperbolic (M(h)·M(u))</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="canvas-container">
+    <canvas id="combined-canvas" width="300" height="300"></canvas>
+    <canvas id="circular-canvas" width="300" height="300"></canvas>
+    <canvas id="hyperbolic-canvas" width="300" height="300"></canvas>
+  </div>
+  
+  <div class="explanation">
+    <h2>How it Works</h2>
+    <p>The demo shows how a 2D biquaternion operates as a composition of two rotations:</p>
+    <ol>
+      <li><strong>Circular Rotation M(u):</strong> Rotates points around the origin on a circle with angle θ</li>
+      <li><strong>Hyperbolic Rotation M(h):</strong> Transforms points along hyperbolic paths with hyperbolic angle φ</li>
+    </ol>
+    <p>According to Theorem 4.1 in the paper, the matrix representing a unit biquaternion can be factorized as:</p>
+    <p><strong>M(q) = M(h) · M(u)</strong> or <strong>M(q) = M(u) · M(h')</strong></p>
+    <p>The real power of biquaternions comes from the hyperbolic rotation component M(h), which allows interaction between the real and imaginary parts of the input. This contrasts with quaternions (used in systems like QuatE), which only employ the circular rotation.</p>
+  </div>
+
+  <script>
+    // Canvas setup
+    const combinedCanvas = document.getElementById('combined-canvas');
+    const circularCanvas = document.getElementById('circular-canvas');
+    const hyperbolicCanvas = document.getElementById('hyperbolic-canvas');
+    
+    const combinedCtx = combinedCanvas.getContext('2d');
+    const circularCtx = circularCanvas.getContext('2d');
+    const hyperbolicCtx = hyperbolicCanvas.getContext('2d');
+    
+    // Scale and origin setup - reduced scale for zoomed out view
+    const scale = 2.34375; // 300 / 128 (where 128 is the total width/height from -64 to 64)
+    const originX = combinedCanvas.width / 2;
+    const originY = combinedCanvas.height / 2;
+    
+    // Matrix multiplication
+    function matrixMultiply(A, x) {
+      return [
+        A[0][0] * x[0] + A[0][1] * x[1],
+        A[1][0] * x[0] + A[1][1] * x[1]
+      ];
+    }
+    
+    // Draw functions
+    function drawGrid(ctx) {
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      
+      // Draw grid
+      ctx.strokeStyle = '#e0e0e0';
+      ctx.lineWidth = 1;
+      
+      // Draw x-axis and y-axis
+      ctx.beginPath();
+      ctx.moveTo(0, originY);
+      ctx.lineTo(ctx.canvas.width, originY);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(originX, 0);
+      ctx.lineTo(originX, ctx.canvas.height);
+      ctx.stroke();
+      
+      // Draw grid lines - adjusted for zoomed out view
+      const gridSpacing = 16; // Draw a line every 16 units
+      for (let i = -64; i <= 64; i += gridSpacing) {
+        if (i === 0) continue;
+        
+        // Vertical lines
+        ctx.beginPath();
+        ctx.moveTo(originX + i * scale, 0);
+        ctx.lineTo(originX + i * scale, ctx.canvas.height);
+        ctx.stroke();
+        
+        // Horizontal lines
+        ctx.beginPath();
+        ctx.moveTo(0, originY + i * scale);
+        ctx.lineTo(ctx.canvas.width, originY + i * scale);
+        ctx.stroke();
+      }
+      
+      // Draw coordinate labels - adjusted for zoomed out view
+      ctx.fillStyle = '#333';
+      ctx.font = '10px Arial';
+      ctx.fillText('O', originX - 15, originY + 15);
+      
+      // X-axis labels
+      for (let i = -64; i <= 64; i += 32) {
+        if (i === 0) continue;
+        ctx.fillText(i.toString(), originX + i * scale - 5, originY + 15);
+      }
+      
+      // Y-axis labels
+      for (let i = -64; i <= 64; i += 32) {
+        if (i === 0) continue;
+        ctx.fillText((-i).toString(), originX - 15, originY + i * scale + 5);
+      }
+    }
+    
+    function drawPoint(ctx, x, y, color, size = 5, label = null) {
+      // Convert to canvas coordinates
+      const canvasX = originX + x * scale;
+      const canvasY = originY - y * scale;
+      
+      // Draw point
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(canvasX, canvasY, size, 0, 2 * Math.PI);
+      ctx.fill();
+      
+      // Draw label if provided
+      if (label) {
+        ctx.fillStyle = '#333';
+        ctx.font = '12px Arial';
+        ctx.fillText(label, canvasX + 7, canvasY - 7);
+      }
+    }
+    
+    function drawLine(ctx, x1, y1, x2, y2, color = '#999', width = 1, dashed = false) {
+      // Convert to canvas coordinates
+      const canvasX1 = originX + x1 * scale;
+      const canvasY1 = originY - y1 * scale;
+      const canvasX2 = originX + x2 * scale;
+      const canvasY2 = originY - y2 * scale;
+      
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      
+      ctx.beginPath();
+      if (dashed) {
+        ctx.setLineDash([5, 3]);
+      } else {
+        ctx.setLineDash([]);
+      }
+      
+      ctx.moveTo(canvasX1, canvasY1);
+      ctx.lineTo(canvasX2, canvasY2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    
+    function drawHyperbolicPath(ctx, w_r, w_i, x_r, x_i, phi_max, steps = 50) {
+      ctx.strokeStyle = '#4CAF50';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      
+      for (let i = 0; i <= steps; i++) {
+        const phi = (i / steps) * phi_max;
+        const coshPhi = Math.cosh(phi);
+        const sinhPhi = Math.sinh(phi);
+        
+        // Hyperbolic rotation calculation
+        const w_new = w_r * coshPhi - x_i * sinhPhi;
+        const x_new = x_r * coshPhi + w_i * sinhPhi;
+        
+        // Convert to canvas coordinates
+        const canvasX = originX + w_new * scale;
+        const canvasY = originY - x_new * scale;
+        
+        if (i === 0) {
+          ctx.moveTo(canvasX, canvasY);
+        } else {
+          ctx.lineTo(canvasX, canvasY);
+        }
+      }
+      
+      ctx.stroke();
+    }
+    
+    function drawCircularPath(ctx, w, x, theta_max, steps = 50) {
+      const radius = Math.sqrt(w*w + x*x);
+      const startAngle = Math.atan2(x, w);
+      
+      ctx.strokeStyle = '#2196F3';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      
+      for (let i = 0; i <= steps; i++) {
+        const theta = startAngle + (i / steps) * theta_max;
+        const w_new = radius * Math.cos(theta);
+        const x_new = radius * Math.sin(theta);
+        
+        // Convert to canvas coordinates
+        const canvasX = originX + w_new * scale;
+        const canvasY = originY - x_new * scale;
+        
+        if (i === 0) {
+          ctx.moveTo(canvasX, canvasY);
+        } else {
+          ctx.lineTo(canvasX, canvasY);
+        }
+      }
+      
+      ctx.stroke();
+    }
+    
+    // Biquaternion rotation functions
+    function circularRotation(theta, w_r, x_r, w_i, x_i) {
+      const cosTheta = Math.cos(theta);
+      const sinTheta = Math.sin(theta);
+      
+      const M_u = [
+        [cosTheta, -sinTheta],
+        [sinTheta, cosTheta]
+      ];
+      
+      // Apply to real components
+      const [w_r_new, x_r_new] = matrixMultiply(M_u, [w_r, x_r]);
+      
+      // Apply to imaginary components
+      const [w_i_new, x_i_new] = matrixMultiply(M_u, [w_i, x_i]);
+      
+      return [w_r_new, x_r_new, w_i_new, x_i_new];
+    }
+    
+    function hyperbolicRotation(phi, w_r, x_r, w_i, x_i) {
+      const coshPhi = Math.cosh(phi);
+      const sinhPhi = Math.sinh(phi);
+      
+      // For 2D, a=1, b=0, c=0 as mentioned in the paper
+      // This gives us the matrix M(h) with I·sinh(φ) terms
+      // We'll compute the result directly using the matrix multiplication worked out in Appendix B
+      
+      const w_r_new = w_r * coshPhi - x_i * sinhPhi;
+      const x_r_new = x_r * coshPhi + w_i * sinhPhi;
+      const w_i_new = w_i * coshPhi - x_r * sinhPhi;
+      const x_i_new = x_i * coshPhi + w_r * sinhPhi;
+      
+      return [w_r_new, x_r_new, w_i_new, x_i_new];
+    }
+    
+    // Main update function
+    function updateVisualization() {
+      // Get input values
+      const w_r = parseFloat(document.getElementById('w_r').value);
+      const w_i = parseFloat(document.getElementById('w_i').value);
+      const x_r = parseFloat(document.getElementById('x_r').value);
+      const x_i = parseFloat(document.getElementById('x_i').value);
+      
+      const theta = parseFloat(document.getElementById('theta').value);
+      const phi = parseFloat(document.getElementById('phi').value);
+      
+      const rotationOrder = document.getElementById('rotation-order').value;
+      
+      // Clear all canvases and draw grids
+      drawGrid(combinedCtx);
+      drawGrid(circularCtx);
+      drawGrid(hyperbolicCtx);
+      
+      // Draw original point
+      drawPoint(combinedCtx, w_r, x_r, 'rgba(255, 0, 0, 0.7)', 5, '(w_r,x_r)');
+      drawPoint(combinedCtx, w_i, x_i, 'rgba(255, 0, 0, 0.5)', 5, '(w_i,x_i)');
+      
+      drawPoint(circularCtx, w_r, x_r, 'rgba(255, 0, 0, 0.7)', 5, '(w_r,x_r)');
+      drawPoint(circularCtx, w_i, x_i, 'rgba(255, 0, 0, 0.5)', 5, '(w_i,x_i)');
+      
+      drawPoint(hyperbolicCtx, w_r, x_r, 'rgba(255, 0, 0, 0.7)', 5, '(w_r,x_r)');
+      drawPoint(hyperbolicCtx, w_i, x_i, 'rgba(255, 0, 0, 0.5)', 5, '(w_i,x_i)');
+      
+      // Apply rotations based on order
+      let resultCircular, resultHyperbolic, finalResult;
+      
+      // Apply circular rotation
+      resultCircular = circularRotation(theta, w_r, x_r, w_i, x_i);
+      
+      // Draw circular rotation result
+      drawPoint(circularCtx, resultCircular[0], resultCircular[1], 'rgba(33, 150, 243, 0.7)', 5);
+      drawPoint(circularCtx, resultCircular[2], resultCircular[3], 'rgba(33, 150, 243, 0.5)', 5);
+      
+      // Draw circular path
+      drawCircularPath(circularCtx, w_r, x_r, theta);
+      drawCircularPath(circularCtx, w_i, x_i, theta);
+      
+      // Apply hyperbolic rotation
+      resultHyperbolic = hyperbolicRotation(phi, w_r, x_r, w_i, x_i);
+      
+      // Draw hyperbolic rotation result
+      drawPoint(hyperbolicCtx, resultHyperbolic[0], resultHyperbolic[1], 'rgba(76, 175, 80, 0.7)', 5);
+      drawPoint(hyperbolicCtx, resultHyperbolic[2], resultHyperbolic[3], 'rgba(76, 175, 80, 0.5)', 5);
+      
+      // Draw hyperbolic paths
+      drawHyperbolicPath(hyperbolicCtx, w_r, w_i, x_r, x_i, phi);
+      
+      // Apply combined rotation based on selected order
+      if (rotationOrder === 'hu') {
+        // Hyperbolic then Circular: M(u)·M(h)
+        const intermediate = hyperbolicRotation(phi, w_r, x_r, w_i, x_i);
+        finalResult = circularRotation(theta, ...intermediate);
+      } else {
+        // Circular then Hyperbolic: M(h)·M(u)
+        const intermediate = circularRotation(theta, w_r, x_r, w_i, x_i);
+        finalResult = hyperbolicRotation(phi, ...intermediate);
+      }
+      
+      // Draw final result
+      drawPoint(combinedCtx, finalResult[0], finalResult[1], 'rgba(103, 58, 183, 0.7)', 6, 'Result');
+      
+      // Draw paths to final point
+      if (rotationOrder === 'hu') {
+        // First draw hyperbolic path from original
+        drawHyperbolicPath(combinedCtx, w_r, w_i, x_r, x_i, phi);
+        
+        // Then draw circular path from intermediate point
+        const intermediate = resultHyperbolic;
+        drawCircularPath(combinedCtx, intermediate[0], intermediate[1], theta);
+      } else {
+        // First draw circular path from original
+        drawCircularPath(combinedCtx, w_r, x_r, theta);
+        
+        // Then draw hyperbolic path from intermediate point
+        const intermediate = resultCircular;
+        drawHyperbolicPath(combinedCtx, intermediate[0], intermediate[2], intermediate[1], intermediate[3], phi);
+      }
+    }
+    
+    // Set up event listeners
+    const inputs = [
+      'w_r', 'w_i', 'x_r', 'x_i', 
+      'w_r_range', 'w_i_range', 'x_r_range', 'x_i_range',
+      'theta', 'phi', 'theta_range', 'phi_range',
+      'rotation-order'
+    ];
+    
+    inputs.forEach(id => {
+      const element = document.getElementById(id);
+      element.addEventListener('input', function() {
+        // Sync range sliders with number inputs
+        if (id.includes('_range')) {
+          const relatedInput = id.replace('_range', '');
+          document.getElementById(relatedInput).value = this.value;
+        } else if (!id.includes('order')) {
+          const relatedRange = id + '_range';
+          document.getElementById(relatedRange).value = this.value;
+        }
+        
+        updateVisualization();
+      });
+    });
+    
+    // Initial visualization
+    updateVisualization();
+  </script>
+</body>
+</html>

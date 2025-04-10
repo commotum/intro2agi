@@ -1,0 +1,57 @@
+digraph "Variable Dependency Graph for RoPE" {
+  w [label="w\n(token embedding)"];
+  ℓ [label="ℓ\n(position)"];
+  f [label="f(w, ℓ)\n(encoded vector)"];
+  q [label="q = f(w, m)"];
+  k [label="k = f(w, n)"];
+  m [label="m\n(position of q)"];
+  n [label="n\n(position of k)"];
+  g [label="g(q, k, m−n)\nattention logit"];
+  φ [label="φ(ℓ) = ℓ·θ\n(phase shift)"];
+  θ [label="θ\n(base angle)"];
+  Θ_f [label="Θ_f(w, ℓ) = Θ(w) + φ(ℓ)"];
+  Θ_w [label="Θ(w)\nintrinsic phase"];
+  R_f [label="R_f(w, ℓ)\nmagnitude"];
+  R_g [label="R_g(q, k, m−n)\nmagnitude of dot"];
+  Θ_g [label="Θ_g(q, k, m−n)\nphase of dot"];
+  M_j [label="M_j\n2x2 rotation matrix"];
+  Θ_m [label="Θ_m\nblock rotation matrix"];
+  X_m [label="X_m\nembedding at m"];
+  W_q [label="W_q\nquery projection"];
+  Q_m [label="Q_m = W_q·X_m\nquery vector"];
+
+  w -> f;
+  ℓ -> f;
+  f -> q [style=dashed label="@ m"];
+  f -> k [style=dashed label="@ n"];
+
+  q -> g;
+  k -> g;
+  m -> g;
+  n -> g;
+
+  θ -> φ;
+  φ -> Θ_f;
+  Θ_w -> Θ_f;
+  Θ_f -> f;
+
+  w -> R_f;
+  ℓ -> R_f;
+  R_f -> f;
+
+  q -> R_g;
+  k -> R_g;
+  m -> R_g;
+  n -> R_g;
+
+  q -> Θ_g;
+  k -> Θ_g;
+  m -> Θ_g;
+  n -> Θ_g;
+
+  θ -> M_j;
+  M_j -> Θ_m;
+  Θ_m -> Q_m;
+  X_m -> Q_m;
+  W_q -> Q_m;
+}
