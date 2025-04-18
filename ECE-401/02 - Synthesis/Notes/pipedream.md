@@ -26,7 +26,7 @@ This pattern is depressingly familiar - the 1980s saw widespread enthusiasm for 
 
 At its core, the fundamental challenge of learning is one of feedback loop velocity - the speed at which a learner can identify gaps in understanding, apply targeted correction, and integrate that new knowledge. While previous generations of educational technology offered acceleration through on-demand interactivity, their restriction to narrow, pre-programmed pathways of instruction were inflexible and prohibitively labor-intensive. In fact the absence of pre-programmed instructional content, and ability to react to unforeseen circumstances, is precisely what makes an artificially intelligent tutor so enticing.
 
-While popular discourse around AI’s shortcomings focuses heavily on concerns about factual accuracy and hallucinations, these limitations will soon fade to irrelevance, solved by ever-increasing scale of compute, data, and engineering. In fact, The Scaling Hypothesis is the core theory underpinning the operations of every major AI organization today. Our research, however, identifies three fundamental, ruthlessly scale-resistant, barriers to achieving the kind of rich, adaptive educational experience that effective personalized learning demands.
+Popular discourse around AI’s shortcomings focuses heavily on concerns about factual accuracy and hallucinations. Our research, however, focuses on the key architectural details that lead to those shortcomings. It identifies three fundamental, ruthlessly scale-resistant, barriers to achieving the kind of rich, adaptive educational experience that effective personalized learning demands, and demonstrates engineering solutions that overcome those barriers. 
 
 ---
 
