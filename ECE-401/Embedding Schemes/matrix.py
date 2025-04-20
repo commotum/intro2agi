@@ -42,7 +42,7 @@ def hyperbolic_rotation_matrix(q):
     ])
 
 # Input quaternion (unnormalized)
-q_input = np.array([0, 1, 1, 1])
+q_input = np.array([0.5, 0.5, 0.5, 0.5])
 
 # Compute matrices from raw input
 M_u = circular_rotation_matrix(q_input)
