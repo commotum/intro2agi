@@ -1,0 +1,181 @@
+"""
+
+
+CurriculumGraph Schema Design Philosophy:
+
+- **Unified Learning Objective (LO) Core**: 
+  All knowledge artifacts—skills, formulas, terminology, process steps—are modeled as LearningObjective nodes.
+  This avoids redundancy and ensures every concept, term, or formula is represented exactly once.
+
+- **Hierarchical Curriculum Structure**:
+  Defines a clear containment hierarchy: Course → Unit → Assignment → Problem.
+  Each container links to the relevant LOs it teaches or assesses.
+
+- **Process as Ordered LOs**:
+  A Problem’s solution algorithm is simply an ordered sequence of LO IDs (processLOs),
+  enabling reuse of the same step definitions across multiple problems.
+
+- **Normalization & Cross-Linking**:
+  Every entity has a unique ID; relationships (prerequisites, testedLO, processLOs)
+  connect nodes without copying data. This supports deduplication and easy graph traversal.
+
+- **Extensibility & Validation**:
+  JSON Schema (draft-07) enforces required fields and types, and can be extended
+  (e.g., adding deadlines or metadata) without breaking existing structures.
+
+- **Graph-DB Friendly**:
+  IDs map directly to nodes, and arrays of LO IDs map to directed edges (e.g., :REQUIRES, :TESTS),
+  providing a semantically rich knowledge graph for AI tutors or analytics.
+
+  
+"""
+
+
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "CurriculumGraph",
+    "type": "object",
+    "properties": {
+      "learningObjectives": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/LearningObjective" }
+      },
+      "courses": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/Course" }
+      }
+    },
+    "definitions": {
+      "LearningObjective": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "unique LO identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "brief LO title"
+          },
+          "description": {
+            "type": "string",
+            "description": "detailed LO explanation"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["skill", "formula", "term", "step"],
+            "description": "type of LO"
+          },
+          "stepOrder": {
+            "type": "integer",
+            "description": "if category == 'step', the ordinal in a process"
+          },
+          "warnings": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "common pitfalls"
+          },
+          "bigIdeas": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "high-level insights"
+          },
+          "connections": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "related concepts or LOs (by id)"
+          }
+        },
+        "required": ["id", "name", "description", "category"]
+      },
+      "Course": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "unitsCount": { "type": "integer" },
+          "learningObjectives": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "ids of LOs covered by the course"
+          },
+          "units": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/Unit" }
+          }
+        },
+        "required": ["id", "title", "units"]
+      },
+      "Unit": {
+        "type": "object",
+        "properties": {
+          "id":   { "type": "string" },
+          "number": { "type": "integer" },
+          "title":  { "type": "string" },
+          "learningObjectives": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "ids of LOs covered in this unit"
+          },
+          "assignments": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/Assignment" }
+          }
+        },
+        "required": ["id", "number", "title", "assignments"]
+      },
+      "Assignment": {
+        "type": "object",
+        "properties": {
+          "id":   { "type": "string" },
+          "title":{ "type": "string" },
+          "learningObjectives": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "ids of LOs targeted by this assignment"
+          },
+          "problems": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/Problem" }
+          }
+        },
+        "required": ["id", "title", "problems"]
+      },
+      "Problem": {
+        "type": "object",
+        "properties": {
+          "id":     { "type": "string" },
+          "number": { "type": "integer" },
+          "statement": { "type": "string" },
+          "testedLO": {
+            "type": "string",
+            "description": "id of the LO this problem assesses"
+          },
+          "prerequisiteLOs": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "ids of LOs required to begin"
+          },
+          "processLOs": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "ordered ids of step-LOs"
+          },
+          "customWarnings": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "customBigIdeas": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "customConnections": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["id", "number", "testedLO", "prerequisiteLOs", "processLOs"]
+      }
+    }
+  }
+  
