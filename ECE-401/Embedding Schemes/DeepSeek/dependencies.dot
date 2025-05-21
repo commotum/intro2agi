@@ -1,0 +1,85 @@
+digraph QKV_Projection_Pipeline {
+  rankdir = LR;
+  node [fontname="Helvetica"];
+
+  /* ---------- hyper-parameters ---------- */
+  nh [shape=ellipse,
+      label="n_h\nNumber of attention heads\n(scalar)"];
+  dh [shape=ellipse,
+      label="d_h\nPer-head projection dimension\n(scalar)"];
+  d  [shape=ellipse,
+      label="d = n_h × d_h\nEmbedding dimension"];
+
+  nh -> d [label="factor of"];
+  dh -> d;
+
+  /* ---------- input embedding ---------- */
+  h  [shape=box,
+      label="h_t\nInput token-t embedding vector\nℝ^d"];
+  d  -> h  [style=dotted, arrowhead=none];
+
+  /* ---------- learned weight matrices ---------- */
+  subgraph cluster_weights {
+    label="Learned Weights (matrices)";
+    style=rounded;
+
+    WQ [shape=box,
+        label="W^Q\nQuery-projection weight matrix\nℝ^{n_h d_h × d}"];
+    WK [shape=box,
+        label="W^K\nKey-projection weight matrix\nℝ^{n_h d_h × d}"];
+    WV [shape=box,
+        label="W^V\nValue-projection weight matrix\nℝ^{n_h d_h × d}"];
+  }
+
+  /* ---------- weighted (pre-bias) vectors ---------- */
+  subgraph cluster_weighted {
+    label="Weighted vectors (matmul output)";
+    style="rounded,dashed"; color=gray;
+
+    qW [shape=box,
+        label="q̂_t\nQuery vector (pre-bias)\nℝ^{n_h d_h}"];
+    kW [shape=box,
+        label="k̂_t\nKey vector (pre-bias)\nℝ^{n_h d_h}"];
+    vW [shape=box,
+        label="v̂_t\nValue vector (pre-bias)\nℝ^{n_h d_h}"];
+  }
+
+  /* ---------- learned bias vectors ---------- */
+  subgraph cluster_biases {
+    label="Learned Biases (vectors)";
+    style=rounded;
+
+    bQ [shape=box,
+        label="b^Q\nQuery bias vector\nℝ^{n_h d_h}"];
+    bK [shape=box,
+        label="b^K\nKey bias vector\nℝ^{n_h d_h}"];
+    bV [shape=box,
+        label="b^V\nValue bias vector\nℝ^{n_h d_h}"];
+  }
+
+  /* ---------- final outputs ---------- */
+  q [shape=box,
+     label="q_t\nFinal query (weighted + bias)\nℝ^{n_h d_h}"];
+  k [shape=box,
+     label="k_t\nFinal key (weighted + bias)\nℝ^{n_h d_h}"];
+  v [shape=box,
+     label="v_t\nFinal value (weighted + bias)\nℝ^{n_h d_h}"];
+
+  /* ---------- Stage 1 : matrix-vector multiply ---------- */
+  h  -> WQ [label="matmul"];  h -> WK [label="matmul"];  h -> WV [label="matmul"];
+
+  WQ -> qW [style=dashed, label="produces"];
+  WK -> kW [style=dashed, label="produces"];
+  WV -> vW [style=dashed, label="produces"];
+
+  /* ---------- Stage 2 : add bias ---------- */
+  qW -> bQ [label="+"];
+  kW -> bK [label="+"];
+  vW -> bV [label="+"];
+
+  /* ---------- Stage 3 : output ---------- */
+  bQ -> q [style=dashed, label="result"];
+  bK -> k [style=dashed, label="result"];
+  bV -> v [style=dashed, label="result"];
+}
+
